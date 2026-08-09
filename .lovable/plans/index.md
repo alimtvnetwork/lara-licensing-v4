@@ -13,5 +13,6 @@
 | 19-backend-seeders-v4 | Backend Seeder & Seed-Mode Foundation | completed | 2026-08-06 | `completed/19-backend-seeders-v4.md` |
 | 20-seeder-e2e-fixtures | Seeder E2E Fixtures & Matrix (v3.3) | completed | 2026-08-06 | `completed/20-seeder-e2e-fixtures-v3.3.md` |
 | 21-backend-parity-phase-c | Backend Parity Phase C - Auth & Synthetic Sessions | completed | 2026-08-06 | `completed/21-backend-parity-phase-c.md` |
+| 22-refactoring-and-logging-wrapper | Refactoring and Logging Wrapper | pending | 2026-08-10 | `pending/22-refactoring-and-logging-wrapper.md` |
 
 Completed plans live under `./completed/`.

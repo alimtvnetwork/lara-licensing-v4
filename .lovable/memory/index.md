@@ -34,6 +34,7 @@ Canonical index of every memory file under `.lovable/memory/`. Each subfolder ho
 - [`no-magic-literals.md`](./standards/no-magic-literals.md) - every domain literal comes from a shared enum/const/catalog; cross-tier parity between spec, TS, PHP, and migrations.
 - [`preview-is-primary-dev-surface.md`](./standards/preview-is-primary-dev-surface.md) - Preview mode is the primary dev surface; every admin route must render green under `default` and `empty` seeds, `error` is the only seed allowed to surface a scoped `RouteErrorState`.
 - [`error-notification-center.md`](./standards/error-notification-center.md) - specifies the global error notification bell and client/server log merging.
+- [`05-logging-and-wrapper-rules.md`](./standards/05-logging-and-wrapper-rules.md) - specifies rules for automatic logging query wrappers, enum suffixes, and explicit boolean checks.
 
 ## Style
 
