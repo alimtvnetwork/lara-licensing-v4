@@ -1,0 +1,1 @@
+# Waivers for endpoint-operation parity. Format: OperationId # reason: justification

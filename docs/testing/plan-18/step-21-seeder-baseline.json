@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-08-06T08:20:55Z",
+  "version": "v0.679.0",
+  "files": [
+    "backend/database/seeders/ClosedSetsSeeder.php",
+    "backend/database/seeders/DatabaseSeeder.php",
+    "backend/database/seeders/E2EFixturesSeeder.php",
+    "backend/database/seeders/FeatureCatalogSeeder.php",
+    "backend/database/seeders/RolesSeeder.php",
+    "backend/database/seeders/RootSeeder.php",
+    "backend/database/seeders/ShardSeeder.php"
+  ],
+  "preview_seeds": [
+    "src/lib/preview-seeds/default.ts",
+    "src/lib/preview-seeds/empty.ts",
+    "src/lib/preview-seeds/error.ts"
+  ]
+}

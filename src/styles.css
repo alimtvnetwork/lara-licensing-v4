@@ -1,0 +1,829 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system definition. Source of truth:
+ * spec/24-app-ui-design-system/08-token-registry.md (v0.24.0).
+ *
+ * All color values are OKLCH (AC-ADS-021). Status meaning never encoded in
+ * color alone; components pair status color with icon/label (AC-ADS-022).
+ * :focus-visible ring is 2px @ 2px offset (AC-ADS-023). Motion respects
+ * prefers-reduced-motion (AC-ADS-024).
+ */
+
+@theme inline {
+  /* Radius, spec-fixed. xl/2xl/3xl/4xl retained for shadcn extension. */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 20px;
+  --radius-4xl: 24px;
+  --radius-full: 9999px;
+
+  /* Semantic color roles */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Type scale. Plan 09 Steps 3-4: Ubuntu (headings) + Poppins (body) are the
+     ONLY two allowed families. --font-display drives every heading; --font-sans
+     drives body and every non-heading surface. No mono family: code/kbd/samp
+     inherit Poppins with tabular-nums so numeric alignment still works. */
+  --font-display: "Ubuntu", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* --font-mono aliases --font-sans: no separate mono family under the
+     Ubuntu+Poppins mandate. Identifier surfaces keep the utility name
+     (`font-mono` / var(--font-mono)) with tabular-nums for numeric alignment.
+     Plan 09 Step 5 will collapse consumers off this alias. */
+  --font-mono: var(--font-sans);
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-variant-numeric-tabular: tabular-nums;
+
+  --text-display: clamp(1.75rem, 1.25rem + 2.2vw, 2.25rem);
+  --text-display--line-height: 1.1;
+  --text-display--font-weight: 600;
+  --text-display--letter-spacing: -0.01em;
+  --text-title: clamp(1.25rem, 1.1rem + 0.9vw, 1.5rem);
+  --text-title--line-height: 1.25;
+  --text-title--font-weight: 600;
+  --text-title--letter-spacing: -0.005em;
+  --text-heading: 1.125rem;
+  --text-heading--line-height: 1.35;
+  --text-heading--font-weight: 600;
+  --text-body: 0.9375rem;
+  --text-body--line-height: 1.5;
+  --text-body--font-weight: 400;
+  --text-label: 0.8125rem;
+  --text-label--line-height: 1.4;
+  --text-label--font-weight: 500;
+  --text-label--letter-spacing: 0.01em;
+  --text-code: 0.8125rem;
+  --text-code--line-height: 1.5;
+  --text-code--font-weight: 500;
+
+  /* Spacing scale, 4px base. Closed set per registry §5. */
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-12: 48px;
+  /* Spec-canonical aliases (spec 12-shell-layout.md §3.2 uses --space-*). */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+
+  /* Icon sizing (spec 24 §26.2). Closed set; arbitrary sizes are BANNED. */
+  --icon-xs: 14px;
+  --icon-sm: 16px;
+  --icon-md: 20px;
+  --icon-lg: 24px;
+  --icon-xl: 32px;
+
+  /* Shell measures (spec 12-shell-layout.md §3.2). Plan 09 Step 15 pins the
+   * fluid density: sidebar 260px expanded, 72px collapsed, topbar 56px,
+   * main gutter clamp(1rem, 2.5vw, 2rem). Overridden per breakpoint below. */
+  --shell-sidebar: 260px;
+  --shell-sidebar-collapsed: 72px;
+  --shell-topbar: 56px;
+  --shell-content-max: 1440px;
+  --shell-gutter-inline: clamp(1rem, 2.5vw, 2rem);
+  --shell-gutter-block: clamp(1rem, 2.5vw, 2rem);
+
+  /* Z-index register (spec 12-shell-layout.md §7). Never step outside this ladder. */
+  --z-content: auto;
+  --z-page-toolbar: 10;
+  --z-sidebar: 20;
+  --z-topbar: 40;
+  --z-menu: 50;
+  --z-sheet: 60;
+  --z-dialog-overlay: 70;
+  --z-dialog: 71;
+  --z-toast: 90;
+  --z-command-palette: 100;
+
+  /* Elevation (overlays only, registry §7). v0.487.0: layered shadows for
+     modern depth; adds elevation-3 and a primary glow for hero affordances.
+     v0.489.0 (Plan 15 step 2): adds --shadow-inset-hairline (1px inner ring
+     for elevated cards, consumed by @utility surface-elevated in step 3) and
+     --ring-focus-strong (thicker focus ring for primary CTAs / hero
+     affordances, consumed by button primary variant in step 8). Both tokens
+     are theme-invariant: they resolve --foreground / --primary via
+     color-mix, so light + dark inherit automatically without duplicate
+     declarations in :root and .dark. */
+  --shadow-elevation-0: none;
+  --shadow-elevation-1:
+    0 1px 2px color-mix(in oklab, var(--foreground) 8%, transparent),
+    0 4px 12px color-mix(in oklab, var(--foreground) 5%, transparent);
+  --shadow-elevation-2:
+    0 8px 24px color-mix(in oklab, var(--foreground) 12%, transparent),
+    0 2px 6px color-mix(in oklab, var(--foreground) 6%, transparent);
+  --shadow-elevation-3:
+    0 20px 48px -12px color-mix(in oklab, var(--foreground) 22%, transparent),
+    0 8px 20px -8px color-mix(in oklab, var(--foreground) 10%, transparent);
+  --shadow-glow-primary:
+    0 0 0 1px color-mix(in oklab, var(--primary) 30%, transparent),
+    0 8px 28px -6px color-mix(in oklab, var(--primary) 30%, transparent);
+  --shadow-inset-hairline:
+    inset 0 0 0 1px color-mix(in oklab, var(--foreground) 8%, transparent),
+    inset 0 1px 0 color-mix(in oklab, var(--background) 60%, transparent);
+  --ring-focus-strong:
+    0 0 0 2px var(--background), 0 0 0 4px color-mix(in oklab, var(--primary) 65%, transparent);
+  --elevation-0: var(--shadow-elevation-0);
+  --elevation-1: var(--shadow-elevation-1);
+  --elevation-2: var(--shadow-elevation-2);
+  --elevation-3: var(--shadow-elevation-3);
+
+  /*
+   * Motion (spec 24 §11 + 51-motion-and-reduced-motion.md).
+   * Closed set: 6 durations, 4 easings, 5 distances. Hand-picked motion
+   * values in component CSS are BANNED (spec 51 §13 rule 1).
+   * Legacy aliases (--duration-*, --motion-instant/fast/base, --ease-*)
+   * kept for shadcn primitives that have not been refit yet.
+   */
+  --motion-duration-instant: 0ms;
+  --motion-duration-xs: 80ms;
+  --motion-duration-sm: 140ms;
+  --motion-duration-md: 220ms;
+  --motion-duration-lg: 320ms;
+  --motion-duration-xl: 480ms;
+
+  --motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --motion-easing-decelerate: cubic-bezier(0, 0, 0.2, 1);
+  --motion-easing-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  --motion-easing-linear: linear;
+
+  --motion-distance-xs: 2px;
+  --motion-distance-sm: 4px;
+  --motion-distance-md: 8px;
+  --motion-distance-lg: 16px;
+  --motion-distance-xl: 24px;
+
+  /* Legacy aliases (do not add new consumers; refit per spec 51 §6). */
+  --duration-instant: var(--motion-duration-xs);
+  --duration-fast: var(--motion-duration-sm);
+  --duration-base: var(--motion-duration-md);
+  --ease-out: var(--motion-easing-decelerate);
+  --ease-in-out: var(--motion-easing-standard);
+  --motion-instant: var(--motion-duration-xs);
+  --motion-fast: var(--motion-duration-sm);
+  --motion-base: var(--motion-duration-md);
+  --motion-ease-out: var(--motion-easing-decelerate);
+  --motion-ease-in-out: var(--motion-easing-standard);
+}
+
+/*
+ * Plan 09 Step 8: OKLCH brand palette (Licensing Portal).
+ *
+ * Root cause of prior drift: :root and .dark shipped the stock shadcn
+ * blue-gray neutrals, which read as generic AI-boilerplate and clashed
+ * with the professional trust-and-clarity tone the licensing surfaces
+ * need. This block replaces primary/accent/ring/chart/sidebar with a
+ * distinctive teal-and-amber palette while keeping the semantic token
+ * names untouched so every consumer flips automatically.
+ *
+ * Primary: deep teal (hue 185, chroma 0.11) - reads as trust + precision,
+ * not purple/indigo. Accent: warm amber (hue 68) for admin highlights
+ * and license-issued affordances. Charts: teal, amber, coral, violet,
+ * lime - a five-hue rotation with distinct luminance for accessibility.
+ */
+:root {
+  --radius: 0.5rem;
+
+  --background: oklch(0.992 0.004 190);
+  --foreground: oklch(0.18 0.02 210);
+  --surface: oklch(0.972 0.008 190);
+  --surface-raised: oklch(1 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.02 210);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.02 210);
+  --primary: oklch(0.5 0.11 185);
+  --primary-foreground: oklch(0.985 0.005 185);
+  --secondary: oklch(0.958 0.012 190);
+  --secondary-foreground: oklch(0.22 0.03 200);
+  --muted: oklch(0.962 0.008 200);
+  --muted-foreground: oklch(0.52 0.02 210);
+  --accent: oklch(0.72 0.14 68);
+  --accent-foreground: oklch(0.2 0.03 60);
+  --success: oklch(0.62 0.15 150);
+  --success-foreground: oklch(0.16 0.02 210);
+  --warning: oklch(0.78 0.15 82);
+  --warning-foreground: oklch(0.2 0.03 60);
+  --destructive: oklch(0.58 0.22 27);
+  --destructive-foreground: oklch(0.985 0.005 185);
+  --border: oklch(0.912 0.014 200);
+  --input: oklch(0.912 0.014 200);
+  --ring: oklch(0.55 0.12 185);
+  --chart-1: oklch(0.55 0.13 185);
+  --chart-2: oklch(0.72 0.14 68);
+  --chart-3: oklch(0.66 0.19 25);
+  --chart-4: oklch(0.58 0.18 300);
+  --chart-5: oklch(0.78 0.17 130);
+  --sidebar: oklch(0.965 0.01 195);
+  --sidebar-foreground: oklch(0.2 0.02 210);
+  --sidebar-primary: oklch(0.5 0.11 185);
+  --sidebar-primary-foreground: oklch(0.985 0.005 185);
+  --sidebar-accent: oklch(0.93 0.02 190);
+  --sidebar-accent-foreground: oklch(0.22 0.03 200);
+  --sidebar-border: oklch(0.9 0.014 200);
+  --sidebar-ring: oklch(0.55 0.12 185);
+}
+
+.dark {
+  --background: oklch(0.15 0.02 215);
+  --foreground: oklch(0.96 0.006 190);
+  --surface: oklch(0.2 0.024 215);
+  --surface-raised: oklch(0.24 0.028 215);
+  --card: oklch(0.2 0.024 215);
+  --card-foreground: oklch(0.96 0.006 190);
+  --popover: oklch(0.2 0.024 215);
+  --popover-foreground: oklch(0.96 0.006 190);
+  --primary: oklch(0.74 0.13 185);
+  --primary-foreground: oklch(0.16 0.02 210);
+  --secondary: oklch(0.28 0.03 215);
+  --secondary-foreground: oklch(0.96 0.006 190);
+  --muted: oklch(0.28 0.03 215);
+  --muted-foreground: oklch(0.72 0.02 200);
+  --accent: oklch(0.78 0.14 68);
+  --accent-foreground: oklch(0.18 0.03 60);
+  --success: oklch(0.72 0.16 152);
+  --success-foreground: oklch(0.15 0.02 215);
+  --warning: oklch(0.82 0.16 84);
+  --warning-foreground: oklch(0.18 0.03 60);
+  --destructive: oklch(0.7 0.19 22);
+  --destructive-foreground: oklch(0.98 0.005 185);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.66 0.11 185);
+  --chart-1: oklch(0.74 0.13 185);
+  --chart-2: oklch(0.78 0.14 68);
+  --chart-3: oklch(0.72 0.19 25);
+  --chart-4: oklch(0.66 0.2 300);
+  --chart-5: oklch(0.82 0.17 130);
+  --sidebar: oklch(0.2 0.024 215);
+  --sidebar-foreground: oklch(0.96 0.006 190);
+  --sidebar-primary: oklch(0.74 0.13 185);
+  --sidebar-primary-foreground: oklch(0.16 0.02 210);
+  --sidebar-accent: oklch(0.28 0.03 215);
+  --sidebar-accent-foreground: oklch(0.96 0.006 190);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.66 0.11 185);
+}
+
+/*
+ * Focus ring utility (registry §9). Apply via className="focus-ring" on any
+ * interactive element that does not already inherit shadcn focus-visible styles.
+ */
+@utility focus-ring {
+  outline: none;
+  &:focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+}
+
+/*
+ * Derived surface utilities (registry §3.1). Use color-mix at consumption so
+ * we do not pre-bake extra alpha tokens.
+ */
+@utility surface-hover {
+  background-color: color-mix(in oklab, var(--foreground) 6%, transparent);
+}
+@utility surface-pressed {
+  background-color: color-mix(in oklab, var(--foreground) 10%, transparent);
+}
+@utility surface-selected {
+  background-color: color-mix(in oklab, var(--primary) 12%, transparent);
+}
+
+/*
+ * Tabular numerics utility (09-typography-scale.md §5). Apply to <td>/<th>,
+ * KPI values, quota counters, <time>, RequestId/Identifier chips.
+ */
+@utility tabular {
+  font-variant-numeric: var(--font-variant-numeric-tabular);
+}
+
+/*
+ * Elevated card recipe (registry §6 radius, §7 elevation). Token-only bundle
+ * for raised panels: card bg, 1px border, radius-lg, elevation-1. Used by
+ * AppShell content panels, KPI cards, empty-state containers, dialog bodies.
+ * Consumers add padding via spacing utilities (registry §5) at call site.
+ */
+@utility elevated-card {
+  background-color: var(--color-card);
+  color: var(--color-card-foreground);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-elevation-1);
+}
+
+/*
+ * Gradient surface (registry §3.1 derived surfaces). Subtle top-to-bottom
+ * wash from surface-raised to surface, used on hero panels, sign-in card
+ * backdrop, and empty-state hero regions per 15-empty-error-loading-catalog.md.
+ * Colors are token-only: no hardcoded stops, no gradient text (01 §hero).
+ */
+@utility gradient-surface {
+  background-image: linear-gradient(to bottom, var(--color-surface-raised), var(--color-surface));
+}
+
+/*
+ * Inset focus ring (registry §9 variant). For dense grids and table cells
+ * where a 2px outside offset would overlap neighbors. Ring rendered via
+ * inset box-shadow so it stays inside the element bounds.
+ */
+@utility focus-ring-inset {
+  outline: none;
+  &:focus-visible {
+    box-shadow: inset 0 0 0 2px var(--color-ring);
+  }
+}
+
+/*
+ * Shell grid contracts (spec 12-shell-layout.md §3-§6). Only one shell class
+ * is applied per app; nested layouts never re-open the shell grid.
+ */
+@utility shell-app {
+  display: grid;
+  grid-template-areas: "sidebar topbar" "sidebar main";
+  grid-template-columns: var(--shell-sidebar) 1fr;
+  grid-template-rows: var(--shell-topbar) 1fr;
+  min-block-size: 100dvh;
+}
+
+/*
+ * Collapsed sidebar rail (spec 13-navigation-ia.md §9). Toggled via
+ * `data-sidebar-collapsed="true"` on `.shell-app`; consumer content that
+ * should hide in the rail marks itself with `data-collapse-hide="true"`.
+ */
+.shell-app[data-sidebar-collapsed="true"] {
+  grid-template-columns: var(--shell-sidebar-collapsed) 1fr;
+}
+.shell-app[data-sidebar-collapsed="true"] [data-collapse-hide="true"] {
+  display: none;
+}
+
+@utility shell-public {
+  display: grid;
+  grid-template-areas: "header" "main" "footer";
+  grid-template-rows: var(--shell-topbar) 1fr auto;
+  min-block-size: 100dvh;
+}
+
+@utility shell-error {
+  display: grid;
+  grid-template-areas: "header" "main" "footer";
+  grid-template-rows: var(--shell-topbar) 1fr auto;
+  min-block-size: 100dvh;
+  place-items: center;
+}
+
+/*
+ * Page content container (spec 12-shell-layout.md §9). Wraps the main scroll
+ * region and declares the container query context; components inside opt into
+ * responsiveness via `@container lla-page`.
+ */
+@utility page-content-container {
+  container-type: inline-size;
+  container-name: lla-page;
+  padding-inline: var(--shell-gutter-inline);
+  padding-block: var(--shell-gutter-block);
+  max-inline-size: var(--shell-content-max);
+  margin-inline: auto;
+  scroll-margin-block-start: calc(var(--shell-topbar) + var(--space-4));
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    font-family: var(--font-sans);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--text-body--line-height);
+  }
+
+  /* Plan 09 Step 6: every heading uses Ubuntu (--font-display).
+     Sidebar/AppShell brand mark opts in via class="font-display". */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: -0.005em;
+  }
+
+  code,
+  kbd,
+  samp,
+  pre {
+    font-family: var(--font-sans);
+    font-variant-numeric: var(--font-variant-numeric-tabular);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+}
+
+/*
+ * Reduced motion (registry §8, AC-ADS-024). Collapse durations and disable
+ * transform-based animations for users who opt out.
+ */
+@media (prefers-reduced-motion: reduce) {
+  :root,
+  .dark {
+    --motion-duration-instant: 0ms;
+    --motion-duration-xs: 0ms;
+    --motion-duration-sm: 0ms;
+    --motion-duration-md: 0ms;
+    --motion-duration-lg: 0ms;
+    --motion-duration-xl: 0ms;
+    --duration-instant: 0ms;
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/*
+ * Shell breakpoint overrides (spec 12-shell-layout.md §3.2). Below 768px the
+ * sidebar column collapses; a Sheet trigger in the topbar takes its place.
+ * Between 768-1023px, gutters shrink to --space-4.
+ */
+@media (max-width: 1023px) {
+  :root,
+  .dark {
+    --shell-gutter-inline: clamp(0.75rem, 2vw, 1.25rem);
+    --shell-gutter-block: clamp(0.75rem, 2vw, 1.25rem);
+  }
+}
+
+@media (max-width: 767px) {
+  :root,
+  .dark {
+    --shell-sidebar: 0px;
+  }
+
+  .shell-app {
+    grid-template-areas: "topbar" "main";
+    grid-template-columns: 1fr;
+  }
+}
+
+/*
+ * Scroll lock (spec 12-shell-layout.md §8). Only the shell main region scrolls;
+ * html and body do not. Gated to pages that opt into the shell contract by
+ * adding `data-app-shell` on the html element (set by the AppShell mount
+ * effect). This prevents public routes and legacy pages from clipping.
+ */
+@layer base {
+  html[data-app-shell="true"],
+  html[data-app-shell="true"] body {
+    overflow: hidden;
+    block-size: 100dvh;
+  }
+}
+
+/*
+ * v0.487.0 UI modernization pass. Additive utilities only: no existing
+ * tokens or shell contracts change. Consumers opt in per surface.
+ *
+ * Surface adoption inventory (Plan 15 step 1). Every utility below is
+ * used by exactly the surfaces listed. Do NOT reinvent an equivalent
+ * inline: reach for the utility. If a new surface needs a new visual
+ * primitive, add a new @utility here (and extend this map) rather than
+ * inlining backdrop-filter, radial gradients, or keyframes elsewhere.
+ *
+ *   glass-topbar        AppShell topbar (src/components/shell/AppShell.tsx).
+ *                       Reserved for future: data-table sticky header row
+ *                       (Plan 15 step 13).
+ *   sidebar-gradient    AppShell sidebar container (src/components/shell/
+ *                       AppShell.tsx line 46).
+ *   brand-tile          AdminShell brand mark (src/components/admin/
+ *                       admin-shell.tsx). Reserved for future: auth cards
+ *                       (Plan 15 step 25).
+ *   app-canvas          AppShell <main> region background wash.
+ *   dot-pattern         Reserved for future: admin overview headline row
+ *                       (Plan 15 step 7) and landing hero (step 24).
+ *   hover-lift          Reserved for future: StatCard and elevated cards
+ *                       (Plan 15 steps 5, 6).
+ *   gradient-underline  Reserved for future: sorted DataTable column
+ *                       header (Plan 15 step 13). PageHeader uses its own
+ *                       inline underline span to keep the underline
+ *                       adjacent to the h1, not on ::after.
+ *   shimmer             Skeleton primitive (src/components/ui/skeleton.tsx).
+ *                       Wraps the reduced-motion refit in Plan 15 step 15.
+ *   fade-in             AppShell page container, StateCard, and PageHeader.
+ *                       Reserved for future: dialog/sheet content mount
+ *                       (Plan 15 step 11 via SS-01).
+ *   surface-elevated    Elevated card variant (Plan 15 step 5, card.tsx
+ *                       variant="elevated"), KPI tile (step 6, stat-card.tsx),
+ *                       and auth cards (step 25). Composes --shadow-inset-hairline
+ *                       + --shadow-elevation-2 with a hover-lift binding so
+ *                       three consumers reuse the same shadow recipe instead
+ *                       of hand-authoring `box-shadow: inset ..., 0 8px ...`.
+ * Lightning CSS note: never author `-webkit-backdrop-filter` next to a
+ * standard `backdrop-filter` declaration. Lightning dedupes matching
+ * values, keeps the last one in source order (the prefixed form), and
+ * drops the standard property. Chrome ignores the Safari prefix, so the
+ * effect renders in dev but disappears in the built site. Ship only the
+ * standard property; the build adds prefixes for us.
+ */
+@utility glass-topbar {
+  background-color: color-mix(in oklab, var(--color-background) 72%, transparent);
+  backdrop-filter: saturate(140%) blur(12px);
+  border-bottom: 1px solid color-mix(in oklab, var(--color-border) 80%, transparent);
+}
+
+@utility sidebar-gradient {
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--color-sidebar) 96%, var(--color-primary) 4%) 0%,
+    var(--color-sidebar) 55%,
+    color-mix(in oklab, var(--color-sidebar) 96%, var(--color-accent) 4%) 100%
+  );
+}
+
+@utility brand-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  block-size: 32px;
+  inline-size: 32px;
+  border-radius: var(--radius-md);
+  color: var(--color-primary-foreground);
+  background-image: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    color-mix(in oklab, var(--color-primary) 55%, var(--color-accent)) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, white 40%, transparent),
+    0 6px 16px -8px color-mix(in oklab, var(--color-primary) 60%, transparent);
+}
+
+@utility app-canvas {
+  background-color: var(--color-background);
+  background-image:
+    radial-gradient(
+      1200px 600px at -10% -20%,
+      color-mix(in oklab, var(--color-primary) 10%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 500px at 110% 10%,
+      color-mix(in oklab, var(--color-accent) 8%, transparent),
+      transparent 55%
+    );
+}
+
+@utility dot-pattern {
+  background-image: radial-gradient(
+    color-mix(in oklab, var(--color-foreground) 10%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 16px 16px;
+}
+
+@utility hover-lift {
+  transition:
+    transform var(--motion-duration-md) var(--motion-easing-standard),
+    box-shadow var(--motion-duration-md) var(--motion-easing-standard);
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-elevation-2);
+  }
+}
+
+@utility gradient-underline {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    height: 3px;
+    width: 40px;
+    border-radius: 999px;
+    background-image: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  }
+}
+
+/*
+ * gradient-headline (Plan 15 step 24). Primary -> accent linear gradient
+ * clipped to text glyphs, for landing hero H1 and equivalent display type.
+ * Fallback color kept as `--color-foreground` so browsers without
+ * background-clip: text still render legible text. Consumers must set
+ * font on the same element; this utility owns color only.
+ */
+@utility gradient-headline {
+  color: var(--color-foreground);
+  background-image: linear-gradient(
+    92deg,
+    var(--color-foreground) 0%,
+    var(--color-primary) 55%,
+    var(--color-accent) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes lla-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@utility shimmer {
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--color-foreground) 6%, transparent) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: lla-shimmer 1.6s var(--motion-easing-standard) infinite;
+
+  /*
+   * v0.502.0 (Plan 15 step 15). The global reduced-motion sweep at line 505
+   * clamps `animation-duration` to 0.001ms, which freezes the gradient
+   * mid-sweep and leaves a visible half-lit stripe on every skeleton for
+   * users who opt out. Drop the gradient entirely under reduced-motion so
+   * the placeholder resolves to the flat `bg-muted` base already applied
+   * by `<Skeleton>`. `animation: none` prevents the frozen keyframe from
+   * being painted at all.
+   */
+  @media (prefers-reduced-motion: reduce) {
+    background-image: none;
+    animation: none;
+  }
+}
+
+@keyframes lla-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility fade-in {
+  animation: lla-fade-in var(--motion-duration-md) var(--motion-easing-decelerate) both;
+}
+
+/*
+ * surface-elevated (Plan 15 step 3). One canonical elevated surface recipe:
+ * rounded card radius, card background, inner hairline + elevation-2 shadow,
+ * and a gentle translate on hover that respects prefers-reduced-motion.
+ * Consumers: card.tsx variant="elevated" (step 5), stat-card.tsx (step 6),
+ * auth cards (step 25). Do not compose the same shadow pair inline.
+ */
+@utility surface-elevated {
+  background-color: var(--color-card);
+  color: var(--color-card-foreground);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-inset-hairline), var(--shadow-elevation-2);
+  transition:
+    transform var(--motion-duration-sm) var(--motion-easing-standard),
+    box-shadow var(--motion-duration-sm) var(--motion-easing-standard);
+
+  &:hover {
+    box-shadow: var(--shadow-inset-hairline), var(--shadow-elevation-3);
+    transform: translateY(-2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+/*
+ * chip (Plan 15 step 4). Small pill affordance keyed to a tone attribute.
+ * Consumers: badge.tsx (step 9), PageHeader breadcrumbs (step 17), user
+ * role column (step 19), reseller-quota-requests status column (step 20),
+ * Banner primitive (steps 22-23). Closed set of tones matches spec 24
+ * AC-ADS-022 status colors; unknown data-tone falls through to neutral.
+ * Colors resolve via color-mix so light + dark both render legibly.
+ */
+@utility chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full);
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  border: 1px solid transparent;
+  background-color: color-mix(in oklab, var(--color-muted) 60%, transparent);
+  color: var(--color-muted-foreground);
+  border-color: color-mix(in oklab, var(--color-border) 80%, transparent);
+
+  &[data-tone="primary"] {
+    background-color: color-mix(in oklab, var(--color-primary) 14%, transparent);
+    color: var(--color-primary);
+    border-color: color-mix(in oklab, var(--color-primary) 30%, transparent);
+  }
+  &[data-tone="success"] {
+    background-color: color-mix(in oklab, var(--color-success) 14%, transparent);
+    color: var(--color-success);
+    border-color: color-mix(in oklab, var(--color-success) 30%, transparent);
+  }
+  &[data-tone="warning"] {
+    background-color: color-mix(in oklab, var(--color-warning) 16%, transparent);
+    color: var(--color-warning-foreground);
+    border-color: color-mix(in oklab, var(--color-warning) 40%, transparent);
+  }
+  &[data-tone="destructive"] {
+    background-color: color-mix(in oklab, var(--color-destructive) 14%, transparent);
+    color: var(--color-destructive);
+    border-color: color-mix(in oklab, var(--color-destructive) 34%, transparent);
+  }
+  &[data-tone="accent"] {
+    background-color: color-mix(in oklab, var(--color-accent) 18%, transparent);
+    color: var(--color-accent-foreground);
+    border-color: color-mix(in oklab, var(--color-accent) 34%, transparent);
+  }
+}

@@ -1,0 +1,18 @@
+%% Actor ordering per spec/21-app/diagrams/00-diagram-contract.md (AC-DG-001). WinApp (end-user) is leftmost.
+%% Verify-path drift with spec/21-app/diagrams/licensing-flow.mmd tracked in .lovable/issues/03-verify-path-drift.md.
+sequenceDiagram
+    autonumber
+    participant WinApp
+    participant Api as LicensingServer
+
+    WinApp->>Api: POST /Verify/Serial (SerialValue)
+    Api-->>WinApp: SerialStatus (valid, category, variation)
+
+    WinApp->>WinApp: compute HashKey (Serial + Machine + User + Salt)
+    WinApp->>Api: POST /Verify/Hash (Serial, HashKey, MachineFingerprint, UserIdentifier)
+    Api->>Api: recompute HashKey, constant-time compare
+    Api-->>WinApp: VerifyKey (5-minute, single-use)
+
+    WinApp->>Api: POST /Verify/Final (Serial, HashKey, VerifyKey)
+    Api->>Api: consume VerifyKey, bind Machine/User
+    Api-->>WinApp: AuthorizationDecision (Authorized, ExpiresAt)

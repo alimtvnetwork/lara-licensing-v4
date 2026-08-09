@@ -1,0 +1,1 @@
+# Waivers for error envelope shape guard. Format: relative/path/to/Controller.php # reason: justification

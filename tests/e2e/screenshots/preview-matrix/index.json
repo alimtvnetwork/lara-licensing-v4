@@ -1,0 +1,486 @@
+{
+  "generatedAt": "2026-08-08T10:03:13.457Z",
+  "runtimeMode": "preview",
+  "cells": [
+    {
+      "route": "/",
+      "scenario": "null",
+      "seed": "default",
+      "file": "root/null.default.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/",
+      "scenario": "null",
+      "seed": "error",
+      "file": "root/null.error.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/",
+      "scenario": "slow",
+      "seed": "default",
+      "file": "root/slow.default.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/",
+      "scenario": "null",
+      "seed": "empty",
+      "file": "root/null.empty.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/",
+      "scenario": "offline",
+      "seed": "default",
+      "file": "root/offline.default.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/",
+      "scenario": "offline",
+      "seed": "empty",
+      "file": "root/offline.empty.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/",
+      "scenario": "offline",
+      "seed": "error",
+      "file": "root/offline.error.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/",
+      "scenario": "slow",
+      "seed": "empty",
+      "file": "root/slow.empty.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/",
+      "scenario": "slow",
+      "seed": "error",
+      "file": "root/slow.error.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/",
+      "scenario": "rate-limited",
+      "seed": "default",
+      "file": "root/rate-limited.default.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/",
+      "scenario": "rate-limited",
+      "seed": "empty",
+      "file": "root/rate-limited.empty.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/",
+      "scenario": "rate-limited",
+      "seed": "error",
+      "file": "root/rate-limited.error.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/admin/login",
+      "scenario": "null",
+      "seed": "default",
+      "file": "admin-login/null.default.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/admin/login",
+      "scenario": "null",
+      "seed": "empty",
+      "file": "admin-login/null.empty.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/admin/login",
+      "scenario": "null",
+      "seed": "error",
+      "file": "admin-login/null.error.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/admin/login",
+      "scenario": "offline",
+      "seed": "default",
+      "file": "admin-login/offline.default.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/admin/login",
+      "scenario": "offline",
+      "seed": "empty",
+      "file": "admin-login/offline.empty.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/admin/login",
+      "scenario": "rate-limited",
+      "seed": "default",
+      "file": "admin-login/rate-limited.default.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/admin/login",
+      "scenario": "offline",
+      "seed": "error",
+      "file": "admin-login/offline.error.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/admin/login",
+      "scenario": "slow",
+      "seed": "default",
+      "file": "admin-login/slow.default.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/admin/login",
+      "scenario": "slow",
+      "seed": "empty",
+      "file": "admin-login/slow.empty.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/admin/login",
+      "scenario": "slow",
+      "seed": "error",
+      "file": "admin-login/slow.error.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/admin/login",
+      "scenario": "rate-limited",
+      "seed": "empty",
+      "file": "admin-login/rate-limited.empty.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/admin/login",
+      "scenario": "rate-limited",
+      "seed": "error",
+      "file": "admin-login/rate-limited.error.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/register",
+      "scenario": "null",
+      "seed": "default",
+      "file": "register/null.default.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/register",
+      "scenario": "null",
+      "seed": "empty",
+      "file": "register/null.empty.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/register",
+      "scenario": "null",
+      "seed": "error",
+      "file": "register/null.error.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/register",
+      "scenario": "offline",
+      "seed": "default",
+      "file": "register/offline.default.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/register",
+      "scenario": "offline",
+      "seed": "empty",
+      "file": "register/offline.empty.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/register",
+      "scenario": "offline",
+      "seed": "error",
+      "file": "register/offline.error.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/register",
+      "scenario": "slow",
+      "seed": "default",
+      "file": "register/slow.default.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/register",
+      "scenario": "slow",
+      "seed": "empty",
+      "file": "register/slow.empty.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/register",
+      "scenario": "slow",
+      "seed": "error",
+      "file": "register/slow.error.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/register",
+      "scenario": "rate-limited",
+      "seed": "default",
+      "file": "register/rate-limited.default.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/register",
+      "scenario": "rate-limited",
+      "seed": "empty",
+      "file": "register/rate-limited.empty.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/register",
+      "scenario": "rate-limited",
+      "seed": "error",
+      "file": "register/rate-limited.error.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/forgot-password",
+      "scenario": "null",
+      "seed": "default",
+      "file": "forgot-password/null.default.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/forgot-password",
+      "scenario": "null",
+      "seed": "empty",
+      "file": "forgot-password/null.empty.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/forgot-password",
+      "scenario": "null",
+      "seed": "error",
+      "file": "forgot-password/null.error.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/forgot-password",
+      "scenario": "offline",
+      "seed": "default",
+      "file": "forgot-password/offline.default.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/forgot-password",
+      "scenario": "offline",
+      "seed": "empty",
+      "file": "forgot-password/offline.empty.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/forgot-password",
+      "scenario": "offline",
+      "seed": "error",
+      "file": "forgot-password/offline.error.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/forgot-password",
+      "scenario": "slow",
+      "seed": "default",
+      "file": "forgot-password/slow.default.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/forgot-password",
+      "scenario": "slow",
+      "seed": "empty",
+      "file": "forgot-password/slow.empty.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/forgot-password",
+      "scenario": "slow",
+      "seed": "error",
+      "file": "forgot-password/slow.error.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/forgot-password",
+      "scenario": "rate-limited",
+      "seed": "default",
+      "file": "forgot-password/rate-limited.default.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/forgot-password",
+      "scenario": "rate-limited",
+      "seed": "empty",
+      "file": "forgot-password/rate-limited.empty.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/forgot-password",
+      "scenario": "rate-limited",
+      "seed": "error",
+      "file": "forgot-password/rate-limited.error.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/e2e/error-harness",
+      "scenario": "null",
+      "seed": "empty",
+      "file": "e2e-error-harness/null.empty.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/e2e/error-harness",
+      "scenario": "null",
+      "seed": "default",
+      "file": "e2e-error-harness/null.default.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/e2e/error-harness",
+      "scenario": "null",
+      "seed": "error",
+      "file": "e2e-error-harness/null.error.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/e2e/error-harness",
+      "scenario": "offline",
+      "seed": "default",
+      "file": "e2e-error-harness/offline.default.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/e2e/error-harness",
+      "scenario": "offline",
+      "seed": "empty",
+      "file": "e2e-error-harness/offline.empty.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/e2e/error-harness",
+      "scenario": "offline",
+      "seed": "error",
+      "file": "e2e-error-harness/offline.error.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/e2e/error-harness",
+      "scenario": "slow",
+      "seed": "default",
+      "file": "e2e-error-harness/slow.default.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/e2e/error-harness",
+      "scenario": "slow",
+      "seed": "empty",
+      "file": "e2e-error-harness/slow.empty.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/e2e/error-harness",
+      "scenario": "slow",
+      "seed": "error",
+      "file": "e2e-error-harness/slow.error.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/e2e/error-harness",
+      "scenario": "rate-limited",
+      "seed": "default",
+      "file": "e2e-error-harness/rate-limited.default.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/e2e/error-harness",
+      "scenario": "rate-limited",
+      "seed": "empty",
+      "file": "e2e-error-harness/rate-limited.empty.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "route": "/e2e/error-harness",
+      "scenario": "rate-limited",
+      "seed": "error",
+      "file": "e2e-error-harness/rate-limited.error.png",
+      "ok": false,
+      "reason": "page.evaluate: SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.\n    at UtilityScript.evaluate (<anonymous>:305:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    }
+  ]
+}

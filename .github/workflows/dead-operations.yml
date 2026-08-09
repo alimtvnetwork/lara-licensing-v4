@@ -1,0 +1,38 @@
+name: dead-operations
+
+# Plan 16 Step 96: dead-operation linter (final wire-up).
+#
+# Fails when an OperationId defined in `src/generated/api/operations.ts`
+# has zero (or more than one) `registerPreviewHandler("<op.id>", ...)`
+# binding under `src/lib/preview-fixtures/**`. Guards against silent
+# HandlerNotFound at runtime in preview mode after ops or fixtures change.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/generated/api/operations.ts'
+      - 'src/lib/preview-fixtures/**'
+      - 'linter-scripts/check-dead-operations.py'
+      - '.github/workflows/dead-operations.yml'
+  pull_request:
+    paths:
+      - 'src/generated/api/operations.ts'
+      - 'src/lib/preview-fixtures/**'
+      - 'linter-scripts/check-dead-operations.py'
+      - '.github/workflows/dead-operations.yml'
+
+jobs:
+  dead-operations:
+    name: Dead-operation linter (ops vs preview handlers)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Check dead operations
+        run: python3 linter-scripts/check-dead-operations.py

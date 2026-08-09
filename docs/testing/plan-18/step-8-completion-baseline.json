@@ -1,0 +1,19 @@
+{
+  "version": "v3.3",
+  "plan": 20,
+  "completed_steps": [2, 3, 4, 5, 6, 7, 8],
+  "artifacts": [
+    "backend/database/seeders/E2EFixturesSeeder.php",
+    "backend/database/seeders/DemoLoginSeeder.php",
+    "backend/database/seeders/ResellersSeeder.php",
+    "backend/database/seeders/MetricsAuditSeeder.php",
+    "backend/database/seeders/QuotasLicensesSeeder.php",
+    "backend/config/lara.php"
+  ],
+  "fixes": [
+    "backend/app/Console/Commands/E2EFirstResellerIdCommand.php: isEnabled -> isE2EEnabled",
+    "backend/app/Console/Commands/E2EMintPasswordResetTokenCommand.php: isEnabled -> isE2EEnabled",
+    "backend/database/seeders/ClosedSetsSeeder.php: assertMap -> assertStringMap for codes"
+  ],
+  "timestamp": "2026-05-20T12:00:00Z"
+}

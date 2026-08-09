@@ -1,0 +1,209 @@
+name: release-smoke
+
+# Plan 10 step 46. Critical-path Playwright smoke on every `v*` tag.
+#
+# Root cause locked: PR-time frontend-e2e and nightly-e2e run against
+# the PR HEAD or main HEAD, not against a tagged release commit. A
+# broken login, license issue, or portal serial verify can therefore
+# slip into a `vX.Y.Z` tag with no gate, because nothing re-runs the
+# happy-path against the exact tagged tree before humans promote it.
+#
+# Strategy:
+#   1. Trigger only on tags matching `v*` (plus workflow_dispatch for
+#      manual re-runs against a chosen ref).
+#   2. Boot backend + SPA the same way frontend-e2e.yml does so smoke
+#      failures cannot be blamed on environment drift.
+#   3. Run a curated grep-filtered subset of specs covering the five
+#      user-visible flows a release MUST NOT regress:
+#        - health.spec.ts               (public health endpoint)
+#        - auth-login.spec.ts           (admin login happy path)
+#        - admin-dashboard.spec.ts      (post-login shell + KPIs)
+#        - admin-license-crud.spec.ts   (issue + If-Match conflict)
+#        - portal-serial-lookup.spec.ts (end-user portal verify)
+#   4. Upload the report + traces so a red smoke is diagnosable
+#      without re-running.
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Ref (tag/branch/SHA) to smoke against'
+        required: false
+        default: ''
+
+concurrency:
+  group: release-smoke-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  smoke:
+    name: Release smoke (chromium)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      APP_ENV: local
+      APP_KEY: base64:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+      APP_DEBUG: 'true'
+      APP_URL: http://127.0.0.1:8000
+      BCRYPT_ROUNDS: '4'
+      CACHE_STORE: array
+      DB_CONNECTION: root
+      DB_ROOT_CONNECTION: sqlite
+      DB_ROOT_DATABASE: ':memory:'
+      DB_SHARD_CONNECTION: sqlite
+      DB_SHARD_DATABASE: ':memory:'
+      MAIL_MAILER: array
+      QUEUE_CONNECTION: sync
+      SESSION_DRIVER: array
+      TELESCOPE_ENABLED: 'false'
+      E2E_ENABLED: 'true'
+      E2E_BASE_URL: http://127.0.0.1:8080
+      E2E_ADMIN_EMAIL: admin@example.test
+      E2E_ADMIN_PASSWORD: ChangeMe!123
+      E2E_ARTISAN_CMD: php backend/artisan
+      E2E_ARTISAN_CWD: ${{ github.workspace }}
+      CI: 'true'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref }}
+
+      - name: Setup PHP 8.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: composer:v2
+          extensions: mbstring, intl, pdo, pdo_sqlite, bcmath, sqlite3
+
+      - name: Cache composer
+        uses: actions/cache@v4
+        with:
+          path: backend/vendor
+          key: composer-${{ runner.os }}-${{ hashFiles('backend/composer.lock', 'backend/composer.json') }}
+          restore-keys: composer-${{ runner.os }}-
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Cache bun install
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: bun-${{ runner.os }}-${{ hashFiles('bun.lockb', 'package.json') }}
+          restore-keys: bun-${{ runner.os }}-
+
+      - name: Install SPA dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('bun.lockb', 'package.json') }}
+
+      - name: Install Playwright (chromium + deps)
+        run: bunx playwright install --with-deps chromium
+
+      - name: Migrate + seed backend
+        working-directory: backend
+        run: |
+          php artisan config:clear
+          php artisan migrate:fresh --seed --no-interaction
+
+      - name: Start backend (php artisan serve)
+        run: |
+          mkdir -p tests/e2e/.logs
+          nohup php backend/artisan serve --host=127.0.0.1 --port=8000 \
+            > tests/e2e/.logs/backend.log 2>&1 &
+          echo "BACKEND_PID=$!" >> "$GITHUB_ENV"
+
+      - name: Wait for backend readiness (/Api/Public/Health)
+        run: |
+          for i in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:8000/Api/Public/Health >/dev/null 2>&1; then
+              echo "backend up after ${i}s"; exit 0
+            fi
+            sleep 1
+          done
+          echo "backend never came up; last log lines:"
+          tail -n 200 tests/e2e/.logs/backend.log || true
+          exit 1
+
+      - name: Build SPA
+        run: bun run build
+
+      - name: Start SPA (vite preview)
+        run: |
+          nohup bun run preview --host 127.0.0.1 --port 8080 \
+            > tests/e2e/.logs/spa.log 2>&1 &
+          echo "SPA_PID=$!" >> "$GITHUB_ENV"
+
+      - name: Wait for SPA readiness
+        run: |
+          for i in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:8080/ >/dev/null 2>&1; then
+              echo "spa up after ${i}s"; exit 0
+            fi
+            sleep 1
+          done
+          echo "spa never came up; last log lines:"
+          tail -n 200 tests/e2e/.logs/spa.log || true
+          exit 1
+
+      # Curated critical-path subset. Keep this list explicit (not tag-based)
+      # so a spec cannot silently drop out of the release gate by losing a
+      # `@smoke` annotation. Update this list when a new must-not-regress
+      # user flow ships.
+      - name: Run smoke suite (chromium)
+        run: |
+          bunx playwright test --project=chromium \
+            tests/e2e/specs/health.spec.ts \
+            tests/e2e/specs/auth-login.spec.ts \
+            tests/e2e/specs/admin-dashboard.spec.ts \
+            tests/e2e/specs/admin-license-crud.spec.ts \
+            tests/e2e/specs/portal-serial-lookup.spec.ts
+
+      - name: Tail server logs on failure
+        if: failure()
+        run: |
+          echo "=== backend.log (last 400) ==="
+          tail -n 400 tests/e2e/.logs/backend.log || true
+          echo "=== spa.log (last 400) ==="
+          tail -n 400 tests/e2e/.logs/spa.log || true
+
+      - name: Upload Playwright HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-smoke-report-${{ github.ref_name }}
+          path: playwright-report
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Upload Playwright test-results (traces, videos, screenshots)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-smoke-test-results-${{ github.ref_name }}
+          path: test-results
+          if-no-files-found: ignore
+          retention-days: 30
+
+      - name: Upload server logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-smoke-server-logs-${{ github.ref_name }}
+          path: tests/e2e/.logs
+          if-no-files-found: ignore
+          retention-days: 14

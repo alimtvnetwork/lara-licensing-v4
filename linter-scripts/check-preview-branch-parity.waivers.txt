@@ -1,0 +1,27 @@
+# Baseline waivers for check-preview-branch-parity.py
+# Files listed here still call `requestLaraApi(...)` without a
+# `getRuntimeMode().Mode === "preview"` branch. Plan 17 Steps 3-11 branched
+# the highest-traffic admin/portal loaders (lara-me, lara-license,
+# lara-reseller-license, lara-quota, lara-features, lara-sessions,
+# lara-user-role, lara-user-create, lara-audit). This snapshot locks the
+# remaining set so no NEW un-branched files can be added, and each entry
+# must be removed as its preview bridge lands (Plan 17 Step 12 baseline;
+# graduating a file forward is one-way, never re-add).
+#
+# Rules:
+#   - Only files under src/lib/lara-*.ts.
+#   - One repo-relative path per line, POSIX separators.
+#   - Blank lines and lines starting with `#` are ignored.
+#   - A file listed here MUST currently contain an un-branched call; the
+#     linter fails if a waiver becomes stale (file no longer imports
+#     `requestLaraApi` or is already fully branched).
+src/lib/lara-app-updates.ts
+src/lib/lara-auth.ts
+src/lib/lara-impersonation.ts
+src/lib/lara-metrics.ts
+src/lib/lara-password-reset.ts
+src/lib/lara-prefix.ts
+src/lib/lara-reseller.ts
+src/lib/lara-self-update.ts
+src/lib/lara-serial.ts
+src/lib/lara-shard-status.ts

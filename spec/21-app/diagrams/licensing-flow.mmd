@@ -1,0 +1,95 @@
+%% Actor ordering per .lovable/spec/commands/03-diagram-actor-ordering.md
+%% Companion JSON: ./licensing-flow.json
+%% End-user verify path resolved per .lovable/issues/03-verify-path-drift.md:
+%%   End-user runtime uses the POST /Verify/Serial -> /Verify/Hash -> /Verify/Final handshake.
+%%   GET /Serials/{SerialValue} is Admin/Reseller lookup only, see spec/21-app/10-endpoints.md.
+sequenceDiagram
+    autonumber
+    participant EndUser as End-user App
+    participant Reseller as Reseller UI
+    participant Admin as Admin UI
+    participant API as Lara API
+    participant DB as Split-DB
+    participant Audit as AuditLog
+
+    Note over EndUser,API: 1. Verify handshake, end-user runtime, AppBuilder OAuth
+    EndUser->>API: POST /Verify/Serial { SerialValue } <br/> Headers, Authorization, X-Request-Id
+    API->>DB: SELECT Serial JOIN License
+    API->>API: evaluate IsRevoked, IsActive, ExpiresAt
+    alt found and valid
+        API-->>EndUser: 200 { IsValid true, LicenseId, Category, ExpiresAt?, IsSingleUse, UserCount?, MachineCount? }
+    else revoked, expired, or missing
+        API-->>EndUser: 401 SerialInvalid | SerialRevoked | LicenseExpired
+    end
+    EndUser->>API: POST /Verify/Hash { SerialValue, HashKey, MachineFingerprint, UserIdentifier? }
+    API->>DB: UPSERT MachineBinding / UserBinding, INSERT VerifyKeys
+    alt within limits
+        API-->>EndUser: 200 { VerifyKey, ExpiresAt } (Cache-Control no-store)
+    else over limit
+        API-->>EndUser: 409 LicenseMachineLimit | LicenseUserLimit
+    end
+    EndUser->>API: POST /Verify/Final { SerialValue, HashKey, VerifyKey, EnvironmentId }
+    API->>DB: BEGIN, LOCK VerifyKeys row, check License.EnvironmentId = caller.EnvironmentId, refresh bindings, mark consumed, resolve Features (LicenseFeatures overrides TierFeatures), INSERT AuditLog, COMMIT
+    alt authorized
+        API-->>EndUser: 200 { IsAuthorized true, LicenseId, LicenseTierId, EnvironmentId, Features, AuthorizedAt, ExpiresAt?, MachineBindingId?, UserBindingId? }
+    else environment mismatch
+        API-->>EndUser: 409 EnvironmentMismatch { Field Environment, Rule Mismatch, Value "<Requested>/<Licensed>" } (opaque, AC-LENV-004)
+    else already consumed or mismatched
+        API-->>EndUser: 401 VerifyKeyConsumed | VerifyKeyMismatch | VerifyKeyExpired
+    end
+
+
+    Note over Reseller,API: 2. Serial issuance, idempotent per Idempotency-Key
+    Reseller->>API: POST /Licenses/{Id}/Serials { PrefixId, RandomLength } <br/> Idempotency-Key, ULID
+    API->>DB: SELECT IdempotencyRecords WHERE Key
+    alt replay, matching RequestHashSha256
+        DB-->>API: stored snapshot
+        API-->>Reseller: replay ResponseSnapshotJson + StatusCode
+    else new key
+        API->>DB: BEGIN, INSERT Serial, INSERT IdempotencyRecords, COMMIT
+        API-->>Reseller: 201 { SerialId, SerialValue, CreatedAt }
+    else key reuse, hash mismatch
+        API->>Audit: IdempotencyConflict
+        API-->>Reseller: 409 IdempotencyConflict
+    end
+
+    Note over Reseller,API: 2b. Admin/Reseller serial lookup (NOT the end-user verify path)
+    Reseller->>API: GET /Serials/{SerialValue} <br/> Headers, Authorization, X-Request-Id
+    API->>DB: SELECT Serial JOIN License (scope: Admin OR Reseller owning License)
+    alt found
+        API-->>Reseller: 200 { SerialId, LicenseId, SerialValue, IsRevoked, CreatedAt }
+    else missing or out of scope
+        API-->>Reseller: 404 SerialNotFound
+    end
+
+    Note over Admin,API: 3. License issuance, Admin or Reseller in own scope (tier + environment + quota gated)
+    Admin->>API: POST /Licenses { LicenseCategoryId, LicenseTierId, EnvironmentId, ProductVersion, IsSingleUse, ... } <br/> Headers, Authorization, X-Request-Id
+    API->>API: has_role Admin OR Reseller AND ResellerId scope match; validate LicenseTierId in closed set (43-license-tiers.md); validate EnvironmentId in closed set (44-environments.md)
+    alt Reseller path (quota-gated)
+        API->>DB: BEGIN, SELECT ResellerQuotas FOR UPDATE (bucket = LicenseTierId), guard AllowanceRemaining > 0, UPDATE Consumed += 1 via TrgResellerQuotasAllowanceGuard, INSERT License, INSERT AuditLog {LicenseIssued, QuotaConsumed}, COMMIT
+        alt quota available
+            API-->>Admin: 201 { LicenseResult with LicenseTierId, EnvironmentId } + X-Request-Id echo
+        else quota exhausted
+            API->>Audit: QuotaExhausted { ResellerId, LicenseTierId }
+            API-->>Admin: 409 QuotaExhausted { Field LicenseTierId, Rule QuotaExhausted } (see 42-quota-requests.md for Quotas.Request flow)
+        end
+    else Admin path (no quota decrement)
+        API->>DB: BEGIN, INSERT License, INSERT AuditLog LicenseIssued, COMMIT
+        API-->>Admin: 201 { LicenseResult with LicenseTierId, EnvironmentId } + X-Request-Id echo
+    end
+
+    Note over Reseller,Admin: 3b. Quota request (Reseller -> Admin approval, spec/21-app/42-quota-requests.md)
+    Reseller->>API: POST /QuotaRequests { LicenseTierId, RequestedDelta, Reason } <br/> Headers, Authorization, X-Request-Id
+    API->>DB: INSERT QuotaRequests (Status = Pending), INSERT AuditLog QuotaRequested
+    API-->>Reseller: 201 { QuotaRequestId, Status Pending }
+    Admin->>API: POST /QuotaRequests/{Id}/Approve or /Deny (Quotas.Adjust)
+    API->>DB: BEGIN, UPDATE QuotaRequests.Status, on Approve UPDATE ResellerQuotas.Allowance via allowance path (see Check 22, 99-consistency-report.md), INSERT AuditLog QuotaAdjusted|QuotaRequestDenied, COMMIT
+    API-->>Admin: 200 { QuotaRequestId, Status Approved|Denied }
+
+    Note over Admin,API: 4. Revocation cascade
+
+    Admin->>API: DELETE /Licenses/{Id} or PATCH IsActive false
+    API->>DB: BEGIN, UPDATE License, UPDATE Serials.IsRevoked, INSERT AuditLog LicenseRevoked, COMMIT
+    API-->>Admin: 200 { LicenseId, IsDeleted true }
+
+    Note over API,Audit: Every step logs { RequestId, ActorUserId, Action, Decision } per 22-log-line-contract

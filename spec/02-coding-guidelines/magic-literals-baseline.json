@@ -1,0 +1,298 @@
+{
+  "entries": {
+    "backend/app/Http/Controllers/Admin/LicenseController.php": {
+      "magic-string 'Active'": 1,
+      "magic-string 'Admin'": 1,
+      "magic-string 'QuotaRestored'": 11,
+      "magic-string 'Reseller'": 1,
+      "magic-string 'Revoked'": 2,
+      "magic-string 'Suspended'": 1
+    },
+    "backend/app/Http/Controllers/Admin/QuotaRequestController.php": {
+      "magic-string 'Approved'": 1,
+      "magic-string 'Cancelled'": 1,
+      "magic-string 'Denied'": 1,
+      "magic-string 'Pending'": 1,
+      "magic-string 'QuotaAdjusted'": 1
+    },
+    "backend/app/Http/Controllers/Admin/UserController.php": {
+      "magic-string 'Admin'": 2
+    },
+    "backend/app/Http/Controllers/Auth/RegisterController.php": {
+      "magic-string 'SuperAdmin'": 1
+    },
+    "backend/app/Http/Controllers/Auth/ResetPasswordController.php": {
+      "magic-string 'Expired'": 1
+    },
+    "backend/app/Http/Controllers/Portal/SerialController.php": {
+      "magic-string 'Active'": 1,
+      "magic-string 'Revoked'": 2
+    },
+    "backend/app/Http/Controllers/Portal/VerifyController.php": {
+      "magic-string 'Active'": 1,
+      "magic-string 'Revoked'": 1
+    },
+    "backend/app/Http/Controllers/Reseller/LicenseController.php": {
+      "magic-string 'Active'": 1,
+      "magic-string 'Reseller'": 2,
+      "magic-string 'Revoked'": 2,
+      "magic-string 'Suspended'": 1
+    },
+    "backend/app/Http/Controllers/Reseller/QuotaRequestController.php": {
+      "magic-string 'Approved'": 1,
+      "magic-string 'Cancelled'": 1,
+      "magic-string 'Denied'": 1,
+      "magic-string 'Pending'": 1
+    },
+    "backend/app/Http/Requests/Admin/LicenseUpdateRequest.php": {
+      "magic-string 'Active'": 1,
+      "magic-string 'Suspended'": 1
+    },
+    "backend/app/Http/Resources/LicenseResource.php": {
+      "magic-string 'Admin'": 1
+    },
+    "backend/app/Http/Resources/QuotaRequestResource.php": {
+      "magic-string 'Approved'": 1,
+      "magic-string 'Cancelled'": 1,
+      "magic-string 'Denied'": 1,
+      "magic-string 'Pending'": 1
+    },
+    "backend/app/Policies/AppUpdatePolicy.php": {
+      "magic-string 'Admin'": 1,
+      "magic-string 'SuperAdmin'": 3
+    },
+    "backend/app/Policies/AuthSessionPolicy.php": {
+      "magic-string 'Admin'": 1,
+      "magic-string 'SuperAdmin'": 1
+    },
+    "backend/app/Policies/LicensePolicy.php": {
+      "magic-string 'Admin'": 5,
+      "magic-string 'Reseller'": 3,
+      "magic-string 'SuperAdmin'": 5
+    },
+    "backend/app/Policies/PrefixPolicy.php": {
+      "magic-string 'Admin'": 5,
+      "magic-string 'Reseller'": 2,
+      "magic-string 'SuperAdmin'": 5
+    },
+    "backend/app/Policies/QuotaRequestPolicy.php": {
+      "magic-string 'Admin'": 4,
+      "magic-string 'Reseller'": 4,
+      "magic-string 'SuperAdmin'": 4
+    },
+    "backend/app/Policies/ResellerPolicy.php": {
+      "magic-string 'Admin'": 4,
+      "magic-string 'Reseller'": 1,
+      "magic-string 'SuperAdmin'": 5
+    },
+    "backend/app/Policies/UserPolicy.php": {
+      "magic-string 'Admin'": 5,
+      "magic-string 'SuperAdmin'": 8
+    },
+    "backend/app/Services/ImpersonationService.php": {
+      "magic-string 'Admin'": 1
+    },
+    "backend/app/Services/QuotaService.php": {
+      "magic-string 'QuotaConsumed'": 1,
+      "magic-string 'QuotaRestored'": 5
+    },
+    "backend/app/Support/LoginCaptcha.php": {
+      "magic-string 'Expired'": 1
+    },
+    "backend/database/migrations/root/2026_07_18_000004_create_root_license_tiers_table.php": {
+      "magic-string 'Tier1'": 1,
+      "magic-string 'Tier2'": 1,
+      "magic-string 'Tier3'": 1,
+      "magic-string 'Unlimited'": 1
+    },
+    "src/components/admin/UserSessionsPanel.tsx": {
+      "magic-string 'Active'": 1,
+      "magic-string 'Admin'": 1
+    },
+    "src/components/admin/admin-quota-requests-data-table.tsx": {
+      "magic-string 'Admin'": 1,
+      "magic-string 'Approved'": 1,
+      "magic-string 'Cancelled'": 1,
+      "magic-string 'Denied'": 1,
+      "magic-string 'Pending'": 1,
+      "magic-string 'Reseller'": 1
+    },
+    "src/components/admin/admin-shell.tsx": {
+      "magic-string 'Admin'": 1
+    },
+    "src/components/admin/app-updates-data-table.tsx": {
+      "magic-string 'Admin'": 1
+    },
+    "src/components/admin/force-end-impersonation-button.tsx": {
+      "magic-string 'Admin'": 2,
+      "magic-string 'Reseller'": 1,
+      "magic-string 'SuperAdmin'": 2
+    },
+    "src/components/admin/impersonate-user-button.tsx": {
+      "magic-string 'Admin'": 2,
+      "magic-string 'Reseller'": 1,
+      "magic-string 'SuperAdmin'": 2
+    },
+    "src/components/admin/license-detail-actions.tsx": {
+      "magic-http-status 500": 2
+    },
+    "src/components/admin/prefix-manager.tsx": {
+      "magic-string 'Active'": 1
+    },
+    "src/components/admin/reseller-activity.tsx": {
+      "magic-string 'Reseller'": 2
+    },
+    "src/components/admin/reseller-data-table.tsx": {
+      "magic-string 'Active'": 2,
+      "magic-string 'Reseller'": 1
+    },
+    "src/components/admin/user-data-table.tsx": {
+      "magic-string 'Active'": 2
+    },
+    "src/components/admin/user-identity-card.tsx": {
+      "magic-string 'Active'": 1
+    },
+    "src/components/admin/user-role-picker.tsx": {
+      "magic-string 'Admin'": 2
+    },
+    "src/components/badge/registry.ts": {
+      "magic-string 'Active'": 4,
+      "magic-string 'Admin'": 2,
+      "magic-string 'AppBuilder'": 1,
+      "magic-string 'Approved'": 2,
+      "magic-string 'EndUser'": 1,
+      "magic-string 'Expired'": 2,
+      "magic-string 'Pending'": 2,
+      "magic-string 'Reseller'": 2,
+      "magic-string 'Revoked'": 4,
+      "magic-string 'SuperAdmin'": 1,
+      "magic-string 'Suspended'": 2
+    },
+    "src/components/quota/reseller-quota-requests-data-table.tsx": {
+      "magic-string 'Approved'": 1,
+      "magic-string 'Cancelled'": 1,
+      "magic-string 'Denied'": 1,
+      "magic-string 'Pending'": 1
+    },
+    "src/components/shell/nav-tree.ts": {
+      "magic-string 'Admin'": 2,
+      "magic-string 'AppBuilder'": 2,
+      "magic-string 'EndUser'": 1,
+      "magic-string 'Reseller'": 1
+    },
+    "src/lib/closed-sets.ts": {
+      "magic-string 'AppBuilder'": 1,
+      "magic-string 'Approved'": 1,
+      "magic-string 'Cancelled'": 1,
+      "magic-string 'Denied'": 1,
+      "magic-string 'Development'": 1,
+      "magic-string 'EndUser'": 1,
+      "magic-string 'Pending'": 1,
+      "magic-string 'Production'": 1,
+      "magic-string 'Staging'": 1,
+      "magic-string 'Unlimited'": 1
+    },
+    "src/lib/copy.ts": {
+      "magic-string 'Reseller'": 1
+    },
+    "src/lib/lara-app-updates.ts": {
+      "magic-string 'Admin'": 1
+    },
+    "src/lib/lara-audit.ts": {
+      "magic-string 'Admin'": 1,
+      "magic-string 'AppBuilder'": 1
+    },
+    "src/lib/lara-me.ts": {
+      "magic-string 'Admin'": 1,
+      "magic-string 'EndUser'": 1,
+      "magic-string 'Reseller'": 1,
+      "magic-string 'SuperAdmin'": 1
+    },
+    "src/lib/lara-metrics.ts": {
+      "magic-string 'Admin'": 1
+    },
+    "src/lib/lara-quota.ts": {
+      "magic-string 'Admin'": 1,
+      "magic-string 'Approved'": 2,
+      "magic-string 'Cancelled'": 2,
+      "magic-string 'Denied'": 2,
+      "magic-string 'Pending'": 2,
+      "magic-string 'QuotaAdjusted'": 2,
+      "magic-string 'QuotaConsumed'": 2,
+      "magic-string 'QuotaRestored'": 2
+    },
+    "src/lib/lara-reseller-license.ts": {
+      "magic-string 'Reseller'": 2
+    },
+    "src/lib/lara-sessions.ts": {
+      "magic-string 'Admin'": 1
+    },
+    "src/lib/lara-shell-role.ts": {
+      "magic-string 'Admin'": 1,
+      "magic-string 'AppBuilder'": 2,
+      "magic-string 'EndUser'": 2,
+      "magic-string 'Reseller'": 1
+    },
+    "src/lib/lara-user-role.ts": {
+      "magic-string 'Admin'": 2,
+      "magic-string 'AppBuilder'": 2,
+      "magic-string 'EndUser'": 2,
+      "magic-string 'Reseller'": 2
+    },
+    "src/routes/_authenticated/admin.app-updates.tsx": {
+      "magic-string 'Admin'": 1
+    },
+    "src/routes/_authenticated/admin.licenses.$licenseId.tsx": {
+      "magic-string 'Active'": 1,
+      "magic-string 'Admin'": 1
+    },
+    "src/routes/_authenticated/admin.licenses.new.tsx": {
+      "magic-string 'Admin'": 1
+    },
+    "src/routes/_authenticated/admin.resellers.$resellerId.tsx": {
+      "magic-string 'Admin'": 1,
+      "magic-string 'Reseller'": 1
+    },
+    "src/routes/_authenticated/admin.resellers.new.tsx": {
+      "magic-string 'Admin'": 1
+    },
+    "src/routes/_authenticated/admin.serials.tsx": {
+      "magic-string 'Admin'": 1
+    },
+    "src/routes/_authenticated/admin.users.$userId.tsx": {
+      "magic-string 'Admin'": 5,
+      "magic-string 'SuperAdmin'": 2
+    },
+    "src/routes/_authenticated/portal.tsx": {
+      "magic-string 'EndUser'": 1,
+      "magic-string 'Reseller'": 1
+    },
+    "src/routes/_authenticated/reseller.$resellerId.index.tsx": {
+      "magic-string 'Reseller'": 2
+    },
+    "src/routes/_authenticated/reseller.$resellerId.licenses.$licenseKey.tsx": {
+      "magic-string 'Reseller'": 2
+    },
+    "src/routes/_authenticated/reseller.$resellerId.licenses.index.tsx": {
+      "magic-string 'Active'": 1,
+      "magic-string 'Reseller'": 2,
+      "magic-string 'Revoked'": 1
+    },
+    "src/routes/_authenticated/reseller.$resellerId.quota-requests.tsx": {
+      "magic-string 'Reseller'": 2
+    },
+    "src/routes/forgot-password.tsx": {
+      "magic-http-status 500": 2
+    },
+    "src/routes/reset-password.tsx": {
+      "magic-http-status 500": 2
+    },
+    "src/server.ts": {
+      "magic-http-status 500": 3
+    },
+    "src/start.ts": {
+      "magic-http-status 500": 1
+    }
+  },
+  "note": "Ratchet-only baseline for check-magic-literals.py. New findings fail CI; entries can only shrink."
+}

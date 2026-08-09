@@ -1,0 +1,8 @@
+{
+  "routes": {
+    "landing": {
+      "h1": "Ubuntu, system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+      "body": "Poppins, system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif"
+    }
+  }
+}

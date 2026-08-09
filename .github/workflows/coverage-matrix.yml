@@ -1,0 +1,30 @@
+name: coverage-matrix
+
+on:
+  pull_request:
+    paths:
+      - "linter-scripts/**"
+      - "tests/**"
+      - "src/**"
+      - ".github/workflows/coverage-matrix.yml"
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build coverage matrix
+        run: python3 linter-scripts/build-coverage-matrix.py
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-matrix
+          path: |
+            docs/testing/coverage-matrix.json
+            docs/testing/coverage-matrix.md
+          if-no-files-found: error

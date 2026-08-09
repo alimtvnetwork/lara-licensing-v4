@@ -1,0 +1,22 @@
+{
+  "snapshots.title": "Snapshots",
+  "snapshots.empty": "No snapshots found.",
+  "snapshots.column.label": "Label",
+  "snapshots.column.sealedAt": "Sealed",
+  "snapshots.column.expiresAt": "Expires",
+  "snapshots.column.retention": "Retention",
+  "snapshots.badge.pinned": "Pinned",
+  "snapshots.badge.yanked": "Yanked",
+  "snapshots.badge.manual": "Manual",
+  "snapshots.create.cta": "Create Snapshot",
+  "snapshots.create.labelCollision": "Label already exists",
+  "snapshots.pin.cta": "Pin Snapshot",
+  "snapshots.unpin.cta": "Unpin Snapshot",
+  "snapshots.pin.pending": "Pinning...",
+  "snapshots.yank.cta": "Yank Snapshot",
+  "snapshots.yank.confirmTitle": "Confirm Yank",
+  "snapshots.delete.cta": "Delete Snapshot",
+  "snapshots.delete.confirmTitle": "Confirm Delete",
+  "snapshots.delete.blockedByPin": "Cannot delete: Snapshot is pinned.",
+  "snapshots.restore.cta": "Restore from Snapshot"
+}

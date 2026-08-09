@@ -1,0 +1,15 @@
+{
+  "$schema": "./preview-admin-tti.schema.json",
+  "note": "v0.675.0 baseline. Regenerate with PREVIEW_TTI_BASELINE_UPDATE=1. `ms` is a soft ceiling per route/kind; regression factor is applied in the spec (default 1.5x). Warm should always be <= cold.",
+  "regressionFactor": 1.5,
+  "routes": {
+    "/admin":               { "coldMs": 4000, "warmMs": 1500 },
+    "/admin/resellers":     { "coldMs": 4000, "warmMs": 1500 },
+    "/admin/users":         { "coldMs": 4000, "warmMs": 1500 },
+    "/admin/audit":         { "coldMs": 4000, "warmMs": 1500 },
+    "/admin/quotas":        { "coldMs": 4000, "warmMs": 1500 },
+    "/admin/quota-requests":{ "coldMs": 4000, "warmMs": 1500 },
+    "/admin/app-updates":   { "coldMs": 4000, "warmMs": 1500 },
+    "/admin/serials":       { "coldMs": 4000, "warmMs": 1500 }
+  }
+}

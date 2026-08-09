@@ -1,0 +1,22 @@
+%% Actor ordering per spec/21-app/diagrams/00-diagram-contract.md (AC-DG-001). Client is leftmost.
+sequenceDiagram
+    autonumber
+    participant Client
+    participant Api as LicensingServer
+    participant Store as TokenStore
+
+    Client->>Api: POST /Auth/Token (email, password)
+    Api->>Store: verify credentials
+    Store-->>Api: UserId, Role
+    Api-->>Client: AccessToken(15m), RefreshToken(30d)
+
+    Note over Client,Api: Later request
+    Client->>Api: GET /Licenses (Bearer AccessToken)
+    Api->>Api: verify signature, exp, Jti not revoked
+    Api-->>Client: 200 payload
+
+    Note over Client,Api: Refresh
+    Client->>Api: POST /Auth/Refresh (RefreshToken)
+    Api->>Store: rotate refresh, revoke old
+    Store-->>Api: new pair
+    Api-->>Client: AccessToken, RefreshToken

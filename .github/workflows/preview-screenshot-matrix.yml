@@ -1,0 +1,59 @@
+name: preview-screenshot-matrix
+
+# Plan 16 Step 86. Renders every (public route x scenario x seed) cell and
+# uploads the artifact so Step 87's coverage linter can parse index.json.
+# Contract: spec/28-runtime-modes/10-screenshot-matrix.md.
+
+on:
+  pull_request:
+    paths:
+      - "src/lib/preview-*"
+      - "src/lib/api-client.ts"
+      - "src/lib/runtime-mode.ts"
+      - "src/components/shell/PreviewDebugDrawer*"
+      - "src/routes/**"
+      - "tests/e2e/specs/preview-screenshot-matrix.spec.ts"
+      - "spec/28-runtime-modes/10-screenshot-matrix.md"
+      - "spec/28-runtime-modes/08-preview-scenarios.md"
+      - ".github/workflows/preview-screenshot-matrix.yml"
+  schedule:
+    - cron: "15 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+      - run: bunx playwright install --with-deps chromium
+      - name: Start preview server
+        run: bun run dev &
+        env:
+          NODE_ENV: development
+      - name: Wait for preview
+        run: |
+          for i in {1..60}; do
+            if curl -sf http://localhost:8080/ >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          echo "preview server did not come up" >&2
+          exit 1
+      - name: Render matrix
+        run: bunx playwright test tests/e2e/specs/preview-screenshot-matrix.spec.ts --project=chromium
+        env:
+          E2E_BASE_URL: http://localhost:8080
+      - name: Enforce screenshot matrix coverage
+        env:
+          SCREENSHOT_MATRIX_STRICT: "1"
+        run: python3 linter-scripts/check-screenshot-matrix-coverage.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: preview-screenshot-matrix
+          path: tests/e2e/screenshots/preview-matrix/
+          retention-days: 30

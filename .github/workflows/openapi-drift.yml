@@ -1,0 +1,41 @@
+name: openapi-drift
+
+# Plan 16 Step 91: OpenAPI drift CI.
+#
+# Fails when `src/generated/api/operations.ts` (the typed operations map
+# consumed by `src/lib/api-client.ts` and every preview handler) drifts
+# from the committed lockfile at `src/generated/api/operations.lock.json`.
+# Contributors regenerate the lockfile with:
+#   python3 linter-scripts/check-openapi-drift.py --write
+# in the same commit as the operations.ts change and the paired
+# backend/routes/api.php change.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/generated/api/operations.ts'
+      - 'src/generated/api/operations.lock.json'
+      - 'linter-scripts/check-openapi-drift.py'
+      - '.github/workflows/openapi-drift.yml'
+  pull_request:
+    paths:
+      - 'src/generated/api/operations.ts'
+      - 'src/generated/api/operations.lock.json'
+      - 'linter-scripts/check-openapi-drift.py'
+      - '.github/workflows/openapi-drift.yml'
+
+jobs:
+  openapi-drift:
+    name: OpenAPI drift (operations map vs lockfile)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Check OpenAPI drift
+        run: python3 linter-scripts/check-openapi-drift.py

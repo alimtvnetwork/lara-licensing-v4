@@ -1,0 +1,38 @@
+%% Actor ordering per .lovable/spec/commands/03-diagram-actor-ordering.md
+%% Companion JSON: ./quota-approval-flow.json
+sequenceDiagram
+    autonumber
+    participant Reseller as Reseller UI
+    participant Admin as Admin UI
+    participant API as Lara API
+    participant DB as Split-DB
+    participant Audit as AuditLog
+
+    Note over Reseller,API: 1. Request submission
+    Reseller->>API: POST /QuotaRequests { LicenseCategoryId, LicenseTierId, RequestedDelta, Justification } <br/> Idempotency-Key
+    API->>DB: BEGIN, SELECT QuotaRequests WHERE Status=Pending (tuple lock), assert none exists, INSERT QuotaRequests, COMMIT
+    API->>Audit: QuotaRequestSubmitted
+    API-->>Reseller: 201 { QuotaRequestId, Status Pending }
+
+    Note over Admin,API: 2. Admin Decision (Approve)
+    Admin->>API: POST /QuotaRequests/{Id}/Approve { ApprovedDelta } <br/> Idempotency-Key
+    API->>DB: BEGIN
+    API->>DB: SELECT QuotaRequests FOR UPDATE (Status=Pending)
+    API->>DB: SELECT ResellerQuotas FOR UPDATE (Allowance path)
+    API->>DB: UPDATE ResellerQuotas (LicensesGranted += ApprovedDelta)
+    API->>DB: INSERT ResellerQuotaLedger (Delta = ApprovedDelta, Action = QuotaAdjusted)
+    API->>DB: UPDATE QuotaRequests (Status=Approved, ApprovedDelta, DecidedBy)
+    API->>DB: COMMIT
+    API->>Audit: QuotaRequestApproved
+    API-->>Admin: 200 { QuotaRequestId, Status Approved }
+
+    Note over Admin,API: 3. Admin Decision (Deny)
+    Admin->>API: POST /QuotaRequests/{Id}/Deny { DenialReason } <br/> Idempotency-Key
+    API->>DB: BEGIN, UPDATE QuotaRequests (Status=Denied, DenialReason, DecidedBy), COMMIT
+    API->>Audit: QuotaRequestDenied
+    API-->>Admin: 200 { QuotaRequestId, Status Denied }
+
+    Note over Reseller,API: 4. Reseller Cancellation
+    Reseller->>API: POST /QuotaRequests/{Id}/Cancel <br/> Idempotency-Key
+    API->>DB: BEGIN, UPDATE QuotaRequests (Status=Cancelled) WHERE Status=Pending, COMMIT
+    API-->>Reseller: 200 { QuotaRequestId, Status Cancelled }

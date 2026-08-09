@@ -1,0 +1,78 @@
+{
+  "GeneratedAt": "2026-07-20T11:20:00Z",
+  "VitestFileCount": 110,
+  "E2eSpecCount": 20,
+  "E2eSpecs": [
+    "a11y-axe.spec.ts",
+    "admin-dashboard.spec.ts",
+    "admin-impersonation.spec.ts",
+    "admin-license-crud.spec.ts",
+    "admin-quota-approval.spec.ts",
+    "auth-login.spec.ts",
+    "auth-password-reset.spec.ts",
+    "auth-register-bootstrap.spec.ts",
+    "error-modal-a11y.spec.ts",
+    "error-modal.spec.ts",
+    "health.spec.ts",
+    "portal-serial-lookup.spec.ts",
+    "portal-update-download.spec.ts",
+    "preview-mutations-replay.spec.ts",
+    "preview-scenario-smoke.spec.ts",
+    "preview-screenshot-matrix.spec.ts",
+    "preview-seed-matrix.spec.ts",
+    "reseller-dashboard.spec.ts",
+    "runtime-toggle.spec.ts",
+    "visual-font-baseline.spec.ts"
+  ],
+  "Linters": [
+    {
+      "Axis": "UntypedFetch",
+      "Script": "linter-scripts/check-untyped-fetch.py",
+      "Ok": true,
+      "Summary": "check-untyped-fetch: OK (no raw fetch outside allowlisted transports)"
+    },
+    {
+      "Axis": "AnyInApi",
+      "Script": "linter-scripts/check-any-in-api.py",
+      "Ok": true,
+      "Summary": "check-any-in-api: OK (no `: any` / `as any` in lara-*.ts, api-client.ts, generated/api/**)"
+    },
+    {
+      "Axis": "MagicEndpointStrings",
+      "Script": "linter-scripts/check-magic-endpoint-strings.py",
+      "Ok": true,
+      "Summary": "check-magic-endpoint-strings: OK (no inline /api/ literals outside allowlisted trees)"
+    },
+    {
+      "Axis": "PreviewInProdBundle",
+      "Script": "linter-scripts/check-preview-in-prod-bundle.py",
+      "Ok": true,
+      "Summary": "check-preview-in-prod-bundle: OK"
+    },
+    {
+      "Axis": "ScreenshotMatrixCoverage",
+      "Script": "linter-scripts/check-screenshot-matrix-coverage.py",
+      "Ok": true,
+      "Summary": "check-screenshot-matrix-coverage: SKIP (manifest not found at tests/e2e/screenshots/preview-matrix/index.json; set SCREENSHOT_MATRIX_STRICT=1 to fail)"
+    },
+    {
+      "Axis": "OpenApiDrift",
+      "Script": "linter-scripts/check-openapi-drift.py",
+      "Ok": true,
+      "Summary": "OK: OpenAPI drift check clean (26 operations)"
+    },
+    {
+      "Axis": "SchemaSymbolDrift",
+      "Script": "linter-scripts/check-schema-symbol-drift.py",
+      "Ok": true,
+      "Summary": "OK: schema symbol drift check clean (49 symbols)"
+    },
+    {
+      "Axis": "DeadOperations",
+      "Script": "linter-scripts/check-dead-operations.py",
+      "Ok": true,
+      "Summary": "OK: 26 operations, each with exactly one preview handler."
+    }
+  ],
+  "AllLintersOk": true
+}

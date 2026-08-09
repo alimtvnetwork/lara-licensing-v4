@@ -1,0 +1,131 @@
+name: backend-e2e
+
+# Plan 10 step 41. Backend Pest feature suite in CI.
+#
+# Root cause locked: the 280+ Pest feature tests (v0.323-0.372) only run
+# locally, so PRs can silently regress migrations, RLS, RBAC, FormRequests,
+# and Policies. The frontend-e2e workflow (step 42) also needs a proven
+# green backend job to depend on before spinning up the SPA + backend
+# together.
+#
+# Backend testing uses SQLite in-memory (see backend/phpunit.xml lines
+# 30-34), so no Postgres service container is needed. If the backend ever
+# moves to Postgres for tests, add `services: postgres:` here.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend-e2e.yml'
+  pull_request:
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend-e2e.yml'
+
+# Cancel superseded runs on the same ref to save minutes.
+concurrency:
+  group: backend-e2e-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pest:
+    name: Pest (${{ matrix.seed_profile }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        seed_profile: [default, empty, error]
+    defaults:
+      run:
+        working-directory: backend
+    env:
+      # Mirror backend/phpunit.xml so CI matches local `php artisan test`.
+      APP_ENV: testing
+      APP_KEY: base64:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+      APP_DEBUG: 'false'
+      BCRYPT_ROUNDS: '4'
+      CACHE_STORE: array
+      DB_CONNECTION: root
+      DB_ROOT_CONNECTION: sqlite
+      DB_ROOT_DATABASE: ':memory:'
+      DB_SHARD_CONNECTION: sqlite
+      DB_SHARD_DATABASE: ':memory:'
+      MAIL_MAILER: array
+      QUEUE_CONNECTION: sync
+      SESSION_DRIVER: array
+      TELESCOPE_ENABLED: 'false'
+      SEED_PROFILE: ${{ matrix.seed_profile }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP 8.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          # Xdebug for coverage; pcov is faster but shivammathur's default
+          # pcov build occasionally mismatches PHP 8.3 minor; xdebug is safer.
+          coverage: xdebug
+          tools: composer:v2
+          extensions: mbstring, intl, pdo, pdo_sqlite, bcmath, sqlite3
+
+      - name: Cache composer
+        uses: actions/cache@v4
+        with:
+          path: backend/vendor
+          key: backend-cache-${{ matrix.seed_profile }}-${{ runner.os }}-${{ hashFiles('backend/composer.lock', 'backend/composer.json') }}
+          restore-keys: backend-cache-${{ matrix.seed_profile }}-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      # Config/route caches must be cleared before Pest to guarantee
+      # env overrides above take effect regardless of a stray cached
+      # config file committed by mistake.
+      - name: Clear caches
+        run: |
+          php artisan config:clear
+          php artisan route:clear
+          php artisan cache:clear
+
+      # Run Pest via the vendor binary directly so we can pass JUnit + coverage
+      # flags without depending on artisan test's option surface. --parallel
+      # honors phpunit.xml testsuites; --ci enforces stricter output rules.
+      - name: Run Pest
+        run: |
+          mkdir -p build/logs build/coverage
+          ./vendor/bin/pest \
+            --ci \
+            --parallel \
+            --log-junit=build/logs/junit.xml \
+            --coverage-clover=build/coverage/clover.xml \
+            --coverage-text \
+            --min=0
+
+      - name: Upload JUnit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-junit
+          path: backend/build/logs/junit.xml
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload coverage (clover)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-coverage-${{ matrix.seed_profile }}
+          path: backend/build/coverage/clover.xml
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload audit errors NDJSON
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-audit-errors-${{ matrix.seed_profile }}
+          path: backend/storage/logs/lara-audit-errors-*.ndjson
+          if-no-files-found: ignore
+          retention-days: 14

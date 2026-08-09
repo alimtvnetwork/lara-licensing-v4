@@ -1,0 +1,200 @@
+name: coverage-report
+
+# Plan 10 step 44. Coverage consolidation.
+#
+# Root cause locked: `backend-e2e.yml` publishes a Clover XML
+# artifact (`backend-coverage/clover.xml`) and Playwright uploads
+# per-browser artifacts (`playwright-report-chromium`,
+# `playwright-report-firefox`, `playwright-report-webkit` plus their
+# matching `playwright-test-results-*`). Nothing merges these per-PR
+# into a single coverage summary or numeric signal, so coverage drift
+# is invisible in review and step 49's README badges have no source.
+#
+# Strategy:
+#   1. Trigger on `workflow_run` completion of `backend-e2e` and
+#      `frontend-e2e` so this job runs after the artifacts exist,
+#      plus schedule daily after nightly-e2e's 05:00 UTC cron so the
+#      merged report reflects the last cross-browser matrix.
+#   2. Download every coverage-relevant artifact from the triggering
+#      run (via `actions/download-artifact` filtering).
+#   3. Parse Clover XML with a small Python step (already available on
+#      the ubuntu-latest image) to compute line + statement coverage
+#      percentages; merge any per-browser Playwright JSON reports if
+#      present. This is the numeric source for step 49 badges.
+#   4. Emit a Markdown summary via `$GITHUB_STEP_SUMMARY` so reviewers
+#      see coverage inline, and upload a consolidated
+#      `coverage-summary` artifact (JSON + Markdown) other jobs can
+#      consume.
+#
+# We intentionally do NOT gate merges on a coverage threshold here.
+# That policy call belongs in the branch-protection docs (step 47);
+# this workflow is the measurement primitive.
+
+on:
+  workflow_run:
+    workflows: ['backend-e2e', 'frontend-e2e', 'nightly-e2e']
+    types: [completed]
+  workflow_dispatch:
+
+concurrency:
+  group: coverage-report-${{ github.workflow }}-${{ github.event.workflow_run.head_sha || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  actions: read
+  pull-requests: write
+
+jobs:
+  consolidate:
+    name: Consolidate coverage
+    runs-on: ubuntu-latest
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Download artifacts from the run that triggered us. On
+      # workflow_dispatch there is no upstream run, so we fall back
+      # to the current run's artifacts (yields an empty set, which
+      # the parser handles gracefully).
+      - name: Download upstream artifacts
+        if: github.event_name == 'workflow_run'
+        uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: artifacts
+          merge-multiple: false
+        continue-on-error: true
+
+      - name: List downloaded artifacts
+        run: |
+          mkdir -p artifacts
+          echo "=== artifact tree ==="
+          find artifacts -maxdepth 3 -type f | sort || true
+
+      - name: Parse coverage + write summary
+        id: parse
+        shell: bash
+        run: |
+          mkdir -p build/coverage-summary
+          python3 <<'PY'
+          import json
+          import os
+          import xml.etree.ElementTree as ET
+          from pathlib import Path
+
+          root = Path('artifacts')
+          summary = {
+              'backend': None,
+              'frontend': {'browsers': []},
+              'source_run_id': os.environ.get('SOURCE_RUN_ID'),
+              'source_workflow': os.environ.get('SOURCE_WORKFLOW'),
+              'source_sha': os.environ.get('SOURCE_SHA'),
+          }
+
+          # Backend Clover: covered vs total statements from the
+          # top-level <metrics> element.
+          clover = next(root.rglob('clover.xml'), None) if root.exists() else None
+          if clover is not None:
+              tree = ET.parse(clover)
+              metrics = tree.getroot().find('project/metrics')
+              if metrics is not None:
+                  covered = int(metrics.get('coveredstatements', '0'))
+                  total = int(metrics.get('statements', '0'))
+                  pct = round((covered / total) * 100, 2) if total else 0.0
+                  summary['backend'] = {
+                      'covered_statements': covered,
+                      'total_statements': total,
+                      'percent': pct,
+                      'source': str(clover.relative_to(root)),
+                  }
+
+          # Frontend: presence of a per-browser playwright-report
+          # directory means that project ran to completion. We do
+          # not currently emit V8 line coverage from Playwright, so
+          # report on run presence and result count from
+          # `results.json` when the html reporter wrote one.
+          if root.exists():
+              for browser in ('chromium', 'firefox', 'webkit'):
+                  report_dir = root / f'playwright-report-{browser}'
+                  if not report_dir.exists():
+                      # step 42's chromium artifact is unsuffixed.
+                      if browser == 'chromium':
+                          report_dir = root / 'playwright-report'
+                          if not report_dir.exists():
+                              continue
+                      else:
+                          continue
+                  entry = {'browser': browser, 'artifact': str(report_dir.relative_to(root))}
+                  results_json = next(report_dir.rglob('results.json'), None)
+                  if results_json is not None:
+                      try:
+                          data = json.loads(results_json.read_text())
+                          stats = data.get('stats') or {}
+                          entry['expected'] = stats.get('expected')
+                          entry['unexpected'] = stats.get('unexpected')
+                          entry['flaky'] = stats.get('flaky')
+                          entry['skipped'] = stats.get('skipped')
+                      except Exception as exc:
+                          entry['results_parse_error'] = str(exc)
+                  summary['frontend']['browsers'].append(entry)
+
+          out_dir = Path('build/coverage-summary')
+          out_dir.mkdir(parents=True, exist_ok=True)
+          (out_dir / 'coverage-summary.json').write_text(json.dumps(summary, indent=2))
+
+          md = ['# Coverage summary', '']
+          if summary['backend']:
+              b = summary['backend']
+              md.append(f"**Backend (Pest / Clover):** {b['percent']}% ({b['covered_statements']}/{b['total_statements']} statements)")
+              # Publish a shields.io endpoint-schema JSON for step 49.
+              badge = {
+                  'schemaVersion': 1,
+                  'label': 'backend coverage',
+                  'message': f"{b['percent']}%",
+                  'color': 'brightgreen' if b['percent'] >= 80 else 'yellow' if b['percent'] >= 60 else 'red',
+              }
+              (out_dir / 'backend-coverage-badge.json').write_text(json.dumps(badge))
+          else:
+              md.append('**Backend:** no Clover artifact found.')
+
+          md.append('')
+          md.append('## Frontend (Playwright)')
+          if summary['frontend']['browsers']:
+              md.append('')
+              md.append('| Browser | Expected | Unexpected | Flaky | Skipped |')
+              md.append('| --- | ---: | ---: | ---: | ---: |')
+              for e in summary['frontend']['browsers']:
+                  md.append(f"| {e['browser']} | {e.get('expected', '-')} | {e.get('unexpected', '-')} | {e.get('flaky', '-')} | {e.get('skipped', '-')} |")
+          else:
+              md.append('_No Playwright reports downloaded from the upstream run._')
+
+          md_text = '\n'.join(md) + '\n'
+          (out_dir / 'coverage-summary.md').write_text(md_text)
+          gh_summary = os.environ.get('GITHUB_STEP_SUMMARY')
+          if gh_summary:
+              Path(gh_summary).write_text(md_text)
+
+          print('coverage summary written to build/coverage-summary/')
+          PY
+        env:
+          SOURCE_RUN_ID: ${{ github.event.workflow_run.id }}
+          SOURCE_WORKFLOW: ${{ github.event.workflow_run.name }}
+          SOURCE_SHA: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Upload consolidated coverage summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-summary
+          path: build/coverage-summary
+          if-no-files-found: warn
+          retention-days: 30

@@ -1,0 +1,46 @@
+name: backend-static-analysis
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend-static-analysis.yml'
+  pull_request:
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend-static-analysis.yml'
+
+jobs:
+  phpstan:
+    name: PHPStan (Larastan + dead-code, strict)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: composer:v2
+          extensions: mbstring, intl, pdo, pdo_sqlite, bcmath
+
+      - name: Cache composer
+        uses: actions/cache@v4
+        with:
+          path: backend/vendor
+          key: composer-${{ runner.os }}-${{ hashFiles('backend/composer.lock', 'backend/composer.json') }}
+          restore-keys: composer-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      # Fails on ANY finding not captured in phpstan-baseline.neon.
+      # Also fails if a baseline entry no longer matches (baseline rot).
+      # Regenerate baseline locally with: composer phpstan:baseline
+      - name: Run PHPStan
+        run: composer phpstan

@@ -1,0 +1,72 @@
+{
+  "name": "lara/licensing",
+  "type": "project",
+  "description": "Licensing Portal v1 backend (Laravel 11).",
+  "license": "proprietary",
+  "version": "0.690.0",
+  "require": {
+    "php": "^8.3",
+    "laravel/framework": "^11.9",
+    "laravel/sanctum": "^4.0",
+    "laravel/tinker": "^2.9",
+    "inertiajs/inertia-laravel": "^1.0",
+    "guzzlehttp/guzzle": "^7.8",
+    "ramsey/uuid": "^4.7",
+    "darkaonline/l5-swagger": "^8.6",
+    "lauthz/laravel-authz": "^3.0"
+  },
+  "require-dev": {
+    "fakerphp/faker": "^1.23",
+    "larastan/larastan": "^3.0",
+    "laravel/pint": "^1.13",
+    "mockery/mockery": "^1.6",
+    "nunomaduro/collision": "^8.1",
+    "pestphp/pest": "^3.0",
+    "pestphp/pest-plugin-laravel": "^3.0",
+    "phpstan/phpstan-deprecation-rules": "^2.0",
+    "phpstan/phpstan-strict-rules": "^2.0",
+    "phpunit/phpunit": "^11.0.1",
+    "shipmonk/dead-code-detector": "^0.12"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "Database\\Factories\\": "database/factories/",
+      "Database\\Seeders\\": "database/seeders/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "@php artisan package:discover --ansi"
+    ],
+    "test": [
+      "@php artisan test"
+    ],
+    "phpstan": [
+      "@php -d memory_limit=1G vendor/bin/phpstan analyse --no-progress"
+    ],
+    "phpstan:baseline": [
+      "@php -d memory_limit=1G vendor/bin/phpstan analyse --generate-baseline=phpstan-baseline.neon --allow-empty-baseline"
+    ]
+  },
+  "extra": {
+    "laravel": {
+      "dont-discover": []
+    }
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}

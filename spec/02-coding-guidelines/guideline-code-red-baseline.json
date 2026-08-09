@@ -1,0 +1,31 @@
+{
+  "note": "Temporary ratchet for the canonical validator. Counts may only decrease. Zero is the required end state from 00-overview.md.",
+  "targets": {
+    "frontend": {
+      "CODE-RED-001": 39,
+      "CODE-RED-002": 2,
+      "CODE-RED-003": 171,
+      "CODE-RED-004": 161,
+      "CODE-RED-011": 40,
+      "CODE-RED-012": 18,
+      "CODE-RED-013": 4,
+      "CODE-RED-014": 4,
+      "CODE-RED-018": 11,
+      "CODE-RED-023": 40,
+      "CODE-RED-024": 85
+    },
+    "backend": {
+      "CODE-RED-001": 11,
+      "CODE-RED-002": 23,
+      "CODE-RED-003": 22,
+      "CODE-RED-004": 132,
+      "CODE-RED-011": 16,
+      "CODE-RED-013": 7,
+      "CODE-RED-014": 85,
+      "CODE-RED-019": 1,
+      "CODE-RED-021": 2,
+      "CODE-RED-023": 108,
+      "CODE-RED-024": 75
+    }
+  }
+}

@@ -1,0 +1,31 @@
+ # Set default behavior to automatically normalize line endings
+* text=auto
+# Explicitly declare text files you want normalized to LF on check-in
+*.go text eol=lf
+*.py text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+# Explicitly declare dotnet C# source files
+*.cs text eol=lf
+*.sln text eol=lf
+*.csproj text eol=lf
+# Denote all files that are truly binary and should not be modified
+# *.png filter=lfs diff=lfs merge=lfs -text
+*.jpg filter=lfs diff=lfs merge=lfs -text
+# *.gif filter=lfs diff=lfs merge=lfs -text
+# *.ico filter=lfs diff=lfs merge=lfs -text
+*.psd filter=lfs diff=lfs merge=lfs -text
+*.pdf filter=lfs diff=lfs merge=lfs -text
+*.jpeg filter=lfs diff=lfs merge=lfs -text
+*.xmind filter=lfs diff=lfs merge=lfs -text
+*.rar filter=lfs diff=lfs merge=lfs -text
+*.7z filter=lfs diff=lfs merge=lfs -text
+*.zip filter=lfs diff=lfs merge=lfs -text
+*.ai filter=lfs diff=lfs merge=lfs -text
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.fig filter=lfs diff=lfs merge=lfs -text
+
+# Auto-generated typed API surface (Plan 16 Step 25-29). Do not hand-edit.
+src/generated/api/** linguist-generated=true

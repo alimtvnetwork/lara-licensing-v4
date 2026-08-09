@@ -1,0 +1,12 @@
+{
+  "Source": "./quota-approval-flow.mmd",
+  "Version": "1.0.0",
+  "Actors": [
+    { "Id": "Reseller", "Label": "Reseller UI", "Column": 1 },
+    { "Id": "Admin", "Label": "Admin UI", "Column": 2 },
+    { "Id": "API", "Label": "Lara API", "Column": 3 },
+    { "Id": "DB", "Label": "Split-DB", "Column": 4 },
+    { "Id": "Audit", "Label": "AuditLog", "Column": 5 }
+  ],
+  "States": ["Pending", "Approved", "Denied", "Cancelled"]
+}

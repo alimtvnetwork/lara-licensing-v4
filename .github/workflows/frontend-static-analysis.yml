@@ -1,0 +1,158 @@
+name: frontend-static-analysis
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'backend/app/**'
+      - 'backend/database/migrations/**'
+      - 'backend/config/lara.php'
+      - 'scripts/check-error-code-parity.mjs'
+      - 'eslint.config.js'
+      - 'eslint-suppressions.json'
+      - 'tsconfig*.json'
+      - 'package.json'
+      - 'bun.lockb'
+      - 'linter-scripts/check-heading-fonts.py'
+      - 'linter-scripts/check-magic-literals.py'
+      - 'linter-scripts/check-version-json.py'
+      - 'linter-scripts/check-runtime-mode-usage.py'
+      - 'linter-scripts/check-untyped-fetch.py'
+      - 'linter-scripts/check-any-in-api.py'
+      - 'linter-scripts/check-magic-endpoint-strings.py'
+      - 'public/version.json'
+      - 'spec/02-coding-guidelines/magic-literals-baseline.json'
+      - '.github/workflows/frontend-static-analysis.yml'
+
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'backend/app/**'
+      - 'backend/database/migrations/**'
+      - 'backend/config/lara.php'
+      - 'scripts/check-error-code-parity.mjs'
+      - 'eslint.config.js'
+      - 'eslint-suppressions.json'
+      - 'tsconfig*.json'
+      - 'package.json'
+      - 'bun.lockb'
+      - 'linter-scripts/check-heading-fonts.py'
+      - 'linter-scripts/check-magic-literals.py'
+      - 'linter-scripts/check-version-json.py'
+      - 'linter-scripts/check-runtime-mode-usage.py'
+      - 'linter-scripts/check-untyped-fetch.py'
+      - 'linter-scripts/check-any-in-api.py'
+      - 'linter-scripts/check-magic-endpoint-strings.py'
+      - 'public/version.json'
+      - 'spec/02-coding-guidelines/magic-literals-baseline.json'
+      - '.github/workflows/frontend-static-analysis.yml'
+
+
+
+jobs:
+  eslint:
+    name: ESLint (type-aware, strict, bulk-suppressed)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      # Fails on ANY finding not captured in eslint-suppressions.json.
+      # `--max-warnings=0` also promotes warnings to CI failures.
+      # `--report-unused-disable-directives` catches stale inline overrides.
+      # Regenerate baseline locally with: bun run lint:strict:suppress
+      - name: Run ESLint (strict)
+        run: bunx eslint src --max-warnings=0 --report-unused-disable-directives
+
+      - name: TypeScript typecheck
+        run: bunx tsgo --noEmit
+
+      # Plan 09 Step 9: heading-font linter gate. Fails PR if any component
+      # hard-codes a font-family outside the Ubuntu / Poppins mandate or
+      # reintroduces the `font-serif` utility. See
+      # linter-scripts/check-heading-fonts.py for the closed-set policy.
+      - name: Run heading-font linter
+        run: python3 linter-scripts/check-heading-fonts.py
+
+      # Plan 11 Step 5: error-code parity gate. Ensures the closed-set
+      # taxonomies in backend/config/lara.php ('error_codes' array) and
+      # src/lib/lara-api-error.ts (LARA_API_ERROR_CODES tuple) never drift.
+      # Uses Node directly (no bun-specific APIs) so the step remains
+      # portable. See scripts/check-error-code-parity.mjs for the parser
+      # and two-way diff logic. Exits 1 on any BE-only or FE-only code.
+      - name: Run error-code parity check (BE <-> FE closed set)
+        run: node scripts/check-error-code-parity.mjs
+
+      # Plan 11 Step 18: magic-literals linter gate (Hard Rule 8 from
+      # .lovable/coding-guidelines/coding-guidelines.md). Scans src/,
+      # backend/app/ and backend/database/migrations/ for domain vocabulary
+      # (roles, statuses, tiers, ledger actions) and 4xx/5xx HTTP status
+      # numeric literals emitted outside the canonical catalog files listed
+      # in ALLOWLIST_FILES. Runs in ratchet mode: the closed-set baseline at
+      # spec/02-coding-guidelines/magic-literals-baseline.json captures the
+      # 278 pre-existing findings; the job fails on ANY new or grown finding
+      # (regression), and also fails if a baseline entry shrank without the
+      # baseline being regenerated (staleness), so the list can only shrink.
+      # Regenerate the baseline locally after a legitimate reduction with:
+      #   python3 linter-scripts/check-magic-literals.py --write-baseline \
+      #     spec/02-coding-guidelines/magic-literals-baseline.json
+      - name: Run magic-literals linter (ratcheted BE+FE)
+        run: |
+          python3 linter-scripts/check-magic-literals.py \
+            --baseline spec/02-coding-guidelines/magic-literals-baseline.json
+
+
+      # Plan 16 Step 12: version.json schema linter gate. Fails PR if
+      # public/version.json drifts from the pinned contract in
+      # spec/28-runtime-modes/01-version-json-schema.md: missing keys,
+      # non-alphabetical / non-PascalCase order, Mode/ApiBaseUrl
+      # invariants (INV-RM-02), UpdatedAt not RFC-3339 Z-only, or Version
+      # not equal to package.json + backend/composer.json (INV-RM-09).
+      # This runs before the resolver in src/lib/runtime-mode.ts (Plan 16
+      # Steps 13-19) so malformed artifacts are caught at commit time,
+      # not at RUNTIME_CONFIG_LOAD_FAILED boot time.
+      - name: Run version.json schema linter
+        run: python3 linter-scripts/check-version-json.py
+
+      # Plan 16 Step 17: fail the build if any file under src/ reads
+      # `import.meta.env.MODE` outside the runtime-mode owner modules
+      # (`src/lib/runtime-mode.ts`, `src/lib/version-json-loader.ts`).
+      # Vite substitutes that literal at build time from the Vite build
+      # mode, which is orthogonal to the runtime `Mode` axis frozen by
+      # `bootRuntimeConfig()`. A scattered read silently drifts UI
+      # branches away from `getRuntimeMode()` / `isPreview()`.
+      - name: Run runtime-mode usage linter
+        run: python3 linter-scripts/check-runtime-mode-usage.py
+
+      # Plan 16 Step 76: typed-API-surface gate. Runs the three linters
+      # from Steps 73-75 together so drift on any of the three axes fails
+      # the same PR check:
+      #   - check-untyped-fetch.py (Step 73): no raw `fetch(` outside
+      #     `laraFetch` / `requestLaraApi` / `preview-transport` / signed
+      #     external URLs. Guards `spec/03-error-manage/` envelope,
+      #     `X-Request-Id`, bearer refresh, and Retry-After propagation.
+      #   - check-any-in-api.py (Step 74): no `: any` / `as any` / `<any>`
+      #     in `src/lib/lara-*.ts`, `src/lib/api-client.ts`, or
+      #     `src/generated/api/**`. Preserves the OpenAPI contract and
+      #     the closed-set error codes.
+      #   - check-magic-endpoint-strings.py (Step 75): no inline
+      #     `"/api/..."` outside `src/generated/api/**` and
+      #     `src/lib/preview-fixtures/**`. Forces every call through
+      #     `apiClient.call(Operations[...])` so the operationId table
+      #     stays the single source of truth (INV-RM-04).
+      # All three are strict deny lists with no baseline; the codebase
+      # is clean today and must stay clean.
+      - name: Run typed-API-surface linters (untyped-fetch, any-in-api, magic-endpoints)
+        run: |
+          python3 linter-scripts/check-untyped-fetch.py
+          python3 linter-scripts/check-any-in-api.py
+          python3 linter-scripts/check-magic-endpoint-strings.py
+

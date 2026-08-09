@@ -1,0 +1,232 @@
+name: frontend-e2e
+
+# Plan 10 step 42. Playwright suite in CI.
+#
+# Root cause locked: the 13 Playwright specs under tests/e2e/specs/
+# (auth login/register/reset, admin dashboard/license/quota/impersonation,
+# reseller dashboard, portal serial/updates, font baseline, axe a11y) run
+# only locally. Without a CI job, a broken login flow or regressed KPI
+# tile ships silently.
+#
+# Strategy:
+#   1. Boot the Laravel backend against SQLite in-memory with php's
+#      built-in server on :8000, seed E2E fixtures.
+#   2. Build the SPA (bun run build) then `vite preview` on :8080 so
+#      Playwright hits production-shaped output, not the dev HMR server.
+#   3. Poll readiness on both before running `playwright test --project=chromium`.
+#   4. Upload playwright-report/ and test-results/ artifacts.
+#
+# Nightly cross-browser matrix (firefox + webkit) lives in step 43's
+# nightly-e2e.yml so PRs stay fast.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'tests/e2e/**'
+      - 'playwright.config.ts'
+      - 'package.json'
+      - 'bun.lockb'
+      - 'backend/**'
+      - '.github/workflows/frontend-e2e.yml'
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'tests/e2e/**'
+      - 'playwright.config.ts'
+      - 'package.json'
+      - 'bun.lockb'
+      - 'backend/**'
+      - '.github/workflows/frontend-e2e.yml'
+
+concurrency:
+  group: frontend-e2e-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Gate on backend Pest so we do not burn Playwright minutes when the
+  # backend contract is already broken. Uses `workflow_run` semantics via
+  # `needs` in the same repo: the caller has to have run backend-e2e on
+  # the same commit, which is guaranteed because both trigger on the
+  # same push/PR events.
+  playwright:
+    name: Playwright (${{ matrix.seed_profile }} | shard ${{ matrix.shard }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        seed_profile: [default, empty, error]
+        shard: [1, 2]
+    env:
+      # Backend runtime (mirrors backend/phpunit.xml + local dev).
+      APP_ENV: local
+      APP_KEY: base64:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+      APP_DEBUG: 'true'
+      APP_URL: http://127.0.0.1:8000
+      BCRYPT_ROUNDS: '4'
+      CACHE_STORE: array
+      DB_CONNECTION: root
+      DB_ROOT_CONNECTION: sqlite
+      DB_ROOT_DATABASE: ':memory:'
+      DB_SHARD_CONNECTION: sqlite
+      DB_SHARD_DATABASE: ':memory:'
+      MAIL_MAILER: array
+      QUEUE_CONNECTION: sync
+      SESSION_DRIVER: array
+      TELESCOPE_ENABLED: 'false'
+      E2E_ENABLED: 'true'
+      # Playwright/e2e helpers (see docs/testing/test-data.md section 1).
+      E2E_BASE_URL: http://127.0.0.1:8080
+      E2E_ADMIN_EMAIL: admin@example.test
+      E2E_ADMIN_PASSWORD: ChangeMe!123
+      E2E_ARTISAN_CMD: php backend/artisan
+      E2E_ARTISAN_CWD: ${{ github.workspace }}
+      PLAYWRIGHT_SEED_PROFILE: ${{ matrix.seed_profile }}
+      CI: 'true'
+    steps:
+      - uses: actions/checkout@v4
+
+      # PHP for the backend server.
+      - name: Setup PHP 8.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: composer:v2
+          extensions: mbstring, intl, pdo, pdo_sqlite, bcmath, sqlite3
+
+      - name: Cache composer
+        uses: actions/cache@v4
+        with:
+          path: backend/vendor
+          key: composer-${{ runner.os }}-${{ hashFiles('backend/composer.lock', 'backend/composer.json') }}
+          restore-keys: composer-${{ runner.os }}-
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      # Bun for the SPA.
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Cache bun install
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: bun-${{ runner.os }}-${{ hashFiles('bun.lockb', 'package.json') }}
+          restore-keys: bun-${{ runner.os }}-
+
+      - name: Install SPA dependencies
+        run: bun install --frozen-lockfile
+
+      # Playwright browser + system deps. Cache the browser bundle; system
+      # deps must be reinstalled every run because they land in /usr/lib.
+      - name: Cache Playwright browsers
+        id: pw-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('bun.lockb', 'package.json') }}
+
+      - name: Install Playwright (chromium + deps)
+        run: bunx playwright install --with-deps chromium
+
+      # Migrate + seed a deterministic dataset. E2EFixturesSeeder creates
+      # the admin matching E2E_ADMIN_EMAIL/PASSWORD (see docs/testing/test-data.md).
+      - name: Migrate + seed backend
+        working-directory: backend
+        run: |
+          php artisan config:clear
+          php artisan migrate:fresh --seed --no-interaction
+
+      # Boot backend on :8000. Log to a file so failures show real output
+      # instead of a silent 500. `nohup` + `&` gives us a persistent PID.
+      - name: Start backend (php artisan serve)
+        run: |
+          mkdir -p tests/e2e/.logs
+          nohup php backend/artisan serve --host=127.0.0.1 --port=8000 \
+            > tests/e2e/.logs/backend.log 2>&1 &
+          echo "BACKEND_PID=$!" >> "$GITHUB_ENV"
+
+      - name: Wait for backend readiness (/Api/Public/Health)
+        run: |
+          for i in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:8000/Api/Public/Health >/dev/null 2>&1; then
+              echo "backend up after ${i}s"; exit 0
+            fi
+            sleep 1
+          done
+          echo "backend never came up; last log lines:"
+          tail -n 200 tests/e2e/.logs/backend.log || true
+          exit 1
+
+      # Production-shaped SPA bundle, then vite preview on :8080.
+      - name: Build SPA
+        run: bun run build
+
+      - name: Start SPA (vite preview)
+        run: |
+          nohup bun run preview --host 127.0.0.1 --port 8080 \
+            > tests/e2e/.logs/spa.log 2>&1 &
+          echo "SPA_PID=$!" >> "$GITHUB_ENV"
+
+      - name: Wait for SPA readiness
+        run: |
+          for i in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:8080/ >/dev/null 2>&1; then
+              echo "spa up after ${i}s"; exit 0
+            fi
+            sleep 1
+          done
+          echo "spa never came up; last log lines:"
+          tail -n 200 tests/e2e/.logs/spa.log || true
+          exit 1
+
+      - name: Run Playwright (chromium only)
+        run: bunx playwright test --project=chromium --shard=${{ matrix.shard }}/2
+
+      - name: Tail server logs on failure
+        if: failure()
+        run: |
+          echo "=== backend.log (last 400) ==="
+          tail -n 400 tests/e2e/.logs/backend.log || true
+          echo "=== spa.log (last 400) ==="
+          tail -n 400 tests/e2e/.logs/spa.log || true
+
+      - name: Upload Playwright HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.seed_profile }}-${{ matrix.shard }}
+          path: playwright-report
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload Playwright test-results (traces, videos, screenshots)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-test-results-${{ matrix.seed_profile }}-${{ matrix.shard }}
+          path: test-results
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Upload server logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-server-logs
+          path: tests/e2e/.logs
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Stop background servers
+        if: always()
+        run: |
+          if [ -n "${BACKEND_PID:-}" ]; then kill "$BACKEND_PID" 2>/dev/null || true; fi
+          if [ -n "${SPA_PID:-}" ]; then kill "$SPA_PID" 2>/dev/null || true; fi

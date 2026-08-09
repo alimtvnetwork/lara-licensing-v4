@@ -1,0 +1,17 @@
+{
+  "export.title": "Export backup",
+  "export.form.scope.legend": "Scope",
+  "export.form.note.label": "Note (optional)",
+  "export.form.submit": "Start export",
+  "export.form.submitting": "Starting...",
+  "export.state.queued.title": "Queued",
+  "export.state.queued.body": "Waiting for a worker.",
+  "export.state.running.title": "Running",
+  "export.state.running.body": "Phase: {phase}. {percent}% complete.",
+  "export.state.downloadReady.title": "Ready to download",
+  "export.state.downloadReady.button": "Download archive",
+  "export.state.failed.title": "Export failed",
+  "export.state.failed.body": "{errorCode}: {message}",
+  "export.state.cancelled.title": "Cancelled",
+  "export.action.reset": "Start new export"
+}

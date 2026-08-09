@@ -1,0 +1,248 @@
+name: nightly-e2e
+
+# Plan 10 step 43. Nightly cross-browser Playwright matrix.
+#
+# Root cause locked: the PR-time frontend-e2e workflow (step 42) runs
+# only the chromium project to keep pull requests fast. Without a
+# scheduled firefox + webkit run, gecko/webkit-only regressions (focus
+# rings, IntersectionObserver behaviour, CSS `oklch()` edges, WebKit
+# date/time inputs, sticky positioning quirks) ship silently to
+# Safari and Firefox users of the Licensing Portal.
+#
+# Strategy:
+#   1. Fire on schedule (05:00 UTC nightly) plus manual dispatch so
+#      developers can force a run before a release.
+#   2. Matrix over `{ firefox, webkit }` with `fail-fast: false` so one
+#      browser's failure does not mask the other's signal.
+#   3. Reuse the exact backend + SPA bootstrap contract from
+#      frontend-e2e.yml (SQLite in-memory, php artisan serve :8000,
+#      vite preview :8080, readiness probes with tailed logs on
+#      timeout) so any drift is a real cross-browser difference and
+#      not an environment gap.
+#   4. Per-browser artifact names (playwright-report-<browser>,
+#      playwright-test-results-<browser>, e2e-server-logs-<browser>)
+#      set the naming convention step 44 coverage consolidation will
+#      merge against.
+
+on:
+  schedule:
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+    inputs:
+      browsers:
+        description: 'Comma-separated browsers to run (firefox, webkit). Leave blank for both.'
+        required: false
+        default: ''
+
+concurrency:
+  group: nightly-e2e-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  playwright:
+    name: Playwright (${{ matrix.browser }} | ${{ matrix.seed_profile }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [firefox, webkit]
+        seed_profile: [default, empty, error]
+    env:
+      APP_ENV: local
+      APP_KEY: base64:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+      APP_DEBUG: 'true'
+      APP_URL: http://127.0.0.1:8000
+      BCRYPT_ROUNDS: '4'
+      CACHE_STORE: array
+      DB_CONNECTION: root
+      DB_ROOT_CONNECTION: sqlite
+      DB_ROOT_DATABASE: ':memory:'
+      DB_SHARD_CONNECTION: sqlite
+      DB_SHARD_DATABASE: ':memory:'
+      MAIL_MAILER: array
+      QUEUE_CONNECTION: sync
+      SESSION_DRIVER: array
+      TELESCOPE_ENABLED: 'false'
+      E2E_ENABLED: 'true'
+      E2E_BASE_URL: http://127.0.0.1:8080
+      E2E_ADMIN_EMAIL: admin@example.test
+      E2E_ADMIN_PASSWORD: ChangeMe!123
+      E2E_ARTISAN_CMD: php backend/artisan
+      E2E_ARTISAN_CWD: ${{ github.workspace }}
+      PLAYWRIGHT_SEED_PROFILE: ${{ matrix.seed_profile }}
+      CI: 'true'
+    steps:
+      - uses: actions/checkout@v4
+
+      # Optional manual filter: skip a browser when workflow_dispatch
+      # `browsers` input is set and does not include this matrix cell.
+      - name: Compute skip flag
+        id: filter
+        shell: bash
+        run: |
+          requested='${{ github.event.inputs.browsers }}'
+          if [ -z "${requested}" ]; then
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          elif echo ",${requested}," | grep -q ",${{ matrix.browser }},"; then
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Setup PHP 8.3
+        if: steps.filter.outputs.skip != 'true'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: composer:v2
+          extensions: mbstring, intl, pdo, pdo_sqlite, bcmath, sqlite3
+
+      - name: Cache composer
+        if: steps.filter.outputs.skip != 'true'
+        uses: actions/cache@v4
+        with:
+          path: backend/vendor
+          key: composer-${{ runner.os }}-${{ hashFiles('backend/composer.lock', 'backend/composer.json') }}
+          restore-keys: composer-${{ runner.os }}-
+
+      - name: Install backend dependencies
+        if: steps.filter.outputs.skip != 'true'
+        working-directory: backend
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Setup Bun
+        if: steps.filter.outputs.skip != 'true'
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Cache bun install
+        if: steps.filter.outputs.skip != 'true'
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: bun-${{ runner.os }}-${{ hashFiles('bun.lockb', 'package.json') }}
+          restore-keys: bun-${{ runner.os }}-
+
+      - name: Install SPA dependencies
+        if: steps.filter.outputs.skip != 'true'
+        run: bun install --frozen-lockfile
+
+      - name: Cache Playwright browsers
+        if: steps.filter.outputs.skip != 'true'
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ matrix.browser }}-${{ hashFiles('bun.lockb', 'package.json') }}
+
+      - name: Install Playwright (${{ matrix.browser }} + deps)
+        if: steps.filter.outputs.skip != 'true'
+        run: bunx playwright install --with-deps ${{ matrix.browser }}
+
+      - name: Migrate + seed backend
+        if: steps.filter.outputs.skip != 'true'
+        working-directory: backend
+        run: |
+          php artisan config:clear
+          php artisan migrate:fresh --seed --no-interaction
+
+      - name: Start backend (php artisan serve)
+        if: steps.filter.outputs.skip != 'true'
+        run: |
+          mkdir -p tests/e2e/.logs
+          nohup php backend/artisan serve --host=127.0.0.1 --port=8000 \
+            > tests/e2e/.logs/backend.log 2>&1 &
+          echo "BACKEND_PID=$!" >> "$GITHUB_ENV"
+
+      - name: Wait for backend readiness (/Api/Public/Health)
+        if: steps.filter.outputs.skip != 'true'
+        run: |
+          for i in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:8000/Api/Public/Health >/dev/null 2>&1; then
+              echo "backend up after ${i}s"; exit 0
+            fi
+            sleep 1
+          done
+          echo "backend never came up; last log lines:"
+          tail -n 200 tests/e2e/.logs/backend.log || true
+          exit 1
+
+      - name: Build SPA
+        if: steps.filter.outputs.skip != 'true'
+        run: bun run build
+
+      - name: Start SPA (vite preview)
+        if: steps.filter.outputs.skip != 'true'
+        run: |
+          nohup bun run preview --host 127.0.0.1 --port 8080 \
+            > tests/e2e/.logs/spa.log 2>&1 &
+          echo "SPA_PID=$!" >> "$GITHUB_ENV"
+
+      - name: Wait for SPA readiness
+        if: steps.filter.outputs.skip != 'true'
+        run: |
+          for i in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:8080/ >/dev/null 2>&1; then
+              echo "spa up after ${i}s"; exit 0
+            fi
+            sleep 1
+          done
+          echo "spa never came up; last log lines:"
+          tail -n 200 tests/e2e/.logs/spa.log || true
+          exit 1
+
+      - name: Run Playwright (${{ matrix.browser }})
+        if: steps.filter.outputs.skip != 'true'
+        run: bunx playwright test --project=${{ matrix.browser }}
+
+      - name: Tail server logs on failure
+        if: failure() && steps.filter.outputs.skip != 'true'
+        run: |
+          echo "=== backend.log (last 400) ==="
+          tail -n 400 tests/e2e/.logs/backend.log || true
+          echo "=== spa.log (last 400) ==="
+          tail -n 400 tests/e2e/.logs/spa.log || true
+
+      - name: Upload Playwright HTML report
+        if: always() && steps.filter.outputs.skip != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.browser }}-${{ matrix.seed_profile }}
+          path: playwright-report
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload Playwright test-results
+        if: always() && steps.filter.outputs.skip != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-test-results-${{ matrix.browser }}-${{ matrix.seed_profile }}
+          path: test-results
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Upload server logs
+        if: always() && steps.filter.outputs.skip != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-server-logs-${{ matrix.browser }}-${{ matrix.seed_profile }}
+          path: tests/e2e/.logs
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Upload baselines
+        if: always() && steps.filter.outputs.skip != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-baselines-${{ matrix.browser }}-${{ matrix.seed_profile }}
+          path: tests/e2e/baselines/plan-18/
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Stop background servers
+        if: always() && steps.filter.outputs.skip != 'true'
+        run: |
+          if [ -n "${BACKEND_PID:-}" ]; then kill "$BACKEND_PID" 2>/dev/null || true; fi
+          if [ -n "${SPA_PID:-}" ]; then kill "$SPA_PID" 2>/dev/null || true; fi

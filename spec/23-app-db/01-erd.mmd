@@ -1,0 +1,22 @@
+erDiagram
+    Users ||--o{ UserRoles : has
+    Roles ||--o{ UserRoles : grants
+    Resellers ||--o{ Users : employs
+    Resellers ||--o{ Prefixes : owns
+    Resellers ||--o{ LicensePackages : offers
+    Resellers ||--o{ Licenses : issues
+
+    LicenseCategories ||--o{ Licenses : classifies
+    LicensePackages ||--o{ Licenses : groups
+    Licenses ||--|| LicenseVariations : constrains
+    Licenses ||--o{ Serials : yields
+    Prefixes ||--o{ Serials : prefixes
+
+    Licenses ||--o{ MachineBindings : binds
+    Licenses ||--o{ UserBindings : binds
+
+    AppBuilders ||--o{ VerifyKeys : issued_for
+    Licenses ||--o{ VerifyKeys : verifies
+    Serials ||--o{ VerifyKeys : verifies
+
+    Users ||--o{ AuditLogs : acts

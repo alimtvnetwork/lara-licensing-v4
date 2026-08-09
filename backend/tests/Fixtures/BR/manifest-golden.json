@@ -1,0 +1,43 @@
+{
+  "version": "1.0.0",
+  "archiveKind": "export",
+  "archiveId": "018fa7c3-1a2b-7c4d-8e5f-6a7b8c9d0e1f",
+  "createdAt": "2026-07-23T00:00:00Z",
+  "appVersion": "0.612.0",
+  "schemaHash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "contentHash": "1111111111111111111111111111111111111111111111111111111111111111",
+  "chunkIndex": {
+    "algorithm": "zstd",
+    "level": 19,
+    "chunkSize": 8388608,
+    "chunks": [
+      { "path": "scope/schema.jsonl.zst", "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "bytes": 123 }
+    ],
+    "merkleRoot": "1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  "encryption": {
+    "algorithm": "aes-256-gcm",
+    "kdf": "hkdf-sha256",
+    "epoch": 1,
+    "kid": "epoch-1-2026-07",
+    "nonceBytes": 12,
+    "salt": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    "envelope": { "sealedDek": "AAAA", "aad": "BBBB" }
+  },
+  "scope": {
+    "schema":         { "contentHash": "2222222222222222222222222222222222222222222222222222222222222222", "migrations": ["2026_07_20_000001.php"] },
+    "closedSets":     { "contentHash": "3333333333333333333333333333333333333333333333333333333333333333", "setCount": 1, "valueCount": 3 },
+    "features":       { "contentHash": "4444444444444444444444444444444444444444444444444444444444444444", "featureCount": 0, "defaultCount": 0 },
+    "licenses":       { "contentHash": "5555555555555555555555555555555555555555555555555555555555555555", "licenseCount": 0, "epochCount": 0, "featureLinkCount": 0 },
+    "rbac":           { "contentHash": "6666666666666666666666666666666666666666666666666666666666666666", "userRoleCount": 0, "casbinRuleCount": 45, "bootstrapPresent": true },
+    "domain":         { "contentHash": "7777777777777777777777777777777777777777777777777777777777777777", "tables": [] },
+    "secretsEnvelope":{ "contentHash": "8888888888888888888888888888888888888888888888888888888888888888", "algorithm": "hkdf-sha256", "epoch": 1, "kid": "epoch-1-2026-07" },
+    "files":          { "contentHash": "9999999999999999999999999999999999999999999999999999999999999999", "objectCount": 0, "totalBytes": 0, "index": "scope/files/index.jsonl.zst" }
+  },
+  "excluded": ["public.audit_log", "public.jobs", "shard.auth_sessions"],
+  "producedBy": {
+    "userId": "018fa7c3-1a2b-7c4d-8e5f-6a7b8c9d0e20",
+    "role": "super_admin",
+    "requestId": "req-golden-0001"
+  }
+}

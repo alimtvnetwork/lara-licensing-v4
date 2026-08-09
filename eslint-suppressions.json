@@ -1,0 +1,1079 @@
+{
+  "$schema": "https://json.schemastore.org/eslint-suppressions.json",
+  "_comment": "ESLint 9 bulk-suppressions baseline. Regenerate with: bun run lint:strict:suppress. Never hand-edit. Shrinking is free; growing requires PR justification. CI (frontend-static-analysis.yml) runs `bun run lint:strict` and fails on any finding not captured here, and also fails when a listed entry no longer matches (unused suppression = baseline rot).",
+  "files": {
+  },
+  "src/assets/illustrations/EmptyBoxIllustration.tsx": {
+    "max-lines-per-function": {
+      "count": 1
+    }
+  },
+  "src/assets/illustrations/EmptySearchIllustration.tsx": {
+    "max-lines-per-function": {
+      "count": 1
+    }
+  },
+  "src/components/admin/PublishBuildDialog.tsx": {
+    "@typescript-eslint/no-misused-promises": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 2
+    },
+    "no-restricted-syntax": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 7
+    }
+  },
+  "src/components/admin/UserSessionsPanel.tsx": {
+    "max-lines-per-function": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 7
+    }
+  },
+  "src/components/admin/admin-quota-requests-data-table.tsx": {
+    "max-lines-per-function": {
+      "count": 3
+    },
+    "prettier/prettier": {
+      "count": 10
+    }
+  },
+  "src/components/admin/app-updates-data-table.tsx": {
+    "max-lines-per-function": {
+      "count": 5
+    },
+    "prettier/prettier": {
+      "count": 6
+    }
+  },
+  "src/components/admin/force-end-impersonation-button.tsx": {
+    "@typescript-eslint/consistent-type-imports": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 3
+    }
+  },
+  "src/components/admin/impersonate-user-button.tsx": {
+    "@typescript-eslint/no-misused-promises": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 11
+    }
+  },
+  "src/components/admin/license-detail-actions.tsx": {
+    "@typescript-eslint/no-misused-promises": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 3
+    },
+    "prettier/prettier": {
+      "count": 26
+    }
+  },
+  "src/components/admin/license-issue-form.tsx": {
+    "@typescript-eslint/no-misused-promises": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 3
+    },
+    "prettier/prettier": {
+      "count": 26
+    }
+  },
+  "src/components/admin/license-ledger.tsx": {
+    "@typescript-eslint/no-unnecessary-condition": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 3
+    }
+  },
+  "src/components/admin/lineage-badge.tsx": {
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 4
+    }
+  },
+  "src/components/admin/prefix-manager.tsx": {
+    "max-lines-per-function": {
+      "count": 4
+    },
+    "prettier/prettier": {
+      "count": 5
+    }
+  },
+  "src/components/admin/recent-activity.tsx": {
+    "@typescript-eslint/no-unnecessary-condition": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 2
+    }
+  },
+  "src/components/admin/reseller-activity.tsx": {
+    "@typescript-eslint/no-unnecessary-condition": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 2
+    }
+  },
+  "src/components/admin/reseller-create-form.tsx": {
+    "max-lines-per-function": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 3
+    }
+  },
+  "src/components/admin/reseller-data-table.tsx": {
+    "max-lines-per-function": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 3
+    }
+  },
+  "src/components/admin/reseller-edit-form.tsx": {
+    "max-lines-per-function": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 10
+    }
+  },
+  "src/components/admin/serial-issue-form.tsx": {
+    "@typescript-eslint/no-misused-promises": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 14
+    }
+  },
+  "src/components/admin/user-activity.tsx": {
+    "@typescript-eslint/no-unnecessary-condition": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 4
+    }
+  },
+  "src/components/admin/user-data-table.tsx": {
+    "max-lines-per-function": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 4
+    }
+  },
+  "src/components/admin/user-identity-card.tsx": {
+    "max-lines-per-function": {
+      "count": 1
+    }
+  },
+  "src/components/admin/user-role-picker.tsx": {
+    "max-lines-per-function": {
+      "count": 3
+    },
+    "prettier/prettier": {
+      "count": 5
+    }
+  },
+  "src/components/auth/AuthCard.tsx": {
+    "max-lines-per-function": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 3
+    }
+  },
+  "src/components/badge/registry.ts": {
+    "@typescript-eslint/no-unnecessary-condition": {
+      "count": 1
+    },
+    "no-restricted-syntax": {
+      "count": 1
+    }
+  },
+  "src/components/brand/lara-mark.tsx": {
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 2
+    }
+  },
+  "src/components/global/GlobalErrorModal.tsx": {
+    "@typescript-eslint/no-unnecessary-condition": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/components/global/GlobalRateLimitBanner.tsx": {
+    "max-lines-per-function": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 3
+    }
+  },
+  "src/components/impersonation-banner.tsx": {
+    "@typescript-eslint/consistent-type-imports": {
+      "count": 1
+    },
+    "@typescript-eslint/no-misused-promises": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 5
+    }
+  },
+  "src/components/landing/CtaFooter.tsx": {
+    "max-lines-per-function": {
+      "count": 2
+    }
+  },
+  "src/components/landing/FeatureGrid.tsx": {
+    "max-lines-per-function": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/components/landing/HeroSection.tsx": {
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/components/portal/serial-lookup-panel.tsx": {
+    "max-lines-per-function": {
+      "count": 5
+    },
+    "prettier/prettier": {
+      "count": 9
+    }
+  },
+  "src/components/quota/admin-quota-section.tsx": {
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 4
+    }
+  },
+  "src/components/quota/quota-adjust-form.tsx": {
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 10
+    }
+  },
+  "src/components/quota/quota-request-list.tsx": {
+    "max-lines-per-function": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 12
+    }
+  },
+  "src/components/quota/quota-request-submit-form.tsx": {
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 10
+    }
+  },
+  "src/components/quota/quota-summary-table.tsx": {
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 3
+    }
+  },
+  "src/components/quota/reseller-quota-requests-data-table.tsx": {
+    "max-lines-per-function": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 3
+    }
+  },
+  "src/components/retry-after-banner.tsx": {
+    "@typescript-eslint/consistent-type-imports": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 3
+    }
+  },
+  "src/components/shell/AppShell.tsx": {
+    "max-lines-per-function": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 3
+    }
+  },
+  "src/components/shell/AppSidebar.tsx": {
+    "max-lines-per-function": {
+      "count": 3
+    },
+    "prettier/prettier": {
+      "count": 5
+    }
+  },
+  "src/components/shell/Breadcrumbs.tsx": {
+    "max-lines-per-function": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 3
+    }
+  },
+  "src/components/shell/CommandPalette.tsx": {
+    "max-lines-per-function": {
+      "count": 2
+    }
+  },
+  "src/components/shell/Identifier.tsx": {
+    "@typescript-eslint/no-misused-promises": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/components/shell/PageHeader.tsx": {
+    "max-lines-per-function": {
+      "count": 1
+    }
+  },
+  "src/components/shell/ProfileMenu.tsx": {
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 2
+    }
+  },
+  "src/components/shell/RoleChip.tsx": {
+    "prettier/prettier": {
+      "count": 4
+    }
+  },
+  "src/components/shell/RouteFallbacks.tsx": {
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/components/shell/StatusBadge.tsx": {
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/components/shell/TopbarSearch.tsx": {
+    "max-lines-per-function": {
+      "count": 1
+    }
+  },
+  "src/components/shell/nav-tree.ts": {
+    "prettier/prettier": {
+      "count": 29
+    }
+  },
+  "src/components/state/route-states.tsx": {
+    "max-lines-per-function": {
+      "count": 3
+    },
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/components/state/state-card.tsx": {
+    "@typescript-eslint/no-unnecessary-condition": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/components/state/use-state-telemetry.ts": {
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/components/ui/badge.tsx": {
+    "prettier/prettier": {
+      "count": 3
+    }
+  },
+  "src/components/ui/banner.tsx": {
+    "prettier/prettier": {
+      "count": 4
+    }
+  },
+  "src/components/ui/button.tsx": {
+    "prettier/prettier": {
+      "count": 13
+    }
+  },
+  "src/components/ui/command.tsx": {
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/components/ui/context-menu.tsx": {
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/components/ui/data-table.tsx": {
+    "prettier/prettier": {
+      "count": 4
+    }
+  },
+  "src/components/ui/dialog.tsx": {
+    "prettier/prettier": {
+      "count": 2
+    }
+  },
+  "src/components/ui/dropdown-menu.tsx": {
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/components/ui/empty-state.tsx": {
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/components/ui/radio-group.tsx": {
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/components/ui/select.tsx": {
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/components/ui/sheet.tsx": {
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/components/ui/skeleton.tsx": {
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/components/ui/stat-card.tsx": {
+    "prettier/prettier": {
+      "count": 2
+    }
+  },
+  "src/components/ui/table.tsx": {
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/components/ui/timeline.tsx": {
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/components/update-banner.tsx": {
+    "@typescript-eslint/consistent-type-imports": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 1
+    }
+  },
+  "src/hooks/use-app-toast.ts": {
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "no-restricted-syntax": {
+      "count": 1
+    }
+  },
+  "src/hooks/use-hotkey.ts": {
+    "max-lines-per-function": {
+      "count": 1
+    }
+  },
+  "src/hooks/use-lara-error-toast.ts": {
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/lib/closed-sets.ts": {
+    "@typescript-eslint/no-unnecessary-condition": {
+      "count": 1
+    },
+    "no-restricted-syntax": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 5
+    }
+  },
+  "src/lib/command-registry.ts": {
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/lib/copy.ts": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 7
+    }
+  },
+  "src/lib/error-copy.ts": {
+    "@typescript-eslint/no-unnecessary-condition": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 8
+    }
+  },
+  "src/lib/error-page.ts": {
+    "max-lines-per-function": {
+      "count": 1
+    }
+  },
+  "src/lib/error-store.ts": {
+    "@typescript-eslint/consistent-type-imports": {
+      "count": 2
+    },
+    "@typescript-eslint/no-unnecessary-condition": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/lib/lara-api-client.ts": {
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 4
+    }
+  },
+  "src/lib/lara-api-error.ts": {
+    "prettier/prettier": {
+      "count": 3
+    }
+  },
+  "src/lib/lara-api-response.ts": {
+    "@typescript-eslint/consistent-type-imports": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 3
+    },
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/lib/lara-app-updates.ts": {
+    "no-restricted-syntax": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 15
+    }
+  },
+  "src/lib/lara-audit.ts": {
+    "prettier/prettier": {
+      "count": 2
+    }
+  },
+  "src/lib/lara-envelope.ts": {
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/lib/lara-environment.ts": {
+    "no-restricted-syntax": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 4
+    }
+  },
+  "src/lib/lara-features.ts": {
+    "max-lines-per-function": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 2
+    }
+  },
+  "src/lib/lara-fetch.ts": {
+    "prettier/prettier": {
+      "count": 2
+    }
+  },
+  "src/lib/lara-impersonation.ts": {
+    "max-lines-per-function": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 5
+    }
+  },
+  "src/lib/lara-license.ts": {
+    "prettier/prettier": {
+      "count": 4
+    }
+  },
+  "src/lib/lara-metrics.ts": {
+    "max-lines-per-function": {
+      "count": 1
+    }
+  },
+  "src/lib/lara-prefix.ts": {
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 9
+    }
+  },
+  "src/lib/lara-quota.ts": {
+    "max-lines-per-function": {
+      "count": 7
+    },
+    "no-restricted-syntax": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 21
+    }
+  },
+  "src/lib/lara-reseller-license.ts": {
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/lib/lara-reseller.ts": {
+    "prettier/prettier": {
+      "count": 4
+    }
+  },
+  "src/lib/lara-retry.ts": {
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/lib/lara-self-update.ts": {
+    "max-lines-per-function": {
+      "count": 4
+    },
+    "prettier/prettier": {
+      "count": 5
+    }
+  },
+  "src/lib/lara-serial.ts": {
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/lib/lara-shard-status.ts": {
+    "max-lines-per-function": {
+      "count": 1
+    }
+  },
+  "src/lib/lara-sidebar-collapsed.ts": {
+    "prettier/prettier": {
+      "count": 4
+    }
+  },
+  "src/lib/lara-user-role.ts": {
+    "prettier/prettier": {
+      "count": 5
+    }
+  },
+  "src/lib/lovable-error-reporting.ts": {
+    "max-lines-per-function": {
+      "count": 1
+    }
+  },
+  "src/lib/shortcut-registry.ts": {
+    "@typescript-eslint/no-unnecessary-condition": {
+      "count": 1
+    },
+    "no-restricted-syntax": {
+      "count": 1
+    }
+  },
+  "src/lib/use-retry-after-countdown.ts": {
+    "max-lines-per-function": {
+      "count": 2
+    }
+  },
+  "src/router.tsx": {
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/routes/__root.tsx": {
+    "@typescript-eslint/consistent-type-imports": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 4
+    }
+  },
+  "src/routes/_authenticated.tsx": {
+    "prettier/prettier": {
+      "count": 2
+    }
+  },
+  "src/routes/_authenticated/admin.app-updates.tsx": {
+    "@typescript-eslint/no-misused-promises": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 1
+    }
+  },
+  "src/routes/_authenticated/admin.audit.tsx": {
+    "max-lines-per-function": {
+      "count": 3
+    },
+    "prettier/prettier": {
+      "count": 9
+    }
+  },
+  "src/routes/_authenticated/admin.design.tsx": {
+    "max-lines-per-function": {
+      "count": 6
+    },
+    "prettier/prettier": {
+      "count": 8
+    }
+  },
+  "src/routes/_authenticated/admin.index.tsx": {
+    "@typescript-eslint/no-unnecessary-condition": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 10
+    }
+  },
+  "src/routes/_authenticated/admin.licenses.$licenseId.tsx": {
+    "@typescript-eslint/no-unnecessary-condition": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 2
+    },
+    "no-restricted-syntax": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/routes/_authenticated/admin.quota-requests.tsx": {
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/routes/_authenticated/admin.resellers.$resellerId.tsx": {
+    "@typescript-eslint/no-unnecessary-condition": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "no-restricted-syntax": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 4
+    }
+  },
+  "src/routes/_authenticated/admin.resellers.new.tsx": {
+    "max-lines-per-function": {
+      "count": 1
+    }
+  },
+  "src/routes/_authenticated/admin.resellers.tsx": {
+    "prettier/prettier": {
+      "count": 4
+    }
+  },
+  "src/routes/_authenticated/admin.serials.tsx": {
+    "@typescript-eslint/no-misused-promises": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 5
+    }
+  },
+  "src/routes/_authenticated/admin.users.$userId.tsx": {
+    "@typescript-eslint/no-unnecessary-condition": {
+      "count": 5
+    },
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 14
+    }
+  },
+  "src/routes/_authenticated/admin.users.new.tsx": {
+    "@typescript-eslint/no-floating-promises": {
+      "count": 1
+    },
+    "@typescript-eslint/no-misused-promises": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 2
+    }
+  },
+  "src/routes/_authenticated/admin.users.tsx": {
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 4
+    }
+  },
+  "src/routes/_authenticated/portal.home.tsx": {
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/routes/_authenticated/portal.tsx": {
+    "@typescript-eslint/no-unnecessary-condition": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "no-restricted-syntax": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 5
+    }
+  },
+  "src/routes/_authenticated/portal.updates.tsx": {
+    "@typescript-eslint/no-misused-promises": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 5
+    },
+    "prettier/prettier": {
+      "count": 21
+    }
+  },
+  "src/routes/_authenticated/reseller.$resellerId.index.tsx": {
+    "@typescript-eslint/no-unnecessary-condition": {
+      "count": 4
+    },
+    "max-lines-per-function": {
+      "count": 5
+    },
+    "no-restricted-syntax": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 5
+    }
+  },
+  "src/routes/_authenticated/reseller.$resellerId.licenses.$licenseKey.tsx": {
+    "@typescript-eslint/no-unnecessary-condition": {
+      "count": 2
+    },
+    "max-lines-per-function": {
+      "count": 2
+    },
+    "no-restricted-syntax": {
+      "count": 3
+    },
+    "prettier/prettier": {
+      "count": 8
+    }
+  },
+  "src/routes/_authenticated/reseller.$resellerId.licenses.index.tsx": {
+    "@typescript-eslint/no-unnecessary-condition": {
+      "count": 3
+    },
+    "max-lines-per-function": {
+      "count": 2
+    },
+    "no-restricted-syntax": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 12
+    }
+  },
+  "src/routes/_authenticated/reseller.$resellerId.quota-requests.tsx": {
+    "@typescript-eslint/no-unnecessary-condition": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 3
+    },
+    "no-restricted-syntax": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 11
+    }
+  },
+  "src/routes/admin.login.tsx": {
+    "@typescript-eslint/no-misused-promises": {
+      "count": 2
+    },
+    "max-lines-per-function": {
+      "count": 5
+    },
+    "prettier/prettier": {
+      "count": 3
+    }
+  },
+  "src/routes/e2e.error-harness.tsx": {
+    "max-lines-per-function": {
+      "count": 1
+    },
+    "prettier/prettier": {
+      "count": 1
+    }
+  },
+  "src/routes/forgot-password.tsx": {
+    "@typescript-eslint/no-misused-promises": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 2
+    },
+    "prettier/prettier": {
+      "count": 5
+    }
+  },
+  "src/routes/index.tsx": {
+    "max-lines-per-function": {
+      "count": 2
+    }
+  },
+  "src/routes/register.tsx": {
+    "@typescript-eslint/no-misused-promises": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 4
+    },
+    "prettier/prettier": {
+      "count": 8
+    }
+  },
+  "src/routes/reset-password.tsx": {
+    "@typescript-eslint/no-misused-promises": {
+      "count": 1
+    },
+    "max-lines-per-function": {
+      "count": 3
+    },
+    "prettier/prettier": {
+      "count": 15
+    }
+  },
+  "src/server.ts": {
+    "@typescript-eslint/no-unnecessary-condition": {
+      "count": 1
+    }
+  }
+}

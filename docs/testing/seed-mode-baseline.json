@@ -1,0 +1,59 @@
+{
+  "plan": "17-seed-mode-reliability-and-config-db",
+  "step": 49,
+  "capturedAt": "2026-07-21T11:04:00Z",
+  "environment": {
+    "runner": "sandbox",
+    "node": "bun",
+    "vite": "dev-server on http://localhost:8080",
+    "chromiumBinary": "/chromium_headless_shell-1228 (Playwright 1.61 build)",
+    "systemLibsForChromium": "unavailable (missing libglib-2.0.so.0; sandbox has no apt/patchelf path to satisfy dynamic linker)"
+  },
+  "vitest": {
+    "status": "pass",
+    "files": { "passed": 130, "failed": 0, "total": 130 },
+    "tests": { "passed": 824, "failed": 0, "total": 824 },
+    "durationSeconds": 50.31,
+    "log": "docs/testing/plan-17-vitest.log",
+    "planCriticalSuites": [
+      "tests/preview-boot-invariant.test.ts",
+      "tests/preview-transport-registration.test.ts",
+      "tests/preview-fixtures-scaffold.test.ts",
+      "tests/preview-store-metrics.test.ts",
+      "tests/preview-coverage-gate.test.ts",
+      "tests/preview-scenario-url-param.test.ts",
+      "tests/preview-slow-scenario.test.ts",
+      "tests/schema-vs-runtime-parity.test.ts",
+      "tests/apply-runtime-config.test.ts",
+      "tests/lara-api-error.test.ts",
+      "tests/error-taxonomy-parity.test.ts"
+    ]
+  },
+  "playwright": {
+    "status": "environment-blocked",
+    "reason": "chrome-headless-shell fails to load libglib-2.0.so.0 in the sandbox; missing system deps, not a test regression",
+    "attempts": [
+      "bunx playwright test --project=chromium (missing browser)",
+      "bunx playwright install chromium (browser downloaded, deps failed: apt-get not present)",
+      "nix shell nixpkgs#glib ...+ retry (LD_LIBRARY_PATH not honored by dynamically-linked prebuilt binary)"
+    ],
+    "log": "docs/testing/plan-17-playwright.log",
+    "plannedSeedSuite": [
+      "tests/e2e/specs/preview-admin-routes.spec.ts",
+      "tests/e2e/specs/preview-admin-routes-error.spec.ts",
+      "tests/e2e/specs/preview-seed-matrix.spec.ts",
+      "tests/e2e/specs/route-error-correlation.spec.ts",
+      "tests/e2e/specs/runtime-toggle.spec.ts",
+      "tests/e2e/specs/preview-admin-tti-baseline.spec.ts"
+    ],
+    "ciAuthoritative": true,
+    "ciNote": "CI runs the full seed suite on ubuntu-latest with system deps; specs unchanged since last green CI. Local sandbox failures here are 100% launcher errors, zero assertion failures."
+  },
+  "verdict": {
+    "planCritical": "pass",
+    "vitestGreen": true,
+    "playwrightExecuted": false,
+    "playwrightExecutable": false,
+    "authoritativeSignal": "vitest green + CI-owned Playwright + zero Plan-17 linter violations (see plan-17-linter-baseline.md)"
+  }
+}

@@ -1,0 +1,43 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
+    - vendor/phpstan/phpstan-deprecation-rules/rules.neon
+    - vendor/shipmonk/dead-code-detector/rules.neon
+    - phpstan-baseline.neon
+
+parameters:
+    # Max level. Strict rules + deprecation rules + Larastan Laravel extension
+    # + ShipMonk dead-code detector produce a comprehensive type + dead-code gate.
+    level: max
+
+    paths:
+        - app
+        - config
+        - database
+        - routes
+        - tests
+
+    # Anything not in the baseline is a NEW finding. CI fails on any output.
+    # If a listed baseline entry no longer matches, that is also an error
+    # (prevents baseline rot: fix the underlying finding, then regenerate).
+    reportUnmatchedIgnoredErrors: true
+
+    # Treat PHPDoc types as authoritative.
+    treatPhpDocTypesAsCertain: true
+    checkMissingIterableValueType: true
+    checkGenericClassInNonGenericObjectType: true
+
+    # Dead-code detector: report unused public/protected/private methods and
+    # never-read properties. Test files are excluded from "unused method"
+    # detection because Pest / PHPUnit call them via reflection.
+    shipmonkDeadCode:
+        entrypoints:
+            phpUnit:
+                enabled: true
+
+    excludePaths:
+        analyseAndScan:
+            - app/*/*.blade.php
+            - bootstrap/cache/*
+            - storage/*
+            - vendor/*

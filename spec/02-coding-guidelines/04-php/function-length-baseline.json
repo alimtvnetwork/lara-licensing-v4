@@ -1,0 +1,585 @@
+{
+  "note": "Closed-set baseline of pre-existing functions exceeding the 15-line body cap. New violations are rejected by FunctionBodyLineCapTest. Reduce this list; do not add to it.",
+  "entries": [
+    {
+      "file": "app/Console/Commands/AuditEndpoints.php",
+      "function": "auditOne",
+      "approxLines": 69
+    },
+    {
+      "file": "app/Console/Commands/AuditEndpoints.php",
+      "function": "handle",
+      "approxLines": 69
+    },
+    {
+      "file": "app/Console/Commands/AuthSessionsRetentionSweepCommand.php",
+      "function": "deleteBatched",
+      "approxLines": 20
+    },
+    {
+      "file": "app/Console/Commands/DbCiSummaryCommand.php",
+      "function": "handle",
+      "approxLines": 22
+    },
+    {
+      "file": "app/Console/Commands/DbCiSummaryCommand.php",
+      "function": "renderMarkdown",
+      "approxLines": 41
+    },
+    {
+      "file": "app/Console/Commands/DbCiSummaryCommand.php",
+      "function": "snapshotConnection",
+      "approxLines": 17
+    },
+    {
+      "file": "app/Console/Commands/DbMigrationIdempotencyCommand.php",
+      "function": "handle",
+      "approxLines": 18
+    },
+    {
+      "file": "app/Console/Commands/E2EFirstResellerIdCommand.php",
+      "function": "handle",
+      "approxLines": 21
+    },
+    {
+      "file": "app/Console/Commands/E2EMintPasswordResetTokenCommand.php",
+      "function": "handle",
+      "approxLines": 39
+    },
+    {
+      "file": "app/Console/Commands/ImpersonationTimeoutSweepCommand.php",
+      "function": "insertTimeoutAudit",
+      "approxLines": 18
+    },
+    {
+      "file": "app/Console/Commands/SelfUpdateOrphanTicketSweepCommand.php",
+      "function": "insertExpiryAudit",
+      "approxLines": 18
+    },
+    {
+      "file": "app/Console/Commands/ShardProvisionCommand.php",
+      "function": "handle",
+      "approxLines": 25
+    },
+    {
+      "file": "app/Http/Controllers/Admin/AppUpdateController.php",
+      "function": "assertTicketFinalizable",
+      "approxLines": 21
+    },
+    {
+      "file": "app/Http/Controllers/Admin/AppUpdateController.php",
+      "function": "assertVersionMonotonic",
+      "approxLines": 16
+    },
+    {
+      "file": "app/Http/Controllers/Admin/AppUpdateController.php",
+      "function": "finalizeAssets",
+      "approxLines": 24
+    },
+    {
+      "file": "app/Http/Controllers/Admin/AppUpdateController.php",
+      "function": "index",
+      "approxLines": 27
+    },
+    {
+      "file": "app/Http/Controllers/Admin/AppUpdateController.php",
+      "function": "presentUpdate",
+      "approxLines": 22
+    },
+    {
+      "file": "app/Http/Controllers/Admin/AppUpdateController.php",
+      "function": "publish",
+      "approxLines": 18
+    },
+    {
+      "file": "app/Http/Controllers/Admin/AppUpdateController.php",
+      "function": "reserveAsset",
+      "approxLines": 16
+    },
+    {
+      "file": "app/Http/Controllers/Admin/AppUpdateController.php",
+      "function": "yank",
+      "approxLines": 29
+    },
+    {
+      "file": "app/Http/Controllers/Admin/AuditController.php",
+      "function": "parseFilters",
+      "approxLines": 16
+    },
+    {
+      "file": "app/Http/Controllers/Admin/BindingController.php",
+      "function": "applyClearCooldown",
+      "approxLines": 29
+    },
+    {
+      "file": "app/Http/Controllers/Admin/BindingController.php",
+      "function": "applyRelease",
+      "approxLines": 28
+    },
+    {
+      "file": "app/Http/Controllers/Admin/LicenseController.php",
+      "function": "applyRestore",
+      "approxLines": 23
+    },
+    {
+      "file": "app/Http/Controllers/Admin/LicenseController.php",
+      "function": "applyUpdate",
+      "approxLines": 17
+    },
+    {
+      "file": "app/Http/Controllers/Admin/LicenseController.php",
+      "function": "enforceIfMatch",
+      "approxLines": 24
+    },
+    {
+      "file": "app/Http/Controllers/Admin/LicenseController.php",
+      "function": "insertLicense",
+      "approxLines": 17
+    },
+    {
+      "file": "app/Http/Controllers/Admin/LicenseController.php",
+      "function": "issue",
+      "approxLines": 20
+    },
+    {
+      "file": "app/Http/Controllers/Admin/LicenseController.php",
+      "function": "requirePrefixOwnedByReseller",
+      "approxLines": 22
+    },
+    {
+      "file": "app/Http/Controllers/Admin/LicenseController.php",
+      "function": "revoke",
+      "approxLines": 19
+    },
+    {
+      "file": "app/Http/Controllers/Admin/MetricsController.php",
+      "function": "fanoutShardCounts",
+      "approxLines": 22
+    },
+    {
+      "file": "app/Http/Controllers/Admin/MetricsController.php",
+      "function": "index",
+      "approxLines": 20
+    },
+    {
+      "file": "app/Http/Controllers/Admin/MetricsController.php",
+      "function": "shardStatus",
+      "approxLines": 26
+    },
+    {
+      "file": "app/Http/Controllers/Admin/PrefixController.php",
+      "function": "assertNotInUseOnShard",
+      "approxLines": 28
+    },
+    {
+      "file": "app/Http/Controllers/Admin/PrefixController.php",
+      "function": "rethrowUniqueAsConflict",
+      "approxLines": 17
+    },
+    {
+      "file": "app/Http/Controllers/Admin/PrefixController.php",
+      "function": "store",
+      "approxLines": 22
+    },
+    {
+      "file": "app/Http/Controllers/Admin/QuotaRequestController.php",
+      "function": "applyApprove",
+      "approxLines": 17
+    },
+    {
+      "file": "app/Http/Controllers/Admin/QuotaRequestController.php",
+      "function": "fanoutQuotaRequests",
+      "approxLines": 20
+    },
+    {
+      "file": "app/Http/Controllers/Admin/QuotaRequestController.php",
+      "function": "requireOwnedPendingForUpdate",
+      "approxLines": 23
+    },
+    {
+      "file": "app/Http/Controllers/Admin/QuotaRequestController.php",
+      "function": "upsertQuota",
+      "approxLines": 21
+    },
+    {
+      "file": "app/Http/Controllers/Admin/ResellerController.php",
+      "function": "assertIfMatch",
+      "approxLines": 16
+    },
+    {
+      "file": "app/Http/Controllers/Admin/ResellerController.php",
+      "function": "findBySlugOrFail",
+      "approxLines": 16
+    },
+    {
+      "file": "app/Http/Controllers/Admin/ResellerController.php",
+      "function": "rethrowUniqueAsConflict",
+      "approxLines": 20
+    },
+    {
+      "file": "app/Http/Controllers/Admin/ResellerController.php",
+      "function": "store",
+      "approxLines": 22
+    },
+    {
+      "file": "app/Http/Controllers/Admin/ResellerController.php",
+      "function": "update",
+      "approxLines": 16
+    },
+    {
+      "file": "app/Http/Controllers/Admin/SessionController.php",
+      "function": "destroy",
+      "approxLines": 18
+    },
+    {
+      "file": "app/Http/Controllers/Admin/SessionController.php",
+      "function": "index",
+      "approxLines": 19
+    },
+    {
+      "file": "app/Http/Controllers/Admin/UserController.php",
+      "function": "requireActiveImpersonationForCaller",
+      "approxLines": 18
+    },
+    {
+      "file": "app/Http/Controllers/App/UpdateAssetController.php",
+      "function": "__invoke",
+      "approxLines": 21
+    },
+    {
+      "file": "app/Http/Controllers/App/UpdateAssetController.php",
+      "function": "resolveAsset",
+      "approxLines": 17
+    },
+    {
+      "file": "app/Http/Controllers/App/UpdateAssetReceiverController.php",
+      "function": "__invoke",
+      "approxLines": 20
+    },
+    {
+      "file": "app/Http/Controllers/App/UpdateAssetReceiverController.php",
+      "function": "authenticate",
+      "approxLines": 31
+    },
+    {
+      "file": "app/Http/Controllers/App/UpdateAssetReceiverController.php",
+      "function": "persist",
+      "approxLines": 18
+    },
+    {
+      "file": "app/Http/Controllers/App/UpdateAssetSignatureController.php",
+      "function": "__invoke",
+      "approxLines": 28
+    },
+    {
+      "file": "app/Http/Controllers/App/UpdateAssetSignatureController.php",
+      "function": "resolveSignedAsset",
+      "approxLines": 18
+    },
+    {
+      "file": "app/Http/Controllers/App/UpdateManifestController.php",
+      "function": "respond",
+      "approxLines": 25
+    },
+    {
+      "file": "app/Http/Controllers/Auth/LoginController.php",
+      "function": "__invoke",
+      "approxLines": 30
+    },
+    {
+      "file": "app/Http/Controllers/Auth/RegisterController.php",
+      "function": "__invoke",
+      "approxLines": 27
+    },
+    {
+      "file": "app/Http/Controllers/Auth/RegisterController.php",
+      "function": "assignSuperAdminRole",
+      "approxLines": 18
+    },
+    {
+      "file": "app/Http/Controllers/Auth/ResetPasswordController.php",
+      "function": "__invoke",
+      "approxLines": 28
+    },
+    {
+      "file": "app/Http/Controllers/Portal/SerialController.php",
+      "function": "issue",
+      "approxLines": 16
+    },
+    {
+      "file": "app/Http/Controllers/Portal/SerialController.php",
+      "function": "mintUniqueSerialValue",
+      "approxLines": 20
+    },
+    {
+      "file": "app/Http/Controllers/Portal/SerialController.php",
+      "function": "requireActiveLicense",
+      "approxLines": 30
+    },
+    {
+      "file": "app/Http/Controllers/Portal/SerialController.php",
+      "function": "resolveResellerForLicenseKey",
+      "approxLines": 19
+    },
+    {
+      "file": "app/Http/Controllers/Portal/SerialController.php",
+      "function": "upsertSerial",
+      "approxLines": 27
+    },
+    {
+      "file": "app/Http/Controllers/Portal/VerifyController.php",
+      "function": "applyBindings",
+      "approxLines": 20
+    },
+    {
+      "file": "app/Http/Controllers/Portal/VerifyController.php",
+      "function": "assertEnvironmentMatches",
+      "approxLines": 16
+    },
+    {
+      "file": "app/Http/Controllers/Portal/VerifyController.php",
+      "function": "assertLicenseActive",
+      "approxLines": 19
+    },
+    {
+      "file": "app/Http/Controllers/Portal/VerifyController.php",
+      "function": "assertVerifyKeyFresh",
+      "approxLines": 19
+    },
+    {
+      "file": "app/Http/Controllers/Portal/VerifyController.php",
+      "function": "consumeVerifyKeyAndAuthorize",
+      "approxLines": 17
+    },
+    {
+      "file": "app/Http/Controllers/Portal/VerifyController.php",
+      "function": "hash",
+      "approxLines": 26
+    },
+    {
+      "file": "app/Http/Controllers/Portal/VerifyController.php",
+      "function": "resolveResellerForSerial",
+      "approxLines": 19
+    },
+    {
+      "file": "app/Http/Controllers/Portal/VerifyController.php",
+      "function": "serial",
+      "approxLines": 19
+    },
+    {
+      "file": "app/Http/Controllers/Portal/VerifyController.php",
+      "function": "validateFinalPayload",
+      "approxLines": 21
+    },
+    {
+      "file": "app/Http/Controllers/Portal/VerifyController.php",
+      "function": "validateHashPayload",
+      "approxLines": 39
+    },
+    {
+      "file": "app/Http/Controllers/Portal/VerifyController.php",
+      "function": "validatePayload",
+      "approxLines": 21
+    },
+    {
+      "file": "app/Http/Controllers/Public/HealthController.php",
+      "function": "__invoke",
+      "approxLines": 21
+    },
+    {
+      "file": "app/Http/Controllers/Reseller/LicenseController.php",
+      "function": "applyIssue",
+      "approxLines": 43
+    },
+    {
+      "file": "app/Http/Controllers/Reseller/LicenseController.php",
+      "function": "insertRenewLedger",
+      "approxLines": 17
+    },
+    {
+      "file": "app/Http/Controllers/Reseller/LicenseController.php",
+      "function": "issue",
+      "approxLines": 17
+    },
+    {
+      "file": "app/Http/Controllers/Reseller/LicenseController.php",
+      "function": "normalizeIssuePayload",
+      "approxLines": 23
+    },
+    {
+      "file": "app/Http/Controllers/Reseller/LicenseController.php",
+      "function": "project",
+      "approxLines": 17
+    },
+    {
+      "file": "app/Http/Controllers/Reseller/QuotaRequestController.php",
+      "function": "applyCancel",
+      "approxLines": 27
+    },
+    {
+      "file": "app/Http/Controllers/Reseller/QuotaRequestController.php",
+      "function": "insertPending",
+      "approxLines": 34
+    },
+    {
+      "file": "app/Http/Controllers/Reseller/QuotaRequestController.php",
+      "function": "requireIdempotencyKey",
+      "approxLines": 16
+    },
+    {
+      "file": "app/Http/Controllers/Reseller/QuotaRequestController.php",
+      "function": "requireOwnedForUpdate",
+      "approxLines": 19
+    },
+    {
+      "file": "app/Http/Controllers/Reseller/QuotaRequestController.php",
+      "function": "requireResellerId",
+      "approxLines": 17
+    },
+    {
+      "file": "app/Http/Controllers/Reseller/QuotaRequestController.php",
+      "function": "store",
+      "approxLines": 17
+    },
+    {
+      "file": "app/Http/Middleware/AssertActiveSessionMiddleware.php",
+      "function": "handle",
+      "approxLines": 16
+    },
+    {
+      "file": "app/Http/Middleware/IdempotencyKeyMiddleware.php",
+      "function": "handleStored",
+      "approxLines": 19
+    },
+    {
+      "file": "app/Http/Middleware/IdempotencyKeyMiddleware.php",
+      "function": "persistSnapshot",
+      "approxLines": 22
+    },
+    {
+      "file": "app/Http/Middleware/IdempotencyKeyMiddleware.php",
+      "function": "readKey",
+      "approxLines": 19
+    },
+    {
+      "file": "app/Http/Middleware/RateLimitAuthMiddleware.php",
+      "function": "handle",
+      "approxLines": 20
+    },
+    {
+      "file": "app/Http/Middleware/SignedRequestMiddleware.php",
+      "function": "assertHeaderFormats",
+      "approxLines": 16
+    },
+    {
+      "file": "app/Http/Middleware/SignedRequestMiddleware.php",
+      "function": "resolveSecret",
+      "approxLines": 19
+    },
+    {
+      "file": "app/Http/Requests/Admin/AppUpdatePublishRequest.php",
+      "function": "payload",
+      "approxLines": 17
+    },
+    {
+      "file": "app/Http/Requests/Portal/VerifyHashRequest.php",
+      "function": "payload",
+      "approxLines": 18
+    },
+    {
+      "file": "app/Http/Resources/AuditEntryResource.php",
+      "function": "toArray",
+      "approxLines": 22
+    },
+    {
+      "file": "app/Http/Resources/LicenseResource.php",
+      "function": "toArray",
+      "approxLines": 19
+    },
+    {
+      "file": "app/Http/Resources/QuotaRequestResource.php",
+      "function": "toArray",
+      "approxLines": 25
+    },
+    {
+      "file": "app/Services/AuthSessionService.php",
+      "function": "openNormal",
+      "approxLines": 26
+    },
+    {
+      "file": "app/Services/BindingService.php",
+      "function": "assertMachineCooldownClear",
+      "approxLines": 18
+    },
+    {
+      "file": "app/Services/FeatureService.php",
+      "function": "assertCatalogSeeded",
+      "approxLines": 25
+    },
+    {
+      "file": "app/Services/ImpersonationService.php",
+      "function": "closePair",
+      "approxLines": 22
+    },
+    {
+      "file": "app/Services/ImpersonationService.php",
+      "function": "runBeginSaga",
+      "approxLines": 23
+    },
+    {
+      "file": "app/Services/QuotaService.php",
+      "function": "assertTuple",
+      "approxLines": 21
+    },
+    {
+      "file": "app/Services/QuotaService.php",
+      "function": "decrement",
+      "approxLines": 30
+    },
+    {
+      "file": "app/Services/QuotaService.php",
+      "function": "lookupActiveQuotaRow",
+      "approxLines": 21
+    },
+    {
+      "file": "app/Services/QuotaService.php",
+      "function": "lookupFundingQuotaRow",
+      "approxLines": 18
+    },
+    {
+      "file": "app/Services/QuotaService.php",
+      "function": "restore",
+      "approxLines": 30
+    },
+    {
+      "file": "app/Services/QuotaService.php",
+      "function": "restoreForLicense",
+      "approxLines": 79
+    },
+    {
+      "file": "app/Services/SelfUpdateService.php",
+      "function": "fetchCandidates",
+      "approxLines": 18
+    },
+    {
+      "file": "app/Support/ApiEnvelope.php",
+      "function": "respond",
+      "approxLines": 24
+    },
+    {
+      "file": "app/Support/AssetSigner.php",
+      "function": "loadKey",
+      "approxLines": 17
+    },
+    {
+      "file": "app/Support/AssetSigner.php",
+      "function": "signFile",
+      "approxLines": 17
+    },
+    {
+      "file": "app/Support/LoginCaptcha.php",
+      "function": "verify",
+      "approxLines": 21
+    }
+  ]
+}

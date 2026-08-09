@@ -1,0 +1,245 @@
+# Plan 10 step 6 (deferred) + audit follow-up.
+#
+# Verifies the root + shard migration chains and DatabaseSeeder against a
+# disposable Postgres 16 service. Runs four assertions:
+#
+#   1. Fresh migrate + seed succeeds on root and shard.
+#   2. A second `db:seed` does not change row counts (idempotency).
+#   3. `migrate:rollback --step=999` followed by `migrate` succeeds on
+#      both connections (rollback safety).
+#   4. Verification queries confirm Roles and Features are populated.
+#
+# NOTE: migrations emit Postgres-only DDL (BIGSERIAL, TIMESTAMPTZ, JSONB,
+# double-quoted PascalCase identifiers). MySQL would fail on the very
+# first migration, so this job intentionally targets Postgres. A MySQL
+# port would require rewriting every file under database/migrations/.
+
+name: db-migrations-idempotency
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/database/migrations/**'
+      - 'backend/database/seeders/**'
+      - 'backend/app/Console/Commands/DbMigrationIdempotencyCommand.php'
+      - '.github/workflows/db-migrations-idempotency.yml'
+  pull_request:
+    paths:
+      - 'backend/database/migrations/**'
+      - 'backend/database/seeders/**'
+      - 'backend/app/Console/Commands/DbMigrationIdempotencyCommand.php'
+      - '.github/workflows/db-migrations-idempotency.yml'
+  workflow_dispatch: {}
+
+jobs:
+  migrate-idempotency:
+    name: Migrations + seeders idempotency (Postgres)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: lara
+          POSTGRES_PASSWORD: lara
+          POSTGRES_DB: lara_root
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U lara -d lara_root"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=20
+
+    env:
+      DB_ROOT_CONNECTION: pgsql
+      DB_ROOT_HOST: 127.0.0.1
+      DB_ROOT_PORT: 5432
+      DB_ROOT_DATABASE: lara_root
+      DB_ROOT_USERNAME: lara
+      DB_ROOT_PASSWORD: lara
+      DB_SHARD_TEMPLATE_CONNECTION: pgsql
+      DB_SHARD_TEMPLATE_HOST: 127.0.0.1
+      DB_SHARD_TEMPLATE_PORT: 5432
+      DB_SHARD_TEMPLATE_DATABASE: lara_shard_ci
+      DB_SHARD_TEMPLATE_USERNAME: lara
+      DB_SHARD_TEMPLATE_PASSWORD: lara
+      APP_ENV: testing
+      APP_DEBUG: 'true'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP 8.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, pdo, pdo_pgsql, pgsql, bcmath, intl, tokenizer, xml
+          coverage: none
+          tools: composer:v2
+
+      # Reusable Composer cache. Two layers:
+      #   1. Composer's own download cache (~/.cache/composer/files) is
+      #      keyed by composer.lock so repeat runs skip the network.
+      #   2. backend/vendor is keyed by composer.lock AND PHP version so a
+      #      warm cache lets `composer install` short-circuit to autoload
+      #      dump only. `restore-keys` still permits partial reuse when
+      #      the lock file changes.
+      - name: Resolve Composer cache directory
+        id: composer-cache
+        working-directory: backend
+        run: echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Composer downloads
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: composer-files-${{ runner.os }}-php8.3-${{ hashFiles('backend/composer.lock') }}
+          restore-keys: |
+            composer-files-${{ runner.os }}-php8.3-
+
+      - name: Cache backend/vendor
+        id: vendor-cache
+        uses: actions/cache@v4
+        with:
+          path: backend/vendor
+          key: vendor-${{ runner.os }}-php8.3-${{ hashFiles('backend/composer.lock') }}
+          restore-keys: |
+            vendor-${{ runner.os }}-php8.3-
+
+      - name: Install backend dependencies
+        working-directory: backend
+        env:
+          COMPOSER_NO_INTERACTION: '1'
+          COMPOSER_PREFER_DIST: '1'
+        run: |
+          if [ "${{ steps.vendor-cache.outputs.cache-hit }}" = "true" ]; then
+            echo "vendor/ restored from cache; dumping optimized autoloader only."
+            composer dump-autoload --optimize --classmap-authoritative --no-dev=false
+          else
+            composer install --no-progress --prefer-dist --optimize-autoloader
+          fi
+
+      - name: Prepare .env and app key
+        working-directory: backend
+        run: |
+          cp .env.example .env
+          php artisan key:generate --force
+
+      - name: Provision disposable shard database
+        env:
+          PGPASSWORD: lara
+        run: |
+          psql -h 127.0.0.1 -U lara -d lara_root -c "CREATE DATABASE lara_shard_ci;"
+
+      - name: Register shard connection alias for artisan
+        working-directory: backend
+        # ShardResolver normally clones shard_template; for CI we register
+        # the shard alias directly against the pre-created lara_shard_ci
+        # database so `--database=shard` works without a Resellers row.
+        run: |
+          cat > bootstrap/ci_shard_alias.php <<'PHP'
+          <?php
+          // Loaded from artisan via composer autoload only inside this job.
+          use Illuminate\Support\Facades\Config;
+          Config::set('database.connections.shard', array_merge(
+              config('database.connections.shard_template'),
+              ['database' => 'lara_shard_ci']
+          ));
+          PHP
+
+      - name: Wire ci_shard_alias into bootstrap/app.php
+        working-directory: backend
+        run: |
+          php -r '
+            $f = "bootstrap/app.php";
+            $s = file_get_contents($f);
+            $needle = "return Application::configure";
+            $inject = "require __DIR__.\"/ci_shard_alias.php\";\n\n";
+            if (strpos($s, "ci_shard_alias.php") === false) {
+              $s = str_replace($needle, $inject . $needle, $s);
+              file_put_contents($f, $s);
+            }
+          '
+
+      - name: Prepare log directory
+        run: mkdir -p ci-logs
+
+      - name: Run migration + seeder idempotency check
+        working-directory: backend
+        # Full artisan output is teed to a log file AND stdout so GitHub's
+        # step log stays live-followable while the artifact preserves the
+        # complete transcript (migrate + rollback + seed + verification).
+        run: |
+          set -o pipefail
+          php artisan lara:ci:migration-idempotency -vvv 2>&1 \
+            | tee ../ci-logs/migration-idempotency.log
+
+      - name: Run MigrationsAreIdempotentTest (Pest, Postgres)
+        working-directory: backend
+        # The artisan command above proves idempotency operationally.
+        # This step additionally runs the Pest feature test
+        # (tests/Feature/MigrationsAreIdempotentTest.php) against the
+        # same Postgres services so the row-count-parity assertion is
+        # locked in test form, not just as an artisan side-effect. The
+        # test self-skips on non-pgsql (sqlite lane in backend-e2e.yml),
+        # so this job is its only real runtime.
+        env:
+          DB_CONNECTION: root
+          APP_KEY: base64:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+        run: |
+          set -o pipefail
+          ./vendor/bin/pest tests/Feature/MigrationsAreIdempotentTest.php \
+            --no-coverage 2>&1 \
+            | tee ../ci-logs/pest-migrations-idempotent.log
+
+      - name: Post-run verification queries
+        env:
+          PGPASSWORD: lara
+        run: |
+          set -o pipefail
+          {
+            echo "=== Root: Roles ==="
+            psql -h 127.0.0.1 -U lara -d lara_root -c 'SELECT "RoleName" FROM "Roles" ORDER BY "RoleName";'
+            echo "=== Root: Features ==="
+            psql -h 127.0.0.1 -U lara -d lara_root -c 'SELECT COUNT(*) AS feature_count FROM "Features";'
+            echo "=== Root: migrations table integrity ==="
+            psql -h 127.0.0.1 -U lara -d lara_root -c 'SELECT COUNT(*) AS applied_migrations FROM migrations;'
+            echo "=== Shard: migrations applied ==="
+            psql -h 127.0.0.1 -U lara -d lara_shard_ci -c 'SELECT COUNT(*) AS applied_migrations FROM migrations;'
+          } 2>&1 | tee ci-logs/verification-queries.log
+
+      - name: Generate structured CI summary (JSON + Markdown)
+        if: always()
+        working-directory: backend
+        # Captures per-connection row counts, migration order, and seeded
+        # closed sets even when the previous step failed, so a red run
+        # still ships a diagnostic artifact.
+        run: |
+          php artisan lara:ci:db-summary \
+            --json=../ci-logs/db-summary.json \
+            --markdown=../ci-logs/db-summary.md \
+            2>&1 | tee -a ../ci-logs/db-summary.log
+
+      - name: Publish summary to GitHub step summary
+        if: always()
+        run: |
+          if [ -f ci-logs/db-summary.md ]; then
+            cat ci-logs/db-summary.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "db-summary.md missing; see uploaded logs." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload CI logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: db-migrations-idempotency-logs
+          path: ci-logs/
+          retention-days: 14
+          if-no-files-found: warn
+
+

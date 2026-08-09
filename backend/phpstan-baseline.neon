@@ -1,0 +1,13 @@
+# Baseline of pre-existing PHPStan findings.
+#
+# Regenerate after fixing findings:
+#   composer phpstan:baseline
+#
+# Rules:
+#   - Never edit this file by hand; only regenerate.
+#   - Reducing the baseline is welcome. Growing it requires review:
+#     a bigger baseline means we accepted a new latent bug.
+#   - CI will fail on any finding NOT captured here, and also fail if a
+#     listed entry no longer matches (reportUnmatchedIgnoredErrors=true).
+parameters:
+    ignoreErrors: []

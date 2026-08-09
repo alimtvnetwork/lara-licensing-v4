@@ -1,0 +1,125 @@
+name: error-contract
+
+# Plan 11 Step 41: Aggregated error-contract gate.
+#
+# Purpose: expose a single required CI job that certifies the full
+# frontend + backend error contract (canonical envelope, closed-set
+# codes, raw-throw bans, envelope shape). Without one aggregated job,
+# a PR can green on partial checks scattered across frontend and
+# backend workflows, and the "error contract" concept has no single
+# required gate that branch protection can point at.
+#
+# What it enforces (all must pass):
+#   FE  (Step 26) envelope decoder tests + laraFetch tests (Vitest).
+#   FE  (Step 4)  BE <-> FE error-code parity (closed-set drift).
+#   FE  (Step 25) ESLint `no-restricted-globals` (raw fetch ban).
+#   FE  (Step 39) ESLint `no-restricted-syntax` (raw throw new Error ban).
+#   BE  (Step 15) ErrorContractArchitectureTest (Controllers/Services).
+#   BE  (Step 40) RawExceptionBanArchitectureTest (backend/app/ mirror).
+#   BE  (Step 12) EnvelopeShapeMatrixTest (JSON response contract).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'backend/app/**'
+      - 'backend/config/lara.php'
+      - 'backend/tests/Feature/Architecture/**'
+      - 'backend/tests/Feature/Errors/**'
+      - 'spec/03-error-manage/**'
+      - 'scripts/check-error-code-parity.mjs'
+      - 'eslint.config.js'
+      - 'eslint-suppressions.json'
+      - 'tests/lara-envelope.test.ts'
+      - 'tests/lara-fetch.test.ts'
+      - '.github/workflows/error-contract.yml'
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'backend/app/**'
+      - 'backend/config/lara.php'
+      - 'backend/tests/Feature/Architecture/**'
+      - 'backend/tests/Feature/Errors/**'
+      - 'spec/03-error-manage/**'
+      - 'scripts/check-error-code-parity.mjs'
+      - 'eslint.config.js'
+      - 'eslint-suppressions.json'
+      - 'tests/lara-envelope.test.ts'
+      - 'tests/lara-fetch.test.ts'
+      - '.github/workflows/error-contract.yml'
+
+jobs:
+  frontend-error-contract:
+    name: Frontend error-contract (parity + lint + envelope tests)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      # Step 4: closed-set parity between backend/config/lara.php
+      # error_codes and src/lib/lara-api-error.ts LARA_API_ERROR_CODES.
+      - name: Error-code parity (BE <-> FE)
+        run: node scripts/check-error-code-parity.mjs
+
+      # Steps 25 + 39: raw fetch ban + raw throw new Error ban surface
+      # as ESLint errors under --max-warnings=0. This is the SAME gate
+      # frontend-static-analysis runs, re-invoked here so branch
+      # protection can require `error-contract` as one status check.
+      - name: ESLint (raw fetch + raw throw bans)
+        run: bunx eslint src --max-warnings=0 --report-unused-disable-directives
+
+      # Step 26 + Step 34: canonical envelope decoder + laraFetch failure
+      # surface tests. Fast targeted subset so a broken contract fails
+      # this job even if unrelated Vitest specs regress.
+      - name: Vitest (envelope + laraFetch contract)
+        run: bunx vitest run tests/lara-envelope.test.ts tests/lara-fetch.test.ts
+
+  backend-error-contract:
+    name: Backend error-contract (architecture + envelope shape)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: composer:v2
+          extensions: mbstring, intl, pdo, pdo_sqlite, bcmath
+
+      - name: Cache composer
+        uses: actions/cache@v4
+        with:
+          path: backend/vendor
+          key: composer-${{ runner.os }}-${{ hashFiles('backend/composer.lock', 'backend/composer.json') }}
+          restore-keys: composer-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      # Run the complete architecture and error-contract suites. A hand-picked
+      # three-file list previously omitted RequestId propagation, diagnostic
+      # trace correlation, redaction, Retry-After, and abort/bare-JSON bans.
+      - name: Pest (complete architecture + error contract)
+        run: |
+          ./vendor/bin/pest tests/Feature/Architecture tests/Feature/Errors
+
+  error-contract:
+    name: error-contract (aggregate)
+    needs: [frontend-error-contract, backend-error-contract]
+    runs-on: ubuntu-latest
+    steps:
+      - name: All error-contract checks green
+        run: echo "Frontend and backend error-contract gates passed."

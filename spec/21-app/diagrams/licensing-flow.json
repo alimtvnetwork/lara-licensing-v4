@@ -1,0 +1,208 @@
+{
+  "Version": "1.2.0",
+  "Title": "Licensing communication flow",
+  "Source": "spec/21-app/diagrams/licensing-flow.mmd",
+  "OrderingRule": ".lovable/spec/commands/03-diagram-actor-ordering.md",
+  "Resolves": [".lovable/issues/03-verify-path-drift.md"],
+  "ChangeLog": [
+    { "Version": "1.2.0", "Change": "Wire LicenseTierId + EnvironmentId + Features into Verify/Final response; add EnvironmentMismatch 409 branch; split License issuance into Reseller (quota-gated, TrgResellerQuotasAllowanceGuard) and Admin paths with QuotaExhausted 409 branch; add QuotaRequests section (Reseller submit + Admin approve/deny) per 42-quota-requests.md." }
+  ],
+
+  "Actors": [
+    { "Id": "EndUser",  "Label": "End-user App", "Column": 1, "Role": "PrimaryRuntimeConsumer" },
+    { "Id": "Reseller", "Label": "Reseller UI",  "Column": 2, "Role": "ScopedIssuer" },
+    { "Id": "Admin",    "Label": "Admin UI",     "Column": 3, "Role": "GlobalIssuer" },
+    { "Id": "API",      "Label": "Lara API",     "Column": 4, "Role": "Service" },
+    { "Id": "DB",       "Label": "Split-DB",     "Column": 5, "Role": "Storage" },
+    { "Id": "Audit",    "Label": "AuditLog",     "Column": 6, "Role": "SideChannel" }
+  ],
+  "Sections": [
+    {
+      "Id": "Verify",
+      "Title": "End-user runtime verify handshake",
+      "Primary": true,
+      "AuthN": "AppBuilder OAuth (client_credentials)",
+      "Contract": "spec/21-app/11-api-contracts/03-verification-contracts.md",
+      "Steps": [
+        {
+          "From": "EndUser",
+          "To": "API",
+          "Method": "POST",
+          "Path": "/Verify/Serial",
+          "Headers": ["Authorization", "X-Request-Id"],
+          "Body": { "SerialValue": "string" },
+          "Branches": [
+            { "Case": "FoundAndValid",   "Response": { "Status": 200, "Body": { "IsValid": true, "LicenseId": "int", "Category": "enum", "ExpiresAt": "iso8601?", "IsSingleUse": "bool", "UserCount": "int?", "MachineCount": "int?" } } },
+            { "Case": "Invalid",         "Response": { "Status": 401, "ErrorCode": "SerialInvalid" } },
+            { "Case": "Revoked",         "Response": { "Status": 401, "ErrorCode": "SerialRevoked" } },
+            { "Case": "Expired",         "Response": { "Status": 401, "ErrorCode": "LicenseExpired" } }
+          ]
+        },
+        {
+          "From": "EndUser",
+          "To": "API",
+          "Method": "POST",
+          "Path": "/Verify/Hash",
+          "Headers": ["Authorization", "X-Request-Id"],
+          "Body": { "SerialValue": "string", "HashKey": "string", "MachineFingerprint": "object", "UserIdentifier": "string?" },
+          "CacheControl": "no-store",
+          "Branches": [
+            { "Case": "WithinLimits",    "Response": { "Status": 200, "Body": { "VerifyKey": "string", "ExpiresAt": "iso8601" } } },
+            { "Case": "MachineLimit",    "Response": { "Status": 409, "ErrorCode": "LicenseMachineLimit" } },
+            { "Case": "UserLimit",       "Response": { "Status": 409, "ErrorCode": "LicenseUserLimit" } }
+          ]
+        },
+        {
+          "From": "EndUser",
+          "To": "API",
+          "Method": "POST",
+          "Path": "/Verify/Final",
+          "Headers": ["Authorization", "X-Request-Id"],
+          "Body": { "SerialValue": "string", "HashKey": "string", "VerifyKey": "string", "EnvironmentId": "int" },
+          "ServerActions": ["BEGIN", "LOCK VerifyKeys row", "validate", "check License.EnvironmentId = caller.EnvironmentId", "UPSERT bindings", "mark VerifyKey consumed", "resolve Features (LicenseFeatures override TierFeatures)", "INSERT AuditLog", "COMMIT"],
+          "Branches": [
+            { "Case": "Authorized",           "Response": { "Status": 200, "Body": { "IsAuthorized": true, "LicenseId": "int", "LicenseTierId": "int", "EnvironmentId": "int", "Features": "object<FeatureKey,Value>", "AuthorizedAt": "iso8601", "ExpiresAt": "iso8601?", "MachineBindingId": "int?", "UserBindingId": "int?" } } },
+            { "Case": "EnvironmentMismatch",  "Response": { "Status": 409, "ErrorCode": "EnvironmentMismatch" }, "AcceptanceCriteria": ["AC-LENV-004"] },
+            { "Case": "AlreadyConsumed",      "Response": { "Status": 401, "ErrorCode": "VerifyKeyConsumed" } },
+            { "Case": "Mismatch",             "Response": { "Status": 401, "ErrorCode": "VerifyKeyMismatch" } },
+            { "Case": "Expired",              "Response": { "Status": 401, "ErrorCode": "VerifyKeyExpired" } }
+          ]
+        }
+      ]
+    },
+
+    {
+      "Id": "SerialIssuance",
+      "Title": "Serial issuance, idempotent",
+      "Steps": [
+        {
+          "From": "Reseller",
+          "To": "API",
+          "Method": "POST",
+          "Path": "/Licenses/{Id}/Serials",
+          "Headers": ["Authorization", "X-Request-Id", "Idempotency-Key"],
+          "Body": { "PrefixId": "ULID", "RandomLength": "int" },
+          "IdempotencyKey": { "Required": true, "Format": "ULID" },
+          "Branches": [
+            { "Case": "ReplayMatchingHash",  "ServerActions": ["SELECT IdempotencyRecords WHERE Key"], "Response": { "Status": "stored", "Body": "ResponseSnapshotJson" } },
+            { "Case": "NewKey",              "ServerActions": ["BEGIN", "INSERT Serial", "INSERT IdempotencyRecords", "COMMIT"], "Response": { "Status": 201, "Body": { "SerialId": "int", "SerialValue": "string", "CreatedAt": "iso8601" } } },
+            { "Case": "KeyReuseHashMismatch","ServerActions": ["Audit IdempotencyConflict"], "Response": { "Status": 409, "ErrorCode": "IdempotencyConflict" } }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "SerialLookup",
+      "Title": "Admin/Reseller serial lookup (not the end-user verify path)",
+      "AuthZ": "Admin OR Reseller scoped to owning License",
+      "Steps": [
+        {
+          "From": "Reseller",
+          "To": "API",
+          "Method": "GET",
+          "Path": "/Serials/{SerialValue}",
+          "Headers": ["Authorization", "X-Request-Id"],
+          "Branches": [
+            { "Case": "Found",   "Response": { "Status": 200, "Body": { "SerialId": "int", "LicenseId": "int", "SerialValue": "string", "IsRevoked": "bool", "CreatedAt": "iso8601" } } },
+            { "Case": "Missing", "Response": { "Status": 404, "ErrorCode": "SerialNotFound" } }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "LicenseIssuance",
+      "Title": "License issuance, Admin or Reseller in own scope (tier + environment + quota gated)",
+      "AuthZ": "Admin: no quota decrement. Reseller: quota-gated per LicenseTierId bucket.",
+      "Steps": [
+        {
+          "From": "Admin",
+          "To": "API",
+          "Method": "POST",
+          "Path": "/Licenses",
+          "Headers": ["Authorization", "X-Request-Id"],
+          "Body": { "LicenseCategoryId": "int", "LicenseTierId": "int", "EnvironmentId": "int", "ProductVersion": "string", "IsSingleUse": "bool" },
+          "AuthzChecks": [
+            "has_role(Admin) OR (has_role(Reseller) AND ResellerId scope match)",
+            "LicenseTierId in closed set per spec/21-app/43-license-tiers.md",
+            "EnvironmentId in closed set per spec/21-app/44-environments.md"
+          ],
+          "Branches": [
+            { "Case": "AdminPath",       "ServerActions": ["BEGIN", "INSERT License", "INSERT AuditLog LicenseIssued", "COMMIT"], "Response": { "Status": 201, "Body": { "LicenseResult": "object with LicenseTierId, EnvironmentId" }, "EchoesHeaders": ["X-Request-Id"] } },
+            { "Case": "ResellerPathQuotaAvailable", "ServerActions": ["BEGIN", "SELECT ResellerQuotas FOR UPDATE bucket=LicenseTierId", "guard AllowanceRemaining > 0", "UPDATE Consumed += 1 via TrgResellerQuotasAllowanceGuard", "INSERT License", "INSERT AuditLog {LicenseIssued, QuotaConsumed}", "COMMIT"], "Response": { "Status": 201, "Body": { "LicenseResult": "object with LicenseTierId, EnvironmentId" } } },
+            { "Case": "ResellerPathQuotaExhausted", "ServerActions": ["Audit QuotaExhausted { ResellerId, LicenseTierId }"], "Response": { "Status": 409, "ErrorCode": "QuotaExhausted" }, "Follow": "spec/21-app/42-quota-requests.md" }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "QuotaRequest",
+      "Title": "Quota request (Reseller submit, Admin approve/deny)",
+      "Contract": "spec/21-app/11-api-contracts/05-quota-request-contracts.md",
+      "Steps": [
+        {
+          "From": "Reseller",
+          "To": "API",
+          "Method": "POST",
+          "Path": "/QuotaRequests",
+          "Headers": ["Authorization", "X-Request-Id"],
+          "Body": { "LicenseTierId": "int", "RequestedDelta": "int", "Reason": "string" },
+          "ServerActions": ["INSERT QuotaRequests Status=Pending", "INSERT AuditLog QuotaRequested"],
+          "Response": { "Status": 201, "Body": { "QuotaRequestId": "int", "Status": "Pending" } }
+        },
+        {
+          "From": "Admin",
+          "To": "API",
+          "Method": "POST",
+          "Path": "/QuotaRequests/{Id}/Approve|/Deny",
+          "AuthzChecks": ["permission Quotas.Adjust per spec/21-app/40-permissions.md"],
+          "ServerActions": ["BEGIN", "UPDATE QuotaRequests.Status", "on Approve UPDATE ResellerQuotas.Allowance via allowance path (Check 22, spec/21-app/99-consistency-report.md)", "INSERT AuditLog QuotaAdjusted|QuotaRequestDenied", "COMMIT"],
+          "Response": { "Status": 200, "Body": { "QuotaRequestId": "int", "Status": "Approved|Denied" } }
+        }
+      ]
+    },
+    {
+      "Id": "Revocation",
+      "Title": "Revocation cascade",
+      "Steps": [
+        {
+          "From": "Admin",
+          "To": "API",
+          "Method": "DELETE|PATCH",
+          "Path": "/Licenses/{Id}",
+          "Body": { "IsActive": false },
+          "ServerActions": ["BEGIN", "UPDATE License", "UPDATE Serials.IsRevoked", "INSERT AuditLog LicenseRevoked", "COMMIT"],
+          "Response": { "Status": 200, "Body": { "LicenseId": "int", "IsDeleted": true } }
+        }
+      ]
+    }
+
+  ],
+  "Invariants": [
+    "End-user verify uses POST /Verify/Serial -> /Verify/Hash -> /Verify/Final; GET /Serials/{SerialValue} is Admin/Reseller only",
+    "Every request carries X-Request-Id, echoed on response",
+    "Idempotency-Key is required on POST /Licenses/{Id}/Serials",
+    "Verify endpoints ignore Idempotency-Key (out of scope per 08-idempotency-envelope-hardening.md)",
+    "AuditLog receives { RequestId, ActorUserId, Action, Decision } per spec/21-app/22-log-line-contract.md",
+    "JSON key casing is PascalCase per AF-CG-007",
+    "Path casing is PascalCase per AF-CX-101",
+    "LicenseTierId is a required immutable input on POST /Licenses; closed set per spec/21-app/43-license-tiers.md",
+    "EnvironmentId is a required immutable input on POST /Licenses and required on POST /Verify/Final; closed set per spec/21-app/44-environments.md",
+    "Reseller license issuance decrements ResellerQuotas via the allowance path only (Check 22, 99-consistency-report.md); Admin issuance never decrements quota",
+    "Features on Verify/Final response resolve via LicenseFeatures override TierFeatures per spec/21-app/45-license-features.md"
+  ],
+  "References": {
+    "Endpoints": "spec/21-app/10-endpoints.md",
+    "VerificationContracts": "spec/21-app/11-api-contracts/03-verification-contracts.md",
+    "ErrorTaxonomy": "spec/21-app/12-error-taxonomy.md",
+    "Envelope": "spec/21-app/05-envelope-schema.md",
+    "Idempotency": "spec/21-app/08-idempotency-envelope-hardening.md",
+    "LogLine": "spec/21-app/22-log-line-contract.md",
+    "Permissions": "spec/21-app/40-permissions.md",
+    "QuotaRequests": "spec/21-app/42-quota-requests.md",
+    "LicenseTiers": "spec/21-app/43-license-tiers.md",
+    "Environments": "spec/21-app/44-environments.md",
+    "LicenseFeatures": "spec/21-app/45-license-features.md",
+    "QuotaRequestContracts": "spec/21-app/11-api-contracts/05-quota-request-contracts.md"
+
+  }
+}

@@ -1,0 +1,117 @@
+name: junit-annotations
+
+# Plan 10 step 45. PR-inline JUnit annotations.
+#
+# Root cause locked: `backend-e2e.yml` writes
+# `backend/build/logs/junit.xml` (uploaded as artifact `backend-junit`)
+# and Playwright now emits `test-results/junit.xml` via the JUnit
+# reporter in `playwright.config.ts` (uploaded inside
+# `playwright-test-results` / `playwright-test-results-<browser>`).
+# Neither is surfaced as PR-inline annotations, so a failing test
+# requires an artifact download + local XML inspection to see which
+# spec, file, and line failed. Annotations turn every failure into
+# an actionable comment on the exact line via GitHub's Checks API.
+#
+# Strategy:
+#   1. Trigger on `workflow_run` completion of backend-e2e,
+#      frontend-e2e, and nightly-e2e (matches step 44 coverage-report
+#      convention).
+#   2. Download JUnit-bearing artifacts from the triggering run.
+#   3. Feed each XML into mikepenz/action-junit-report@v4 which
+#      publishes a Check with per-test annotations, using the
+#      artifact origin as the check name so multiple upstream
+#      workflows do not overwrite each other's checks.
+#   4. Keep permissions minimal: `checks: write` for the Check API,
+#      `actions: read` to fetch artifacts, `contents: read` for
+#      checkout, `pull-requests: write` so the check attaches to
+#      the PR when the upstream run originated from one.
+
+on:
+  workflow_run:
+    workflows: ['backend-e2e', 'frontend-e2e', 'nightly-e2e']
+    types: [completed]
+
+concurrency:
+  group: junit-annotations-${{ github.event.workflow_run.id }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  actions: read
+  checks: write
+  pull-requests: write
+
+jobs:
+  annotate:
+    name: Publish JUnit annotations
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion != 'skipped'
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download upstream artifacts
+        uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: artifacts
+          merge-multiple: false
+        continue-on-error: true
+
+      - name: List JUnit XML files
+        id: discover
+        shell: bash
+        run: |
+          mkdir -p artifacts
+          echo "=== JUnit XML files ==="
+          find artifacts -type f -name '*.xml' | sort || true
+
+      # Backend Pest suite. `backend-junit` artifact from
+      # .github/workflows/backend-e2e.yml unpacks with the XML at
+      # its root; use a glob so a nested layout still matches.
+      - name: Annotate backend (Pest) JUnit
+        uses: mikepenz/action-junit-report@v4
+        if: always()
+        with:
+          report_paths: 'artifacts/backend-junit/**/*.xml'
+          check_name: 'Backend Pest (annotations)'
+          detailed_summary: true
+          include_passed: false
+          fail_on_failure: false
+          require_tests: false
+
+      # Playwright chromium (step 42 artifact is unsuffixed).
+      - name: Annotate Playwright chromium JUnit
+        uses: mikepenz/action-junit-report@v4
+        if: always()
+        with:
+          report_paths: 'artifacts/playwright-test-results/junit.xml'
+          check_name: 'Playwright chromium (annotations)'
+          detailed_summary: true
+          include_passed: false
+          fail_on_failure: false
+          require_tests: false
+
+      # Nightly matrix (firefox, webkit) each ship suffixed artifacts.
+      - name: Annotate Playwright firefox JUnit
+        uses: mikepenz/action-junit-report@v4
+        if: always()
+        with:
+          report_paths: 'artifacts/playwright-test-results-firefox/junit.xml'
+          check_name: 'Playwright firefox (annotations)'
+          detailed_summary: true
+          include_passed: false
+          fail_on_failure: false
+          require_tests: false
+
+      - name: Annotate Playwright webkit JUnit
+        uses: mikepenz/action-junit-report@v4
+        if: always()
+        with:
+          report_paths: 'artifacts/playwright-test-results-webkit/junit.xml'
+          check_name: 'Playwright webkit (annotations)'
+          detailed_summary: true
+          include_passed: false
+          fail_on_failure: false
+          require_tests: false

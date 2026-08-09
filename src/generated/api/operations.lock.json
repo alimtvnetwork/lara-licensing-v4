@@ -1,0 +1,132 @@
+[
+  {
+    "OperationId": "admin.audit.list",
+    "Method": "GET",
+    "Path": "/api/admin/audit"
+  },
+  {
+    "OperationId": "admin.features.list",
+    "Method": "GET",
+    "Path": "/api/admin/features"
+  },
+  {
+    "OperationId": "admin.impersonation.start",
+    "Method": "POST",
+    "Path": "/api/admin/impersonation/start"
+  },
+  {
+    "OperationId": "admin.impersonation.stop",
+    "Method": "POST",
+    "Path": "/api/admin/impersonation/stop"
+  },
+  {
+    "OperationId": "admin.licenses.create",
+    "Method": "POST",
+    "Path": "/api/admin/licenses"
+  },
+  {
+    "OperationId": "admin.licenses.delete",
+    "Method": "DELETE",
+    "Path": "/api/admin/licenses/:Id"
+  },
+  {
+    "OperationId": "admin.licenses.list",
+    "Method": "GET",
+    "Path": "/api/admin/licenses"
+  },
+  {
+    "OperationId": "admin.licenses.show",
+    "Method": "GET",
+    "Path": "/api/admin/licenses/:Id"
+  },
+  {
+    "OperationId": "admin.licenses.update",
+    "Method": "PATCH",
+    "Path": "/api/admin/licenses/:Id"
+  },
+  {
+    "OperationId": "admin.metrics.kpis",
+    "Method": "GET",
+    "Path": "/api/admin/metrics/kpis"
+  },
+  {
+    "OperationId": "admin.quotas.list",
+    "Method": "GET",
+    "Path": "/api/admin/quotas"
+  },
+  {
+    "OperationId": "admin.quotas.update",
+    "Method": "PATCH",
+    "Path": "/api/admin/quotas/:Id"
+  },
+  {
+    "OperationId": "admin.runtime-config.show",
+    "Method": "GET",
+    "Path": "/api/admin/runtime-config"
+  },
+  {
+    "OperationId": "admin.runtime-config.update",
+    "Method": "PUT",
+    "Path": "/api/admin/runtime-config"
+  },
+  {
+    "OperationId": "admin.users.create",
+    "Method": "POST",
+    "Path": "/api/admin/users"
+  },
+  {
+    "OperationId": "admin.users.delete",
+    "Method": "DELETE",
+    "Path": "/api/admin/users/:Id"
+  },
+  {
+    "OperationId": "admin.users.list",
+    "Method": "GET",
+    "Path": "/api/admin/users"
+  },
+  {
+    "OperationId": "admin.users.update",
+    "Method": "PATCH",
+    "Path": "/api/admin/users/:Id"
+  },
+  {
+    "OperationId": "auth.login",
+    "Method": "POST",
+    "Path": "/api/auth/login"
+  },
+  {
+    "OperationId": "auth.logout",
+    "Method": "POST",
+    "Path": "/api/auth/logout"
+  },
+  {
+    "OperationId": "auth.me",
+    "Method": "GET",
+    "Path": "/api/auth/me"
+  },
+  {
+    "OperationId": "auth.refresh",
+    "Method": "POST",
+    "Path": "/api/auth/refresh"
+  },
+  {
+    "OperationId": "password-reset.confirm",
+    "Method": "POST",
+    "Path": "/api/password-reset/confirm"
+  },
+  {
+    "OperationId": "password-reset.request",
+    "Method": "POST",
+    "Path": "/api/password-reset/request"
+  },
+  {
+    "OperationId": "portal.serials.lookup",
+    "Method": "GET",
+    "Path": "/api/portal/serials/:Serial"
+  },
+  {
+    "OperationId": "portal.updates.manifest",
+    "Method": "GET",
+    "Path": "/api/portal/updates"
+  }
+]

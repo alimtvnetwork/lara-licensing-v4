@@ -1,0 +1,15 @@
+AdminBindingController@index
+AdminBindingController@release
+AdminBindingController@clearCooldown
+AdminQuotaRequestController@index
+AdminQuotaRequestController@indexAll
+AdminQuotaRequestController@approve
+AdminQuotaRequestController@deny
+ResellerLicenseController@index
+ResellerLicenseController@issue
+ResellerLicenseController@show
+ResellerLicenseController@renew
+ResellerLicenseController@ledger
+ResellerQuotaRequestController@index
+ResellerQuotaRequestController@store
+ResellerQuotaRequestController@cancel

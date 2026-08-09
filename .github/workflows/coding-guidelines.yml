@@ -1,0 +1,43 @@
+name: coding-guidelines
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'backend/app/**'
+      - 'linter-scripts/validate-guidelines.py'
+      - 'linter-scripts/check-guideline-baseline.py'
+      - 'spec/02-coding-guidelines/**'
+      - '.github/workflows/coding-guidelines.yml'
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'backend/app/**'
+      - 'linter-scripts/validate-guidelines.py'
+      - 'linter-scripts/check-guideline-baseline.py'
+      - 'spec/02-coding-guidelines/**'
+      - '.github/workflows/coding-guidelines.yml'
+
+jobs:
+  guideline-ratchet:
+    name: Canonical guideline validator (frontend + backend)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run canonical guideline regression gate
+        run: python3 linter-scripts/check-guideline-baseline.py
+
+      - name: Verify Plan 18 Linters (Step 183)
+        run: |
+          grep -q 'check-endpoint-operation-parity.py' linter-scripts/run.sh || { echo "Missing parity linter in run.sh"; exit 1; }
+          grep -q 'check-error-envelope-shape.py' linter-scripts/run.sh || { echo "Missing envelope linter in run.sh"; exit 1; }
+          echo "linter added banner: OK"
+
+      - name: Self-lint waivers (Step 183)
+        run: |
+          for file in linter-scripts/*.waivers.txt; do
+            if [ -f "$file" ]; then
+              awk 'NF && !/^#/ && !/ # reason:/ { print "FAIL: Missing reason in " FILENAME " : " $0; exit 1 }' "$file"
+            fi
+          done

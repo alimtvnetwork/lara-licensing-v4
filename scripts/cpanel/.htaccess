@@ -1,0 +1,53 @@
+# Licensing Portal frontend - cPanel / Apache SPA fallback
+# Plan 09 step 73. Root cause guarded: without SPA fallback, deep links
+# like /admin/licenses/<id> 404 on Apache because the file doesn't exist
+# on disk. Everything is served by index.html on the client.
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Force HTTPS (cPanel typically terminates TLS at the edge)
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Do not rewrite real files or directories (assets, .htaccess itself)
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Do not rewrite the API surface if it is proxied by the same vhost
+    RewriteRule ^Api/ - [L]
+    RewriteRule ^api/ - [L]
+
+    # SPA fallback: hand everything else to index.html
+    RewriteRule ^ index.html [L]
+</IfModule>
+
+# Compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+# Long-cache immutable build assets (Vite emits hashed filenames)
+<IfModule mod_headers.c>
+    <FilesMatch "\.(js|css|woff2?|ttf|eot|otf|png|jpe?g|gif|svg|ico|webp|avif)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    <FilesMatch "\.(html|json)$">
+        Header set Cache-Control "no-cache, must-revalidate"
+    </FilesMatch>
+
+    # Baseline security headers (tune CSP in a follow-up)
+    Header set X-Content-Type-Options "nosniff"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+# Default document
+DirectoryIndex index.html
+
+# Do not expose dotfiles
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
