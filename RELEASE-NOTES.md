@@ -1,15 +1,15 @@
-# Release Notes - v0.690.0
+# Release Notes - v0.691.0
 
-## Fluid UI & cPanel Release (Plan 09)
+## Refactoring and Logging Wrapper (Plan 22)
 
-This release completes Plan 09, introducing major UI improvements and preparing the application for deployment to shared hosting environments like cPanel.
+This release completes Plan 22, introducing major codebase refactoring to enforce strict coding guidelines and robust error management.
 
 ### Key Highlights
-- **License Wizard**: Replaced the static license creation form with a dynamic 5-step stepper wizard (Reseller, Tier, Features, Environment, Confirm) featuring integrated quota preflight.
-- **API Documentation**: Integrated `l5-swagger` into the backend. Added a new `admin.api-docs` view to the frontend for SuperAdmins and Admins to browse the API contract interactively via an embedded Swagger UI iframe.
-- **Swagger Parity Enforcement**: Introduced `check-swagger-parity.py` in our CI pipelines to ensure all registered API routes are properly annotated with OpenAPI docs.
-- **Environment Matrix Documentation**: Created `docs/deploy/environment-matrix.md` to map standard `.env` keys for shared hosting configurations (e.g., cPanel/WHM PostgreSQL setups).
+- **Query Wrappers**: Implemented a dedicated QueryWrapper in the backend and frontend to handle queries and automatically log failures, centralizing error logging.
+- **Strict Enums**: Replaced all string union types in TypeScript with Enums ending in the `Type` suffix.
+- **Explicit Boolean Checks**: Removed all negated success checks (`!isSuccess`) in favor of explicit failure checks (`isFail`).
+- **Magic Strings Removed**: Removed magic strings and numbers throughout the codebase, replacing them with properly typed Enums and Constants.
 
 ### Housekeeping
-- Old superseded plans (05, 06, 07, 12) have been archived into `.lovable/plans/completed/`.
-- Repaired minor regressions and executed a clean build of all front-end assets.
+- Updated `.lovable/memory/standards/05-logging-and-wrapper-rules.md` to document the new constraints.
+- Repaired minor regressions and executed a clean build and testing of all backend and frontend features.

@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.691.0] - 2026-08-10
+
+### Added
+- Completed Plan 22: Refactoring and Logging Wrapper.
+- Added query wrappers for PHP/TS with automatic failure logging.
+- Replaced TS string union types with explicit Enums ending in `Type`.
+- Implemented explicit boolean checks (e.g. `isFail`) and eliminated `!isSuccess` patterns.
+- Removed magic strings and numbers across the codebase.
+
 ## [0.690.0] - 2026-08-08
 
 ### Added

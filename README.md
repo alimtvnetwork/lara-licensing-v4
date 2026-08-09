@@ -2,7 +2,7 @@
 
 AI-first project. Every AI session starts with amnesia, so all durable knowledge lives in `.lovable/` and `spec/`. Read the files listed below before doing any work.
 
-**Version:** 0.690.0
+**Version:** 0.691.0
 
 ## Status
 
@@ -13,7 +13,7 @@ AI-first project. Every AI session starts with amnesia, so all durable knowledge
 [![frontend-e2e](https://github.com/OWNER/REPO/actions/workflows/frontend-e2e.yml/badge.svg?branch=main)](https://github.com/OWNER/REPO/actions/workflows/frontend-e2e.yml)
 [![nightly-e2e](https://github.com/OWNER/REPO/actions/workflows/nightly-e2e.yml/badge.svg)](https://github.com/OWNER/REPO/actions/workflows/nightly-e2e.yml)
 [![release-smoke](https://github.com/OWNER/REPO/actions/workflows/release-smoke.yml/badge.svg)](https://github.com/OWNER/REPO/actions/workflows/release-smoke.yml)
-![version](https://img.shields.io/badge/version-0.682.0-blue)
+![version](https://img.shields.io/badge/version-0.691.0-blue)
 
 ## Folder Structure
 
