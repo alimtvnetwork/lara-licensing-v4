@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "repo": "lara-licensing-v4",
+  "currentVersion": 4,
+  "timestamp": "20260809T203047Z",
+  "gitmapVersion": "v6.91.0",
+  "files": [
+    "spec/21-app/01-initial-sepc.md"
+  ]
+}
