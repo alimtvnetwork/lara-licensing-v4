@@ -101,7 +101,7 @@ export function PublishBuildDialog({ onClose, onPublished }: Props) {
       onPublished();
       onClose();
     } catch (failure) {
-      console.error("Publish saga failed", failure);
+      pushLaraApiError(new Error());
       setError(
         failure instanceof Error && !("errorCode" in failure)
           ? failure.message

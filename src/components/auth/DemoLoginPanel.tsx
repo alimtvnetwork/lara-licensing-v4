@@ -41,7 +41,7 @@ export function DemoLoginPanel({ onSuccess, disabled }: DemoLoginPanelProps) {
       onSuccess();
     } catch (err) {
       toast.error("Demo login failed");
-      console.error("demo_login.error", err);
+      pushLaraApiError(new Error());
     } finally {
       setSigningIn(null);
     }

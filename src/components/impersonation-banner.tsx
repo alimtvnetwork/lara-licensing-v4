@@ -99,7 +99,7 @@ async function handleEnd(
   try {
     await endImpersonation("OperatorEnded", crypto.randomUUID());
   } catch (error) {
-    console.error("Impersonation end failed", { error });
+    pushLaraApiError(new Error());
     clearActiveImpersonation();
     setError(error instanceof Error ? error.message : "End impersonation failed.");
   } finally {

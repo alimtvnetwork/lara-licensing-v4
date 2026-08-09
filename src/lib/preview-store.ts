@@ -57,7 +57,7 @@ function assertKnownDomain(domain: PreviewDomain): void {
 }
 
 function logAndRethrow(op: string, ctx: Record<string, unknown>, err: unknown): never {
-  console.error("preview-store:error", { op, ...ctx, error: err });
+  pushLaraApiError(new Error());
   throw err;
 }
 

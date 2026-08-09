@@ -87,7 +87,7 @@ function AdminLoginPage() {
       setCaptcha(next);
       setCaptchaAnswer("");
     } catch (error) {
-      console.error("captcha.fetch_failed", { reason, error });
+      pushLaraApiError(new Error());
       setErrorMessage(formatLaraApiError(error));
     } finally {
       setCaptchaLoading(false);
@@ -110,7 +110,7 @@ function AdminLoginPage() {
       persistRememberChoice(rememberMe, email);
       await navigate({ to: "/admin", replace: true });
     } catch (error) {
-      console.error("admin.login_failed", error);
+      pushLaraApiError(new Error());
       if (error instanceof LaraApiError) {
         if (error.errorCode === ApiErrorCodeType.LoginCaptchaRequired) {
           await refreshCaptcha("required");

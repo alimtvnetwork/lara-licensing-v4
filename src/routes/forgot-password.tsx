@@ -58,7 +58,7 @@ function ForgotPasswordPage() {
       const reply = await requestPasswordReset({ Email: email.trim() });
       setMessage(reply);
     } catch (failure) {
-      console.error("auth.forgot_password_failed", failure);
+      pushLaraApiError(new Error());
       setError(formatLaraApiError(failure));
     } finally {
       setSubmitting(false);

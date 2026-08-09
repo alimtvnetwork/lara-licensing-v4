@@ -91,7 +91,7 @@ export function logRuntimeError(code: RuntimeErrorCode, cause: unknown): Runtime
     Cause: cause,
   };
 
-  console.error("[runtime-mode]", payload);
+  pushLaraApiError(new Error());
 
   return payload;
 }

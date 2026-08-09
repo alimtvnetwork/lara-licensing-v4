@@ -41,7 +41,7 @@ async function handleResetPreviewStore(): Promise<void> {
     console.info(`[${LOG_PREFIX}] reset preview store: ok, reloading`);
     window.location.reload();
   } catch (err) {
-    console.error(`[${LOG_PREFIX}] reset preview store failed`, err);
+    pushLaraApiError(new Error());
   }
 }
 
@@ -92,7 +92,7 @@ async function applySeed(cfg: RuntimeConfig, nextSeed: string): Promise<void> {
   console.info(`[${LOG_PREFIX}] seed change applied`, result);
   const isFailed = !result.Applied;
   if (isFailed) {
-    console.error(`[${LOG_PREFIX}] seed change failed`, result);
+    pushLaraApiError(new Error());
 
     return;
   }

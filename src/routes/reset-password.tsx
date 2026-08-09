@@ -89,7 +89,7 @@ function ResetPasswordPage() {
         void navigate({ to: "/admin/login" });
       }, 1500);
     } catch (failure) {
-      console.error("auth.reset_password_failed", failure);
+      pushLaraApiError(new Error());
       setError(formatLaraApiError(failure));
     } finally {
       setSubmitting(false);

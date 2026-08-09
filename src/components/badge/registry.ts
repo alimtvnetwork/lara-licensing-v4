@@ -55,11 +55,11 @@ export type LicenseStateValue =
   | "Revoked"
   | "Suspended";
 
-export type SerialStateValue = "Unbound" | "Bound" | "Rebinding" | "Retired";
-export type BuilderKeyStateValue = "Active" | "Rotating" | "Revoked";
-export type QuotaRequestStatusValue = "Pending" | "Approved" | "Denied" | "Cancelled";
-export type UserRoleValue = "SuperAdmin" | "Admin" | "Reseller" | "AppBuilder" | "EndUser";
-export type LicenseTierValue = "Trial" | "Standard" | "Professional" | "Enterprise";
+export enum SerialStateType { Unbound = "Unbound", Bound = "Bound", Rebinding = "Rebinding", Retired = "Retired" }
+export enum BuilderKeyStateType { Active = "Active", Rotating = "Rotating", Revoked = "Revoked" }
+export enum QuotaRequestStatusType { Pending = "Pending", Approved = "Approved", Denied = "Denied", Cancelled = "Cancelled" }
+export enum UserRoleType { SuperAdmin = "SuperAdmin", Admin = "Admin", Reseller = "Reseller", AppBuilder = "AppBuilder", EndUser = "EndUser" }
+export enum LicenseTierType { Trial = "Trial", Standard = "Standard", Professional = "Professional", Enterprise = "Enterprise" }
 
 export const LicenseStateBadge: Record<LicenseStateValue, BadgeSpec> = {
   Draft: { intent: "neutral", icon: FileText, label: "Draft" },

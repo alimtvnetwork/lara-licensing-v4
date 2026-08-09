@@ -29,7 +29,7 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
   const body = await response.clone().text();
   if (isH3SwallowedErrorBody(body) === false) return response;
 
-  console.error(consumeLastCapturedError() ?? new Error(`h3 swallowed SSR error: ${body}`));
+  pushLaraApiError(new Error());
 
   return new Response(renderErrorPage(), {
     status: 500,
@@ -55,7 +55,7 @@ export default {
 
       return await normalizeCatastrophicSsrResponse(response);
     } catch (error) {
-      console.error(error);
+      pushLaraApiError(new Error());
 
       return new Response(renderErrorPage(), {
         status: 500,

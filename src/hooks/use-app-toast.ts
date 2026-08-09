@@ -119,7 +119,7 @@ export const appToast: AppToastApi = {
   error: (title, opts) => callToast("error", title, opts),
   fromApiError: (err, fallbackTitle = "Request failed") => {
     if (!(err instanceof LaraApiError)) {
-      console.error("[app-toast] non-lara error surfaced via fromApiError", err);
+      pushLaraApiError(new Error());
       callToast("error", fallbackTitle, {
         description: err instanceof Error ? err.message : String(err),
       });

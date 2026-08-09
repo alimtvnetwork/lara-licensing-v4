@@ -32,7 +32,7 @@ if (typeof window !== "undefined") {
   try {
     registerAllPreviewHandlers();
   } catch (err) {
-    console.error("[preview-fixtures] eager register failed", err);
+    pushLaraApiError(new Error());
   }
   void bootRuntimeConfig()
     .then(() => {
@@ -51,7 +51,7 @@ if (typeof window !== "undefined") {
       return dispatchPreviewSeed();
     })
     .catch((err) => {
-      console.error("[runtime-mode] boot failed", err);
+      pushLaraApiError(new Error());
     });
 }
 

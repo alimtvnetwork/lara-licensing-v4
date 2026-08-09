@@ -103,7 +103,7 @@ export function GlobalErrorModal() {
     try {
       await writeClipboard(fatal.errorId);
     } catch (cause) {
-      console.error("GlobalErrorModal: clipboard write failed", cause);
+      pushLaraApiError(new Error());
     }
   }, [fatal]);
 
@@ -112,7 +112,7 @@ export function GlobalErrorModal() {
     try {
       await writeClipboard(serializePayload(fatal));
     } catch (cause) {
-      console.error("GlobalErrorModal: copy-all failed", cause);
+      pushLaraApiError(new Error());
     }
   }, [fatal]);
 

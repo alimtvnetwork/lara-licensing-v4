@@ -69,7 +69,7 @@ export function NotificationDrawer({
 
   const copyToClipboard = useCallback((text: string) => {
     navigator.clipboard.writeText(text).catch((err) => {
-      console.error("Clipboard write failed", err);
+      pushLaraApiError(new Error());
     });
   }, []);
 

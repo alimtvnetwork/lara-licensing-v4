@@ -48,7 +48,7 @@ export const NETWORK_FAILURE_STATUS = 0;
 
 function wrapNetworkFailure(error: unknown, path: string): LaraApiError {
   const cause = error instanceof Error ? error.message : String(error);
-  console.error("laraFetch network failure", { path, cause });
+  pushLaraApiError(new Error());
 
   return new LaraApiError(
     `Network request failed: ${cause}`,
@@ -70,7 +70,7 @@ export const PREVIEW_BYPASS_MESSAGE =
 
 function assertNotPreview(path: string): void {
   if (getRuntimeMode().Mode !== "preview") return;
-  console.error("laraFetch preview bypass", { path });
+  pushLaraApiError(new Error());
   throw new LaraApiError(
     `${PREVIEW_BYPASS_MESSAGE} (path=${path})`,
     ApiErrorCodeType.ServerError,

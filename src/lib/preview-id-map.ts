@@ -51,7 +51,7 @@ function storeFor(domain: string): UseStore {
 }
 
 function fail(op: string, ctx: Record<string, unknown>, err: unknown): never {
-  console.error("preview-id-map:error", { op, ...ctx, error: err });
+  pushLaraApiError(new Error());
   throw err;
 }
 
