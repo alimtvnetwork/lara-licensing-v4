@@ -1,5 +1,5 @@
 import { Link, Outlet, useNavigate } from "@tanstack/react-router";
-import { PanelLeft, ShieldCheck } from "lucide-react";
+import { Home, PanelLeft, ShieldCheck } from "lucide-react";
 
 import { AppShell } from "../shell/AppShell";
 import { AppSidebar } from "../shell/AppSidebar";
@@ -121,7 +121,10 @@ function AdminTopbar({ onSignOut }: { onSignOut: () => void }) {
       </div>
       <div className="flex items-center gap-2">
         <NotificationBell />
-        <div className="text-xs text-muted-foreground hidden lg:block px-2 py-1 rounded-md border border-border/50 bg-muted/30 whitespace-pre-wrap max-w-[500px] max-h-[400px] overflow-y-auto">
+        <Link to="/" className="inline-flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground" aria-label="Back to Homepage">
+          <Home className="size-4" />
+        </Link>
+        <div className="text-xs text-muted-foreground hidden lg:block px-2 py-1 rounded-md border border-border/50 bg-muted/30 truncate max-w-[200px] whitespace-nowrap">
           {"Plan 09: Fluid UI & cPanel Release (Steps 90/100)"}
         </div>
         <ProfileMenu onSignOut={onSignOut} />

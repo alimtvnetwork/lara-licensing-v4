@@ -103,7 +103,7 @@ export function GlobalErrorModal() {
     try {
       await writeClipboard(fatal.errorId);
     } catch (cause) {
-      pushLaraApiError(new Error());
+      // Ignored
     }
   }, [fatal]);
 
@@ -112,7 +112,7 @@ export function GlobalErrorModal() {
     try {
       await writeClipboard(serializePayload(fatal));
     } catch (cause) {
-      pushLaraApiError(new Error());
+      // Ignored
     }
   }, [fatal]);
 

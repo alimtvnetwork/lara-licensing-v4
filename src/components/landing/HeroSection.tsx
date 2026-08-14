@@ -52,7 +52,7 @@ export function HeroSection() {
           style={{
             fontFamily: "var(--font-display)",
             fontWeight: 700,
-            fontSize: "clamp(2.5rem, 6vw, 4.25rem)",
+            fontSize: "clamp(2rem, 5vw, 3.5rem)",
             lineHeight: 1.05,
             letterSpacing: "-0.02em",
           }}
@@ -61,7 +61,7 @@ export function HeroSection() {
         </h1>
 
         <p
-          className="max-w-2xl text-pretty text-lg text-muted-foreground"
+          className="max-w-2xl text-pretty text-base text-muted-foreground"
           style={{ fontFamily: "var(--font-sans)" }}
         >
           Issue tiered licenses, bind serials to machines, verify offline with Ed25519 signatures,

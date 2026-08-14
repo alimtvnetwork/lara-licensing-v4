@@ -47,8 +47,8 @@ export function AuthCard(props: AuthCardProps) {
           trustPoints={props.asideTrustPoints}
           footerNote={props.asideFooterNote}
         />
-        <section className="flex items-center justify-center">
-          <div className="w-full max-w-md">
+        <section className="flex flex-col items-center py-10 overflow-y-auto min-h-0">
+          <div className="w-full max-w-md my-auto">
             <AuthMobileBrand />
             <div className="surface-elevated rounded-2xl p-8 fade-in">
               <div className="mb-6 flex items-start gap-3">
