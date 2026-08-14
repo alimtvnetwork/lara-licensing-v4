@@ -60,6 +60,8 @@ Last updated: 2026-07-15
 - Do NOT edit `src/routeTree.gen.ts` (auto-generated).
 - Do NOT create `src/pages/` (this stack uses `src/routes/`).
 
-## 9. Conflict Resolution
-
 If this file conflicts with a folder-level spec (`spec/**`), the folder-level spec wins for that domain; call out the conflict in the reply so this file can be updated.
+
+## 10. Version Control
+
+- Always commit and push changes to git after finishing an assigned task.
