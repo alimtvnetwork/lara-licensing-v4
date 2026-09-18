@@ -64,7 +64,7 @@ describe("getRetryAfterSeconds", () => {
     expect(getRetryAfterSeconds(neg)).toBeUndefined();
   });
 
-  // F3 — spec/21-app/14-rate-limiting.md AC-RL-008: AbuseBlocked (403) MUST NOT
+  // F3 — 02-spec/21-app/14-rate-limiting.md AC-RL-008: AbuseBlocked (403) MUST NOT
   // carry Retry-After. Guard against a regression that widens the errorCode
   // check in getRetryAfterSeconds (src/lib/lara-api-error.ts line 114).
   it("returns undefined for AbuseBlocked even if rateLimit metadata is present (AC-RL-008)", () => {

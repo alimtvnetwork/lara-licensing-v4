@@ -5,7 +5,7 @@ import { meQueryOptions } from "../../lib/lara-me";
 
 /**
  * Authenticated landing router. Reads `GET /Users/Me` per
- * spec/21-app/11-api-contracts/06-user-contracts.md and dispatches the
+ * 02-spec/21-app/11-api-contracts/06-user-contracts.md and dispatches the
  * caller to the correct portal home without requiring them to type
  * their own ResellerId into the URL, which they generally do not know.
  *
@@ -36,7 +36,7 @@ function PortalRedirect() {
   if (me.RoleName === "Reseller") {
     if (typeof me.ResellerId !== "number") {
       throw new Error(
-        `Reseller user ${me.UserId} has no ResellerId binding; refusing to redirect (spec/21-app/40-permissions.md Row-scope)`,
+        `Reseller user ${me.UserId} has no ResellerId binding; refusing to redirect (02-spec/21-app/40-permissions.md Row-scope)`,
       );
     }
 

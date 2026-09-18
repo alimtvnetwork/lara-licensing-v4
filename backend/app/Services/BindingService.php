@@ -20,9 +20,9 @@ use Illuminate\Support\Facades\Log;
  * Root cause this service fixes (one sentence): `VerifyController::final`
  * was returning `MachineBindingId`/`UserBindingId` as literal `null`
  * because the tables existed but no code enforced quotas, cooldowns, or
- * INSERTed rows, so `spec/21-app/30-machine-bindings.md` AC-MB-003 /
+ * INSERTed rows, so `02-spec/21-app/30-machine-bindings.md` AC-MB-003 /
  * AC-MB-004 / AC-MB-006 / AC-MB-007 and
- * `spec/21-app/11-api-contracts/03-verification-contracts.md` line 53
+ * `02-spec/21-app/11-api-contracts/03-verification-contracts.md` line 53
  * `LicenseUserLimit` (409) were silently unimplemented.
  *
  * Contract:

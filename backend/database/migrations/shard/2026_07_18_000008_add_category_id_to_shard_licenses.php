@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\DB;
  *      steady-state path.
  *
  * Ordinals 1..7 mirror `config('lara.license_categories')` and the
- * shard `LicenseCategories` catalog stub from spec/23-app-db/01-schema.md.
+ * shard `LicenseCategories` catalog stub from 02-spec/23-app-db/01-schema.md.
  * The CHECK constraint pins the closed set at the DB layer so bad
  * writes fail before the app sees them.
  *

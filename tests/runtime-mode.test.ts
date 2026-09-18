@@ -1,7 +1,7 @@
 /**
  * Runtime-mode resolver + loader + hook unit tests (Plan 16 Step 18).
  *
- * Covers spec/28-runtime-modes/02-mode-selection-precedence.md:
+ * Covers 02-spec/28-runtime-modes/02-mode-selection-precedence.md:
  *   compile-time default < /version.json (Version match) < localStorage override (Version match)
  * plus SSR safety, invalid-payload fallbacks, override writer semantics, and
  * F-01 single-resolve freeze from version-json-loader.

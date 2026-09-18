@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 /**
  * Plan 06 step 44 (substrate). Root `AppUpdates` + `AppUpdateAssets`.
  *
- * Normative: spec/21-app/17-self-update-endpoint.md v1.3.0 §"Database
+ * Normative: 02-spec/21-app/17-self-update-endpoint.md v1.3.0 §"Database
  * bindings" + §"Publish state machine" + §"Admin invariants". These are
  * cross-cutting (every reseller's CLI resolves the same manifest) so
  * they live on Root, not on a shard.

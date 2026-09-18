@@ -10,7 +10,7 @@ use Throwable;
 /**
  * Plan 14 step 24. Read-only drift snapshot.
  *
- * Normative source: spec/26-backup-restore/12-restore-orchestration.md
+ * Normative source: 02-spec/26-backup-restore/12-restore-orchestration.md
  * v1.0.0 §"Drift Snapshot" + INV-BR-RS-1 ("preflight/drift never
  * mutate any table") + INV-BR-MS-2 ("every `scope.*.contentHash`
  * hashes the class's real bytes"). Consumes the report returned by

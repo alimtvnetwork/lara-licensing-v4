@@ -18,9 +18,9 @@ export type { EnvironmentIdValue };
 
 /**
  * Closed sets are normative in:
- *   - spec/21-app/05-license-categories.md §Canonical set (Daily..Key, ordinals 1..7; AC-CAT-005)
- *   - spec/21-app/43-license-tiers.md §2 (Tier1..Unlimited, ordinals 1..4; AC-LT-002)
- *   - spec/21-app/44-environments.md §2 (owned by src/lib/lara-environment.ts)
+ *   - 02-spec/21-app/05-license-categories.md §Canonical set (Daily..Key, ordinals 1..7; AC-CAT-005)
+ *   - 02-spec/21-app/43-license-tiers.md §2 (Tier1..Unlimited, ordinals 1..4; AC-LT-002)
+ *   - 02-spec/21-app/44-environments.md §2 (owned by src/lib/lara-environment.ts)
  * The FK id equals the ordinal per those owner files. The client MUST reject
  * out-of-set ids BEFORE POST /Licenses fires so the ValidationFailed (400)
  * response is observable on both sides of the wire without spending a server
@@ -90,7 +90,7 @@ export type LicenseCreateInput = z.infer<typeof licenseCreateSchema>;
 
 /**
  * POST /Licenses is mutating; Idempotency-Key is REQUIRED per
- * spec/21-app/11-api-contracts/08-idempotency-envelope-hardening.md so a
+ * 02-spec/21-app/11-api-contracts/08-idempotency-envelope-hardening.md so a
  * network retry cannot double-consume reseller quota.
  */
 export async function createLicense(
@@ -127,7 +127,7 @@ export type LicenseUpdateInput = z.infer<typeof licenseUpdateSchema>;
  * `DELETE /Licenses/{LicenseId}` response envelope.
  *
  * `QuotaRestored` and `RestoreSkippedReason` mirror the audit payload
- * fields defined by spec/21-app/48-quota-restore-on-revoke.md §2 step 7
+ * fields defined by 02-spec/21-app/48-quota-restore-on-revoke.md §2 step 7
  * and §5. Both are optional so older deployments (pre-spec-48 servers)
  * that only return `{LicenseId, IsDeleted}` continue to parse. The
  * `RestoreSkippedReason` enum is closed and MUST match §1 verbatim; any
@@ -154,7 +154,7 @@ export interface LicenseWithEtag {
   license: License;
   /**
    * Quoted strong ETag exactly as emitted by `GET /Licenses/{LicenseId}`
-   * per spec/21-app/11-api-contracts/09-concurrency-control.md §ETag
+   * per 02-spec/21-app/11-api-contracts/09-concurrency-control.md §ETag
    * shape. `undefined` only when the server omitted the header (older
    * deployments); mutations against a row with no ETag will surface
    * `428 PreconditionRequired` at the wire, which is the correct
@@ -268,7 +268,7 @@ export async function getLicense(licenseId: number, signal?: AbortSignal): Promi
 
 /**
  * `PATCH /Licenses/{LicenseId}` is in-scope per
- * spec/21-app/11-api-contracts/09-concurrency-control.md §Scope, so
+ * 02-spec/21-app/11-api-contracts/09-concurrency-control.md §Scope, so
  * `If-Match` is REQUIRED. The client MUST refuse to fire the request
  * without one; skipping it would guarantee a `428 PreconditionRequired`
  * round-trip and burn an `X-Request-Id` for a preventable failure.
@@ -290,7 +290,7 @@ export async function updateLicense(
 
 /**
  * `DELETE /Licenses/{LicenseId}` (revoke) is in-scope per
- * spec/21-app/11-api-contracts/09-concurrency-control.md §Scope, so
+ * 02-spec/21-app/11-api-contracts/09-concurrency-control.md §Scope, so
  * `If-Match` is REQUIRED. See the `updateLicense` docblock for the
  * client-side refusal rationale.
  */

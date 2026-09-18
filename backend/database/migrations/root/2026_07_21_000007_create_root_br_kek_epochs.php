@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\DB;
 
 /**
  * Plan 14 step 3a. Root DB `BrKekEpochs` registry (migration 7 per
- * spec/26-backup-restore/25-migration-and-rollout.md).
+ * 02-spec/26-backup-restore/25-migration-and-rollout.md).
  *
  * Normative sources:
- *  - spec/26-backup-restore/09-encryption-and-keys.md v1.0.0
+ *  - 02-spec/26-backup-restore/09-encryption-and-keys.md v1.0.0
  *    §"Key Hierarchy" (root KEK per epoch, held by SecretsProvider,
  *    never touches disk in cleartext), §"Sealed DEK" (KEK identified by
  *    monotonic integer `epoch` + opaque `kid` string), §"Re-Seal"

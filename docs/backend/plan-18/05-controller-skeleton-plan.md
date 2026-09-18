@@ -39,7 +39,7 @@ Response shape (from FE Zod, to be confirmed in Step 25 against `src/generated/a
 
 | Step | Route | Controller@action | Request DTO | Response Resource |
 |------|-------|-------------------|-------------|-------------------|
-| 29 | `GET /Api/Admin/Features` | `Admin\FeatureController@index` (NEW file `FeatureController.php`) | `FeatureIndexRequest` (NEW; empty body, just pagination) | `FeatureResource` (NEW; wraps FeatureCatalog rows per spec/21-app/12-feature-catalog.md) |
+| 29 | `GET /Api/Admin/Features` | `Admin\FeatureController@index` (NEW file `FeatureController.php`) | `FeatureIndexRequest` (NEW; empty body, just pagination) | `FeatureResource` (NEW; wraps FeatureCatalog rows per 02-spec/21-app/12-feature-catalog.md) |
 | 30 | Wire route, register resource, unit-test placeholder. | - | - | - |
 
 ## G5. Portal (Steps 31-32)

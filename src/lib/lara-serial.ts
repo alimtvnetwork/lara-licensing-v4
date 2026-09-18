@@ -58,24 +58,24 @@ export async function lookupSerial(serialValue: string): Promise<SerialLookup> {
 
 /**
  * End-user runtime verify handshake per
- * spec/21-app/11-api-contracts/03-verification-contracts.md and the canonical
- * sequence in spec/21-app/diagrams/licensing-flow.mmd v1.2.0.
+ * 02-spec/21-app/11-api-contracts/03-verification-contracts.md and the canonical
+ * sequence in 02-spec/21-app/diagrams/licensing-flow.mmd v1.2.0.
  *
  * Three POST endpoints, in strict order:
  *   1) POST /Verify/Serial  -> establishes the serial exists and is not revoked.
  *   2) POST /Verify/Hash    -> UPSERT bindings, mints a single-use VerifyKey.
  *   3) POST /Verify/Final   -> validates the VerifyKey, refreshes bindings,
  *      resolves Features (LicenseFeatures override TierFeatures per
- *      spec/21-app/45-license-features.md), and returns the authorization row.
+ *      02-spec/21-app/45-license-features.md), and returns the authorization row.
  *
  * `EnvironmentId` on step 3 is the caller's server-derived environment; a
  * mismatch with `License.EnvironmentId` returns 409 `EnvironmentMismatch`
- * per spec/21-app/44-environments.md §3 (AC-LENV-004). The token pair in
+ * per 02-spec/21-app/44-environments.md §3 (AC-LENV-004). The token pair in
  * `Details[0].Value` is opaque ("<Requested>/<Licensed>") and MUST NOT be
  * decoded by the client.
  *
  * Do NOT send `Idempotency-Key` on verify routes; the envelope hardening
- * rules in spec/21-app/08-idempotency-envelope-hardening.md explicitly
+ * rules in 02-spec/21-app/08-idempotency-envelope-hardening.md explicitly
  * exclude verify from replay storage.
  */
 export const verifySerialResultSchema = z.object({
@@ -97,7 +97,7 @@ export type VerifyHashResult = z.infer<typeof verifyHashResultSchema>;
 
 /**
  * Features map on `POST /Verify/Final`. Keys are `FeatureKey` values from
- * spec/21-app/45-license-features.md §2 (closed set), values are one of the
+ * 02-spec/21-app/45-license-features.md §2 (closed set), values are one of the
  * declared `ValueType` shapes. We accept `unknown` here because the strict
  * per-key shape check happens in feature-consuming call sites (see the
  * runtime resolver in `lara-features.ts`, to be added in Step 44).
@@ -162,7 +162,7 @@ export interface VerifyFinalInput {
 
 export async function verifyFinal(input: VerifyFinalInput): Promise<VerifyFinalResult> {
   // Guard: reject an out-of-set EnvironmentId at the entry point per
-  // spec/21-app/44-environments.md §3 (AC-LENV-004). Failing here surfaces
+  // 02-spec/21-app/44-environments.md §3 (AC-LENV-004). Failing here surfaces
   // the misconfiguration in caller logs instead of after a wire round-trip
   // returns the opaque `<Requested>/<Licensed>` marker.
   const environmentId = parseEnvironmentId(input.environmentId, "environmentId");

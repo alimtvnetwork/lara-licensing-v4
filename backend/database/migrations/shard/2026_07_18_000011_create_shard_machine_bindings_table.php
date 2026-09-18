@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\DB;
  * Plan 06 step 39 (substrate, binding axis). Shard `MachineBindings`.
  *
  * Root cause this migration addresses (one sentence): `Verify/Final` in
- * `spec/21-app/11-api-contracts/03-verification-contracts.md` v1.3.0
+ * `02-spec/21-app/11-api-contracts/03-verification-contracts.md` v1.3.0
  * cannot honor `LicenseMachineLimit` (409, AC-VAR-001) or return
  * `MachineBindingId` because the substrate table pinned by
- * `spec/21-app/30-machine-bindings.md` §Storage lines 38-51 and
- * `spec/23-app-db/01-schema.md` lines 470-482 does not exist yet.
+ * `02-spec/21-app/30-machine-bindings.md` §Storage lines 38-51 and
+ * `02-spec/23-app-db/01-schema.md` lines 470-482 does not exist yet.
  *
  * Columns and invariants:
  *  - `MachineBindingId`     BIGSERIAL PK.

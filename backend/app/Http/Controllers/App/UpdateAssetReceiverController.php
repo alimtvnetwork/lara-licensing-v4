@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Log;
 /**
  * Plan 06 step 45 (publish write path, phase 2 of 3).
  *
- * Root cause (one sentence): spec/21-app/17-self-update-endpoint.md
+ * Root cause (one sentence): 02-spec/21-app/17-self-update-endpoint.md
  * v1.3.0 §"Publish state machine" line 289-291 requires an HTTP PUT
  * that streams bytes for one platform asset and verifies `X-Sha256`
  * against the value pinned in the UploadTicket row before allowing

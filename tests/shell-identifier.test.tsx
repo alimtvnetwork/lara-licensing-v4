@@ -3,7 +3,7 @@ import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/re
 
 /**
  * Locks Identifier truncation and copy contract per
- * spec/24-app-ui-design-system/14-breadcrumbs-and-page-header.md §4.3 and
+ * 02-spec/24-app-ui-design-system/14-breadcrumbs-and-page-header.md §4.3 and
  * §8 (canonical `…` character, copy always emits full value).
  */
 

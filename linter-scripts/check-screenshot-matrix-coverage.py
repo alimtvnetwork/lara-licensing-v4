@@ -3,8 +3,8 @@
 Preview screenshot matrix coverage linter (Plan 16 Step 87).
 
 Contract source of truth:
-    spec/28-runtime-modes/10-screenshot-matrix.md
-    spec/28-runtime-modes/08-preview-scenarios.md (v2)
+    02-spec/28-runtime-modes/10-screenshot-matrix.md
+    02-spec/28-runtime-modes/08-preview-scenarios.md (v2)
 
 Root cause this file addresses (one sentence): Step 86 emits
 `tests/e2e/screenshots/preview-matrix/index.json` but nothing enforces that
@@ -41,7 +41,7 @@ MANIFEST_PATH = ARTIFACT_ROOT / "index.json"
 WAIVERS_PATH = ARTIFACT_ROOT / "waivers.json"
 
 # Closed sets - must match tests/e2e/specs/preview-screenshot-matrix.spec.ts
-# and spec/28-runtime-modes/08-preview-scenarios.md v2. Any change here MUST
+# and 02-spec/28-runtime-modes/08-preview-scenarios.md v2. Any change here MUST
 # come with a spec bump in 10-screenshot-matrix.md.
 EXPECTED_ROUTES: tuple[str, ...] = (
     "/",
@@ -149,7 +149,7 @@ def main() -> int:
         print(
             "\nFix: re-run the matrix driver, add a waiver in "
             "tests/e2e/screenshots/preview-matrix/waivers.json with a reason, "
-            "or update spec/28-runtime-modes/10-screenshot-matrix.md when the "
+            "or update 02-spec/28-runtime-modes/10-screenshot-matrix.md when the "
             "closed sets legitimately change.",
             file=sys.stderr,
         )

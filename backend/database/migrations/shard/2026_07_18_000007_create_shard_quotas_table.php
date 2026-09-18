@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\DB;
  * "approve" would be a silent no-op that breaks AC-QR-004.
  *
  * Normative sources:
- *  - spec/21-app/41-reseller-quotas.md v1.0.0 §3 (shape), §4 (decrement contract)
- *  - spec/23-app-db/01-schema.md §ResellerQuotas
- *  - spec/23-app-db/10-reseller-shard-split-db.md §App-tier tables
+ *  - 02-spec/21-app/41-reseller-quotas.md v1.0.0 §3 (shape), §4 (decrement contract)
+ *  - 02-spec/23-app-db/01-schema.md §ResellerQuotas
+ *  - 02-spec/23-app-db/10-reseller-shard-split-db.md §App-tier tables
  *
  * Physical column names are PascalCase per spec 24. All CHECKs mirror the
  * invariants in spec 41 §3 verbatim so DB rejects illegal state before the

@@ -5,7 +5,7 @@ import { preflightLicenseQuota, type ResellerQuota } from "@/lib/lara-quota";
 
 /**
  * Locks the client-side preflight envelope shape against
- * spec/21-app/11-api-contracts/02-license-contracts.md §Reseller quota
+ * 02-spec/21-app/11-api-contracts/02-license-contracts.md §Reseller quota
  * decrement steps 3-4 (AC-API-LIC-006, AC-ERR-006, AC-ERR-007).
  * The preflight MUST throw the same errorCode+httpStatus as the server
  * would, and MUST stay silent when the cache is empty so the wire trip

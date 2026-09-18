@@ -12,7 +12,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /**
  * Plan 10 step 4. AuthSessions wire shape. Never emits raw refresh
  * tokens; only session metadata for the sessions panel and revocation UI
- * (see spec/21-app/46-impersonation.md §3).
+ * (see 02-spec/21-app/46-impersonation.md §3).
  *
  * @mixin AuthSession
  */

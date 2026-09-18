@@ -88,7 +88,7 @@ test.describe("Admin license CRUD smoke", () => {
       .toBeVisible({ timeout: 10_000 });
 
     // Contract sanity: POST body carries the closed-set ordinals from the
-    // form and Idempotency-Key is present per spec/21-app/11 §08 (line 93).
+    // form and Idempotency-Key is present per 02-spec/21-app/11 §08 (line 93).
     expect(postBody).toMatchObject({ ProductVersion: "1.0.0", IsSingleUse: false });
     expect(postHeaders?.["idempotency-key"]).toMatch(/[0-9a-f-]{36}/i);
   });
@@ -111,7 +111,7 @@ test.describe("Admin license CRUD smoke", () => {
       }
       if (method === "PATCH") {
         // If-Match round-trip evidence: the client MUST send the ETag we
-        // gave it on GET (spec/21-app/11-api-contracts/09 §Request rules).
+        // gave it on GET (02-spec/21-app/11-api-contracts/09 §Request rules).
         expect(route.request().headers()["if-match"]).toBe(etag);
         return route.fulfill({
           status: 412,

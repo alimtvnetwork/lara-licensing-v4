@@ -1,6 +1,6 @@
 /**
  * Keyboard shortcut registry per
- * spec/24-app-ui-design-system/57-keyboard-shortcut-registry.md §5 (global set).
+ * 02-spec/24-app-ui-design-system/57-keyboard-shortcut-registry.md §5 (global set).
  *
  * Root cause of prior drift: shortcuts were bound ad-hoc in components, so
  * `Mod+K` / `?` / `Escape` had no single source of truth and no platform

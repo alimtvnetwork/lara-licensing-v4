@@ -7,7 +7,7 @@ use RuntimeException;
 use Throwable;
 
 /**
- * Domain exception carrying an ErrorCode from spec/21-app/12-error-taxonomy.md.
+ * Domain exception carrying an ErrorCode from 02-spec/21-app/12-error-taxonomy.md.
  *
  * Every throw MUST reference a code present in config('lara.error_codes').
  * The global exception handler (bootstrap/app.php, Plan 06 step 6) maps

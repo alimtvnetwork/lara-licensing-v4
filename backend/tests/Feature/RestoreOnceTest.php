@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 /**
- * Plan 06 step 52. Locks spec/21-app/48-quota-restore-on-revoke.md §2
+ * Plan 06 step 52. Locks 02-spec/21-app/48-quota-restore-on-revoke.md §2
  * "Restore contract" invariants against regression:
  *
  *   AC-QRR-001: exactly one QuotaRestored ledger row per LicenseId, ever

@@ -21,7 +21,7 @@ export interface LaraEnvelope<T> {
 }
 
 /**
- * Closed-set error identifiers from `spec/21-app/12-error-taxonomy.md`.
+ * Closed-set error identifiers from `02-spec/21-app/12-error-taxonomy.md`.
  * Spec 49 §5 AC-CONFLICT-005 forbids branching on HTTP status or message
  * substrings, so conflict detection compares against this constant.
  */

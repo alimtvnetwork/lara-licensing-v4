@@ -2,8 +2,8 @@
 """AC index parity linter.
 
 Enforces the discovery rule declared in
-`spec/21-app/97-acceptance-criteria.md`: every `AC-*` id that appears in any
-source file under `spec/21-app/` or `spec/23-app-db/` (excluding the index
+`02-spec/21-app/97-acceptance-criteria.md`: every `AC-*` id that appears in any
+source file under `02-spec/21-app/` or `02-spec/23-app-db/` (excluding the index
 itself) MUST be listed in the index, and vice versa. Emits a non-zero exit
 code on any drift and prints the offending ids so CI can surface them.
 
@@ -23,8 +23,8 @@ from collections import defaultdict
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
-INDEX_PATH = REPO / "spec" / "21-app" / "97-acceptance-criteria.md"
-SEARCH_ROOTS = [REPO / "spec" / "21-app", REPO / "spec" / "23-app-db"]
+INDEX_PATH = REPO / "02-spec" / "21-app" / "97-acceptance-criteria.md"
+SEARCH_ROOTS = [REPO / "02-spec" / "21-app", REPO / "02-spec" / "23-app-db"]
 AC_RE = re.compile(r"AC-[A-Z]+-[0-9]+")
 
 

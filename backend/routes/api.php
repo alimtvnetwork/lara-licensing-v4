@@ -12,9 +12,9 @@ declare(strict_types=1);
  | (envelope + Idempotency-Key + ETag/If-Match) is provable now.
  |
  | References:
- |  - spec/21-app/04-roles.md                     (RBAC surface)
- |  - spec/23-app-db/10-reseller-shard-split-db.md (shard binding rule)
- |  - spec/21-app/11-api-contracts/09-concurrency-control.md (If-Match)
+ |  - 02-spec/21-app/04-roles.md                     (RBAC surface)
+ |  - 02-spec/23-app-db/10-reseller-shard-split-db.md (shard binding rule)
+ |  - 02-spec/21-app/11-api-contracts/09-concurrency-control.md (If-Match)
  */
 
 use App\Http\Controllers\Admin\BindingController as AdminBindingController;
@@ -184,13 +184,13 @@ Route::middleware(['auth:sanctum', 'session.active', 'require.role:Admin|SuperAd
             ->where('SessionId', '[0-9a-fA-F-]{36}')->name('sessions.destroy');
 
         // Plan 14 step 9 (v0.614.0). Backup/Restore Export endpoint (S1 shadow).
-        // spec/26-backup-restore/11-endpoint-export.md. Idempotency-Key required
+        // 02-spec/26-backup-restore/11-endpoint-export.md. Idempotency-Key required
         // (see IdempotencyKeyMiddleware REQUIRED_PREFIXES `api/admin/backup/exports`).
         Route::post('/Backup/Exports', [\App\Http\Controllers\Admin\BrExportController::class, 'store'])
             ->name('backup.exports.store');
 
         // Plan 14 step 27 (v0.676.0). Backup/Restore Import endpoint (S1 shadow,
-        // verifyOnly slice). spec/26-backup-restore/12-endpoint-import.md.
+        // verifyOnly slice). 02-spec/26-backup-restore/12-endpoint-import.md.
         // Idempotency-Key required (REQUIRED_PREFIXES `api/admin/backup/imports`).
         // verifyAndApply is rejected 400 ValidationFailed until a follow-up step
         // lands the apply-phase job dispatch.
@@ -200,7 +200,7 @@ Route::middleware(['auth:sanctum', 'session.active', 'require.role:Admin|SuperAd
         // Plan 16 step 58 (v0.563.0). Runtime-config admin surface for
         // repo-root `version.json`. `show` returns ETag over UpdatedAt;
         // `update` enforces If-Match, atomic write, and SuperAdmin RBAC.
-        // Contract: spec/28-runtime-modes/05-admin-runtime-toggle.md.
+        // Contract: 02-spec/28-runtime-modes/05-admin-runtime-toggle.md.
         Route::get('/RuntimeConfig', [\App\Http\Controllers\Admin\RuntimeConfigController::class, 'show'])
             ->name('runtime_config.show');
         Route::put('/RuntimeConfig', [\App\Http\Controllers\Admin\RuntimeConfigController::class, 'update'])
@@ -295,7 +295,7 @@ Route::middleware(['require.signature'])
     });
 
 // Plan 06 steps 44 + 45. Self-update manifest read path per
-// spec/21-app/17-self-update-endpoint.md v1.3.0. Stable is anonymous
+// 02-spec/21-app/17-self-update-endpoint.md v1.3.0. Stable is anonymous
 // (no auth guard). Beta is reserved and rejected in-controller with
 // AuthzRoleDenied until the AppBuilder|Admin gate lands post-v1.0.
 Route::get('/App/UpdateManifest', \App\Http\Controllers\App\UpdateManifestController::class)

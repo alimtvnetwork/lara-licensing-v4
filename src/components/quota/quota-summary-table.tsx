@@ -4,7 +4,7 @@ import { formatLaraApiErrorOptional } from "../../lib/lara-api-error";
 import { resellerQuotasQueryOptions, type ResellerQuota } from "../../lib/lara-quota";
 
 /**
- * Read-only quota grid per spec/21-app/41-reseller-quotas.md.
+ * Read-only quota grid per 02-spec/21-app/41-reseller-quotas.md.
  * Shared by Admin (Step 46) and Reseller (Step 47) UIs.
  */
 export function QuotaSummaryTable({ resellerId }: { resellerId: number }) {

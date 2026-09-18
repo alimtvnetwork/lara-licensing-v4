@@ -2,7 +2,7 @@
 
 Generated: 2026-07-19 (v0.274.0)
 Source: `src/lib/lara-*.ts`, cross-referenced with `docs/backend/endpoint-gap-report.md`.
-Parent plan: `.lovable/plans/pending/09-fluid-ui-and-cpanel-release.md` (Step 2).
+Parent plan: `.ai-memory/plans/pending/09-fluid-ui-and-cpanel-release.md` (Step 2).
 
 ## Method
 

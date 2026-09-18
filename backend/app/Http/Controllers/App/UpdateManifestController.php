@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 
 /**
  * Plan 06 steps 44 + 45. `GET /App/UpdateManifest` per
- * spec/21-app/17-self-update-endpoint.md v1.3.0.
+ * 02-spec/21-app/17-self-update-endpoint.md v1.3.0.
  *
  * v1.0 rollout policy (spec §"v1.0 rollout policy"): Stable channel is
  * anonymous. Beta enum is reserved but the auth gate returns

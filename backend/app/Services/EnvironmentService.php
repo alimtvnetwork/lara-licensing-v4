@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Config;
  * violates AC-LENV-004 in one call path while remaining correct in the
  * other.
  *
- * Normative source: spec/21-app/44-environments.md v1.0.0 §2 (closed set
+ * Normative source: 02-spec/21-app/44-environments.md v1.0.0 §2 (closed set
  * `Production`, `Staging`, `Development`) and §3 (gate 2 opaque integer
  * ordinals). Ordinals are 1-based positions into
  * `config('lara.environments')`. An `Environments` catalog table is a

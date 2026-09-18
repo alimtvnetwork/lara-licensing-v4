@@ -1,7 +1,7 @@
 /**
  * Identifier: mono-typed identifier chip with optional middle-ellipsis and
- * copy affordance per spec/24-app-ui-design-system/09-typography-scale.md §6
- * and spec/24-app-ui-design-system/14-breadcrumbs-and-page-header.md §4.3.
+ * copy affordance per 02-spec/24-app-ui-design-system/09-typography-scale.md §6
+ * and 02-spec/24-app-ui-design-system/14-breadcrumbs-and-page-header.md §4.3.
  *
  * Truncation invariant: the DISPLAYED string may be shortened via
  * middle-ellipsis (character `…`, never three dots per §8), but the COPY

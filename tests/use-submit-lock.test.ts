@@ -45,7 +45,7 @@ describe("useSubmitLock (Plan 11 step 32)", () => {
   });
 
   it("does NOT lock for AbuseBlocked even with rateLimit metadata (AC-RL-008)", () => {
-    // spec/21-app/14-rate-limiting.md: Retry-After is authoritative only for
+    // 02-spec/21-app/14-rate-limiting.md: Retry-After is authoritative only for
     // RateLimited. AbuseBlocked renders the banner but never drives a lock.
     const { result } = renderHook(() => useSubmitLock(make(ApiErrorCodeType.AbuseBlocked, 3)));
     expect(result.current.locked).toBe(false);
@@ -67,7 +67,7 @@ describe("useSubmitLock (Plan 11 step 32)", () => {
   });
 
   // Countdown tick behavior is owned by `useRetryAfterCountdown` (see
-  // spec/21-app/14-rate-limiting.md); `useSubmitLock` is a thin adapter
+  // 02-spec/21-app/14-rate-limiting.md); `useSubmitLock` is a thin adapter
   // that trusts that hook's `remainingSeconds` output. The unit contract
   // above is sufficient; end-to-end tick release is covered by the
   // Playwright rate-limit spec (Plan 11 step 40).

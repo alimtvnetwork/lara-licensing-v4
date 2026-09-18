@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 /**
  * Plan 06 step 54. Locks GET /App/UpdateManifest contract per
- * spec/21-app/17-self-update-endpoint.md v1.3.0:
+ * 02-spec/21-app/17-self-update-endpoint.md v1.3.0:
  *
  *   AC-SUM-001: Stable + finalized + non-yanked highest semver row is
  *               picked from a multi-row candidate window (v1.3.0 over

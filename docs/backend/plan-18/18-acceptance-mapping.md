@@ -2,7 +2,7 @@
 
 Owner-step: 18
 Status: locked (Phase A)
-Source: spec-18 `.lovable/spec/tasks/18-backend-seed-login-e2e-error-manage.md`
+Source: spec-18 `.ai-memory/02-spec/tasks/18-backend-seed-login-e2e-error-manage.md`
 Consumers: Step 20 (plan freeze), Step 200 (release ceremony).
 
 ## 1. Purpose

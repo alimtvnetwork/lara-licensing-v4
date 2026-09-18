@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 
 /**
- * AlertDialog refit per spec/24-app-ui-design-system/21-component-dialog.md §5.
+ * AlertDialog refit per 02-spec/24-app-ui-design-system/21-component-dialog.md §5.
  *
  * The destructive-confirmation container. Rules preserved from the spec:
  *   - No `X` close button in the header (AC-DLG-013). Only exits are the

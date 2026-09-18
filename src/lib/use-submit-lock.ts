@@ -6,7 +6,7 @@
 // form's submit button is not. Users can re-click Submit during
 // Retry-After and drive the rate-limit bucket back into 429 immediately.
 // AC-ERR-012 (no double-fire during Retry-After, spec 24 §23.4 and
-// spec/21-app/14-rate-limiting.md) fails without this hook.
+// 02-spec/21-app/14-rate-limiting.md) fails without this hook.
 //
 // Contract: the hook accepts the LOCAL error the form is already
 // tracking (same object the form passes to `<RetryAfterBanner>`), so the

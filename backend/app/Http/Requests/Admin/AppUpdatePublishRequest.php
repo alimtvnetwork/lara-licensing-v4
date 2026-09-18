@@ -11,7 +11,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * Plan 06 step 45 (publish write path, phase 3 of 3).
  *
  * Body validation for `POST /Api/Admin/AppUpdates` per
- * spec/21-app/17-self-update-endpoint.md v1.3.0 §"POST /Admin/AppUpdates".
+ * 02-spec/21-app/17-self-update-endpoint.md v1.3.0 §"POST /Admin/AppUpdates".
  *
  * Root cause (one sentence): the finalize endpoint takes a nested
  * `Assets[]` array where each element pins the same closed sets as

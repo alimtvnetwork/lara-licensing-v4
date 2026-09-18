@@ -10,9 +10,9 @@ use Illuminate\Database\Eloquent\Model;
  * Plan 06 step 39 (substrate). Shard-DB `UserBindings` row.
  *
  * One row per (License, UserIdentifier) active pair. Enforces the
- * `UserCount` cap from `spec/21-app/06-license-variations.md` line 26
+ * `UserCount` cap from `02-spec/21-app/06-license-variations.md` line 26
  * and produces the `LicenseUserLimit` 409 path in
- * `spec/21-app/11-api-contracts/03-verification-contracts.md` line 53.
+ * `02-spec/21-app/11-api-contracts/03-verification-contracts.md` line 53.
  * Callers MUST bind the correct shard via
  * `App\Db\ShardResolver::bind()` BEFORE querying this model.
  *

@@ -6,11 +6,11 @@ import { UserRolePicker } from "@/components/admin/user-role-picker";
 import type { UserRoleEntry } from "@/lib/lara-user-role";
 
 /**
- * Proves AC-EC-TEST-003 from spec/21-app/27-error-code-test-matrix.md and
- * AC-RETRY-002 from spec/21-app/25-retry-decision-matrix.md: the last active
+ * Proves AC-EC-TEST-003 from 02-spec/21-app/27-error-code-test-matrix.md and
+ * AC-RETRY-002 from 02-spec/21-app/25-retry-decision-matrix.md: the last active
  * Admin cannot be revoked from the UI (client-side guard) so the server never
  * needs to emit AuthzLastAdminProtected in normal flows. The block also
- * covers the self-admin-revoke rule from spec/21-app/19-user-management.md.
+ * covers the self-admin-revoke rule from 02-spec/21-app/19-user-management.md.
  */
 function renderPicker(props: {
   entry: UserRoleEntry;

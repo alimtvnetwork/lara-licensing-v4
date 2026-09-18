@@ -16,7 +16,7 @@ import type * as S from "@/generated/api/schema";
  * vitest run in the same process) the moment `real-be-schema.ts` starts
  * re-exporting anything that no longer matches the Zod contract, or the
  * moment `schema.d.ts` accidentally matches the real BE (which would mean
- * the divergence documented in spec/25-app-audit/06-schema-parity-report.md
+ * the divergence documented in 02-spec/25-app-audit/06-schema-parity-report.md
  * is resolved and the negative parity tests in step 66 should be flipped).
  */
 

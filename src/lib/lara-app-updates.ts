@@ -21,7 +21,7 @@ import { HttpMethodType, requestLaraApi } from "./lara-api-client";
  *   POST /Api/Admin/AppUpdates/{Version}/Yank  -> yank a version
  *
  * All mutations require `Idempotency-Key` per
- * spec/21-app/17-self-update-endpoint.md §"Admin invariants" §4.
+ * 02-spec/21-app/17-self-update-endpoint.md §"Admin invariants" §4.
  */
 
 export const appUpdateAssetSchema = z.object({

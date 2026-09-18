@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Optimistic concurrency (ETag + If-Match) per
- * spec/21-app/11-api-contracts/09-concurrency-control.md v1.0.0.
+ * 02-spec/21-app/11-api-contracts/09-concurrency-control.md v1.0.0.
  *
  * This middleware does two jobs:
  *  1. On GET JSON responses, computes a strong ETag as lowercase SHA-256 hex

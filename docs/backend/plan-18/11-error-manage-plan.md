@@ -5,9 +5,9 @@ Status: draft (produced by Plan 18 Step 11).
 Depends on: `backend/app/Exceptions/LaraException.php`,
 `backend/bootstrap/app.php` (renderable handler, lines ~80-125),
 `src/lib/lara-api-error.ts` (`LaraApiError` class, line 219),
-`spec/03-error-manage/02-error-architecture/`,
-`spec/03-error-manage/03-error-code-registry/error-codes-master.json`,
-`spec/21-app/20-observability.md`, Plan 11 SS-01 (existing envelope).
+`02-spec/03-error-manage/02-error-architecture/`,
+`02-spec/03-error-manage/03-error-code-registry/error-codes-master.json`,
+`02-spec/21-app/20-observability.md`, Plan 11 SS-01 (existing envelope).
 
 ## 1. Current shape (ground truth, not speculation)
 
@@ -144,7 +144,7 @@ FE changes required to consume the new fields (Steps 94-95):
 
 ## 7. Error-code registry alignment
 
-`spec/03-error-manage/03-error-code-registry/error-codes-master.json`
+`02-spec/03-error-manage/03-error-code-registry/error-codes-master.json`
 already indexes ecosystem-wide codes; `config/lara.php` holds the
 project-local `error_http_status` map consumed by
 `LaraException::resolveStatus()` (`LaraException.php:60`). Plan 18

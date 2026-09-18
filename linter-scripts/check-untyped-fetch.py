@@ -5,7 +5,7 @@ Plan 16 Step 73: ban raw `fetch(` calls outside the audited transport shims.
 Root cause guarded: a raw `fetch(` skips `laraFetch` -> `LaraApiError`, the
 envelope parser, `X-Request-Id` header, bearer + one-shot refresh, error
 store capture, and Retry-After propagation. That silently degrades the
-entire error-manage contract (`spec/03-error-manage/`) into a bare
+entire error-manage contract (`02-spec/03-error-manage/`) into a bare
 `TypeError("Failed to fetch")` with no `RequestId`/`ErrorId`. Every UI
 data call MUST go through `apiClient.call` -> `laraFetch` ->
 `requestLaraApi` (or, in preview, `dispatchPreview`). External-URL

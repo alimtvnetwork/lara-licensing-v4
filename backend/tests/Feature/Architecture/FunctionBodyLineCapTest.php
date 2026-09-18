@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Enforces spec/02-coding-guidelines/04-php/07-php-standards-reference/04-code-style.md Rule 6:
+ * Enforces 02-spec/02-coding-guidelines/04-php/07-php-standards-reference/04-code-style.md Rule 6:
  * "Every function/method body must be 15 lines or fewer (excluding blank lines,
  * comments, and the signature)."
  *
@@ -13,7 +13,7 @@ declare(strict_types=1);
  * token", are trivially expressible from tokens).
  *
  * Enforcement model: closed-set baseline. Any function currently over the cap
- * must appear in spec/02-coding-guidelines/04-php/function-length-baseline.json.
+ * must appear in 02-spec/02-coding-guidelines/04-php/function-length-baseline.json.
  * Baseline is ratcheted-only: new violations fail the build, refactoring a
  * baseline entry back under 15 lines requires removing it from the baseline
  * (the test also fails when a baseline entry no longer exceeds the cap, so the
@@ -151,7 +151,7 @@ it('function bodies stay at or under the 15-line cap (baseline-ratcheted)', func
     $root = realpath(__DIR__.'/../../../app');
     expect($root)->not->toBeFalse();
 
-    $baselinePath = realpath(__DIR__.'/../../../../spec/02-coding-guidelines/04-php/function-length-baseline.json');
+    $baselinePath = realpath(__DIR__.'/../../../../02-spec/02-coding-guidelines/04-php/function-length-baseline.json');
     expect($baselinePath)->not->toBeFalse('baseline JSON must exist');
     /** @var array{entries: list<array{file:string,function:string,approxLines:int}>} $baseline */
     $baseline = json_decode((string) file_get_contents($baselinePath), true);
@@ -173,13 +173,13 @@ it('function bodies stay at or under the 15-line cap (baseline-ratcheted)', func
 
     expect($newViolations)->toBe(
         [],
-        "New function-length violations detected. Extract helpers per spec/02-coding-guidelines/04-php/07-php-standards-reference/04-code-style.md Rule 6.\n".implode("\n", $newViolations)
+        "New function-length violations detected. Extract helpers per 02-spec/02-coding-guidelines/04-php/07-php-standards-reference/04-code-style.md Rule 6.\n".implode("\n", $newViolations)
     );
 
     // Ratchet: baseline entries that no longer exceed the cap must be removed.
     $stale = array_values(array_diff(array_keys($allowed), array_keys($currentKeys)));
     expect($stale)->toBe(
         [],
-        "Baseline entries are no longer over the cap. Delete them from spec/02-coding-guidelines/04-php/function-length-baseline.json to prevent regressions:\n".implode("\n", $stale)
+        "Baseline entries are no longer over the cap. Delete them from 02-spec/02-coding-guidelines/04-php/function-length-baseline.json to prevent regressions:\n".implode("\n", $stale)
     );
 });

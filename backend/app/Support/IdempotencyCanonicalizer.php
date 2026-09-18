@@ -6,7 +6,7 @@ use JsonException;
 
 /**
  * Canonicalizes JSON request bodies for idempotency hashing per
- * spec/21-app/29-idempotency-lifecycle.md v1.0.0 §Canonicalization.
+ * 02-spec/21-app/29-idempotency-lifecycle.md v1.0.0 §Canonicalization.
  *
  * Rules:
  *  - Parse JSON body (empty body treated as `null`).

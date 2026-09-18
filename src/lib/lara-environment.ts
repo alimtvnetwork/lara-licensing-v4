@@ -2,7 +2,7 @@ import { z } from "zod";
 
 /**
  * Sole client-side normative module for the LicenseEnvironment closed set
- * defined in spec/21-app/44-environments.md §2 (Production=1, Staging=2,
+ * defined in 02-spec/21-app/44-environments.md §2 (Production=1, Staging=2,
  * Development=3; ordinals stable per AC-LENV-005). Every other client module
  * MUST import from here rather than restate the members, matching the
  * single-owner rule that keeps spec 44 the sole normative source.
@@ -57,7 +57,7 @@ export function resolveCallerEnvironmentId(): EnvironmentIdValue {
   const raw = import.meta.env.VITE_LARA_ENVIRONMENT_ID;
   if (raw === undefined || raw === "") {
     throw new Error(
-      "VITE_LARA_ENVIRONMENT_ID is not configured. Set it to 1, 2, or 3 per spec/21-app/44-environments.md §2.",
+      "VITE_LARA_ENVIRONMENT_ID is not configured. Set it to 1, 2, or 3 per 02-spec/21-app/44-environments.md §2.",
     );
   }
 

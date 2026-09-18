@@ -10,7 +10,7 @@
  *     `copyForErrorCode` at render time.
  *
  * If this test fails, do NOT edit only one side. Update all three so the
- * closed set stays synchronized (spec/24-app-ui-design-system §56).
+ * closed set stays synchronized (02-spec/24-app-ui-design-system §56).
  */
 
 import { describe, expect, it } from "vitest";

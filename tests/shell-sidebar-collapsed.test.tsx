@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
 /**
  * Locks the `LaraSidebarCollapsed` persistence contract per
- * spec/24-app-ui-design-system/13-navigation-ia.md §9:
+ * 02-spec/24-app-ui-design-system/13-navigation-ia.md §9:
  * - default is expanded (false) when nothing is stored,
  * - toggle writes the PascalCase key `LaraSidebarCollapsed`,
  * - a subsequent mount hydrates from localStorage without observing an

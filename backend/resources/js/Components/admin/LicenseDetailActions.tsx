@@ -45,7 +45,7 @@ const STATUS_SUSPENDED = "Suspended";
 const STATUS_REVOKED = "Revoked";
 
 /**
- * spec/21-app/48-quota-restore-on-revoke.md §2 step 7: exactly four
+ * 02-spec/21-app/48-quota-restore-on-revoke.md §2 step 7: exactly four
  * skip reasons plus the happy path. Rendered explicitly so an operator
  * can tell "seat came back" from "no seat was ever charged".
  */

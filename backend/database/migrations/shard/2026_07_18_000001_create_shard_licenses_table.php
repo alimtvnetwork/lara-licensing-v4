@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\DB;
  * Plan 06 step 15. Shard DB `Licenses` core table.
  *
  * Runs on the reseller shard connection bound by
- * `App\Db\ShardResolver::bind()`. Per spec/23-app-db/10-reseller-shard-split-db.md
+ * `App\Db\ShardResolver::bind()`. Per 02-spec/23-app-db/10-reseller-shard-split-db.md
  * §App-tier tables, license rows live in the reseller's shard, not Root.
  *
  * The `Version` column is the strong-ETag source per
- * spec/21-app/11-api-contracts/09-concurrency-control.md v1.0.0: every
+ * 02-spec/21-app/11-api-contracts/09-concurrency-control.md v1.0.0: every
  * mutation MUST increment `Version` and every GET response MUST emit
  * `ETag: "<Version>"`. `EtagMiddleware` (Plan 06 step 9) enforces the
  * `If-Match` handshake against this value on PUT/PATCH/DELETE.

@@ -14,7 +14,7 @@ use Monolog\Processor\PsrLogMessageProcessor;
 | writes to when gated stack-trace logging is enabled for `LaraException`
 | and generic `Throwable` renderers. Keeping the sink dedicated (not
 | multiplexed into `stack`) means grepping `storage/logs/lara-diag-*.log`
-| by `ErrorId` (see spec/03-error-manage runbook, step 37) returns only
+| by `ErrorId` (see 02-spec/03-error-manage runbook, step 37) returns only
 | domain exception traces, not per-request access noise.
 |
 | Retention is 14 days by default (`LARA_DIAG_DAYS`). The channel is safe

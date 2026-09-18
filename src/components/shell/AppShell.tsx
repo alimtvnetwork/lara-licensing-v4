@@ -5,7 +5,7 @@ import { useSidebarCollapsed } from "@/lib/lara-sidebar-collapsed";
 
 /**
  * AppShell: authenticated `shell-app` grid host per
- * spec/24-app-ui-design-system/12-shell-layout.md §3. Renders the four named
+ * 02-spec/24-app-ui-design-system/12-shell-layout.md §3. Renders the four named
  * regions (sidebar, topbar, main sub-grid: page-header, page-actions,
  * page-content) and installs the html scroll-lock opt-in flag so
  * `data-app-shell` gated CSS in styles.css activates.

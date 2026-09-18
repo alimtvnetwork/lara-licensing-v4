@@ -12,7 +12,7 @@ use RuntimeException;
  * Plan 10 step 11. Single owner of the Root `Roles` closed set.
  *
  * Reads role names from `config('lara.roles')` (see backend/config/lara.php
- * key `roles`, spec/21-app/04-roles.md) and idempotently upserts one row per
+ * key `roles`, 02-spec/21-app/04-roles.md) and idempotently upserts one row per
  * name into the `root` connection's `Roles` table. The `Roles` table CHECK
  * constraint enforces the same closed set at the DB layer, so a drifted
  * config value fails the INSERT rather than silently succeeding.

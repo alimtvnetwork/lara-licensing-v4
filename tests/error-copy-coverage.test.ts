@@ -9,7 +9,7 @@ import { copyForErrorCode, errorsByCode } from "../src/lib/copy";
  * exist. Root cause this test guards: v0.300 added
  * `AuthRegistrationClosed` and the register route had to hand-write the
  * error string because `copy.errors` had no matching row, resulting in
- * an out-of-band string that bypasses spec/24-app-ui-design-system/56.
+ * an out-of-band string that bypasses 02-spec/24-app-ui-design-system/56.
  */
 describe("error copy coverage parity", () => {
   const enumValues = Object.values(ApiErrorCodeType) as ReadonlyArray<ApiErrorCodeType>;

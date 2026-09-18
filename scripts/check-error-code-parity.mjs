@@ -13,8 +13,8 @@
  * runs anywhere Node 18+ is available (dev, CI, pre-commit).
  *
  * Related:
- *   spec/03-error-manage/98-audit-input.md §3 (baseline delta).
- *   spec/03-error-manage/12-error-taxonomy.md (canonical source of truth).
+ *   02-spec/03-error-manage/98-audit-input.md §3 (baseline delta).
+ *   02-spec/03-error-manage/12-error-taxonomy.md (canonical source of truth).
  */
 
 import { readFileSync } from "node:fs";

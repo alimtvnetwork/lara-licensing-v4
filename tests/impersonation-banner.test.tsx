@@ -3,7 +3,7 @@ import { act, cleanup, fireEvent, render, screen } from "@testing-library/react"
 
 /**
  * Locks the behavioral contract of <ImpersonationBanner /> per
- * spec/21-app/46-impersonation.md AC-IMP-008 (banner MUST render on every
+ * 02-spec/21-app/46-impersonation.md AC-IMP-008 (banner MUST render on every
  * _authenticated route while a session is active, must display the target
  * and remaining TTL, and must expose an End action). The repo has no
  * pixel-level visual regression harness, so this suite exercises the same

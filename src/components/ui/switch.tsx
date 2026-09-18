@@ -4,7 +4,7 @@ import * as SwitchPrimitives from "@radix-ui/react-switch";
 import { cn } from "@/lib/utils";
 
 /**
- * Switch refit per spec/24-app-ui-design-system/20-component-choice.md §3, §7.
+ * Switch refit per 02-spec/24-app-ui-design-system/20-component-choice.md §3, §7.
  *
  * Geometry: track 32x20 px, thumb 16x16 px, radius --radius-full on both.
  * Unchecked track = var(--muted); checked track = var(--primary).

@@ -7,7 +7,7 @@ import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
- * Select refit per spec/24-app-ui-design-system/19-component-select.md.
+ * Select refit per 02-spec/24-app-ui-design-system/19-component-select.md.
  *
  * Trigger geometry (§3): inherits Input geometry (40 px block-size,
  * `--radius-md`, 1 px `var(--border)`), always renders a trailing

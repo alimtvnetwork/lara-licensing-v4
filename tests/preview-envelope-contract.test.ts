@@ -6,7 +6,7 @@
  *   - an `errorCode` that is a member of the closed-set `ApiErrorCodeType`
  *   - a positive `httpStatus` (transport preserves it end-to-end)
  *   - the `requestId` from the dispatch context (RequestId propagation,
- *     spec/21-app/20-observability.md; INV-ERR-04)
+ *     02-spec/21-app/20-observability.md; INV-ERR-04)
  *
  * A plain `Error` or a rejected promise with a string here would break
  * `formatLaraApiError` and the Global Error Modal contract from Plan 11.

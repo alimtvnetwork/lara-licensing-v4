@@ -1,6 +1,6 @@
 # Project
 
-AI-first project. Every AI session starts with amnesia, so all durable knowledge lives in `.lovable/` and `spec/`. Read the files listed below before doing any work.
+AI-first project. Every AI session starts with amnesia, so all durable knowledge lives in `.ai-memory/` and `02-spec/`. Read the files listed below before doing any work.
 
 **Version:** 0.691.0
 
@@ -20,7 +20,7 @@ AI-first project. Every AI session starts with amnesia, so all durable knowledge
 ```
 .
 ├── README.md                       # This file: entry point for humans and AI
-├── .lovable/                       # AI-readable project knowledge (persistent memory)
+├── .ai-memory/                       # AI-readable project knowledge (persistent memory)
 │   ├── what-to-read.md             # Ordered reading list for every AI session
 │   ├── coding-guidelines/          # Mandatory coding rules
 │   │   └── coding-guidelines.md
@@ -57,21 +57,21 @@ AI-first project. Every AI session starts with amnesia, so all durable knowledge
 └── src/                            # Application code
 ```
 
-Folder rules: kebab-case, numeric prefixes for ordering. There is exactly ONE memory folder: `.lovable/memory/`. Never create `.lovable/memories/`.
+Folder rules: kebab-case, numeric prefixes for ordering. There is exactly ONE memory folder: `.ai-memory/memory/`. Never create `.ai-memory/memories/`.
 
 ## What The AI Must Read
 
-The canonical, ordered reading list lives in `.lovable/what-to-read.md`. Every AI session must open that file first.
+The canonical, ordered reading list lives in `.ai-memory/what-to-read.md`. Every AI session must open that file first.
 
 Short version, in order:
 
-1. `.lovable/what-to-read.md` (this list, authoritative)
-2. `.lovable/overview.md` (project onboarding)
-3. `.lovable/strictly-avoid.md` and `.lovable/strictly-avoid/` (hard prohibitions)
-4. `.lovable/user-preferences.md` (communication style)
-5. `.lovable/coding-guidelines/coding-guidelines.md` (mandatory rules)
-6. `.lovable/memory/index.md` (survey all memory)
-7. `.lovable/plan.md` or `.lovable/plans/index.md` (roadmap)
-8. `.lovable/suggestions.md` (pending suggestions)
-9. `.lovable/pending-tasks/` and `.lovable/pending-issues/` (open work)
-10. Task-specific spec under `spec/`
+1. `.ai-memory/what-to-read.md` (this list, authoritative)
+2. `.ai-memory/overview.md` (project onboarding)
+3. `.ai-memory/strictly-avoid.md` and `.ai-memory/strictly-avoid/` (hard prohibitions)
+4. `.ai-memory/user-preferences.md` (communication style)
+5. `.ai-memory/coding-guidelines.md` (mandatory rules)
+6. `.ai-memory/memory/index.md` (survey all memory)
+7. `.ai-memory/plan.md` or `.ai-memory/plans/index.md` (roadmap)
+8. `.ai-memory/suggestions.md` (pending suggestions)
+9. `.ai-memory/pending-tasks/` and `.ai-memory/pending-issues/` (open work)
+10. Task-specific spec under `02-spec/`

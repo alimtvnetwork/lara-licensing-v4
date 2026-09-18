@@ -204,7 +204,7 @@ final class LogoutTest extends TestCase
 
         // Sanctum's `createToken` writes to `personal_access_tokens` with
         // `name = SessionId` matching LoginController's contract
-        // (spec/21-app/31-auth-session-family.md).
+        // (02-spec/21-app/31-auth-session-family.md).
         $token = $user->createToken($sessionId);
 
         return [$sessionId, $token->plainTextToken];

@@ -9,7 +9,7 @@ import {
   resolveCallerEnvironmentId,
 } from "../src/lib/lara-environment";
 
-describe("lara-environment closed set (spec/21-app/44-environments.md §2)", () => {
+describe("lara-environment closed set (02-spec/21-app/44-environments.md §2)", () => {
   it("exposes exactly ordinals 1..3 mapped to the canonical names", () => {
     expect(EnvironmentIdType).toEqual({ Production: 1, Staging: 2, Development: 3 });
     expect([...ENVIRONMENT_IDS]).toEqual([1, 2, 3]);

@@ -2,7 +2,7 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 
 /**
  * Shared sidebar-collapsed state for the authenticated `AppShell` per
- * spec/24-app-ui-design-system/13-navigation-ia.md §9 (collapsed rail).
+ * 02-spec/24-app-ui-design-system/13-navigation-ia.md §9 (collapsed rail).
  *
  * Value is persisted to `localStorage` under the PascalCase key
  * `LaraSidebarCollapsed`. Reads happen inside `useEffect` (post-mount) so

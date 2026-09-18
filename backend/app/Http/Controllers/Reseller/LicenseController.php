@@ -32,8 +32,8 @@ use Illuminate\Support\Facades\Log;
  * controller runs; `ResellerSlug` is available under
  * `$request->attributes->get('ResellerSlug')`. This controller MUST NOT
  * accept a `ResellerSlug` from the caller: cross-reseller reads are
- * forbidden per spec/23-app-db/10 §Routing Rules and
- * spec/21-app/04-roles.md §Reseller row-scope. All queries run against
+ * forbidden per 02-spec/23-app-db/10 §Routing Rules and
+ * 02-spec/21-app/04-roles.md §Reseller row-scope. All queries run against
  * the `shard` connection bound by the middleware.
  *
  * Endpoints:

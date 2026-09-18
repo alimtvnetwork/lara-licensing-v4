@@ -3,7 +3,7 @@ import { cleanup, render, screen } from "@testing-library/react";
 
 /**
  * Locks Breadcrumbs + PageHeader semantics per
- * spec/24-app-ui-design-system/14-breadcrumbs-and-page-header.md §3, §4, §5
+ * 02-spec/24-app-ui-design-system/14-breadcrumbs-and-page-header.md §3, §4, §5
  * and AC-ADS-046 (exactly one H1 per route).
  */
 

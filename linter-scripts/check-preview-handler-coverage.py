@@ -8,7 +8,7 @@ have at least one `registerPreviewHandler("<id>", ...)` call under
 `src/lib/preview-fixtures/`, unless it appears in the allowlist below.
 
 Rationale: the vitest gate only fires from `bunx vitest run`. This mirror
-runs from `linter-scripts/run.sh` so `.lovable/prompts/lint` catches drift
+runs from `linter-scripts/run.sh` so `01-prompts/lint` catches drift
 without a full test invocation. Both gates share the same allowlist shape
 (currently empty per Plan 16 Step 52).
 """

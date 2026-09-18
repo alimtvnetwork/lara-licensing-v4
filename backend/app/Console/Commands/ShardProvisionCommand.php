@@ -13,7 +13,7 @@ use Throwable;
  * Plan 06 step 12. Provision a per-Reseller shard database.
  *
  * Executes the state machine documented in
- * spec/23-app-db/10-reseller-shard-split-db.md §Provisioning Lifecycle:
+ * 02-spec/23-app-db/10-reseller-shard-split-db.md §Provisioning Lifecycle:
  *
  *   1. Verify a `Resellers` row exists for the slug and locate the
  *      matching `ResellerShardRoutes` row.
@@ -22,7 +22,7 @@ use Throwable;
  *      template substitution (harmless if the database already exists).
  *   4. Bind the shard connection through `ShardResolver` and run
  *      migrations from `database/migrations/shard/`. Forward-only per
- *      spec/04-database-conventions/03-orm-and-views.md.
+ *      02-spec/04-database-conventions/03-orm-and-views.md.
  *   5. On success, set `ShardStatus=Active`, `SchemaVersion=<git ver>`,
  *      `LastMigratedAt=NOW()`, clear `LastError`.
  *   6. On failure, set `ShardStatus=Failed`, record the error in

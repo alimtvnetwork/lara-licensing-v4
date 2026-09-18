@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
  * Plan 06 step 41 (substrate). Root DB `Features` catalog and
  * `TierFeatures` tier-default layer.
  *
- * Normative source: spec/21-app/45-license-features.md v1.0.0 §2 (closed
+ * Normative source: 02-spec/21-app/45-license-features.md v1.0.0 §2 (closed
  * FeatureKey registry, typed value domains) and §4 (precedence
  * `LicenseFeatures > TierFeatures`). Both tables live in Root because
  * the catalog and tier defaults are cross-reseller; shard-local
@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
  * migration `2026_07_18_000005` on the shard connection.
  *
  * Cross-DB physical FKs are forbidden per split-DB architecture
- * (spec/23-app-db/10-reseller-shard-split-db.md §App-tier), so shard
+ * (02-spec/23-app-db/10-reseller-shard-split-db.md §App-tier), so shard
  * `LicenseFeatures.FeatureId` remains a loose numeric reference validated
  * by App\Services\FeatureService.
  *

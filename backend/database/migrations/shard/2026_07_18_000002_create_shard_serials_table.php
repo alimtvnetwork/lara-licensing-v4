@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 /**
  * Plan 06 step 16. Shard DB `Serials` table.
  *
- * Per spec/23-app-db/01-schema.md §Serials and spec/21-app/11-api-contracts
+ * Per 02-spec/23-app-db/01-schema.md §Serials and 02-spec/21-app/11-api-contracts
  * (portal serial issuance): each Serial is bound 1:1 to a device on an issued
  * License. Idempotency for `POST /Api/Portal/Serials` is enforced by a UNIQUE
  * index on (`LicenseId`, `DeviceIdHash`) so retries of the same request

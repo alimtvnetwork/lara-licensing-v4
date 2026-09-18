@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
  * the model; PascalCase would require overriding column accessors that add
  * no value. The `name` column carries the AuthSessions.SessionId UUID for
  * every token minted on login, giving handlers a stable pointer from the
- * bearer token to the parent AuthSession row (spec/21-app/31-auth-session-family.md).
+ * bearer token to the parent AuthSession row (02-spec/21-app/31-auth-session-family.md).
  */
 return new class extends Migration
 {

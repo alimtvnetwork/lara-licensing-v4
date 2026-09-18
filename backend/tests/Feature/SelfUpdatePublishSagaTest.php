@@ -11,7 +11,7 @@ use Tests\TestCase;
 /**
  * Plan 06 step 55. Locks PUT /App/UpdateAssetReceiver/{UploadToken}
  * publish-saga phase-2 invariants per
- * spec/21-app/17-self-update-endpoint.md v1.3.0 §"Publish state machine":
+ * 02-spec/21-app/17-self-update-endpoint.md v1.3.0 §"Publish state machine":
  *
  *   AC-SUP-001: Happy path. Correct token, X-Sha256 header equal to
  *               row Sha256, body of exactly SizeBytes bytes that hash

@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
 check-prompts-loaded.py — Verify that the prompt-loading contract from
-``.lovable/coding-guidelines/coding-guidelines.md`` actually holds on
-disk: the index file ``.lovable/prompts.md`` must exist, and every
-prompt file under ``.lovable/prompts/`` must be referenced by it.
+``.ai-memory/coding-guidelines.md`` actually holds on
+disk: the index file ``.ai-memory/prompts.md`` must exist, and every
+prompt file under ``01-prompts/`` must be referenced by it.
 
 This is the on-disk equivalent of the AI-side "read all prompts before
 generating code" rule. If the index drifts from the prompt directory
@@ -27,8 +27,8 @@ Usage::
 
     python3 linter-scripts/check-prompts-loaded.py
     python3 linter-scripts/check-prompts-loaded.py \\
-        --index .lovable/prompts.md \\
-        --prompts-dir .lovable/prompts
+        --index .ai-memory/prompts.md \\
+        --prompts-dir .ai-memory/prompts
 """
 from __future__ import annotations
 
@@ -41,13 +41,13 @@ EXIT_PASS = 0
 EXIT_FAIL = 1
 EXIT_ERROR = 2
 
-DEFAULT_INDEX = ".lovable/prompts.md"
-DEFAULT_PROMPTS_DIR = ".lovable/prompts"
+DEFAULT_INDEX = ".ai-memory/prompts.md"
+DEFAULT_PROMPTS_DIR = ".ai-memory/prompts"
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Verify .lovable/prompts.md indexes every prompt file.",
+        description="Verify .ai-memory/prompts.md indexes every prompt file.",
     )
     parser.add_argument("--index", default=DEFAULT_INDEX,
                         help=f"Path to the prompt index (default: {DEFAULT_INDEX})")
@@ -98,7 +98,7 @@ def report(prompt_files: list[str], orphans: list[str],
         print("")
     is_pass = not has_orphans and not has_dangling
     if is_pass:
-        print("✅ Prompt index is in sync with .lovable/prompts/.")
+        print("✅ Prompt index is in sync with 01-prompts/.")
     return is_pass
 
 
@@ -109,7 +109,7 @@ def main() -> int:
     if not index_path.is_file():
         sys.stderr.write(
             f"ERROR: prompt index not found at {index_path}.\n"
-            "       Create it per .lovable/coding-guidelines/coding-guidelines.md.\n"
+            "       Create it per .ai-memory/coding-guidelines.md.\n"
         )
         return EXIT_ERROR
     if not prompts_dir.is_dir():

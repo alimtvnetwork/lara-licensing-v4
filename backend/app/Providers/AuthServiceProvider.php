@@ -24,7 +24,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
  * Plan 10 step 3. Wires model Policies through Laravel's Gate registry.
  *
  * Each Policy delegates to `HasRolePolicy` (Root.UserRoles/Roles catalog)
- * per spec/21-app/04-roles.md; no role names live on Profiles. Controllers
+ * per 02-spec/21-app/04-roles.md; no role names live on Profiles. Controllers
  * still enforce coarse-grained access via route middleware; these Policies
  * provide the fine-grained per-model gates (`$user->can('revoke', $license)`).
  */

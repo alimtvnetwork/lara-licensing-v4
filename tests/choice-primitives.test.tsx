@@ -1,6 +1,6 @@
 /**
  * Locks Checkbox / RadioGroup / Switch refit per
- * spec/24-app-ui-design-system/20-component-choice.md §3-4, §7.
+ * 02-spec/24-app-ui-design-system/20-component-choice.md §3-4, §7.
  *
  * Scope: geometry class contract, aria-invalid destructive shift, focus
  * ring parity, and Switch aria-busy semantics. Idempotency-Key wiring

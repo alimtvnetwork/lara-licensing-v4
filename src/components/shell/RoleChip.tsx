@@ -1,6 +1,6 @@
 /**
  * RoleChip: Compact identity chip for the topbar per
- * spec/24-app-ui-design-system §7.2. Reads `Me.RoleName` and renders it as
+ * 02-spec/24-app-ui-design-system §7.2. Reads `Me.RoleName` and renders it as
  * a semantic pill using design tokens (no hardcoded colors).
  *
  * Root cause this addresses: the topbar had no persistent visual signal of

@@ -18,7 +18,7 @@ use Throwable;
  *
  * Consumes one queued `Kind='Restore'` row via {@see BrJobDispatcher}
  * and walks the S1-shadow half of the state machine defined in
- * spec/26-backup-restore/12-restore-orchestration.md v1.0.0:
+ * 02-spec/26-backup-restore/12-restore-orchestration.md v1.0.0:
  *
  *   Queued -> Running -> Preflight -> DriftSnapshot -> Succeeded
  *

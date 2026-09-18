@@ -30,7 +30,7 @@ Closes Plan 18 Phase A. Summarizes the artifacts produced by Steps 1-19, prints 
 | 16   | `docs/ci/plan-18/16-cicd-plan.md`                                                 | locked |
 | 17   | `docs/backend/plan-18/17-risk-and-rollback.md`                                    | locked |
 | 18   | `docs/backend/plan-18/18-acceptance-mapping.md`                                   | locked |
-| 19   | `.lovable/plans/subtasks/18-backend-seed-login-e2e-error-manage/README.md`        | locked |
+| 19   | `.ai-memory/plans/subtasks/18-backend-seed-login-e2e-error-manage/README.md`        | locked |
 
 Every implementation step 21-200 must cite at least one row above as its planning source. No exceptions.
 
@@ -57,7 +57,7 @@ Overlap note (Steps 30-40): SS-01 owns controller/route parity, SS-02 owns seede
 Before executing the release ceremony at Step 200, verify each row is checked:
 
 - [ ] Every artifact in Section 2 is present on disk and unchanged since Step 20.
-- [ ] Every SS-01..SS-10 in `.lovable/plans/subtasks/.../README.md` has `Status: completed`.
+- [ ] Every SS-01..SS-10 in `.ai-memory/plans/subtasks/.../README.md` has `Status: completed`.
 - [ ] `docs/backend/plan-18/17-risk-and-rollback.md` gates G-R1..G-R7 all recorded as `closed` (amendment section).
 - [ ] `docs/backend/plan-18/18-acceptance-mapping.md` AC-01..AC-10 all rows show no open gaps.
 - [ ] `bunx vitest run` green, count >= 824.

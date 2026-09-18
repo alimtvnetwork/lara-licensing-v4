@@ -1,4 +1,4 @@
-// spec/24-app-ui-design-system/56-copy-dictionary.md
+// 02-spec/24-app-ui-design-system/56-copy-dictionary.md
 // Single normative source for user-visible strings. Consumers import
 // `copy` from '@/lib/copy'. Hand-edited entries MUST match the spec §3..§8.
 // Any change here requires the matching row in 56-copy-dictionary.md.

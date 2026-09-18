@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Log;
 /**
  * Plan 16 step 58 (v0.563.0). Admin surface for repo-root `version.json`.
  *
- * Contract: spec/28-runtime-modes/05-admin-runtime-toggle.md.
+ * Contract: 02-spec/28-runtime-modes/05-admin-runtime-toggle.md.
  *  - GET  /Api/Admin/RuntimeConfig    read + strong ETag on `UpdatedAt`.
  *  - PUT  /Api/Admin/RuntimeConfig    atomic rewrite guarded by If-Match.
  *

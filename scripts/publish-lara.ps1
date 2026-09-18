@@ -4,15 +4,15 @@
     Publishes Lara CLI assets to the Lara self-update host.
 
 .DESCRIPTION
-    Deliverable form of spec/21-app/18-publishing-powershell.md. Implements the
-    two-phase upload contract from spec/21-app/17-self-update-endpoint.md:
+    Deliverable form of 02-spec/21-app/18-publishing-powershell.md. Implements the
+    two-phase upload contract from 02-spec/21-app/17-self-update-endpoint.md:
       1. POST /Admin/AppUpdates/UploadTicket per platform (reserves an upload
          slot, returns { UploadToken, UploadUrl, ExpiresAt }).
       2. PUT {UploadUrl} with header X-Sha256 for each asset.
       3. POST /Admin/AppUpdates to materialize the manifest row.
       4. Optional GET /App/UpdateManifest verification when -Verify is set.
 
-    Silent failure is banned (spec/03-error-manage/); every failure path logs
+    Silent failure is banned (02-spec/03-error-manage/); every failure path logs
     ERROR [<code>]: <message> in red and exits with the top-level code from
     the 9560-9569 reserved range.
 

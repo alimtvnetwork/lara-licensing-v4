@@ -8,8 +8,8 @@ import type { MeUser } from "@/generated/api/schema";
 
 /**
  * Current-user identity client for GET /Users/Me per
- * spec/21-app/11-api-contracts/06-user-contracts.md (Users self-read) and
- * spec/21-app/04-roles.md (RoleName closed set).
+ * 02-spec/21-app/11-api-contracts/06-user-contracts.md (Users self-read) and
+ * 02-spec/21-app/04-roles.md (RoleName closed set).
  *
  * Plan 17 step 3 (preview bridge): legacy consumers call
  * `meQueryOptions()`, which used to always hit

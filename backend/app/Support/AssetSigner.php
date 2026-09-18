@@ -8,7 +8,7 @@ use RuntimeException;
 
 /**
  * Plan 06 step 46. Ed25519 detached-signature signer for self-update
- * binaries per spec/21-app/17-self-update-endpoint.md v1.3.0
+ * binaries per 02-spec/21-app/17-self-update-endpoint.md v1.3.0
  * §"Signature verification".
  *
  * Root cause this class exists (one sentence): the client MUST verify a

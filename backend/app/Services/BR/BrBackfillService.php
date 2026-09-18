@@ -18,7 +18,7 @@ use Throwable;
  * Plan 14 step 5b. Day-one Backup/Restore backfill runner.
  *
  * Normative sources:
- *  - spec/26-backup-restore/25-migration-and-rollout.md v1.0.0
+ *  - 02-spec/26-backup-restore/25-migration-and-rollout.md v1.0.0
  *    §"Day-One Backfills" (three job kinds, rank-1..3, idempotent).
  *  - INV-BR-MG-7: backfill jobs run under `br.global` rank-1 advisory
  *    xact lock and MUST emit start + end audit rows.

@@ -10,8 +10,8 @@ use InvalidArgumentException;
 /**
  * HasRolePolicy — Root-DB backed role check.
  *
- * Spec: spec/21-app/04-roles.md (Roles are stored in Root.UserRoles/Roles,
- * never on Profiles). See .lovable/memory/standards for no-magic-literals:
+ * Spec: 02-spec/21-app/04-roles.md (Roles are stored in Root.UserRoles/Roles,
+ * never on Profiles). See .ai-memory/memory/standards for no-magic-literals:
  * role names flow in from callers that name config('lara.roles') entries
  * or route middleware parameters, and are re-validated against the Root
  * `Roles` catalog before any UserRoles lookup.

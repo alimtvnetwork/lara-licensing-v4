@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\DB;
  * Plan 06 step 39 (substrate, user axis). Shard `UserBindings`.
  *
  * Root cause this migration addresses (one sentence): the `UserCount`
- * cap declared in `spec/21-app/06-license-variations.md` line 26 and
+ * cap declared in `02-spec/21-app/06-license-variations.md` line 26 and
  * the `LicenseUserLimit` (409) error in
- * `spec/21-app/11-api-contracts/03-verification-contracts.md` line 53
+ * `02-spec/21-app/11-api-contracts/03-verification-contracts.md` line 53
  * cannot be enforced at verify time because the substrate table pinned
- * by `spec/23-app-db/01-schema.md` lines 484-494 does not exist yet.
+ * by `02-spec/23-app-db/01-schema.md` lines 484-494 does not exist yet.
  *
  * Columns and invariants:
  *  - `UserBindingId`   BIGSERIAL PK.
@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\DB;
  *  - `FirstSeenAt`     TIMESTAMPTZ NOT NULL DEFAULT NOW().
  *  - `LastSeenAt`      TIMESTAMPTZ NOT NULL DEFAULT NOW().
  *  - `IsReleased`      BOOLEAN NOT NULL DEFAULT FALSE. Matches
- *                      `spec/23-app-db/01-schema.md` line 492 (TINYINT(1)
+ *                      `02-spec/23-app-db/01-schema.md` line 492 (TINYINT(1)
  *                      in the MySQL-flavored spec, BOOLEAN in Postgres).
  *  - `ReleasedAt`      TIMESTAMPTZ NULL. Set together with
  *                      `IsReleased = TRUE`.

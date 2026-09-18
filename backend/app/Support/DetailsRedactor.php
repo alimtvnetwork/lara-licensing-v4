@@ -15,8 +15,8 @@ namespace App\Support;
  * FormRequest validation helpers). Without redaction the raw `Value` echoes
  * into the JSON envelope AND into the `lara.exception` structured log,
  * duplicating the leak vector TraceRedactor closes for stack-frame args
- * (spec/03-error-manage §4.2 "no PII/credential may cross the API surface
- * or the log surface" and AC-ERR-005 in spec/21-app/12-error-taxonomy.md).
+ * (02-spec/03-error-manage §4.2 "no PII/credential may cross the API surface
+ * or the log surface" and AC-ERR-005 in 02-spec/21-app/12-error-taxonomy.md).
  *
  * Not a symptom patch: operates on the canonical detail item shape
  *   {Field: string, Rule: string, Value?: scalar, Message?: string, ...}

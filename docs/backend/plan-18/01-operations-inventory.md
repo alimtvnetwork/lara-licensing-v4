@@ -65,7 +65,7 @@ Total operations: 26.
    - `/Api/Public/Health`
    Plan 18 Step 2 will decide per-row whether these become new FE operations or stay backend-only.
 3. **Path shape mismatch on identifiers.** FE uses `:Id` on licenses/users; BE uses `{LicenseKey}` (regex-constrained) and `{UserId}` (numeric). Step 4 will file this under "PARITY-SHAPE" in the gap report.
-4. **`admin.metrics.kpis` is declared FE-side but not present in the trimmed slice of `routes/api.php` inspected in Step 1.** This is consistent with the four red KPI tiles in the attached screenshot (`.lovable/spec/tasks/assets/18-backend-seed-login-e2e-error-manage/admin-overview-red-errors.png`). Confirmation deferred to Step 2 which does the full HIT/MISS pass.
+4. **`admin.metrics.kpis` is declared FE-side but not present in the trimmed slice of `routes/api.php` inspected in Step 1.** This is consistent with the four red KPI tiles in the attached screenshot (`.ai-memory/02-spec/tasks/assets/18-backend-seed-login-e2e-error-manage/admin-overview-red-errors.png`). Confirmation deferred to Step 2 which does the full HIT/MISS pass.
 
 ## Next
 

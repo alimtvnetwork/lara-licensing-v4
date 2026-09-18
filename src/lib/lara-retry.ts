@@ -2,7 +2,7 @@
  * Canonical retry classifier for Plan 11 step 27.
  *
  * Binds every `LaraApiError` to one of the five retry classes defined
- * in `spec/21-app/21-error-management-binding.md` §"Retry policy
+ * in `02-spec/21-app/21-error-management-binding.md` §"Retry policy
  * classes" (lines 43-52):
  *
  *   - `NoRetry`          Never retry. Fix input first.
@@ -37,7 +37,7 @@ export enum RetryPolicyType {
  * Direct code -> policy bindings. Rows omitted from this table fall
  * through to `classifyByHttpStatus` (429 -> RetryAfter, 5xx / 0 ->
  * ExpBackoff, everything else -> NoRetry). Keep this map in lockstep
- * with the endpoint tables in spec/21-app/21-error-management-binding.md.
+ * with the endpoint tables in 02-spec/21-app/21-error-management-binding.md.
  */
 const POLICY_BY_CODE: ReadonlyMap<ApiErrorCodeType, RetryPolicyType> = new Map([
   // RetryAfter class (spec line 48).
@@ -100,7 +100,7 @@ export function isRetryable(error: unknown): boolean {
 
 /**
  * Plan 11 step 31: error codes that MUST render as a persistent banner
- * (spec 24 §23.4, spec/21-app/14-rate-limiting.md) and MUST NOT surface
+ * (spec 24 §23.4, 02-spec/21-app/14-rate-limiting.md) and MUST NOT surface
  * as a transient toast. `useLaraErrorToast` filters these out so the
  * inline `<RetryAfterBanner>` (form-scoped) plus the global
  * `<GlobalRateLimitBanner>` (root-scoped, for calls outside a form)

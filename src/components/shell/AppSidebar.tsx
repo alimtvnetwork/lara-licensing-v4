@@ -1,6 +1,6 @@
 /**
  * AppSidebar: role-scoped sidebar tree per
- * spec/24-app-ui-design-system/13-navigation-ia.md §2-§10.
+ * 02-spec/24-app-ui-design-system/13-navigation-ia.md §2-§10.
  *
  * Root cause of prior drift: every shell hand-rolled its own nav. This
  * component reads the frozen tree from `nav-tree.ts` and renders three

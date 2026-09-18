@@ -45,8 +45,8 @@ use Tests\TestCase;
  *      that ErrorCode, and the caller-facing header still echoes an
  *      id (so a support agent has something to grep in the logs).
  *
- * Spec anchors: spec/21-app/20-observability.md v1.0.0 (RequestId
- * ingress/echo), spec/03-error-manage/02-error-architecture (log
+ * Spec anchors: 02-spec/21-app/20-observability.md v1.0.0 (RequestId
+ * ingress/echo), 02-spec/03-error-manage/02-error-architecture (log
  * correlation), AC-ERR-004, AC-OBS-*.
  */
 final class RequestIdPropagationE2ETest extends TestCase

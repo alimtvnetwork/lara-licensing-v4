@@ -24,7 +24,7 @@ use Ramsey\Uuid\Uuid;
  *    Sanctum token cannot exist without a matching AuthSession row.
  *  - SessionId is a UUID v4 minted here; it is written verbatim into the
  *    personal_access_tokens.name column by LoginController so the token
- *    -> session pointer is stable (spec/21-app/31-auth-session-family.md).
+ *    -> session pointer is stable (02-spec/21-app/31-auth-session-family.md).
  *  - ExpiresAt is derived from `config('lara.normal_session_ttl_minutes')`;
  *    Sanctum's own token expiration is disabled so this is single truth.
  *  - Close() is idempotent: closing an already-closed row is a no-op that

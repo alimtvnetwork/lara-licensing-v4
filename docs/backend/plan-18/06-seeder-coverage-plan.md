@@ -124,7 +124,7 @@ Seeders + steps: `DemoResellersSeeder` (42), `DemoSessionsSeeder` (44), `DemoLic
 | `admin.resellers.*` | 8 `Reseller` | `DemoResellersSeeder` | 42 |
 | `admin.prefixes.*` | 12 `Prefix` | `DemoPrefixesSeeder` | 49 |
 | `admin.app-updates.*` | 6 `AppUpdate` + 12 assets | `DemoAppUpdatesSeeder` | 47 |
-| `admin.backup.exports.list/create` | 3 backup export rows (spec/22-backup-restore) | (new) `DemoBackupSeeder` | 49 |
+| `admin.backup.exports.list/create` | 3 backup export rows (02-spec/22-backup-restore) | (new) `DemoBackupSeeder` | 49 |
 | `admin.backup.imports.create` | (uses existing rows) | - | - |
 | `admin.sessions.terminate` | (uses AuthSession from 44) | - | - |
 

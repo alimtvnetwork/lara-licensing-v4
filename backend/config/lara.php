@@ -8,11 +8,11 @@
  * be updated in the same commit and cross-referenced from CHANGELOG.md.
  *
  * Sources:
- * - Roles:         spec/21-app/04-roles.md
- * - LicenseTier:   spec/21-app/43-license-tiers.md (SOLE OWNER)
- * - Environment:   spec/21-app/44-environments.md
- * - ApiErrorCode:  spec/21-app/12-error-taxonomy.md
- * - LedgerAction:  spec/21-app/28-audit-action-enum.md
+ * - Roles:         02-spec/21-app/04-roles.md
+ * - LicenseTier:   02-spec/21-app/43-license-tiers.md (SOLE OWNER)
+ * - Environment:   02-spec/21-app/44-environments.md
+ * - ApiErrorCode:  02-spec/21-app/12-error-taxonomy.md
+ * - LedgerAction:  02-spec/21-app/28-audit-action-enum.md
  *                  (values re-derived below; keep in sync when spec 28 lands)
  *
  * Do not add synonyms. Forbidden aliases per spec 43 (Basic/Bronze/Standard/
@@ -37,7 +37,7 @@ return [
     |--------------------------------------------------------------------------
     | Runtime config file path (Plan 16 step 58)
     |--------------------------------------------------------------------------
-    | Absolute path to the on-disk `version.json` (spec/28-runtime-modes/
+    | Absolute path to the on-disk `version.json` (02-spec/28-runtime-modes/
     | 01-version-json-schema.md). RuntimeConfigService reads and atomically
     | rewrites this file. Default resolves to repo-root `public/version.json`
     | so cPanel deploys serve the same file the SPA fetches.
@@ -68,7 +68,7 @@ return [
         'root_migrations_path' => env('LARA_BR_ROOT_MIGRATIONS_PATH'),
         // Plan 14 step 19. SC-F Root-scope domain tables allowlist. Every
         // Root `public.*` table not covered by SC-A..E and not enumerated
-        // in spec/26-backup-restore/06-scope-exclusions.md MUST appear
+        // in 02-spec/26-backup-restore/06-scope-exclusions.md MUST appear
         // here (INV-BR-SC-2). Sorted alphabetically at collect time so
         // archive bytes are stable regardless of config ordering.
         'domain_root_tables' => [
@@ -130,7 +130,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Roles (spec/21-app/04-roles.md)
+    | Roles (02-spec/21-app/04-roles.md)
     |--------------------------------------------------------------------------
     | Role gate strings used verbatim on the wire (`/Admin/Users/{UserId}/Role`
     | request/response bodies). Never store roles on Profiles; use UserRoles
@@ -147,7 +147,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | LicenseTier (spec/21-app/43-license-tiers.md)
+    | LicenseTier (02-spec/21-app/43-license-tiers.md)
     |--------------------------------------------------------------------------
     | Closed set of exactly three members. TierName is the canonical wire
     | value; Ordinal is the stable numeric used in logs/serializers.
@@ -160,7 +160,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | LicenseCategory (spec/23-app-db/01-schema.md §LicenseCategories)
+    | LicenseCategory (02-spec/23-app-db/01-schema.md §LicenseCategories)
     |--------------------------------------------------------------------------
     | Closed catalog matching the seeded rows for shard `LicenseCategories`.
     | Ordinals 1..7 are stable and used by `QuotaRequests.LicenseCategoryId`
@@ -180,7 +180,7 @@ return [
 
     /*
     | Single-character mnemonic codes used by serial generators
-    | (spec/21-app/07-serial-generation.md §Category segment). Keyed by
+    | (02-spec/21-app/07-serial-generation.md §Category segment). Keyed by
     | the ordinals in `license_categories` above; adding a category
     | requires adding both entries in the same commit.
     */
@@ -197,7 +197,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Environment (spec/21-app/44-environments.md)
+    | Environment (02-spec/21-app/44-environments.md)
     |--------------------------------------------------------------------------
     | Closed set. Wire values used verbatim on POST /Licenses and Verify
     | endpoints. Mismatch on verify returns EnvironmentMismatch (409) with
@@ -211,7 +211,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Shard provisioning state machine (spec/23-app-db/10 §Provisioning
+    | Shard provisioning state machine (02-spec/23-app-db/10 §Provisioning
     | Lifecycle). Closed set; mirrors the CHECK constraint on
     | ResellerShardRoutes.ShardStatus. `initial` names the state written
     | by ShardSeeder / ShardProvisionCommand at row creation time.
@@ -229,8 +229,8 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Binding defaults (spec/21-app/30-machine-bindings.md §Quota,
-    | spec/21-app/06-license-variations.md §UserCount)
+    | Binding defaults (02-spec/21-app/30-machine-bindings.md §Quota,
+    | 02-spec/21-app/06-license-variations.md §UserCount)
     |--------------------------------------------------------------------------
     | Server-side ceiling on concurrent MachineBindings and UserBindings
     | when the License row does not carry an override. Per-category
@@ -248,11 +248,11 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | ApiErrorCode (spec/21-app/12-error-taxonomy.md)
+    | ApiErrorCode (02-spec/21-app/12-error-taxonomy.md)
     |--------------------------------------------------------------------------
     | Full closed set. Any thrown LaraException MUST carry one of these
     | values as its ErrorCode. Adding a new code requires bumping spec 12
-    | AND spec/21-app/27-error-code-test-matrix.md AND this array.
+    | AND 02-spec/21-app/27-error-code-test-matrix.md AND this array.
     */
     'error_codes' => [
         'AbuseBlocked',
@@ -308,7 +308,7 @@ return [
         // present in 'error_http_status' since v0.302.0 but never listed
         // here, so the canonical taxonomy diverged from the runtime map.
         // Kept alphabetically grouped with the other Login/Auth codes; see
-        // spec/03-error-manage/98-audit-input.md §3 and Plan 11 SS-02.
+        // 02-spec/03-error-manage/98-audit-input.md §3 and Plan 11 SS-02.
         'LoginCaptchaInvalid',
         'LoginCaptchaRequired',
         'MachineRebindCooldownActive',
@@ -334,7 +334,7 @@ return [
         'ResellerInUse',
         'ResellerNotFound',
         // Plan 16 step 58 (v0.563.0). Runtime-config admin surface closed-set.
-        // spec/28-runtime-modes/05-admin-runtime-toggle.md §Envelope Codes.
+        // 02-spec/28-runtime-modes/05-admin-runtime-toggle.md §Envelope Codes.
         'RuntimeConfigConflict',
         'RuntimeConfigForbidden',
         'RuntimeConfigInvalidField',
@@ -378,7 +378,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | ApiErrorCode -> HTTP status (spec/21-app/12-error-taxonomy.md §Canonical codes)
+    | ApiErrorCode -> HTTP status (02-spec/21-app/12-error-taxonomy.md §Canonical codes)
     |--------------------------------------------------------------------------
     | Each code maps to exactly one HTTP status per AC-ERR-001. Codes marked
     | with an asterisk in the spec are client-only synthetics and are given
@@ -499,7 +499,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | LedgerAction (spec/21-app/28-audit-action-enum.md)
+    | LedgerAction (02-spec/21-app/28-audit-action-enum.md)
     |--------------------------------------------------------------------------
     | Written to LicenseLedger.LedgerAction. Includes QuotaAdjusted and
     | QuotaRestored per spec 42 v1.1.0 and spec 48 v1.0.0.
@@ -521,14 +521,14 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Idempotency-Key TTL (spec/21-app/11-api-contracts/03-idempotency.md)
+    | Idempotency-Key TTL (02-spec/21-app/11-api-contracts/03-idempotency.md)
     |--------------------------------------------------------------------------
     */
     'idempotency_ttl_seconds' => (int) env('LARA_IDEMPOTENCY_TTL', 86400),
 
     /*
     |--------------------------------------------------------------------------
-    | Impersonation TTL + enums (spec/21-app/46-impersonation.md v1.1.0)
+    | Impersonation TTL + enums (02-spec/21-app/46-impersonation.md v1.1.0)
     |--------------------------------------------------------------------------
     | `session_kinds` and `impersonation_end_reasons` mirror the CHECK
     | constraints on the Root `AuthSessions` and `ImpersonationIndex`
@@ -541,7 +541,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Normal session TTL (spec/21-app/31-auth-session-family.md)
+    | Normal session TTL (02-spec/21-app/31-auth-session-family.md)
     |--------------------------------------------------------------------------
     | Applies to AuthSessions rows written on login. Refresh flow will
     | extend ExpiresAt; expiry itself lives on the AuthSession row, not on
@@ -592,7 +592,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Self-update (spec/21-app/17-self-update-endpoint.md v1.3.0)
+    | Self-update (02-spec/21-app/17-self-update-endpoint.md v1.3.0)
     |--------------------------------------------------------------------------
     | v1.0 pins the rollout channel to Stable. `channel` query param is NOT
     | accepted; Beta enum reserved but unused.
@@ -627,7 +627,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Feature registry (spec/21-app/45-license-features.md v1.0.0 §2)
+    | Feature registry (02-spec/21-app/45-license-features.md v1.0.0 §2)
     |--------------------------------------------------------------------------
     | Closed-set catalog used by App\Support\FeatureValidator on every
     | admin write path (Plan 06 step 31 + step 41). Adding a key requires

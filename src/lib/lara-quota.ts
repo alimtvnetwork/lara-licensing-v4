@@ -11,23 +11,23 @@ import type { Quota as PreviewQuota } from "@/generated/api/schema";
 
 /**
  * Reseller quota + quota-request client per:
- *   - spec/21-app/41-reseller-quotas.md v1.0.0 (ResellerQuotas model, ledger)
- *   - spec/21-app/42-quota-requests.md v1.0.0 (approval workflow state machine)
- *   - spec/21-app/11-api-contracts/04-admin-contracts.md v1.2.0
+ *   - 02-spec/21-app/41-reseller-quotas.md v1.0.0 (ResellerQuotas model, ledger)
+ *   - 02-spec/21-app/42-quota-requests.md v1.0.0 (approval workflow state machine)
+ *   - 02-spec/21-app/11-api-contracts/04-admin-contracts.md v1.2.0
  *     §Reseller Quotas surfaces (GET /Resellers/{id}/Quotas and /QuotaLedger)
- *   - spec/21-app/11-api-contracts/05-quota-request-contracts.md v1.0.0
+ *   - 02-spec/21-app/11-api-contracts/05-quota-request-contracts.md v1.0.0
  *     §Endpoints (submit/list/get/approve/deny/cancel + POST .../Quotas/{catId}/Adjust)
- *   - spec/21-app/40-permissions.md §2 (Quotas.Request/Approve/Adjust)
- *   - spec/21-app/12-error-taxonomy.md v1.9.0 (QuotaExhausted, QuotaCategoryUnauthorized,
+ *   - 02-spec/21-app/40-permissions.md §2 (Quotas.Request/Approve/Adjust)
+ *   - 02-spec/21-app/12-error-taxonomy.md v1.9.0 (QuotaExhausted, QuotaCategoryUnauthorized,
  *     QuotaLedgerConflict, ConflictState)
  *
  * All mutating rows require an Idempotency-Key per
- * spec/21-app/08-idempotency-envelope-hardening.md; a replay MUST re-emit the
+ * 02-spec/21-app/08-idempotency-envelope-hardening.md; a replay MUST re-emit the
  * stored envelope byte-for-byte and MUST NOT double-execute the atomic ledger
  * insert (AC-API-QR-003). Verify rows are OUT of scope for this module.
  */
 
-/** Closed set from spec/21-app/42-quota-requests.md §State machine (rows 1..4). */
+/** Closed set from 02-spec/21-app/42-quota-requests.md §State machine (rows 1..4). */
 export const QuotaRequestStatusType = {
   Pending: "Pending",
   Approved: "Approved",
@@ -37,7 +37,7 @@ export const QuotaRequestStatusType = {
 export type QuotaRequestStatusValue =
   (typeof QuotaRequestStatusType)[keyof typeof QuotaRequestStatusType];
 
-/** Closed set from spec/21-app/41-reseller-quotas.md §Ledger. */
+/** Closed set from 02-spec/21-app/41-reseller-quotas.md §Ledger. */
 export const QuotaLedgerActionType = {
   QuotaConsumed: "QuotaConsumed",
   QuotaRestored: "QuotaRestored",
@@ -110,7 +110,7 @@ export type QuotaAdjustmentResult = z.infer<typeof quotaAdjustmentResultSchema>;
 /**
  * Admin read: GET /Resellers/{ResellerId}/Quotas per 04-admin-contracts.md.
  * Reseller Reads: same URL, filtered server-side to caller's own resellerId
- * via row-scope (see spec/21-app/40-permissions.md §Row-scope).
+ * via row-scope (see 02-spec/21-app/40-permissions.md §Row-scope).
  *
  * Plan 17 Step 8: in `Mode=preview` this branches through
  * `apiClient.call("admin.quotas.list")` and adapts the ULID-keyed
@@ -428,7 +428,7 @@ export async function adjustQuota(
 /**
  * Client-side preflight for reseller-scoped `POST /Licenses`. Mirrors the
  * exact envelope codes/HTTP statuses from
- * spec/21-app/11-api-contracts/02-license-contracts.md §Reseller quota
+ * 02-spec/21-app/11-api-contracts/02-license-contracts.md §Reseller quota
  * decrement (steps 3, 4; AC-API-LIC-006) so the UI surface never has to
  * distinguish a preflight decision from a server envelope: same
  * `LaraApiError` shape, same `errorCode`, same `httpStatus`.

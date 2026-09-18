@@ -4,8 +4,8 @@ Plan 16 Step 74: ban `: any` and `as any` in the typed API surface.
 
 Root cause guarded: a single `any` in `src/lib/lara-*.ts`, `src/lib/api-client.ts`,
 or `src/generated/api/**` silently drops the entire typed contract enforced by
-`spec/28-runtime-modes/04-generated-types-contract.md` and the closed-set error
-codes in `spec/03-error-manage/`. Callers then read fields that do not exist at
+`02-spec/28-runtime-modes/04-generated-types-contract.md` and the closed-set error
+codes in `02-spec/03-error-manage/`. Callers then read fields that do not exist at
 runtime, and TypeScript can no longer diff FE shapes against the generated
 OpenAPI schema. Guard the axis before drift takes hold.
 

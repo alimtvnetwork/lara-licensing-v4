@@ -15,7 +15,7 @@ use App\Models\AppUpdateAsset;
 /**
  * Plan 06 step 44. Self-update manifest resolver.
  *
- * Normative: spec/21-app/17-self-update-endpoint.md v1.3.0
+ * Normative: 02-spec/21-app/17-self-update-endpoint.md v1.3.0
  *   §"GET /App/UpdateManifest" (contract),
  *   §"Platform enum" (closed set),
  *   §"v1.0 rollout policy" (Stable pin),

@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\DB;
  * enum type.
  *
  * Normative sources:
- *  - spec/26-backup-restore/13-endpoint-snapshot.md v1.0.0
+ *  - 02-spec/26-backup-restore/13-endpoint-snapshot.md v1.0.0
  *      §"Row Contract" (state machine `Draft -> Sealed -> Retiring -> Purged`),
  *      §"Pointer Contract (SC-H Pin Semantics)" (pin_count),
  *      §"Per-Shard Mutex" (advisory lock name),
  *      §"Retention" (closed set: keepDays, keepCount, keepUntilExplicitDelete).
- *  - spec/26-backup-restore/25-migration-and-rollout.md v1.0.0 §"Migration
+ *  - 02-spec/26-backup-restore/25-migration-and-rollout.md v1.0.0 §"Migration
  *    Order" migration 4 (`backup_snapshots`, reversible in S0).
  *  - INV-BR-EP-SN-1..7 (spec 13 §"Invariants Introduced").
  *

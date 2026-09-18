@@ -3,8 +3,8 @@
 check-hardcoded-colors.py
 
 Guard against reintroduction of hardcoded color values in `src/**/*.tsx` and
-`src/**/*.ts`. Spec: spec/24-app-ui-design-system/07-css-technique-budget.md,
-spec/24-app-ui-design-system/08-token-registry.md.
+`src/**/*.ts`. Spec: 02-spec/24-app-ui-design-system/07-css-technique-budget.md,
+02-spec/24-app-ui-design-system/08-token-registry.md.
 
 Rules enforced:
 
@@ -102,7 +102,7 @@ def main() -> int:
     else:
         print(
             "\ncheck-hardcoded-colors: findings above must be replaced with "
-            "design tokens from spec/24-app-ui-design-system/08-token-registry.md, "
+            "design tokens from 02-spec/24-app-ui-design-system/08-token-registry.md, "
             "or annotated with `// allow-hardcoded-color: <reason>`.",
             file=sys.stderr,
         )

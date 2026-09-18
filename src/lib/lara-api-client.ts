@@ -29,7 +29,7 @@ export interface LaraApiRequest {
    * Invoked once with the raw `Response.headers` after `fetch` resolves,
    * whether the status is 2xx or an error envelope. Callers use this to
    * capture concurrency metadata such as `ETag` per
-   * spec/21-app/11-api-contracts/09-concurrency-control.md §ETag shape
+   * 02-spec/21-app/11-api-contracts/09-concurrency-control.md §ETag shape
    * without a second round-trip. Never throws; exceptions bubble up.
    */
   onResponseHeaders?: (headers: Headers) => void;
@@ -51,7 +51,7 @@ const REQUEST_ID_HEADER = "X-Request-Id";
 // Only these clear the session. Network/server errors preserve tokens
 // so the user is not silently logged out on transient failures.
 //
-// NON-membership (spec/21-app/12-error-taxonomy.md v1.4.0):
+// NON-membership (02-spec/21-app/12-error-taxonomy.md v1.4.0):
 //   - AuthRefreshRaceLost: sibling tab already rotated; caller re-reads
 //     storage and retries once with the new token (see performRefresh).
 //     Session MUST be preserved.
@@ -155,7 +155,7 @@ async function performRefresh(): Promise<boolean> {
     if (error instanceof LaraApiError && error.errorCode === ApiErrorCodeType.AuthRefreshRaceLost) {
       // F2: sibling tab rotated first. Re-read storage; if a newer token
       // is present, retry once with the fresh token. Session preserved
-      // regardless per spec/21-app/12-error-taxonomy.md.
+      // regardless per 02-spec/21-app/12-error-taxonomy.md.
       const rotated = getLaraRefreshToken();
       if (typeof rotated === "string" && rotated !== refreshToken) {
         console.warn("Lara API refresh race lost; retrying with rotated token", {
@@ -211,7 +211,7 @@ function shouldRetryAfterRefresh(error: unknown, path: string): boolean {
   // Plan 11 step 27: read the canonical retry table instead of
   // hard-coding `AuthTokenExpired`. `RefreshThenRetry` is the exact
   // class bound to `AuthTokenExpired` in
-  // spec/21-app/21-error-management-binding.md line 49.
+  // 02-spec/21-app/21-error-management-binding.md line 49.
   return classifyRetryPolicy(error) === RetryPolicyType.RefreshThenRetry;
 }
 

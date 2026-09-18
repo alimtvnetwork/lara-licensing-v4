@@ -6,7 +6,7 @@ namespace App\Domain\BR;
 
 /**
  * Tri-state feature flag value per
- * spec/26-backup-restore/25-migration-and-rollout.md §"Feature Flags":
+ * 02-spec/26-backup-restore/25-migration-and-rollout.md §"Feature Flags":
  *  - Off:    endpoint short-circuits before lock acquisition (INV-BR-MG-3).
  *  - Shadow: writes route to dry-run branch; observability rows tagged
  *            `mode=shadow`; returns 202 ShadowAccepted (INV-BR-MG-4).

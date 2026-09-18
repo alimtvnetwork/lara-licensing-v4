@@ -10,7 +10,7 @@
  * - No-op in `dev`/`production` modes (INV-RM-04).
  * - Unknown seed ids log via `logRuntimeError` and fall back to `default`
  *   so screens never render blank in preview (no silent failure, matches
- *   spec/03-error-manage). The fallback is logged, not swallowed.
+ *   02-spec/03-error-manage). The fallback is logged, not swallowed.
  * - Idempotent across reloads via each loader's `hydrateOnce()` marker.
  */
 

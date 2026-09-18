@@ -21,7 +21,7 @@ import type { Quota } from "../../generated/api/schema";
  * Plan 16 Step 63. Admin > Quotas surface.
  *
  * Reads via `admin.quotas.list` and writes via `admin.quotas.update` with
- * `If-Match: <Version>` (INV-BR-quota, spec/26-backup-restore + preview
+ * `If-Match: <Version>` (INV-BR-quota, 02-spec/26-backup-restore + preview
  * fixtures/quotas.ts). Distinct states:
  *   - 412 conflict  -> inline banner + list refetch (no toast for 412).
  *   - 422 floor     -> validation banner ("Allocated below net-consumed").

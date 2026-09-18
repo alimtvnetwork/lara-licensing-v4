@@ -15,7 +15,7 @@ use Throwable;
  * Read-only diagnostic used by health checks and by operators verifying
  * that Root routing (`Resellers` + `ResellerShardRoutes`) is consistent
  * with the DSN template in `config/database.connections.shard_template`.
- * Per spec/23-app-db/10-reseller-shard-split-db.md §Routing Rules the
+ * Per 02-spec/23-app-db/10-reseller-shard-split-db.md §Routing Rules the
  * template is expanded with the `ResellerSlug` and MUST match the
  * `AppDbPath` recorded on the route row; a mismatch means Root and the
  * config file have drifted and is reported as a hard failure.

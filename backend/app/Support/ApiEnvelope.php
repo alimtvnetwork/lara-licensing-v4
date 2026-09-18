@@ -8,7 +8,7 @@ use Illuminate\Http\JsonResponse;
 /**
  * Universal response envelope.
  *
- * Canonical shape per spec/21-app/11-api-contracts/05-envelope-schema.md v1.1.0:
+ * Canonical shape per 02-spec/21-app/11-api-contracts/05-envelope-schema.md v1.1.0:
  *
  *   { "Status": {...}, "Attributes": {...}, "Results": [...] }
  *
@@ -64,7 +64,7 @@ final class ApiEnvelope
             'ErrorMessage' => $errorMessage,
         ];
         if ($details !== []) {
-            // Plan 11 step 33 (spec/03-error-manage §4.2, AC-ERR-005). Redact
+            // Plan 11 step 33 (02-spec/03-error-manage §4.2, AC-ERR-005). Redact
             // sensitive `Value`/`Message` entries (password, token, otp, ...)
             // before they cross the API surface. Single choke point so every
             // failure envelope, whatever the throw site, is guaranteed safe.

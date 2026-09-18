@@ -8,10 +8,10 @@ import {
 
 /**
  * Proves AC-EC-TEST-001 and AC-EC-TEST-002 from
- * spec/21-app/27-error-code-test-matrix.md: IdempotencyConflict and
+ * 02-spec/21-app/27-error-code-test-matrix.md: IdempotencyConflict and
  * IdempotencyKeyRequired render with errorCode, message, and RequestId, and
  * never trigger a Retry-After hint (retry class NoRetry per
- * spec/21-app/25-retry-decision-matrix.md).
+ * 02-spec/21-app/25-retry-decision-matrix.md).
  */
 describe("Idempotency error codes", () => {
   it("registers both taxonomy codes on the enum", () => {

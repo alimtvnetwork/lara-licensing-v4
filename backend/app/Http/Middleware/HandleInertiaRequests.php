@@ -70,7 +70,7 @@ class HandleInertiaRequests extends Middleware
      * fetches the manifest, so `Sha256` and the detached signature stay off
      * the browser trust path entirely.
      *
-     * Renders only for the `EndUser` shell per spec/21-app/16-ui-surfaces.md
+     * Renders only for the `EndUser` shell per 02-spec/21-app/16-ui-surfaces.md
      * §3a ("Never renders for Admin or Reseller shells"), which also keeps
      * the Root `AppUpdates` query off every Admin/Reseller page render.
      * Channel is hard-pinned to `Stable` per spec 17 §"v1.0 rollout policy".
@@ -111,7 +111,7 @@ class HandleInertiaRequests extends Middleware
      * `Users` row (roles live in Root `UserRoles`/`Roles`, see
      * Admin\UserController::listRoles), so every Inertia page received
      * RoleName='User' and `navTreeForRole` returned only the Account
-     * items. Precedence mirrors spec/21-app/40-permissions.md: the
+     * items. Precedence mirrors 02-spec/21-app/40-permissions.md: the
      * highest-privilege grant wins.
      *
      * @return string

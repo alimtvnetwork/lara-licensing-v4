@@ -18,7 +18,7 @@ import { LaraShellRoleContext } from "../../lib/lara-shell-role";
  * Admin console shell. Composes the design-system `AppShell` primitive with
  * the role-scoped `AppSidebar` (nav-tree source of truth) and installs the
  * `Admin` shell-role context so cross-shell surfaces (UpdateBanner et al.)
- * gate correctly per spec/21-app/16-ui-surfaces.md §3a.
+ * gate correctly per 02-spec/21-app/16-ui-surfaces.md §3a.
  */
 export function AdminShell() {
   const signOut = useAdminSignOut();

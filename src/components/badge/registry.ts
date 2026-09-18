@@ -1,12 +1,12 @@
 /**
  * Closed-set Badge registry per
- * spec/24-app-ui-design-system/25-component-badge-status.md §4.
+ * 02-spec/24-app-ui-design-system/25-component-badge-status.md §4.
  *
  * Single source of truth: enum value -> (intent, Icon, Label). Renderers
  * MUST fail loudly on unmapped values (dev throw / prod warn); silent
  * fallback to `neutral` is banned (AC-BDG-002).
  *
- * When a source enum in `spec/21-app/*` changes (add/rename/remove), the
+ * When a source enum in `02-spec/21-app/*` changes (add/rename/remove), the
  * corresponding table below MUST update in the same commit. The
  * `tests/badge-closed-sets.test.ts` file asserts parity.
  */

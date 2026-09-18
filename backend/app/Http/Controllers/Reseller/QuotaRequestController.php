@@ -26,8 +26,8 @@ use Illuminate\Support\Facades\Log;
  * Plan 06 step 36. Reseller-scoped submit/list/cancel of quota requests.
  *
  * Normative sources:
- *  - spec/21-app/42-quota-requests.md v1.1.0 §State machine and §Errors
- *  - spec/23-app-db/10-reseller-shard-split-db.md §App-tier tables
+ *  - 02-spec/21-app/42-quota-requests.md v1.1.0 §State machine and §Errors
+ *  - 02-spec/23-app-db/10-reseller-shard-split-db.md §App-tier tables
  *    (QuotaRequests lives on the reseller's shard, never on Root)
  *
  * Shard binding is done by `ShardBindingMiddleware` before this controller

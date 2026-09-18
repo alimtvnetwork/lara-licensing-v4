@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * caller (`LicensesGranted - LicensesConsumed`) per spec 41 §2 and is never
  * persisted.
  *
- * Normative source: spec/21-app/41-reseller-quotas.md v1.0.0.
+ * Normative source: 02-spec/21-app/41-reseller-quotas.md v1.0.0.
  */
 final class Quota extends Model
 {

@@ -22,4 +22,4 @@ php artisan test
 
 ## Coding standard
 
-PSR-12 + Laravel Pint defaults. No em dashes in code or comments. Errors follow spec/21-app/12-error-taxonomy.md: catch, log with `errorId`, rethrow. Never `catch {}`.
+PSR-12 + Laravel Pint defaults. No em dashes in code or comments. Errors follow 02-spec/21-app/12-error-taxonomy.md: catch, log with `errorId`, rethrow. Never `catch {}`.

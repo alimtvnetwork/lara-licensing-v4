@@ -18,7 +18,7 @@ interface Props {
   license: License;
   /**
    * ETag captured from `GET /Licenses/{LicenseId}` (see
-   * spec/21-app/11-api-contracts/09-concurrency-control.md §Request
+   * 02-spec/21-app/11-api-contracts/09-concurrency-control.md §Request
    * rules). `undefined` when the server omitted the header; in that
    * case Save and Revoke are disabled because sending a mutating
    * request without `If-Match` is guaranteed to fail with
@@ -31,7 +31,7 @@ interface Props {
 const describeError = formatLaraApiError;
 
 /**
- * Human copy for the revoke toast. spec/21-app/48-quota-restore-on-revoke.md
+ * Human copy for the revoke toast. 02-spec/21-app/48-quota-restore-on-revoke.md
  * §2 step 7 defines exactly four `RestoreSkippedReason` values plus the
  * happy path (`QuotaRestored = true`). We render each explicitly instead
  * of falling through to a generic string so operators can distinguish

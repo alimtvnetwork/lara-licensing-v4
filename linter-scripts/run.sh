@@ -126,8 +126,8 @@ if [ "$SKIP_LINTERS" = false ]; then
   run_linter "preview-handler-coverage" python3 "$SCRIPT_DIR/check-preview-handler-coverage.py"
   run_linter "preview-store-key-shape" python3 "$SCRIPT_DIR/check-preview-store-key-shape.py"
 
-  # Design-system meta-linters (Plan 08, CR-01..CR-10). Enforce spec/24-* contracts.
-  DS_DIR="$(cd "$SCRIPT_DIR/../.lovable/coding-guidelines" && pwd)"
+  # Design-system meta-linters (Plan 08, CR-01..CR-10). Enforce 02-spec/24-* contracts.
+  DS_DIR="$(cd "$SCRIPT_DIR/../.ai-memory/coding-guidelines" && pwd)"
   run_linter "blueprint-crossrefs"        python3 "$DS_DIR/check-blueprint-crossrefs.py"
   run_linter "reserved-words"             python3 "$DS_DIR/check-reserved-words.py"
   run_linter "copy-dictionary"            python3 "$DS_DIR/check-copy-dictionary.py"

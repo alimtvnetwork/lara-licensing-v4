@@ -3,7 +3,7 @@ import { cleanup, render, screen } from "@testing-library/react";
 
 /**
  * Locks StatusBadge contract per
- * spec/24-app-ui-design-system/14-breadcrumbs-and-page-header.md §4.2 and
+ * 02-spec/24-app-ui-design-system/14-breadcrumbs-and-page-header.md §4.2 and
  * AC-ADS-005: icon MUST accompany color, tone is exposed as a data
  * attribute (for scroll-locked audits), and label renders as text so
  * screen readers announce state without relying on color.

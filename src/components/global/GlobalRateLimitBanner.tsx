@@ -14,7 +14,7 @@
  * it or the countdown completes and the user retries. It reuses the
  * existing `RetryAfterBanner` renderer so the visual + Retry-After
  * timing rules stay in one place (single source of truth for
- * spec/21-app/14-rate-limiting.md).
+ * 02-spec/21-app/14-rate-limiting.md).
  *
  * Ownership contract:
  * - Form-scoped surfaces still render their inline `<RetryAfterBanner>`

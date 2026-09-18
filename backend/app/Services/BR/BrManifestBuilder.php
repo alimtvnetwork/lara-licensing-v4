@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Log;
 /**
  * Plan 14 step 12. Canonical archive manifest builder.
  *
- * Normative source: spec/26-backup-restore/07-manifest-schema.md v1.0.0
+ * Normative source: 02-spec/26-backup-restore/07-manifest-schema.md v1.0.0
  * §"Manifest Location" (canonical UTF-8, sorted keys, LF-terminated) +
  * §"JSON Schema" required fields. This builder produces an in-shadow
  * manifest for the S1 Export path: all class content hashes and the

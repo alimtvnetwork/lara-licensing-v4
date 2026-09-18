@@ -2,7 +2,7 @@
 """
 Mermaid Actor-Order Linter
 ==========================
-Enforces AC-DG-001 from spec/21-app/diagrams/00-diagram-contract.md:
+Enforces AC-DG-001 from 02-spec/21-app/diagrams/00-diagram-contract.md:
 sequence-diagram participants MUST be declared left to right in the
 canonical order (EndUser -> Reseller -> Admin -> API -> DB -> Audit).
 
@@ -20,7 +20,7 @@ import re
 import sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-SCAN_DIR = os.path.join(ROOT, "spec")
+SCAN_DIR = os.path.join(ROOT, "02-spec")
 WAIVER = "lint:allow-actor-order"
 
 # Rank 1..6 per 00-diagram-contract.md. Lower rank = further left.
@@ -62,7 +62,7 @@ def check_file(path: str) -> list[str]:
     if WAIVER in text:
         return []
     # Non-authoritative projections are governed by their owning service,
-    # not the spec/21-app diagram contract. Skip them by design.
+    # not the 02-spec/21-app diagram contract. Skip them by design.
     if "NON-AUTHORITATIVE" in text:
         return []
     lines = text.splitlines()

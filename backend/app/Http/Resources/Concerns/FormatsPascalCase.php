@@ -10,8 +10,8 @@ use DateTimeInterface;
  * Plan 10 step 4. Shared PascalCase helpers for JsonResource output.
  * Mirrors the existing controller projections (see
  * `Admin\LicenseController::isoOrEmpty`) so wire parity holds byte-for-byte
- * per spec/03/verify-contracts and the PascalCase JSON key rule
- * (`.lovable/coding-guidelines.md`).
+ * per 02-spec/03/verify-contracts and the PascalCase JSON key rule
+ * (`.ai-memory/coding-guidelines.md`).
  */
 trait FormatsPascalCase
 {

@@ -16,7 +16,7 @@ use Throwable;
 /**
  * Plan 14 step 23. Read-only Import preflight.
  *
- * Normative source: spec/26-backup-restore/12-restore-orchestration.md
+ * Normative source: 02-spec/26-backup-restore/12-restore-orchestration.md
  * v1.0.0 §"Preflight" + INV-BR-RS-1 ("preflight never mutates any
  * table") + INV-BR-RS-2 ("preflight verifies manifest, trailers,
  * chunk sha, and DEK unseal BEFORE any DB tx opens"). Reads a

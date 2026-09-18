@@ -8,7 +8,7 @@ import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
- * Sheet refit per spec/24-app-ui-design-system/21-component-dialog.md §6.
+ * Sheet refit per 02-spec/24-app-ui-design-system/21-component-dialog.md §6.
  *
  * Edge-attached drawer for edit panels and long secondary flows. Default
  * side = "right" (inline-end); other sides are supported for legacy

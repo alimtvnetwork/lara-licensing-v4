@@ -4,7 +4,7 @@ Plan 16 Step 12: version.json schema linter.
 
 Root cause guarded: `public/version.json` is now the canonical boot-time
 source of truth for the frontend runtime mode (see
-`spec/28-runtime-modes/01-version-json-schema.md` and the "Runtime Modes"
+`02-spec/28-runtime-modes/01-version-json-schema.md` and the "Runtime Modes"
 section in the root README), but nothing mechanically enforces the
 invariants. A stray hand edit can silently ship a malformed artifact:
 non-PascalCase keys, non-alphabetical order, a non-null `ApiBaseUrl` in
@@ -15,7 +15,7 @@ with a `+00:00` offset instead of `Z`, or a `Version` that diverges from
 (spec 02, no silent fallback), which is far too late.
 
 This linter validates every rule listed under "Rejected Shapes" in
-`spec/28-runtime-modes/01-version-json-schema.md` plus the field rules
+`02-spec/28-runtime-modes/01-version-json-schema.md` plus the field rules
 in the same file. It runs in CI (wired to `frontend-static-analysis.yml`)
 and locally via `python3 linter-scripts/check-version-json.py`.
 

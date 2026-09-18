@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Log;
  * `App\Db\ShardResolver::bind()` binds before invocation). Every
  * mutating operation MUST be called inside a shard transaction opened
  * by the controller so the `Quotas` update and the `LicenseLedger`
- * insert cannot drift apart (invariant per spec/21-app/48-quota-restore-on-revoke.md
+ * insert cannot drift apart (invariant per 02-spec/21-app/48-quota-restore-on-revoke.md
  * §Ledger contract: `SUM(Delta) = LicensesGranted - LicensesConsumed`).
  *
  * Wire-in status: This service is authored but not yet wired into

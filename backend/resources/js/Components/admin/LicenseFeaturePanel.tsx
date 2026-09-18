@@ -1,7 +1,7 @@
 // Plan 06 step 81. Read-only entitlement panel for the license detail page.
 //
 // Renders the resolved feature map with provenance per
-// spec/21-app/45-license-features.md §4. Deliberately no toggles: there is no
+// 02-spec/21-app/45-license-features.md §4. Deliberately no toggles: there is no
 // LicenseFeatures PATCH contract in the Laravel port yet, and spec
 // 24/38 §"Anti-patterns" bans optimistic feature switches. A key absent from
 // both layers is simply not in the list, because AC-FEAT-004 forbids showing a

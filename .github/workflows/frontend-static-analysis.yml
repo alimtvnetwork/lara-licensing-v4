@@ -22,7 +22,7 @@ on:
       - 'linter-scripts/check-any-in-api.py'
       - 'linter-scripts/check-magic-endpoint-strings.py'
       - 'public/version.json'
-      - 'spec/02-coding-guidelines/magic-literals-baseline.json'
+      - '02-spec/02-coding-guidelines/magic-literals-baseline.json'
       - '.github/workflows/frontend-static-analysis.yml'
 
   pull_request:
@@ -45,7 +45,7 @@ on:
       - 'linter-scripts/check-any-in-api.py'
       - 'linter-scripts/check-magic-endpoint-strings.py'
       - 'public/version.json'
-      - 'spec/02-coding-guidelines/magic-literals-baseline.json'
+      - '02-spec/02-coding-guidelines/magic-literals-baseline.json'
       - '.github/workflows/frontend-static-analysis.yml'
 
 
@@ -92,27 +92,27 @@ jobs:
         run: node scripts/check-error-code-parity.mjs
 
       # Plan 11 Step 18: magic-literals linter gate (Hard Rule 8 from
-      # .lovable/coding-guidelines/coding-guidelines.md). Scans src/,
+      # .ai-memory/coding-guidelines.md). Scans src/,
       # backend/app/ and backend/database/migrations/ for domain vocabulary
       # (roles, statuses, tiers, ledger actions) and 4xx/5xx HTTP status
       # numeric literals emitted outside the canonical catalog files listed
       # in ALLOWLIST_FILES. Runs in ratchet mode: the closed-set baseline at
-      # spec/02-coding-guidelines/magic-literals-baseline.json captures the
+      # 02-spec/02-coding-guidelines/magic-literals-baseline.json captures the
       # 278 pre-existing findings; the job fails on ANY new or grown finding
       # (regression), and also fails if a baseline entry shrank without the
       # baseline being regenerated (staleness), so the list can only shrink.
       # Regenerate the baseline locally after a legitimate reduction with:
       #   python3 linter-scripts/check-magic-literals.py --write-baseline \
-      #     spec/02-coding-guidelines/magic-literals-baseline.json
+      #     02-spec/02-coding-guidelines/magic-literals-baseline.json
       - name: Run magic-literals linter (ratcheted BE+FE)
         run: |
           python3 linter-scripts/check-magic-literals.py \
-            --baseline spec/02-coding-guidelines/magic-literals-baseline.json
+            --baseline 02-spec/02-coding-guidelines/magic-literals-baseline.json
 
 
       # Plan 16 Step 12: version.json schema linter gate. Fails PR if
       # public/version.json drifts from the pinned contract in
-      # spec/28-runtime-modes/01-version-json-schema.md: missing keys,
+      # 02-spec/28-runtime-modes/01-version-json-schema.md: missing keys,
       # non-alphabetical / non-PascalCase order, Mode/ApiBaseUrl
       # invariants (INV-RM-02), UpdatedAt not RFC-3339 Z-only, or Version
       # not equal to package.json + backend/composer.json (INV-RM-09).
@@ -137,7 +137,7 @@ jobs:
       # the same PR check:
       #   - check-untyped-fetch.py (Step 73): no raw `fetch(` outside
       #     `laraFetch` / `requestLaraApi` / `preview-transport` / signed
-      #     external URLs. Guards `spec/03-error-manage/` envelope,
+      #     external URLs. Guards `02-spec/03-error-manage/` envelope,
       #     `X-Request-Id`, bearer refresh, and Retry-After propagation.
       #   - check-any-in-api.py (Step 74): no `: any` / `as any` / `<any>`
       #     in `src/lib/lara-*.ts`, `src/lib/api-client.ts`, or

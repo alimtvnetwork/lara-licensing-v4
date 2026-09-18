@@ -13,8 +13,8 @@ import { quotaRequestListQueryOptions } from "../../lib/lara-quota";
 /**
  * Reseller portal (Step 47 + Plan 05 identity wiring):
  * quota status + self-service QuotaRequests submission. Row-scope per
- * spec/21-app/40-permissions.md filters server-side; this route ALSO reads
- * spec/21-app/11-api-contracts/06-user-contracts.md v1.0.0 GET /Users/Me
+ * 02-spec/21-app/40-permissions.md filters server-side; this route ALSO reads
+ * 02-spec/21-app/11-api-contracts/06-user-contracts.md v1.0.0 GET /Users/Me
  * and short-circuits with a 403 gate when a Reseller's ResellerId does not
  * match the URL segment (AC-API-USR-004). Server-side rejection remains the
  * authoritative barrier, this is a UX guardrail so mutation forms never mount.
@@ -90,7 +90,7 @@ function ForbiddenGate(props: { callerResellerId: number | null; urlResellerId: 
       <p className="mt-2 text-muted-foreground">
         Your account is scoped to reseller {props.callerResellerId ?? "(none)"}, but this page
         targets reseller {props.urlResellerId}. Row-scope enforcement per
-        spec/21-app/40-permissions.md blocks this request server-side; this UI gate prevents the
+        02-spec/21-app/40-permissions.md blocks this request server-side; this UI gate prevents the
         mutation form from mounting.
       </p>
     </section>

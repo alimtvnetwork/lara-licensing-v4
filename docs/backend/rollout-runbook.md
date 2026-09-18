@@ -8,11 +8,11 @@ document.
 
 Upstream contracts (authoritative, do not paraphrase in code):
 
-- Runtime modes contract: [`spec/28-runtime-modes/`](../../spec/28-runtime-modes/)
+- Runtime modes contract: [`02-spec/28-runtime-modes/`](../../02-spec/28-runtime-modes/)
 - Admin toggle SOP: [`docs/backend/admin-runtime-runbook.md`](./admin-runtime-runbook.md)
-- Preview scenarios v2: [`spec/28-runtime-modes/08-preview-scenarios.md`](../../spec/28-runtime-modes/08-preview-scenarios.md)
-- Screenshot matrix: [`spec/28-runtime-modes/10-screenshot-matrix.md`](../../spec/28-runtime-modes/10-screenshot-matrix.md)
-- Error contract axis: [`spec/03-error-manage/`](../../spec/03-error-manage/)
+- Preview scenarios v2: [`02-spec/28-runtime-modes/08-preview-scenarios.md`](../../02-spec/28-runtime-modes/08-preview-scenarios.md)
+- Screenshot matrix: [`02-spec/28-runtime-modes/10-screenshot-matrix.md`](../../02-spec/28-runtime-modes/10-screenshot-matrix.md)
+- Error contract axis: [`02-spec/03-error-manage/`](../../02-spec/03-error-manage/)
 
 ## Rollout phases
 
@@ -70,7 +70,7 @@ users.
      `http://localhost:8080/api/*`, not to preview handlers.
    - Confirm each response carries `X-Request-Id`, `X-Lara-Version`, and
      (on errors) the canonical envelope from
-     [`spec/03-error-manage/`](../../spec/03-error-manage/).
+     [`02-spec/03-error-manage/`](../../02-spec/03-error-manage/).
    - The preview debug drawer (Cmd/Ctrl+Shift+D) renders `null` in dev
      (INV-PD-04 / drawer tree-shake guard).
 7. Smoke the axis-critical flows:
@@ -123,7 +123,7 @@ At each checkpoint:
 3. `runtime_config.updated` audit event count matches the number of intended
    flips (usually 1).
 4. Error-envelope rate on axis-critical endpoints is within baseline
-   (compare to the prior week from `spec/03-error-manage/` telemetry).
+   (compare to the prior week from `02-spec/03-error-manage/` telemetry).
 5. `X-Request-Id` correlation across FE console -> backend logs works for at
    least one sampled failing request. If you cannot correlate, observability
    is broken and rollback is warranted even without a user-visible bug

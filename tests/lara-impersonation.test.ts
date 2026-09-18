@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 /**
  * Locks in the Admin impersonation client contract per
- * spec/21-app/46-impersonation.md §4. Guards:
+ * 02-spec/21-app/46-impersonation.md §4. Guards:
  *  - AC-IMP scaffold: startImpersonation posts to /Users/{id}/Impersonate
  *    with Idempotency-Key and a valid Reason.
  *  - endImpersonation posts to /Impersonation/End with EndReason and key.

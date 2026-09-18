@@ -193,7 +193,7 @@ class Violation:
 #                          (e.g. a `.txt` change when the allowlist
 #                          is `md`/`mdx`)
 #   ignored-out-of-root  — repo path outside --root (e.g. a README
-#                          change while linting `spec/`)
+#                          change while linting `02-spec/`)
 #   ignored-missing      — A/M/R/C row whose post-state path no
 #                          longer exists on disk (reverted in a later
 #                          commit of the same push)
@@ -604,7 +604,7 @@ def _canonical_target(source_rel: str, target: str, repo_root: Path) -> str:
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument("--root", default="spec",
+    ap.add_argument("--root", default="02-spec",
         help="Directory to scan recursively for markdown files (default: spec).")
     ap.add_argument("--repo-root", default=".",
         help="Repository root for relative path reporting (default: cwd).")

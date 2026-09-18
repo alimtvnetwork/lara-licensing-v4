@@ -37,8 +37,8 @@ use Illuminate\Validation\ValidationException;
  * Plan 06 step 39a. `POST /Api/Portal/Verify/Serial`.
  *
  * Root cause this controller fixes (one sentence): the client verify flow
- * defined by spec/21-app/09-verify-key.md §Flow step 1 and
- * spec/21-app/11-api-contracts/03-verification-contracts.md v1.3.0 §`POST /Verify/Serial`
+ * defined by 02-spec/21-app/09-verify-key.md §Flow step 1 and
+ * 02-spec/21-app/11-api-contracts/03-verification-contracts.md v1.3.0 §`POST /Verify/Serial`
  * has no server implementation, so end-user devices holding a freshly issued
  * `SerialValue` have no way to check existence, revocation state, or the
  * environment gate before advancing to `Verify/Hash`.
@@ -54,14 +54,14 @@ use Illuminate\Validation\ValidationException;
  *    an empty `Features` map on `Verify/Final`.
  *
  * Normative sources honoured:
- *  - spec/21-app/11-api-contracts/03-verification-contracts.md v1.3.0
+ *  - 02-spec/21-app/11-api-contracts/03-verification-contracts.md v1.3.0
  *    §`POST /Verify/Serial` request+result shape, failure envelopes,
  *    AC-API-VER-005 (PascalCase), AC-API-VER-006 (X-Request-Id strict),
  *    AC-API-VER-007 (ignore Idempotency-Key, do NOT reject when supplied),
  *    AC-API-VER-010 (opaque env markers in body AND logs),
  *    AC-API-VER-011 (do NOT echo EnvironmentId on Serial success).
- *  - spec/21-app/09-verify-key.md v1.0.0 §Flow step 1.
- *  - spec/21-app/44-environments.md §3 gate 2 (env match precedes any
+ *  - 02-spec/21-app/09-verify-key.md v1.0.0 §Flow step 1.
+ *  - 02-spec/21-app/44-environments.md §3 gate 2 (env match precedes any
  *    authorization signal to the caller).
  *
  * Known deviation from spec 03 wire schema, documented not hidden:

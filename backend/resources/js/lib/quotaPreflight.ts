@@ -2,11 +2,11 @@
 //
 // Mirrors `preflightLicenseQuota` in src/lib/lara-quota.ts (lines 452-475) and
 // the same normative sources:
-//   - spec/21-app/11-api-contracts/02-license-contracts.md §Reseller quota
+//   - 02-spec/21-app/11-api-contracts/02-license-contracts.md §Reseller quota
 //     decrement (steps 3, 4; AC-API-LIC-006)
-//   - spec/21-app/41-reseller-quotas.md §2 (LicensesRemaining is derived,
+//   - 02-spec/21-app/41-reseller-quotas.md §2 (LicensesRemaining is derived,
 //     never persisted)
-//   - spec/21-app/12-error-taxonomy.md (QuotaCategoryUnauthorized 403,
+//   - 02-spec/21-app/12-error-taxonomy.md (QuotaCategoryUnauthorized 403,
 //     QuotaExhausted 409)
 //
 // This is a UX preflight, NOT enforcement: the server stays authoritative

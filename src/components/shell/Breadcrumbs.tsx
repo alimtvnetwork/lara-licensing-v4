@@ -1,6 +1,6 @@
 /**
  * Breadcrumbs: detail-route location trail per
- * spec/24-app-ui-design-system/14-breadcrumbs-and-page-header.md §3.
+ * 02-spec/24-app-ui-design-system/14-breadcrumbs-and-page-header.md §3.
  *
  * Root cause the v0.282.0 refit fixes: the `font: var(--text-label)`
  * shorthand silently drops `font-family`, so crumbs rendered in whatever

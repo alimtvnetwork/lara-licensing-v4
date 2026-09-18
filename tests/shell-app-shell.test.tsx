@@ -3,7 +3,7 @@ import { cleanup, render } from "@testing-library/react";
 
 /**
  * Locks AppShell scroll-lock and region contract per
- * spec/24-app-ui-design-system/12-shell-layout.md §3:
+ * 02-spec/24-app-ui-design-system/12-shell-layout.md §3:
  * - mounting sets `data-app-shell="true"` on <html>; unmount restores the
  *   prior value (or removes the attribute if none). This is what activates
  *   the scroll-lock CSS in `src/styles.css`; a regression would leave the

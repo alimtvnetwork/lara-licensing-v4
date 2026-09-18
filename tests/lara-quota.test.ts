@@ -3,8 +3,8 @@ import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 /**
  * Proves the Idempotency-Key contract for mutating quota helpers in
  * src/lib/lara-quota.ts, sourced from
- * spec/21-app/11-api-contracts/08-idempotency-envelope-hardening.md and
- * spec/21-app/11-api-contracts/05-quota-request-contracts.md
+ * 02-spec/21-app/11-api-contracts/08-idempotency-envelope-hardening.md and
+ * 02-spec/21-app/11-api-contracts/05-quota-request-contracts.md
  * (AC-API-QR-003). Every mutating call MUST attach an Idempotency-Key
  * header verbatim; a replay MUST NOT strip or rewrite it.
  *

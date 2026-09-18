@@ -35,10 +35,10 @@ use Illuminate\Support\Facades\Log;
  * successful issue returns 201.
  *
  * References:
- *  - spec/21-app/07-serial-generation.md    (SerialValue format)
- *  - spec/21-app/11-api-contracts/03-verification-contracts.md
- *  - spec/23-app-db/01-schema.md §Serials   (columns + UNIQUE invariant)
- *  - spec/21-app/29-idempotency-lifecycle.md (echo IdempotencyKey)
+ *  - 02-spec/21-app/07-serial-generation.md    (SerialValue format)
+ *  - 02-spec/21-app/11-api-contracts/03-verification-contracts.md
+ *  - 02-spec/23-app-db/01-schema.md §Serials   (columns + UNIQUE invariant)
+ *  - 02-spec/21-app/29-idempotency-lifecycle.md (echo IdempotencyKey)
  */
 final class SerialController
 {

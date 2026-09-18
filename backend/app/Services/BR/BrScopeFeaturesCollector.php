@@ -17,13 +17,13 @@ use Throwable;
  * Export path.
  *
  * Normative sources:
- *  - spec/26-backup-restore/05-scope-catalog.md §"SC-C Feature catalog"
+ *  - 02-spec/26-backup-restore/05-scope-catalog.md §"SC-C Feature catalog"
  *    (selector = `SELECT * FROM public.features` +
  *    `SELECT * FROM public.feature_defaults`, whole scope, restore rank 3).
- *  - spec/26-backup-restore/07-manifest-schema.md §"`scope` Shape"
+ *  - 02-spec/26-backup-restore/07-manifest-schema.md §"`scope` Shape"
  *    (manifest slot `manifest.scope.features = {contentHash, featureCount,
  *    defaultCount}`).
- *  - spec/26-backup-restore/04-invariants.md `INV-BR-MS-2` (every
+ *  - 02-spec/26-backup-restore/04-invariants.md `INV-BR-MS-2` (every
  *    `scope.*.contentHash` hashes the class's real bytes; empty
  *    placeholders are a validator violation once real content ships).
  *

@@ -124,7 +124,7 @@ describe("generated schema vs runtime Zod parity", () => {
     // PortalSerialLookupResponse; no dedicated Serial interface exists.
     // If a Serial interface with SerialId:number appears in schema.d.ts,
     // delete this negative assertion, add admin.serials.tsx to
-    // REAL_BE_ROUTES, and update spec/25-app-audit/06-schema-parity-report.md.
+    // REAL_BE_ROUTES, and update 02-spec/25-app-audit/06-schema-parity-report.md.
     const portalLookup: keyof S.PortalSerialLookupResponse = "Serial";
     expect(portalLookup).toBe("Serial");
   });

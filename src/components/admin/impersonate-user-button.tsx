@@ -6,7 +6,7 @@ import { startImpersonation, readActiveImpersonation } from "../../lib/lara-impe
 
 /**
  * Admin-only entry point that opens the impersonation confirmation modal
- * and calls POST /Users/{UserId}/Impersonate per spec/21-app/46-impersonation.md
+ * and calls POST /Users/{UserId}/Impersonate per 02-spec/21-app/46-impersonation.md
  * §4.1. This component enforces the client-side preconditions (target is not
  * the caller, reason length 8..500) before hitting the wire; the server is
  * still the source of truth for PermissionDenied and ImpersonationAlreadyActive.
@@ -24,7 +24,7 @@ type ImpersonateUserButtonProps = {
   callerUserId: number | null;
   /**
    * Effective role of the current caller (from GET /Users/Me).
-   * Per spec/21-app/46-impersonation.md §4.3 clause 1, only `Admin` (or the
+   * Per 02-spec/21-app/46-impersonation.md §4.3 clause 1, only `Admin` (or the
    * `SuperAdmin` superset) may invoke this control; any other role MUST see
    * nothing rendered. A positive `UserPermissions` grant of
    * `Users.Impersonate` does NOT elevate a non-Admin caller in v1.
@@ -43,7 +43,7 @@ export function ImpersonateUserButton({
   // Hooks must run unconditionally — the role guard below can flip across
   // renders (loader refetch, role change), so returning early before
   // useState would produce a "Rendered fewer hooks than expected" crash.
-  // See spec/21-app/46-impersonation.md §4.3 for the render contract.
+  // See 02-spec/21-app/46-impersonation.md §4.3 for the render contract.
   const [open, setOpen] = useState(false);
   if (callerRole !== "Admin" && callerRole !== "SuperAdmin") return null;
   const disabled = callerUserId === targetUserId || readActiveImpersonation() !== undefined;

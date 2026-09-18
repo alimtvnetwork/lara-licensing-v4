@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
  * Plan 06 step 32. Extend shard `Licenses` with revoke + issuer columns.
  *
  * Adds the fields required by
- * spec/21-app/48-quota-restore-on-revoke.md v1.0.0:
+ * 02-spec/21-app/48-quota-restore-on-revoke.md v1.0.0:
  *
  *  - `IssuerActorType`   closed-set (`Admin` | `Reseller`). Determines
  *                        whether revoke is eligible for quota restoration.

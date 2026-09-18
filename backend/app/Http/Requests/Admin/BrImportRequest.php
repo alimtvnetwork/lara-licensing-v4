@@ -18,7 +18,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * Plan 14 step 27. Body validation for `POST /Api/Admin/Backup/Imports`
  * (S1 shadow, `verifyOnly` slice).
  *
- * Contract (spec/26-backup-restore/12-endpoint-import.md v1.0.0):
+ * Contract (02-spec/26-backup-restore/12-endpoint-import.md v1.0.0):
  *  - `ArchiveId`: ULID (26 chars, Crockford base32) of a previously-
  *    produced shadow archive resolvable by BrArchiveStorage.
  *  - `Mode`: closed set. This slice only accepts `verifyOnly`;

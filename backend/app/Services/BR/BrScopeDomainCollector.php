@@ -18,17 +18,17 @@ use Throwable;
  * Export path.
  *
  * Normative sources:
- *  - spec/26-backup-restore/05-scope-catalog.md §"SC-F Domain tables"
+ *  - 02-spec/26-backup-restore/05-scope-catalog.md §"SC-F Domain tables"
  *    (selector = every remaining public.* table not covered by SC-A..E
  *    and not enumerated in 06-scope-exclusions.md; whole scope per
  *    table; restore rank 6; portable JSONL body per table).
- *  - spec/26-backup-restore/06-scope-exclusions.md (EX-A..H closed set
+ *  - 02-spec/26-backup-restore/06-scope-exclusions.md (EX-A..H closed set
  *    of tables/paths that MUST NOT ship; `AuditLogs` is IN scope under
  *    SC-F per §EX-E note line 116).
- *  - spec/26-backup-restore/07-manifest-schema.md §"`scope` Shape"
+ *  - 02-spec/26-backup-restore/07-manifest-schema.md §"`scope` Shape"
  *    (`manifest.scope.domain = {contentHash, tables:[{name, rowCount,
  *    contentHash}]}`).
- *  - spec/26-backup-restore/08-archive-format.md §"Entry Order"
+ *  - 02-spec/26-backup-restore/08-archive-format.md §"Entry Order"
  *    (INV-BR-AF-5: per-table `SC-F` entries appear in alphabetical
  *    order by table name; deviation is `BackupCorrupt`).
  *  - INV-BR-MS-2 (every `scope.*.contentHash` hashes the class's real

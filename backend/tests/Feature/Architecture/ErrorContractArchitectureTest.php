@@ -24,8 +24,8 @@ use Tests\TestCase;
  *      is attached and the trace lands in the shared log channel
  *      instead of `lara-diag`.
  *
- * Spec anchors: spec/03-error-manage/02-error-architecture,
- * spec/02-coding-guidelines/04-php.
+ * Spec anchors: 02-spec/03-error-manage/02-error-architecture,
+ * 02-spec/02-coding-guidelines/04-php.
  *
  * Root cause this guards: without a gate, a future PR silently
  * reintroduces one of these paths and the correlation contract shipped

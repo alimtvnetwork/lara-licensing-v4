@@ -36,7 +36,7 @@ use Throwable;
  * reseller's shard and count `Licenses` rows with matching
  * `PrefixValue`. If any exist, reject with `PrefixInUse` (409). This
  * is the correct check under the split-DB architecture per
- * spec/23-app-db/10 §Routing Rules; the Root registry cannot answer
+ * 02-spec/23-app-db/10 §Routing Rules; the Root registry cannot answer
  * "is this prefix referenced by any license" by itself.
  */
 final class PrefixController

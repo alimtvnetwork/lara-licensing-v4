@@ -5,7 +5,7 @@ import { HttpMethodType, requestLaraApi } from "./lara-api-client";
 import { ApiErrorCodeType, LaraApiError } from "./lara-api-error";
 
 /**
- * Self-update client per spec/21-app/17-self-update-endpoint.md.
+ * Self-update client per 02-spec/21-app/17-self-update-endpoint.md.
  *
  * Contract highlights:
  * - Manifest is a JSON envelope (uses requestLaraApi).
@@ -137,7 +137,7 @@ function requireHeader(response: Response, name: string): string {
 }
 
 /**
- * MUST-abort row A3 (spec/21-app/17-self-update-endpoint.md line 142): the
+ * MUST-abort row A3 (02-spec/21-app/17-self-update-endpoint.md line 142): the
  * `X-Sha256` header MUST be exactly 64 lowercase hex chars. Anything else
  * fires abort with Reason="ShaHeaderMissing".
  */

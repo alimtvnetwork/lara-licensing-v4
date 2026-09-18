@@ -34,7 +34,7 @@ export type ResellerCreateInput = z.infer<typeof resellerCreateSchema>;
 
 /**
  * Reseller mutations require Idempotency-Key per
- * spec/21-app/11-api-contracts/08-idempotency-envelope-hardening.md.
+ * 02-spec/21-app/11-api-contracts/08-idempotency-envelope-hardening.md.
  */
 export async function createReseller(
   input: ResellerCreateInput,

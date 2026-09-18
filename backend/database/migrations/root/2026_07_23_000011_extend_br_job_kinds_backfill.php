@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 /**
  * Plan 14 step 5a. Extend `BackupJobKind` closed enum with the three
  * backfill job kinds pinned by
- * spec/26-backup-restore/25-migration-and-rollout.md v1.0.0
+ * 02-spec/26-backup-restore/25-migration-and-rollout.md v1.0.0
  * §"Day-One Backfills":
  *
  *   - `BackfillAuditGenesis`      (rank-1, run first)

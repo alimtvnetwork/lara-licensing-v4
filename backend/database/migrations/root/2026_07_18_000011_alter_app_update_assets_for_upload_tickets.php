@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
  * three-phase publish saga.
  *
  * Root cause (one sentence): the initial migration shipped in v0.236.0
- * made `AppUpdateAssets.AppUpdateId` NOT NULL, but spec/21-app/
+ * made `AppUpdateAssets.AppUpdateId` NOT NULL, but 02-spec/21-app/
  * 17-self-update-endpoint.md v1.3.0 §"Publish state machine" line 285
  * requires the asset row to exist BEFORE the parent `AppUpdates` row
  * ("POST /Admin/AppUpdates/UploadTicket ... INSERT AppUpdateAssets ...

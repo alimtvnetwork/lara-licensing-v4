@@ -1,5 +1,5 @@
 // Route-shell state pages per
-// spec/24-app-ui-design-system/16-route-shell-states.md §3-§5.
+// 02-spec/24-app-ui-design-system/16-route-shell-states.md §3-§5.
 // Kept as tiny composables so route boundaries can render them directly.
 
 import { AlertOctagon, SearchX, ShieldOff } from "lucide-react";

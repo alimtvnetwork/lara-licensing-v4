@@ -52,7 +52,7 @@ Corrected totals: 18 MATCH + 2 MISMATCH + 7 MISSING = 27. Off by one because row
 
 ### Root cause of the red admin overview
 
-Row 20. FE calls `GET /api/admin/metrics/kpis`; BE exposes `GET /Api/Admin/Metrics` (index) and `GET /Api/Admin/Metrics/ShardStatus`. There is no `/Kpis` action, so every KPI tile on `/admin` renders the LaraApiError state seen in `.lovable/spec/tasks/assets/18-backend-seed-login-e2e-error-manage/admin-overview-red-errors.png`. Two resolutions are viable and BOTH will be presented in Step 5 (controller skeleton plan) as decision options:
+Row 20. FE calls `GET /api/admin/metrics/kpis`; BE exposes `GET /Api/Admin/Metrics` (index) and `GET /Api/Admin/Metrics/ShardStatus`. There is no `/Kpis` action, so every KPI tile on `/admin` renders the LaraApiError state seen in `.ai-memory/02-spec/tasks/assets/18-backend-seed-login-e2e-error-manage/admin-overview-red-errors.png`. Two resolutions are viable and BOTH will be presented in Step 5 (controller skeleton plan) as decision options:
 
 - **Option A (BE add)**: implement `MetricsController@kpis` returning the KPI shape the FE expects (resellers count, active sessions, licenses issued, quota pressure). Preserves FE contract; one new BE action + DTO.
 - **Option B (FE repoint)**: reshape `admin.metrics.kpis` to call the existing `/Api/Admin/Metrics` index and derive tiles from its payload. Zero BE work; changes FE generated types.

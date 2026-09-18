@@ -2,7 +2,7 @@
 """
 Concurrency-Conflict UI Linter
 ==============================
-Enforces AC-CONFLICT-001..005 from spec/21-app/49-concurrency-conflict-ux.md
+Enforces AC-CONFLICT-001..005 from 02-spec/21-app/49-concurrency-conflict-ux.md
 against every React component under src/components/**.tsx that imports any
 ETag-guarded mutation helper. Every such component MUST contain:
 
@@ -31,7 +31,7 @@ SCAN_DIR = os.path.join(ROOT, "src", "components")
 WAIVER = "lint:allow-no-conflict-ui"
 
 # Closed set of ETag-guarded client helpers per
-# spec/21-app/11-api-contracts/09-concurrency-control.md §Scope. Any
+# 02-spec/21-app/11-api-contracts/09-concurrency-control.md §Scope. Any
 # component that imports one of these is a mutating surface that MUST
 # implement the recovery pattern.
 GUARDED_HELPERS = (
@@ -105,7 +105,7 @@ def main() -> int:
         for line in failures:
             print(f"  - {line}")
         print(f"Scanned {scanned} mutating component(s).")
-        print("Ref: spec/21-app/49-concurrency-conflict-ux.md AC-CONFLICT-001..005.")
+        print("Ref: 02-spec/21-app/49-concurrency-conflict-ux.md AC-CONFLICT-001..005.")
         return 1
 
     print(f"check-concurrency-conflict-ui: OK ({scanned} mutating component(s) scanned)")

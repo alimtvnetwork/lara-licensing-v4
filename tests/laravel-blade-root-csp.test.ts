@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 
 /**
  * Plan 06 step 78. Guards the Blade root document (csrf-token meta + CSP nonce),
- * the middleware policy per spec/19-main-worker-service/12-jwt-delivery-contract.md
+ * the middleware policy per 02-spec/19-main-worker-service/12-jwt-delivery-contract.md
  * lines 83-98, and the axios X-CSRF-TOKEN wiring in bootstrap.ts.
  */
 const blade = readFileSync("backend/resources/views/app.blade.php", "utf8");

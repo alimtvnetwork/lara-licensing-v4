@@ -199,7 +199,7 @@ async function seedFeatures(): Promise<void> {
  * `<LicenseTierId>::<FeatureKey>`, one per FeatureKey per tier, spanning
  * three deterministic tiers (1=Starter, 2=Growth, 3=Enterprise) so the
  * tier-features bridge exercises Boolean/Number/String ValueTypes and
- * demonstrates the Precedence contract (spec/21-app/45 §4).
+ * demonstrates the Precedence contract (02-spec/21-app/45 §4).
  * Values obey `featureKeyValueTypeRegistry` and validate cleanly under
  * `tierFeatureResourceSchema` in `src/lib/lara-features.ts`.
  */

@@ -4,8 +4,8 @@ import sys
 import os
 
 def run():
-    perm_file = 'spec/21-app/40-permissions.md'
-    endpoint_file = 'spec/21-app/10-endpoints.md'
+    perm_file = '02-spec/21-app/40-permissions.md'
+    endpoint_file = '02-spec/21-app/10-endpoints.md'
     
     if not os.path.exists(perm_file):
         print(f"Error: {perm_file} missing")

@@ -8,7 +8,7 @@
 // POST handlers as a 400/409 round-trip instead of failing in the form.
 //
 // Mirrors, in this order of authority:
-//  - spec/21-app/44-environments.md v1.0.0 section 2 (closed set Production=1,
+//  - 02-spec/21-app/44-environments.md v1.0.0 section 2 (closed set Production=1,
 //    Staging=2, Development=3; ordinals are 1-based positions).
 //  - backend/config/lara.php key `environments` (same order).
 //  - backend/app/Services/EnvironmentService.php (ordinalToName, nameToOrdinal,

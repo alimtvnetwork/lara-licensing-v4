@@ -19,17 +19,17 @@ use Throwable;
  * Export path.
  *
  * Normative sources:
- *  - spec/26-backup-restore/05-scope-catalog.md §"SC-G Secrets envelope"
+ *  - 02-spec/26-backup-restore/05-scope-catalog.md §"SC-G Secrets envelope"
  *    (selector = HKDF-sealed blob of every row column marked sensitive;
  *    manifest slot `manifest.scope.secretsEnvelope`; restore boundary
  *    "whole"; restore rank 7; re-seal on Restore under Active epoch).
- *  - spec/26-backup-restore/07-manifest-schema.md §"scope" required
+ *  - 02-spec/26-backup-restore/07-manifest-schema.md §"scope" required
  *    slot `secretsEnvelope = {contentHash, algorithm:"hkdf-sha256",
  *    epoch:int, kid:string}`.
- *  - spec/26-backup-restore/08-archive-format.md line 79
+ *  - 02-spec/26-backup-restore/08-archive-format.md line 79
  *    (`scope/secrets-envelope.bin.zst` sits between SC-F domain shards
  *    and SC-H file-index bodies; INV-BR-AF-1 order).
- *  - spec/26-backup-restore/09-encryption-and-keys.md §"Key Hierarchy"
+ *  - 02-spec/26-backup-restore/09-encryption-and-keys.md §"Key Hierarchy"
  *    (DEK-content derived HKDF-SHA-256 salt+info, per-row AES-256-GCM
  *    seal, INV-BR-EK-2/EK-4/EK-5).
  *  - INV-BR-MS-2 (every `scope.*.contentHash` hashes real bytes).

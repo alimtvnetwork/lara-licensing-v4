@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 /**
  * Locks the behavioral contract that <LicenseIssueForm /> runs
  * runResellerPreflight BEFORE createLicense whenever a ResellerId is
- * provided, per spec/21-app/11-api-contracts/02-license-contracts.md
+ * provided, per 02-spec/21-app/11-api-contracts/02-license-contracts.md
  * §Reseller quota decrement (AC-API-LIC-006), and MUST NOT fire the
  * network mutation when preflight throws QuotaExhausted (AC-ERR-006) or
  * QuotaCategoryUnauthorized (AC-ERR-007).

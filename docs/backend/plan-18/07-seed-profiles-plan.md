@@ -1,6 +1,6 @@
 # Seed Profiles Plan (Plan 18, Step 7)
 
-Defines the three seed profiles (`default`, `empty`, `error`), the env-var wiring, and the exact seeder chain each profile invokes. Sourced from real code: `backend/database/seeders/DatabaseSeeder.php` (existing `CHAIN` constant + `callOrSkip` mechanism) and `spec/28-runtime-modes/03-preview-fixture-contract.md` (FE preview scenario contract).
+Defines the three seed profiles (`default`, `empty`, `error`), the env-var wiring, and the exact seeder chain each profile invokes. Sourced from real code: `backend/database/seeders/DatabaseSeeder.php` (existing `CHAIN` constant + `callOrSkip` mechanism) and `02-spec/28-runtime-modes/03-preview-fixture-contract.md` (FE preview scenario contract).
 
 ## Profile matrix
 

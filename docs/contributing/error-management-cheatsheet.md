@@ -2,7 +2,7 @@
 
 **Audience**: anyone writing TypeScript in `src/` or PHP in `backend/`. Every rule below has an automated enforcement point (ESLint, Pest, Vitest, CI). Follow the "do this" column. The "not that" column is what CI will reject.
 
-Operator side (grepping `lara-diag-*.log` by `ErrorId`) is a separate document: `spec/03-error-manage/02-error-architecture/07-logging-and-diagnostics/03-grep-lara-diag-by-error-id.md`.
+Operator side (grepping `lara-diag-*.log` by `ErrorId`) is a separate document: `02-spec/03-error-manage/02-error-architecture/07-logging-and-diagnostics/03-grep-lara-diag-by-error-id.md`.
 
 ## 1. TL;DR
 
@@ -179,8 +179,8 @@ Every item below is a real regression this cheatsheet exists to prevent.
 ## 6. Deeper reading
 
 - Envelope shape: `backend/app/Support/ApiEnvelope.php` header comment (lines 1-25).
-- Retry policies: `spec/21-app/21-error-management-binding.md` §"Retry policy classes" (lines 43-52).
-- Error taxonomy: `spec/21-app/12-error-taxonomy.md` (AC-ERR-001, AC-ERR-003, AC-ERR-005).
+- Retry policies: `02-spec/21-app/21-error-management-binding.md` §"Retry policy classes" (lines 43-52).
+- Error taxonomy: `02-spec/21-app/12-error-taxonomy.md` (AC-ERR-001, AC-ERR-003, AC-ERR-005).
 - FE seams: `src/lib/lara-fetch.ts`, `src/lib/lara-envelope.ts`, `src/lib/lara-retry.ts`, `src/lib/error-store.ts`, `src/lib/use-submit-lock.ts`.
 - BE seams: `backend/app/Exceptions/LaraException.php`, `backend/app/Support/ApiEnvelope.php`, `backend/app/Support/DetailsRedactor.php`, `backend/app/Support/TraceRedactor.php`, `backend/bootstrap/app.php` (lines 66-190).
-- Operator runbook (grep by `ErrorId`): `spec/03-error-manage/02-error-architecture/07-logging-and-diagnostics/03-grep-lara-diag-by-error-id.md`.
+- Operator runbook (grep by `ErrorId`): `02-spec/03-error-manage/02-error-architecture/07-logging-and-diagnostics/03-grep-lara-diag-by-error-id.md`.

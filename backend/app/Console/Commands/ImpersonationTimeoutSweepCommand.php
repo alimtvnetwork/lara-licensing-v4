@@ -17,7 +17,7 @@ use Throwable;
 
 /**
  * Plan 06 step 44 (impersonation timeout sweep). Satisfies AC-IMP-006 per
- * spec/21-app/47-impersonation-server-handler.md §4.
+ * 02-spec/21-app/47-impersonation-server-handler.md §4.
  *
  * Root cause this command exists: when an operator never calls
  * `POST /Impersonation/End`, the shard `AuthSessions` row and Root

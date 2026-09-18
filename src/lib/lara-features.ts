@@ -7,12 +7,12 @@ import { getRuntimeMode } from "./runtime-mode";
 
 /**
  * Feature admin client per:
- *   - spec/21-app/45-license-features.md v1.0.0 (registry, ValueType, precedence)
- *   - spec/21-app/11-api-contracts/02-license-contracts.md v1.4.0
+ *   - 02-spec/21-app/45-license-features.md v1.0.0 (registry, ValueType, precedence)
+ *   - 02-spec/21-app/11-api-contracts/02-license-contracts.md v1.4.0
  *     §Feature admin endpoints (seven routes)
- *   - spec/21-app/40-permissions.md §2 (Licenses.Read/Update, Roles.Assign)
- *   - spec/21-app/12-error-taxonomy.md (FeatureUnknown, FeatureValueInvalid)
- *   - spec/21-app/08-idempotency-envelope-hardening.md (PUT/DELETE Idempotency-Key)
+ *   - 02-spec/21-app/40-permissions.md §2 (Licenses.Read/Update, Roles.Assign)
+ *   - 02-spec/21-app/12-error-taxonomy.md (FeatureUnknown, FeatureValueInvalid)
+ *   - 02-spec/21-app/08-idempotency-envelope-hardening.md (PUT/DELETE Idempotency-Key)
  *
  * The FeatureKey and ValueType closed sets are enforced client-side BEFORE
  * the request goes on the wire, so a caller cannot silently target a
@@ -20,7 +20,7 @@ import { getRuntimeMode } from "./runtime-mode";
  * before any network call, matching AC-API-LIC-013 / AC-API-LIC-014.
  */
 
-/** Closed set from spec/21-app/45-license-features.md §2. */
+/** Closed set from 02-spec/21-app/45-license-features.md §2. */
 export const FeatureKeyType = {
   ModulesReports: "Modules.Reports",
   ModulesApi: "Modules.Api",
@@ -43,7 +43,7 @@ export const featureKeySchema = z.enum([
 export const featureValueTypeSchema = z.enum(["Boolean", "Number", "String"]);
 export type FeatureValueTypeValue = z.infer<typeof featureValueTypeSchema>;
 
-/** Registry table from spec/21-app/45-license-features.md §2 (FeatureKey -> ValueType). */
+/** Registry table from 02-spec/21-app/45-license-features.md §2 (FeatureKey -> ValueType). */
 export const featureKeyValueTypeRegistry: Record<FeatureKeyValue, FeatureValueTypeValue> = {
   "Modules.Reports": "Boolean",
   "Modules.Api": "Boolean",
@@ -53,7 +53,7 @@ export const featureKeyValueTypeRegistry: Record<FeatureKeyValue, FeatureValueTy
   "Support.Tier": "String",
 };
 
-/** Closed set from spec/21-app/45-license-features.md §2 Support.Tier row. */
+/** Closed set from 02-spec/21-app/45-license-features.md §2 Support.Tier row. */
 export const SupportTierType = {
   Community: "Community",
   Standard: "Standard",
@@ -64,7 +64,7 @@ const supportTierSchema = z.enum(["Community", "Standard", "Priority"]);
 
 /**
  * Validate a raw JSON value against the declared ValueType per
- * spec/21-app/45-license-features.md §3. Throws ZodError before any
+ * 02-spec/21-app/45-license-features.md §3. Throws ZodError before any
  * network call so the server never sees a FeatureValueInvalid we could
  * have caught locally. Intentionally strict: `"true"`, `0`, `1` MUST NOT
  * be coerced.
@@ -123,7 +123,7 @@ export function featureCatalogQueryOptions(pageSize = 100) {
 
 /**
  * Preview bridge: synthesize the legacy closed-set feature catalog from
- * `featureKeyValueTypeRegistry` (spec/21-app/45-license-features.md §2).
+ * `featureKeyValueTypeRegistry` (02-spec/21-app/45-license-features.md §2).
  * Preview handler `admin.features.list` returns modern free-form codes
  * (e.g. `core.reports`) that would fail `featureKeySchema.parse`; the
  * catalog is fixed by spec so seed rows do not influence its contents.
@@ -256,7 +256,7 @@ async function fetchPreviewLicenseFeatures(licenseId: number): Promise<LicenseFe
  * PUT /Licenses/{LicenseId}/Features/{FeatureKey}. Client-side ValueType guard.
  * Requires `ifMatch`: the strong ETag from the most recent
  * `GET /Licenses/{LicenseId}` per
- * spec/21-app/11-api-contracts/09-concurrency-control.md §Scope row 3.
+ * 02-spec/21-app/11-api-contracts/09-concurrency-control.md §Scope row 3.
  * Missing header would return `428 PreconditionRequired`; a stale value
  * would return `412 PreconditionFailed` with the fresh ETag in
  * `Details[0].Value`.
@@ -284,7 +284,7 @@ export async function putLicenseFeature(
 
 /**
  * DELETE /Licenses/{LicenseId}/Features/{FeatureKey}. In-scope per
- * spec/21-app/11-api-contracts/09-concurrency-control.md §Scope row 4;
+ * 02-spec/21-app/11-api-contracts/09-concurrency-control.md §Scope row 4;
  * `ifMatch` requirement identical to `putLicenseFeature`.
  */
 export async function deleteLicenseFeature(
@@ -305,7 +305,7 @@ export async function deleteLicenseFeature(
 
 /**
  * Resolve the runtime feature map for a license per
- * spec/21-app/45-license-features.md §4 (Precedence). Tier layer first,
+ * 02-spec/21-app/45-license-features.md §4 (Precedence). Tier layer first,
  * then LicenseFeatures overrides. Absence of a key means "not licensed":
  * callers MUST NOT synthesize defaults from this map. Pure function, no
  * network calls, deterministic; suitable for both admin previews and the

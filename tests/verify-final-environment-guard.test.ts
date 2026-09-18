@@ -3,7 +3,7 @@ import { describe, expect, it, vi, beforeEach } from "vitest";
 import * as apiClient from "../src/lib/lara-api-client";
 import { verifyFinal } from "../src/lib/lara-serial";
 
-describe("verifyFinal environment guard (spec/21-app/44-environments.md AC-LENV-004)", () => {
+describe("verifyFinal environment guard (02-spec/21-app/44-environments.md AC-LENV-004)", () => {
   beforeEach(() => {
     vi.restoreAllMocks();
   });

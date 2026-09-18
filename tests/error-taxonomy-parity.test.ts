@@ -16,11 +16,11 @@ import { APP_ROLE_VALUES } from "../src/lib/lara-user-role";
  * - v0.115.0: extended to `PlatformType` <-> 17-self-update-endpoint.md and
  *   `APP_ROLE_VALUES` <-> 04-roles.md (Canonical set).
  */
-const TAXONOMY_PATH = resolve(__dirname, "../spec/21-app/12-error-taxonomy.md");
-const PLATFORM_SPEC_PATH = resolve(__dirname, "../spec/21-app/17-self-update-endpoint.md");
-const ROLES_SPEC_PATH = resolve(__dirname, "../spec/21-app/04-roles.md");
+const TAXONOMY_PATH = resolve(__dirname, "../02-spec/21-app/12-error-taxonomy.md");
+const PLATFORM_SPEC_PATH = resolve(__dirname, "../02-spec/21-app/17-self-update-endpoint.md");
+const ROLES_SPEC_PATH = resolve(__dirname, "../02-spec/21-app/04-roles.md");
 
-describe("ApiErrorCodeType <-> spec/21-app/12-error-taxonomy.md parity", () => {
+describe("ApiErrorCodeType <-> 02-spec/21-app/12-error-taxonomy.md parity", () => {
   const taxonomy = readFileSync(TAXONOMY_PATH, "utf8");
   const codes = Object.values(ApiErrorCodeType);
 
@@ -42,7 +42,7 @@ describe("ApiErrorCodeType <-> spec/21-app/12-error-taxonomy.md parity", () => {
   });
 });
 
-describe("PlatformType <-> spec/21-app/17-self-update-endpoint.md parity", () => {
+describe("PlatformType <-> 02-spec/21-app/17-self-update-endpoint.md parity", () => {
   const spec = readFileSync(PLATFORM_SPEC_PATH, "utf8");
   const platforms = Object.values(PlatformType);
 
@@ -74,7 +74,7 @@ describe("PlatformType <-> spec/21-app/17-self-update-endpoint.md parity", () =>
   });
 });
 
-describe("APP_ROLE_VALUES <-> spec/21-app/04-roles.md parity", () => {
+describe("APP_ROLE_VALUES <-> 02-spec/21-app/04-roles.md parity", () => {
   const spec = readFileSync(ROLES_SPEC_PATH, "utf8");
   const roles = APP_ROLE_VALUES;
 

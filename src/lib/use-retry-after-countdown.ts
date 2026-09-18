@@ -7,7 +7,7 @@ import { BANNER_OWNED_ERROR_CODES } from "./lara-retry";
 /**
  * Countdown for a RateLimited LaraApiError. Ticks once per second while the
  * remainder is positive, then reports 0 so the caller can re-enable retry.
- * Contract for spec/21-app/14-rate-limiting.md: `Retry-After` is the source of
+ * Contract for 02-spec/21-app/14-rate-limiting.md: `Retry-After` is the source of
  * truth; when the header is absent we return undefined and never fabricate a
  * countdown, because doing so would hide a spec violation.
  */

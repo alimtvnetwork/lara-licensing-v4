@@ -12,7 +12,7 @@ interface Props {
  * Inline banner surfaced next to submit buttons when a request fails with
  * RateLimited. Renders the bucket name, live Retry-After countdown, and a
  * retry button that stays disabled until the countdown reaches zero, per
- * spec/21-app/14-rate-limiting.md. When Retry-After is absent we still show
+ * 02-spec/21-app/14-rate-limiting.md. When Retry-After is absent we still show
  * the banner (retry stays enabled) so operators are never left guessing.
  *
  * Plan 15 Step 23: refitted onto the shared <Banner> primitive with the

@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\DB;
 /**
  * Plan 06 step 18. Shard DB `QuotaRequests` (approval workflow inbox).
  *
- * Normative source: spec/21-app/42-quota-requests.md v1.1.0 §State machine
+ * Normative source: 02-spec/21-app/42-quota-requests.md v1.1.0 §State machine
  * and §Approval obligations. Column set and CHECKs mirror
- * spec/23-app-db/01-schema.md §QuotaRequests (lines 280-320). This table
- * lives on the shard per spec/23-app-db/10-reseller-shard-split-db.md
+ * 02-spec/23-app-db/01-schema.md §QuotaRequests (lines 280-320). This table
+ * lives on the shard per 02-spec/23-app-db/10-reseller-shard-split-db.md
  * §App-tier tables per reseller shard: quota rows never leak to Root, they
  * are scoped to their reseller's shard.
  *

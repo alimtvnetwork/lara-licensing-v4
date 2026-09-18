@@ -2,8 +2,8 @@ import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 
 /**
  * Proves the closed-set + ValueType + Idempotency-Key contract for
- * src/lib/lara-features.ts, per spec/21-app/45-license-features.md §2/§3
- * and spec/21-app/11-api-contracts/02-license-contracts.md v1.4.0
+ * src/lib/lara-features.ts, per 02-spec/21-app/45-license-features.md §2/§3
+ * and 02-spec/21-app/11-api-contracts/02-license-contracts.md v1.4.0
  * §Feature admin endpoints (AC-API-LIC-013, AC-API-LIC-014).
  */
 vi.mock("@/lib/lara-api-client", async () => {

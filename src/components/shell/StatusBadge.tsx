@@ -1,7 +1,7 @@
 /**
  * StatusBadge: enum-state pill rebuilt on the refit `Badge` intent registry
- * per spec/24-app-ui-design-system/25-component-badge-status.md §4 and
- * spec/24-app-ui-design-system/14-breadcrumbs-and-page-header.md §4.2.
+ * per 02-spec/24-app-ui-design-system/25-component-badge-status.md §4 and
+ * 02-spec/24-app-ui-design-system/14-breadcrumbs-and-page-header.md §4.2.
  *
  * Two call shapes:
  *   1. Enum-driven (preferred): `<StatusBadge registry="LicenseState" value="Active" />`

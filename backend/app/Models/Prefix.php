@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * Backed by `Prefixes` on the `root` connection created in
  * `2026_07_18_000003_create_root_prefixes_table.php`. PrefixValue is
- * globally UNIQUE (cross-tenant) per spec/23-app-db/10 §Root DB tables.
+ * globally UNIQUE (cross-tenant) per 02-spec/23-app-db/10 §Root DB tables.
  */
 final class Prefix extends Model
 {

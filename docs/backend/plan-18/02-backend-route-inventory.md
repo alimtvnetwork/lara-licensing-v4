@@ -111,7 +111,7 @@ All action methods listed below were confirmed to exist via file presence (`ls b
 
 - Every backend path is PascalCase under `/Api/{Scope}/...`. If the FE inventory (`docs/backend/plan-18/01-operations-inventory.md`) contains any lowercase `/api/admin/*` literal, Step 3 records it as a path-case-skew row.
 - Backend uses named path params (`{ResellerSlug}`, `{LicenseKey}`, `{RequestId}`, `{UserId}`, `{MachineBindingId}`, `{SessionId}`, `{Version}`, `{Platform}`, `{PrefixValue}`, `{UploadToken}`). Any FE OperationId still using `:id` or `{Id}` becomes an id-shape-skew row.
-- FE `admin.metrics.kpis` (root cause of `.lovable/issues/06-admin-overview-kpis-red-error.md`) has NO backend counterpart. Backend exposes `GET /Api/Admin/Metrics` (index) and `GET /Api/Admin/Metrics/ShardStatus`. Step 3 records this as MISSING; the fix path is either wiring FE to `admin.metrics.overview` -> `GET /Api/Admin/Metrics`, or adding a new `GET /Api/Admin/Metrics/Kpis` action. Decision deferred to Step 5 (controller skeleton plan).
+- FE `admin.metrics.kpis` (root cause of `.ai-memory/issues/06-admin-overview-kpis-red-error.md`) has NO backend counterpart. Backend exposes `GET /Api/Admin/Metrics` (index) and `GET /Api/Admin/Metrics/ShardStatus`. Step 3 records this as MISSING; the fix path is either wiring FE to `admin.metrics.overview` -> `GET /Api/Admin/Metrics`, or adding a new `GET /Api/Admin/Metrics/Kpis` action. Decision deferred to Step 5 (controller skeleton plan).
 - Backup/Imports (Plan 14 step 29) is the only STUB in the current router; verifyAndApply saga is scheduled outside Plan 18.
 - No route uses trailing slashes; FE `Link to="..."` and generated paths must match.
 

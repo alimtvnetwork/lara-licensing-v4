@@ -36,9 +36,9 @@ use Illuminate\Support\Facades\Log;
  * impossible to satisfy.
  *
  * Normative sources:
- *  - spec/21-app/42-quota-requests.md v1.1.0 §State machine, §Endpoints, §Errors
- *  - spec/21-app/41-reseller-quotas.md v1.0.0 §3 (Quotas shape), §5 (Ledger)
- *  - spec/23-app-db/10-reseller-shard-split-db.md §App-tier tables
+ *  - 02-spec/21-app/42-quota-requests.md v1.1.0 §State machine, §Endpoints, §Errors
+ *  - 02-spec/21-app/41-reseller-quotas.md v1.0.0 §3 (Quotas shape), §5 (Ledger)
+ *  - 02-spec/23-app-db/10-reseller-shard-split-db.md §App-tier tables
  *
  * Cross-shard: this controller does NOT use `ShardBindingMiddleware`; Admins
  * act across resellers by supplying `?ResellerSlug=...` on every mutation,

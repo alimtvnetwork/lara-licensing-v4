@@ -7,16 +7,16 @@ use Illuminate\Support\Facades\DB;
 
 /**
  * Plan 14 step 3b. Root DB `CasbinRules` adapter table + BR seed rows
- * (migration 8 per spec/26-backup-restore/25-migration-and-rollout.md).
+ * (migration 8 per 02-spec/26-backup-restore/25-migration-and-rollout.md).
  *
  * Normative sources:
- *  - spec/26-backup-restore/02-casbin-integration.md v1.0.0 §"Adapter"
+ *  - 02-spec/26-backup-restore/02-casbin-integration.md v1.0.0 §"Adapter"
  *    (adapter table DDL sketch, unique-index dedupe, grants + RLS),
  *    §"Policy Shape" (sub role names, obj `/Api/V1/*` or `Capability:*`,
  *    act regex, eft {allow,deny}).
- *  - spec/26-backup-restore/03-permission-matrix.md v1.0.0 §"Casbin Seed
+ *  - 02-spec/26-backup-restore/03-permission-matrix.md v1.0.0 §"Casbin Seed
  *    Rows" (verbatim BR 14-capability seed CSV) + §"FE capability mirrors".
- *  - spec/26-backup-restore/25-migration-and-rollout.md §"Migration
+ *  - 02-spec/26-backup-restore/25-migration-and-rollout.md §"Migration
  *    Order" migration 8 ("idempotent via `ON CONFLICT DO NOTHING` on
  *    the unique index"; reversible).
  *  - INV-BR-PM-1..5.

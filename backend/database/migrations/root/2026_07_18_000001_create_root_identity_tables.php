@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Schema;
  * Plan 06 step 11. Root DB identity tables.
  *
  * Creates the identity trio (Roles, Users, UserRoles) on the `root`
- * connection per spec/23-app-db/01-schema.md §Users, Roles, Tenants and
- * spec/23-app-db/10-reseller-shard-split-db.md §Root DB tables. Root holds
+ * connection per 02-spec/23-app-db/01-schema.md §Users, Roles, Tenants and
+ * 02-spec/23-app-db/10-reseller-shard-split-db.md §Root DB tables. Root holds
  * only SuperAdmin + cross-reseller staff; per-reseller users live in the
  * reseller's shard (that migration ships in Plan 06 steps 14-18).
  *
@@ -28,7 +28,7 @@ return new class extends Migration
     {
         $schema = Schema::connection(self::CONN);
 
-        // Roles: closed set from spec/21-app/config lara.roles.
+        // Roles: closed set from 02-spec/21-app/config lara.roles.
         // Seeded to {SuperAdmin, Admin, Reseller, AppBuilder, EndUser}
         // by RootRoleSeeder in Plan 06 step 13.
         DB::connection(self::CONN)->statement('

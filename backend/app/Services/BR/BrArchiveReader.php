@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Log;
  * Plan 14 step 23. Read-only archive chunk reader used by Import
  * preflight ({@see BrImportPreflight}).
  *
- * Normative source: spec/26-backup-restore/08-archive-format.md
+ * Normative source: 02-spec/26-backup-restore/08-archive-format.md
  * v1.0.0 §"Chunk Format" (`compressed || 32-byte SHA-256 trailer`) +
  * §09 "Nonce Discipline" / "AAD Binding". Every returned frame goes
  * through THREE checks in strict order so a corrupt archive never

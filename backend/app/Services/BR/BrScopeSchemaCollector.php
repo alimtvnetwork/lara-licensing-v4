@@ -16,12 +16,12 @@ use Illuminate\Support\Facades\Log;
  * Export path.
  *
  * Normative sources:
- *  - spec/26-backup-restore/05-scope-catalog.md §"SC-A · Schema state"
+ *  - 02-spec/26-backup-restore/05-scope-catalog.md §"SC-A · Schema state"
  *    (selector = `SELECT migration FROM public.migrations ORDER BY id
  *    ASC` + SHA-256 over concatenated migration file bodies).
- *  - spec/26-backup-restore/07-manifest-schema.md §"`scope` Shape"
+ *  - 02-spec/26-backup-restore/07-manifest-schema.md §"`scope` Shape"
  *    (manifest slot `manifest.scope.schema.migrations : string[]`).
- *  - spec/26-backup-restore/04-invariants.md `INV-BR-MS-2` (every
+ *  - 02-spec/26-backup-restore/04-invariants.md `INV-BR-MS-2` (every
  *    `scope.*.contentHash` hashes the class's real bytes; empty
  *    placeholders are a validator violation once real content ships).
  *

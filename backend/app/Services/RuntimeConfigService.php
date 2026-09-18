@@ -14,8 +14,8 @@ use Throwable;
 /**
  * Plan 16 step 58 (v0.563.0). Atomic read/write for repo-root `version.json`.
  *
- * Contract: spec/28-runtime-modes/01-version-json-schema.md +
- *           spec/28-runtime-modes/05-admin-runtime-toggle.md.
+ * Contract: 02-spec/28-runtime-modes/01-version-json-schema.md +
+ *           02-spec/28-runtime-modes/05-admin-runtime-toggle.md.
  *
  * Discipline:
  *  - PascalCase JSON keys (project memory Core rule).
@@ -23,7 +23,7 @@ use Throwable;
  *    triple so parallel writers cannot skip the If-Match check (INV-RM-06).
  *  - Write goes to `<path>.tmp` + fsync + rename() so the file is never
  *    partial-observable to the SPA fetching `/version.json`.
- *  - 15-line function bodies enforced by `.lovable/coding-guidelines.md`.
+ *  - 15-line function bodies enforced by `.ai-memory/coding-guidelines.md`.
  */
 final class RuntimeConfigService
 {

@@ -7,7 +7,7 @@ import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
- * Dialog refit per spec/24-app-ui-design-system/21-component-dialog.md.
+ * Dialog refit per 02-spec/24-app-ui-design-system/21-component-dialog.md.
  *
  * Overlay (§3): `color-mix(in oklab, var(--background) 40%, transparent)`
  * with `backdrop-filter: blur(4px)`. Container: elevation-2 shadow,

@@ -16,11 +16,11 @@ import { shellRoleSeesUpdateBanner, useLaraShellRole } from "../lib/lara-shell-r
 const DISMISS_KEY_PREFIX = "lara.update-banner.dismissed.";
 
 /**
- * Cross-shell update banner per spec/21-app/16-ui-surfaces.md §3a.
+ * Cross-shell update banner per 02-spec/21-app/16-ui-surfaces.md §3a.
  * Renders only for `AppBuilder` / `EndUser` shells. Dismissal is per-session
  * and keyed on `Version` so a new release re-shows the banner (AC-UI-007).
  *
- * v1.0 rollout policy (spec/21-app/17-self-update-endpoint.md §"v1.0 rollout
+ * v1.0 rollout policy (02-spec/21-app/17-self-update-endpoint.md §"v1.0 rollout
  * policy"): the update channel is hard-pinned to `Stable`. No `channel` prop is
  * accepted; reintroducing one requires the settings-screen work called out in
  * that section.

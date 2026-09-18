@@ -12,7 +12,7 @@ use Tests\TestCase;
 /**
  * Plan 06 step 57. Locks `impersonation:timeout-sweep`
  * (ImpersonationTimeoutSweepCommand) per
- * spec/21-app/47-impersonation-server-handler.md §4:
+ * 02-spec/21-app/47-impersonation-server-handler.md §4:
  *
  *   AC-IMP-006a: Expired impersonation rows are closed with
  *                `EndedAt = ExpiresAt` (contractual end time, NOT NOW()).

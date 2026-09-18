@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Plan 06 step 78. Content-Security-Policy for the Inertia console per
- * spec/19-main-worker-service/12-jwt-delivery-contract.md lines 83-98: the
+ * 02-spec/19-main-worker-service/12-jwt-delivery-contract.md lines 83-98: the
  * access token lives in memory, which only beats localStorage if a CSP blocks
  * the XSS exfiltration vectors.
  *

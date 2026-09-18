@@ -15,13 +15,13 @@ use Illuminate\Support\Facades\Log;
  * Plan 14 restore preflight guard for SC-F "domain tables" drift.
  *
  * Normative sources:
- *  - spec/26-backup-restore/07-manifest-schema.md §"`scope` Shape"
+ *  - 02-spec/26-backup-restore/07-manifest-schema.md §"`scope` Shape"
  *    (`manifest.scope.domain = {contentHash, tables:[{name, rowCount,
  *    contentHash}]}`).
- *  - spec/26-backup-restore/12-restore-orchestration.md §"Preflight"
+ *  - 02-spec/26-backup-restore/12-restore-orchestration.md §"Preflight"
  *    (INV-BR-RS-1 preflight/drift never mutate any table; INV-BR-RS-2
  *    verify all invariants BEFORE any DB tx opens).
- *  - spec/26-backup-restore/08-archive-format.md INV-BR-AF-5 (per-table
+ *  - 02-spec/26-backup-restore/08-archive-format.md INV-BR-AF-5 (per-table
  *    SC-F entries appear alphabetically; deviation is BackupCorrupt).
  *  - INV-BR-MS-2 (every `scope.*.contentHash` hashes the class's real
  *    bytes).

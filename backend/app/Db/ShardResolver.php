@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Log;
 /**
  * Runtime factory that binds a per-Reseller shard connection.
  *
- * Plan 06 step 10. Backed by spec/23-app-db/10-reseller-shard-split-db.md
+ * Plan 06 step 10. Backed by 02-spec/23-app-db/10-reseller-shard-split-db.md
  * §Routing Rules: every reseller-scoped request MUST run against its
  * own shard, resolved from `Resellers` + `ResellerShardRoutes` on the
  * Root DB. This class never reads those tables itself; the caller

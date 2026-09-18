@@ -11,7 +11,7 @@ use Tests\TestCase;
 /**
  * Plan 11 step 16. PascalCase JSON-key gate for every JsonResource.
  *
- * Root cause this guards: `spec/02-coding-guidelines` mandates PascalCase
+ * Root cause this guards: `02-spec/02-coding-guidelines` mandates PascalCase
  * for JSON keys (matches DB column casing so BE/FE contracts stay one
  * source of truth), but nothing in CI stopped a contributor from
  * writing `'license_id' => ...` inside a `toArray` and shipping mixed
@@ -78,7 +78,7 @@ final class JsonResourcePascalCaseTest extends TestCase
         $this->assertSame(
             [],
             $violations,
-            "Non-PascalCase JSON keys detected in JsonResource classes. Rename to PascalCase to keep the BE/FE contract single-source (spec/02-coding-guidelines).\n".implode("\n", $violations),
+            "Non-PascalCase JSON keys detected in JsonResource classes. Rename to PascalCase to keep the BE/FE contract single-source (02-spec/02-coding-guidelines).\n".implode("\n", $violations),
         );
     }
 

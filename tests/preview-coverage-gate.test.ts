@@ -16,7 +16,7 @@
  * removed op still on the allowlist, allowlisted op that got implemented,
  * breaks the build immediately with a targeted message.
  *
- * Maps to INV-RM-04 (spec/28-runtime-modes/00-overview.md).
+ * Maps to INV-RM-04 (02-spec/28-runtime-modes/00-overview.md).
  */
 import { beforeEach, describe, expect, it } from "vitest";
 import { registerAllPreviewHandlers } from "@/lib/preview-fixtures";

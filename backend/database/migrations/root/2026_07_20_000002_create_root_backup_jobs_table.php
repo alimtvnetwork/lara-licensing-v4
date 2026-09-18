@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 /**
  * Plan 14 step 1b. Root DB `BackupJobs` table.
  *
- * Normative source: spec/26-backup-restore/15-jobs-and-progress.md v1.0.0
+ * Normative source: 02-spec/26-backup-restore/15-jobs-and-progress.md v1.0.0
  * §"Job Row Schema" (columns, types, unique indexes, dequeue index) and
  * §"State Machine" (closed transition set enforced at the app layer with
  * DB-level enum containment). Also `INV-BR-JP-4` (worker leases protected

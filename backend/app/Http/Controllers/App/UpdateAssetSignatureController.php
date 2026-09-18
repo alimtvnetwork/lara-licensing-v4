@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
  *
  * Root cause this class closes (one sentence): the manifest response
  * emits `SignatureUrl: /App/UpdateAsset/{Version}/{Platform}.sig` per
- * spec/21-app/17-self-update-endpoint.md v1.3.0 §"Response 200", and
+ * 02-spec/21-app/17-self-update-endpoint.md v1.3.0 §"Response 200", and
  * the CLI abort row A8 requires that URL to serve the raw 64-byte
  * Ed25519 detached signature so the client can verify against its
  * pinned publisher key before rename-first-deploy; until now the route

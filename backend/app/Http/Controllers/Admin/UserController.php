@@ -33,7 +33,7 @@ use Illuminate\Support\Facades\Log;
 /**
  * Plan 06 step 34. Admin surface for Root `Users` and `UserRoles`.
  *
- * Endpoints implemented here (spec/21-app/19-user-management.md):
+ * Endpoints implemented here (02-spec/21-app/19-user-management.md):
  *   GET    /Api/Admin/Users                      list
  *   POST   /Api/Admin/Users                      create
  *   GET    /Api/Admin/Users/{UserId}             show
@@ -50,7 +50,7 @@ use Illuminate\Support\Facades\Log;
  * reseller shard) writes the `AuthSessions` row via an ordered saga
  * with a compensating shard delete on Root commit failure.
  * Idempotency-Key replay (spec 47 §6) and the timeout sweep job
- * (spec 47 §4) are tracked in `spec/21-app/98-remaining-work.md`.
+ * (spec 47 §4) are tracked in `02-spec/21-app/98-remaining-work.md`.
 
  */
 final class UserController

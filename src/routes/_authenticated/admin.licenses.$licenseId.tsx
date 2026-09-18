@@ -16,7 +16,7 @@ import type { License } from "@/generated/api/real-be-schema";
 // Plan 09 step 40. Root cause of the pre-refit surface: `LicenseFacts`
 // stringified the raw FK ids (`LicenseCategoryId=1`, `LicenseTierId=3`,
 // `EnvironmentId=2`), so support staff read "Category 1" instead of
-// "Daily" and had to cross-reference spec/21-app/05 by hand. Fix: resolve
+// "Daily" and had to cross-reference 02-spec/21-app/05 by hand. Fix: resolve
 // each FK to its closed-set label via `findClosedSetOption` (canonical
 // per src/lib/closed-sets.ts) before render, and fall back to the raw
 // id ONLY when the value is out of set (a wire drift we still want visible

@@ -13,7 +13,7 @@
 //     | danger`) rethemes via `text-<tone>` utilities.
 //   - No hardcoded colors; all surfaces resolve to Spec 24 tokens.
 //   - `tone` values map 1:1 to the closed-set of audit severities we use
-//     elsewhere (see spec/21-app/12-error-taxonomy.md). Adding a new tone
+//     elsewhere (see 02-spec/21-app/12-error-taxonomy.md). Adding a new tone
 //     requires editing this file and the type union, forcing a review.
 
 import type { ReactNode } from "react";

@@ -20,7 +20,7 @@ use RuntimeException;
  * intact (deletions require a dedicated migration so shard
  * `LicenseFeatures` FeatureId references can be reconciled first).
  *
- * Normative source: spec/21-app/45-license-features.md v1.0.0 §2. Any
+ * Normative source: 02-spec/21-app/45-license-features.md v1.0.0 §2. Any
  * drift between the config registry and the `Features` table is a bug;
  * `FeatureService::assertCatalogSeeded()` performs the runtime check.
  */

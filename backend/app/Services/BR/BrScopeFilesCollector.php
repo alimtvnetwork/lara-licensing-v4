@@ -18,15 +18,15 @@ use Throwable;
  * shadow Export path.
  *
  * Normative sources:
- *  - spec/26-backup-restore/05-scope-catalog.md §"SC-H File objects"
+ *  - 02-spec/26-backup-restore/05-scope-catalog.md §"SC-H File objects"
  *    (selector = every object-storage key referenced by any row in
  *    `SC-F` via a `file_id`-style column, resolved to
  *    `{ bucket, path, sha256, size }`; per-object restore boundary;
  *    restore rank 8; INV-BR-SC-5 content-addressed by SHA-256).
- *  - spec/26-backup-restore/07-manifest-schema.md §"`scope` Shape"
+ *  - 02-spec/26-backup-restore/07-manifest-schema.md §"`scope` Shape"
  *    (`manifest.scope.files = {contentHash, objectCount, totalBytes,
  *    index}` where `index` names the chunk that holds the JSONL body).
- *  - spec/26-backup-restore/08-archive-format.md §"Entry Order" line 80
+ *  - 02-spec/26-backup-restore/08-archive-format.md §"Entry Order" line 80
  *    (`scope/files/index.jsonl.zst` carries `{sha256, bucket, path,
  *    bytes}` per line; INV-BR-AF-1 pins position between SC-G and the
  *    per-body shards). SC-H bodies are out of scope for step 20;

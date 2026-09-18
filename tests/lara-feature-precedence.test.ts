@@ -4,14 +4,14 @@ import { describe, expect, it, beforeEach, afterEach, vi } from "vitest";
  * Locks two contracts in `src/lib/lara-features.ts`:
  *
  * 1. `putLicenseFeature` / `deleteLicenseFeature` MUST send `If-Match`
- *    per spec/21-app/11-api-contracts/09-concurrency-control.md §Scope
+ *    per 02-spec/21-app/11-api-contracts/09-concurrency-control.md §Scope
  *    rows 3 and 4. Root cause these tests prevent regressing: before
  *    v0.183.0 the helpers sent only `Idempotency-Key`, so every write
  *    against the ratified contract would have returned
  *    `428 PreconditionRequired`.
  *
  * 2. `resolveFeatureMap` MUST resolve the runtime feature map per
- *    spec/21-app/45-license-features.md §4 (LicenseFeatures overrides
+ *    02-spec/21-app/45-license-features.md §4 (LicenseFeatures overrides
  *    TierFeatures; absence means "not licensed"). Locks AC-FEAT-003
  *    (§4 precedence) and AC-FEAT-004 (override semantics).
  */

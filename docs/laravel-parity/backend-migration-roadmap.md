@@ -2,7 +2,7 @@
 
 **Status:** Draft v0.1.0
 **Owner:** Lara Engineering
-**Related:** `spec/23-app-db/01-schema.md`, `spec/23-app-db/02-migration-order.md`
+**Related:** `02-spec/23-app-db/01-schema.md`, `02-spec/23-app-db/02-migration-order.md`
 
 ## 1. Executive Summary
 
@@ -13,7 +13,7 @@ This roadmap maps the normative database specification for LaraLicensingV1 to th
 | Spec Table | Layer | Laravel Migration | Status | Notes |
 | :--- | :--- | :--- | :--- | :--- |
 | `Roles` | L1 | `create_roles_table` | Pending | Seed `Admin`, `Reseller`, `AppBuilder`, `EndUser`. |
-| `Permissions` | L1 | `create_permissions_table` | Pending | Seed 13 keys from `spec/21-app/40-permissions.md`. |
+| `Permissions` | L1 | `create_permissions_table` | Pending | Seed 13 keys from `02-spec/21-app/40-permissions.md`. |
 | `LicenseCategories` | L1 | `create_license_categories_table` | Pending | |
 | `LicenseTiers` | L1 | `create_license_tiers_table` | Pending | `Tier1`, `Tier2`, `Tier3`, `Unlimited`. |
 | `Environments` | L1 | `create_environments_table` | Pending | `Production`, `Staging`, `Development`. |
@@ -71,6 +71,6 @@ Every migration must explicitly implement the following spec-mandated invariants
 
 ## 6. Seed Parity Roadmap
 
-1. **`S1-S3`**: Roles and Permissions must match `spec/21-app/40-permissions.md`.
-2. **`S4-S5`**: Environments and Tiers must match `spec/21-app/43-license-tiers.md` and `spec/21-app/44-environments.md`.
+1. **`S1-S3`**: Roles and Permissions must match `02-spec/21-app/40-permissions.md`.
+2. **`S4-S5`**: Environments and Tiers must match `02-spec/21-app/43-license-tiers.md` and `02-spec/21-app/44-environments.md`.
 3. **`S6`**: `PiiHashSalts` initial version.

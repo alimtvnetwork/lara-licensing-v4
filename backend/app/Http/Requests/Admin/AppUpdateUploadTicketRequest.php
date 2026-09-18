@@ -10,7 +10,7 @@ use Illuminate\Foundation\Http\FormRequest;
 /**
  * Plan 06 step 45. Request body validation for
  * `POST /Api/Admin/AppUpdates/UploadTicket` per
- * spec/21-app/17-self-update-endpoint.md v1.3.0 §"POST UploadTicket".
+ * 02-spec/21-app/17-self-update-endpoint.md v1.3.0 §"POST UploadTicket".
  *
  * Root cause this class exists (one sentence): the ticket endpoint
  * takes five typed fields (Product, Version, Platform, SizeBytes,

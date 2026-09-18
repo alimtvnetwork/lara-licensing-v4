@@ -18,11 +18,11 @@ use Throwable;
  * shadow Export path.
  *
  * Normative sources:
- *  - spec/26-backup-restore/05-scope-catalog.md §"SC-B · Closed-set
+ *  - 02-spec/26-backup-restore/05-scope-catalog.md §"SC-B · Closed-set
  *    tables" (selector = the closed-set catalogue; manifest slot
  *    `manifest.scope.closedSets = {contentHash, setCount, valueCount}`).
- *  - spec/26-backup-restore/07-manifest-schema.md §"`scope` Shape".
- *  - spec/26-backup-restore/04-invariants.md INV-BR-MS-2 (real bytes
+ *  - 02-spec/26-backup-restore/07-manifest-schema.md §"`scope` Shape".
+ *  - 02-spec/26-backup-restore/04-invariants.md INV-BR-MS-2 (real bytes
  *    behind every `scope.*.contentHash`), INV-BR-MS-3 (deterministic
  *    Merkle root across identical inputs).
  *

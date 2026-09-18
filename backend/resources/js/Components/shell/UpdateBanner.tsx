@@ -16,7 +16,7 @@ const DISMISS_KEY_PREFIX = "lara.update-banner.dismissed.";
  * and no checksum/signature handling; when the installed client is not
  * behind, the server sends `null` and nothing renders.
  *
- * Spec: `spec/21-app/16-ui-surfaces.md` §3a and AC-UI-007 (EndUser shell
+ * Spec: `02-spec/21-app/16-ui-surfaces.md` §3a and AC-UI-007 (EndUser shell
  * only, dismissal per session, dismissal keyed on `Version` so a new
  * release re-shows the banner).
  */

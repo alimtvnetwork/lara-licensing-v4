@@ -13,7 +13,7 @@ import { LineageBadge } from "./lineage-badge";
  * Companion to <ImpersonateUserButton />. Renders only when the caller
  * currently holds an active impersonation session targeting the same user,
  * and calls POST /Impersonation/End with EndReason = "AdminForced" per
- * spec/21-app/46-impersonation.md §4.2. This is the operator's recovery
+ * 02-spec/21-app/46-impersonation.md §4.2. This is the operator's recovery
  * path from the parent Normal session when the banner is unreachable
  * (different tab, cleared storage, banner regression).
  *
@@ -27,7 +27,7 @@ import { LineageBadge } from "./lineage-badge";
 type ForceEndImpersonationButtonProps = {
   targetUserId: number;
   /**
-   * Effective role of the current caller. Per spec/21-app/46-impersonation.md
+   * Effective role of the current caller. Per 02-spec/21-app/46-impersonation.md
    * §4.3 clause 1 the recovery control is Admin-only, matching the start
    * control; any other role renders nothing.
    */

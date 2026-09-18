@@ -14,7 +14,7 @@ use Tests\TestCase;
  * Locks `SignedRequestMiddleware` (HMAC-SHA256 v1) contract against a
  * throwaway `POST /api/portal/hmac-probe` route protected by
  * `require.signature`. Six cases cover the closed failure set from
- * `spec/21-app/12-error-taxonomy.md`:
+ * `02-spec/21-app/12-error-taxonomy.md`:
  *
  *   - Valid signature                             -> 200 OK
  *   - Missing signature headers                   -> AuthUnauthorized (401)

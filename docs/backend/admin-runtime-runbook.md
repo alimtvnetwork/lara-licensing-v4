@@ -2,7 +2,7 @@
 
 **Plan 16 Step 89.** Operator-facing SOP for the admin Runtime page. The
 machine-readable contract lives in
-[`spec/28-runtime-modes/05-admin-runtime-toggle.md`](../../spec/28-runtime-modes/05-admin-runtime-toggle.md);
+[`02-spec/28-runtime-modes/05-admin-runtime-toggle.md`](../../02-spec/28-runtime-modes/05-admin-runtime-toggle.md);
 this file translates it into a checklist a human on call can execute.
 
 ## Who may flip it
@@ -70,7 +70,7 @@ Non-development hosts refuse this by default:
 | 500 | `RUNTIME_CONFIG_WRITE_FAILED` | `rename()`/`fsync` failed. Check disk, `.tmp` leftovers auto-cleaned in `finally`. Page ops. |
 | 500 | `AUDIT_WRITE_FAILED` | Compensating rewrite already restored `Before`. Investigate audit sink before retrying. |
 
-Every code is registered in `spec/03-error-manage/03-error-code-registry` and
+Every code is registered in `02-spec/03-error-manage/03-error-code-registry` and
 exercised by the closed-set parity linter; a new symptom that does not map to
 this table is a bug in the client, not a new operator action.
 
@@ -98,9 +98,9 @@ this table is a bug in the client, not a new operator action.
 
 ## References
 
-- Contract: [`spec/28-runtime-modes/05-admin-runtime-toggle.md`](../../spec/28-runtime-modes/05-admin-runtime-toggle.md)
-- Schema: [`spec/28-runtime-modes/01-version-json-schema.md`](../../spec/28-runtime-modes/01-version-json-schema.md)
-- Operator guide (scenarios / seeds): [`spec/28-runtime-modes/09-operator-guide.md`](../../spec/28-runtime-modes/09-operator-guide.md)
-- Error registry: `spec/03-error-manage/03-error-code-registry`
+- Contract: [`02-spec/28-runtime-modes/05-admin-runtime-toggle.md`](../../02-spec/28-runtime-modes/05-admin-runtime-toggle.md)
+- Schema: [`02-spec/28-runtime-modes/01-version-json-schema.md`](../../02-spec/28-runtime-modes/01-version-json-schema.md)
+- Operator guide (scenarios / seeds): [`02-spec/28-runtime-modes/09-operator-guide.md`](../../02-spec/28-runtime-modes/09-operator-guide.md)
+- Error registry: `02-spec/03-error-manage/03-error-code-registry`
 - Controller: `backend/app/Http/Controllers/Admin/RuntimeConfigController.php`
 - UI: `src/routes/_authenticated/admin.runtime.tsx`

@@ -11,12 +11,12 @@ use Illuminate\Support\Facades\DB;
  * `fn_pseudonymise_actor(uuid, text)`.
  *
  * Normative sources:
- *  - spec/26-backup-restore/23-audit-and-compliance.md v1.0.0 §"Table"
+ *  - 02-spec/26-backup-restore/23-audit-and-compliance.md v1.0.0 §"Table"
  *    "No UPDATE, no DELETE to any application role", §"GDPR
  *    Right-to-Erasure" ("only the `audit_pseudonymiser` role holds
  *    UPDATE on the pseudonymisation columns, and only via the vetted
  *    procedure").
- *  - spec/26-backup-restore/25-migration-and-rollout.md v1.0.0
+ *  - 02-spec/26-backup-restore/25-migration-and-rollout.md v1.0.0
  *    §"Migration Order" migration 6.
  *  - INV-BR-AU-4 (immutability), INV-BR-AU-6 (only vetted procedure may
  *    rewrite rows), INV-BR-AU-7 (pseudonymisation preserves chain).

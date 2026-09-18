@@ -2,7 +2,7 @@
  * Version JSON loader + override writer (Plan 16 Step 15).
  *
  * Single allow-listed writer for the `lara.runtime.override.v1` localStorage
- * key defined in spec/28-runtime-modes/02-mode-selection-precedence.md
+ * key defined in 02-spec/28-runtime-modes/02-mode-selection-precedence.md
  * (precedence P-02). Reads are delegated to `runtime-mode.ts`; this module
  * owns:
  *

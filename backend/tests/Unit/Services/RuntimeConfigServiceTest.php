@@ -17,7 +17,7 @@ use Tests\TestCase;
  * so any slip would let the SPA fetch a partial document or accept an
  * unsafe (Mode, ApiBaseUrl) pair.
  *
- * See spec/28-runtime-modes/05-admin-runtime-toggle.md §M-01..M-03, C-01..C-03.
+ * See 02-spec/28-runtime-modes/05-admin-runtime-toggle.md §M-01..M-03, C-01..C-03.
  */
 final class RuntimeConfigServiceTest extends TestCase
 {

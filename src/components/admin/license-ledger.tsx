@@ -23,7 +23,7 @@ interface Props {
 
 /**
  * Map an audit `Action` (canonical strings emitted by `AuditWriter`, see
- * spec/21-app/47-audit-trail §Action codes) to a Timeline tone. Unknown
+ * 02-spec/21-app/47-audit-trail §Action codes) to a Timeline tone. Unknown
  * actions fall to `neutral` rather than a fabricated color so a future
  * action lands visibly plain rather than being mis-classified.
  */

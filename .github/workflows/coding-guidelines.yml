@@ -8,7 +8,7 @@ on:
       - 'backend/app/**'
       - 'linter-scripts/validate-guidelines.py'
       - 'linter-scripts/check-guideline-baseline.py'
-      - 'spec/02-coding-guidelines/**'
+      - '02-spec/02-coding-guidelines/**'
       - '.github/workflows/coding-guidelines.yml'
   pull_request:
     paths:
@@ -16,7 +16,7 @@ on:
       - 'backend/app/**'
       - 'linter-scripts/validate-guidelines.py'
       - 'linter-scripts/check-guideline-baseline.py'
-      - 'spec/02-coding-guidelines/**'
+      - '02-spec/02-coding-guidelines/**'
       - '.github/workflows/coding-guidelines.yml'
 
 jobs:

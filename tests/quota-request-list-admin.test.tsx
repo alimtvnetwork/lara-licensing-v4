@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 /**
  * Locks the admin-mode contract of <QuotaRequestList /> per
- * spec/21-app/42-quota-requests.md and Plan 05 Step 49:
+ * 02-spec/21-app/42-quota-requests.md and Plan 05 Step 49:
  *
  * AC-QREQ-A1  mode="admin" + Status=Pending renders BOTH Approve and Deny.
  * AC-QREQ-A2  clicking Approve calls approveQuotaRequest exactly once with

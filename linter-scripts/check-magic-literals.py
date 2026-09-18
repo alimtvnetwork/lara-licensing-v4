@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Magic literal linter. Enforces `.lovable/coding-guidelines/coding-guidelines.md`
+Magic literal linter. Enforces `.ai-memory/coding-guidelines.md`
 Hard Rule 8 (No magic strings or numbers).
 
 Flags:
@@ -201,7 +201,7 @@ def main() -> int:
         print("Magic literal findings (Hard Rule 8):")
         for finding in all_findings:
             print(f"  {finding}")
-        print(f"\nTotal: {len(all_findings)}. See .lovable/memory/standards/no-magic-literals.md.")
+        print(f"\nTotal: {len(all_findings)}. See .ai-memory/memory/standards/no-magic-literals.md.")
         return 1
     print("check-magic-literals: clean.")
     return 0

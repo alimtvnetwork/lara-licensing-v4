@@ -1,10 +1,10 @@
 /**
- * Sidebar navigation trees per spec/24-app-ui-design-system/13-navigation-ia.md §5-§8.
+ * Sidebar navigation trees per 02-spec/24-app-ui-design-system/13-navigation-ia.md §5-§8.
  * Data-only module: item order, labels, routes, icons, permission keys, status.
  * Consumers (AppSidebar) translate `status` into Visible/Disabled per §3.
  *
  * Note: real Hidden-vs-Visible gating requires the FE permissions catalog
- * (`spec/21-app/40-permissions.md`) which is not yet wired into the session.
+ * (`02-spec/21-app/40-permissions.md`) which is not yet wired into the session.
  * Until that lands, `status = D` (deferred) renders Disabled with a
  * "Coming soon" tooltip, and `C`/`A` render Visible. This preserves the
  * "no Forbidden on click" invariant from §3 because deferred items never

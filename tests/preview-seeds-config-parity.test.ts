@@ -1,6 +1,6 @@
 /**
  * Plan 17 Step 26: lock the preview config-tier surface to the canonical
- * FeatureKey registry (spec/21-app/45-license-features.md §2, mirrored in
+ * FeatureKey registry (02-spec/21-app/45-license-features.md §2, mirrored in
  * `src/lib/lara-features.ts:48`) and the shipped feature catalog.
  *
  * Any drift here (new/removed FeatureKey, ValueType change, tier count

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Log;
 /**
  * Plan 14 step 7. BR archive manifest validator.
  *
- * Normative source: spec/26-backup-restore/07-manifest-schema.md v1.0.0
+ * Normative source: 02-spec/26-backup-restore/07-manifest-schema.md v1.0.0
  * §"JSON Schema" + §"Validation Contract" (six semantic checks) +
  * INV-BR-MS-1..5. Validation runs BEFORE any DB tx opens or any
  * chunk body is read (INV-BR-MS-1).

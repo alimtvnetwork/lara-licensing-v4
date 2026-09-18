@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * X-Request-Id ingress + echo per spec/21-app/20-observability.md v1.0.0.
+ * X-Request-Id ingress + echo per 02-spec/21-app/20-observability.md v1.0.0.
  *
  * Behavior:
  *  - Accepts inbound header, validates against ^[A-Za-z0-9-]{16,64}$.
@@ -65,7 +65,7 @@ final class RequestIdMiddleware
             // Mint a fallback and bind it to attribute + Log context BEFORE
             // throwing so the failure envelope, response header, and
             // lara-diag file all correlate on the same RequestId.
-            // AC-ERR-004, spec/03-error-manage/02-error-architecture.
+            // AC-ERR-004, 02-spec/03-error-manage/02-error-architecture.
             $fallback = $this->mintUuidV4();
             $request->attributes->set(self::ATTR, $fallback);
             Log::withContext(['RequestId' => $fallback]);

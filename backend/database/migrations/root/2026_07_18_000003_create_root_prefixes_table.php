@@ -8,13 +8,13 @@ use Illuminate\Support\Facades\DB;
 /**
  * Plan 06 step 12. Root DB `Prefixes` registry.
  *
- * Per spec/23-app-db/01-schema.md §Prefixes: uppercase alphanumeric,
+ * Per 02-spec/23-app-db/01-schema.md §Prefixes: uppercase alphanumeric,
  * globally UNIQUE, reseller-scoped via `ResellerId` FK. Prefix values
  * feed license-key and serial minting on shards; the registry lives in
  * Root so the uniqueness domain is cross-tenant per
- * spec/23-app-db/10-reseller-shard-split-db.md §Root DB tables. Format
+ * 02-spec/23-app-db/10-reseller-shard-split-db.md §Root DB tables. Format
  * is enforced by a CHECK regex matching AC-PFX-001 in
- * spec/21-app/24-vocabulary-normalization.md.
+ * 02-spec/21-app/24-vocabulary-normalization.md.
  */
 return new class extends Migration
 {

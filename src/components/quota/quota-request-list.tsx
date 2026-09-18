@@ -15,7 +15,7 @@ import {
 type Mode = "admin" | "reseller";
 
 /**
- * QuotaRequests list per spec/21-app/42-quota-requests.md.
+ * QuotaRequests list per 02-spec/21-app/42-quota-requests.md.
  * mode=admin renders Approve/Deny; mode=reseller renders Cancel (Pending only).
  */
 export function QuotaRequestList({

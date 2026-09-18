@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Feature registry parity linter.
 
-Enforces `spec/21-app/45-license-features.md` §2 as the sole source of
+Enforces `02-spec/21-app/45-license-features.md` §2 as the sole source of
 `FeatureKey` values. Every backtick-quoted, dot-segmented PascalCase
 identifier that matches the `FeatureKey` regex and appears anywhere under
-`spec/21-app/` MUST be either:
+`02-spec/21-app/` MUST be either:
 
   a) listed in the canonical registry table of `45-license-features.md`, or
   b) listed on the "Forbidden synonyms" line of that same file (which is
@@ -23,8 +23,8 @@ import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
-REGISTRY_PATH = REPO / "spec" / "21-app" / "45-license-features.md"
-SEARCH_ROOT = REPO / "spec" / "21-app"
+REGISTRY_PATH = REPO / "02-spec" / "21-app" / "45-license-features.md"
+SEARCH_ROOT = REPO / "02-spec" / "21-app"
 
 # Backtick-quoted, at least one dot, PascalCase segments per §2.
 KEY_RE = re.compile(r"`([A-Z][A-Za-z0-9]+(?:\.[A-Z][A-Za-z0-9]+)+)`")

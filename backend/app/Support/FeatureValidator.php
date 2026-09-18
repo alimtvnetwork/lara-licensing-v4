@@ -15,7 +15,7 @@ use App\Exceptions\InternalException;
 /**
  * Plan 06 step 31. Closed-set validator for License Feature writes.
  *
- * Enforces the registry defined in spec/21-app/45-license-features.md §2
+ * Enforces the registry defined in 02-spec/21-app/45-license-features.md §2
  * and the typed-value contract in §3. Callers pass a raw array
  * `[FeatureKey => Value, ...]` and receive either the normalised map or
  * a LaraException with the correct ErrorCode:

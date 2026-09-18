@@ -1,12 +1,12 @@
 // Plan 06 step 70. TierFeatures matrix, rendered from server truth only.
 //
-// Contract (spec/24-app-ui-design-system/38-route-blueprint-admin-features.md
+// Contract (02-spec/24-app-ui-design-system/38-route-blueprint-admin-features.md
 // §"Anti-patterns" 2 and AC-ROUTE-FEATURES-004): no optimistic state, no local
 // mutation, no synthesized defaults. There is deliberately no onChange here;
 // cells are read-only text/badges until a TierFeatures PATCH endpoint with the
 // `If-Match: <FeatureEtag>` contract exists.
 //
-// spec/21-app/45-license-features.md §4 AC-FEAT-004: an absent cell means "not
+// 02-spec/21-app/45-license-features.md §4 AC-FEAT-004: an absent cell means "not
 // licensed at this tier". It renders as "not set", never as false/0/"".
 
 import { EmptyState } from "@/Components/ui/EmptyState";

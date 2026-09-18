@@ -9,14 +9,14 @@ use Illuminate\Support\Facades\DB;
  * Plan 06 step 39 (substrate). Shard DB `VerifyKeys` table.
  *
  * Root cause this migration addresses (one sentence): the three-endpoint
- * verify handshake in spec/21-app/09-verify-key.md and
- * spec/21-app/11-api-contracts/03-verification-contracts.md v1.3.0 requires a
+ * verify handshake in 02-spec/21-app/09-verify-key.md and
+ * 02-spec/21-app/11-api-contracts/03-verification-contracts.md v1.3.0 requires a
  * server-issued nonce (`VerifyKey`) with single-use, 5-minute expiry,
  * hash-key digest binding, and audit-visible lifecycle transitions
  * (Issued / Consumed / Expired), and none of those columns exist yet.
  *
- * Columns and invariants (spec/21-app/09-verify-key.md §Generation +
- * spec/23-app-db/01-schema.md §VerifyKeys):
+ * Columns and invariants (02-spec/21-app/09-verify-key.md §Generation +
+ * 02-spec/23-app-db/01-schema.md §VerifyKeys):
  *  - `VerifyKeyId`     BIGSERIAL PK.
  *  - `LicenseId`       FK -> `Licenses`. ON DELETE RESTRICT (audit trail).
  *  - `SerialId`        FK -> `Serials`.  ON DELETE RESTRICT.

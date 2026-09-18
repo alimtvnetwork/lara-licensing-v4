@@ -7,7 +7,7 @@ namespace App\Domain\BR;
 /**
  * Plan 14 step 10. Per-kind retry policy for BR jobs.
  *
- * Normative source: spec/26-backup-restore/15-jobs-and-progress.md v1.0.0
+ * Normative source: 02-spec/26-backup-restore/15-jobs-and-progress.md v1.0.0
  * §"Retry Policy". `maxAttempts` MUST match the DB default on
  * `BackupJobs.MaxAttempts` (currently 3) for Export/Snapshot; Restore
  * and retention_sweep are max=1 per INV-BR-JP-5.

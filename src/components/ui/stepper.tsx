@@ -22,7 +22,7 @@ import { cn } from "@/lib/utils";
  * - Completed steps expose a check glyph and stay keyboard-reachable when
  *   `onStepSelect` is supplied (back-navigation only, never skip-ahead).
  * - Colors come from semantic tokens only (`--color-primary`, `--color-muted-foreground`,
- *   `--color-border`); no literals, per `.lovable/memory/style/fluid-palette.md`.
+ *   `--color-border`); no literals, per `.ai-memory/memory/style/fluid-palette.md`.
  */
 
 export interface StepperStep {

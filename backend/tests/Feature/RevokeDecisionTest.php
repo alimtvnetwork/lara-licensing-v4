@@ -17,7 +17,7 @@ use ReflectionClass;
 use Tests\TestCase;
 
 /**
- * Locks spec/21-app/48-quota-restore-on-revoke.md §1 (eligibility) and
+ * Locks 02-spec/21-app/48-quota-restore-on-revoke.md §1 (eligibility) and
  * §5 (observability) against the Admin revoke path. Exercises the
  * private `applyRestore` decision function directly with a fake
  * QuotaService so all four branches are pinned without booting the

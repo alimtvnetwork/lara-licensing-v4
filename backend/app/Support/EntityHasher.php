@@ -20,7 +20,7 @@ namespace App\Support;
  * hash matches what `EtagMiddleware::attachEtag` produced on that GET.
  *
  * The hash is lowercase SHA-256 hex of the canonicalised single-item
- * envelope, matching `spec/21-app/11-api-contracts/09-concurrency-control.md`
+ * envelope, matching `02-spec/21-app/11-api-contracts/09-concurrency-control.md`
  * §Server algorithm step 3.
  */
 final class EntityHasher

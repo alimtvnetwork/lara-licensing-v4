@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Log;
 /**
  * Plan 14 step 9. `POST /Api/Admin/Backup/Exports` shadow endpoint.
  *
- * Contract: spec/26-backup-restore/11-endpoint-export.md v1.0.0.
+ * Contract: 02-spec/26-backup-restore/11-endpoint-export.md v1.0.0.
  *  - Middleware chain (from routes/api.php): auth:sanctum, session.active,
  *    require.role:Admin|SuperAdmin, IdempotencyKeyMiddleware.
  *  - Idempotency-Key REQUIRED (adds `api/admin/backup/exports` to the

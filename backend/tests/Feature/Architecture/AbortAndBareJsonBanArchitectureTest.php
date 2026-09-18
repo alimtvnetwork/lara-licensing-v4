@@ -22,7 +22,7 @@ use Tests\TestCase;
  *      that returns a JSON body with a 4xx/5xx literal is emitting
  *      a hand-rolled envelope that the FE `laraFetch` + Global Error
  *      Modal cannot parse, breaking the error contract laid down in
- *      `spec/03-error-manage/02-error-architecture` and the FE
+ *      `02-spec/03-error-manage/02-error-architecture` and the FE
  *      guarantees in `src/lib/lara-envelope.ts` (Zod parser).
  *
  * Controllers must funnel errors through `LaraException::make('CodeName', ...)`
@@ -31,8 +31,8 @@ use Tests\TestCase;
  * responses use a JsonResource / envelope helper; 2xx/3xx literals in
  * `response()->json()` are still allowed.
  *
- * Spec anchors: spec/03-error-manage/02-error-architecture,
- * spec/02-coding-guidelines/04-php.
+ * Spec anchors: 02-spec/03-error-manage/02-error-architecture,
+ * 02-spec/02-coding-guidelines/04-php.
  */
 final class AbortAndBareJsonBanArchitectureTest extends TestCase
 {

@@ -4,7 +4,7 @@
  * Root cause fixed: each spec would otherwise reach into `process.env`
  * inline, hide missing values behind `??`, and silently fall through to
  * wrong credentials. Failing loudly here is the observability contract
- * the plan requires (spec/03-error-manage/).
+ * the plan requires (02-spec/03-error-manage/).
  */
 export function requireEnv(name: string): string {
   const value = process.env[name];

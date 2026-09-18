@@ -60,7 +60,7 @@ async function seedAuth(): Promise<void> {
 /**
  * Per-domain canonical `ApiErrorCodeType` that handlers MUST emit when the
  * active seed is `"error"`. Codes are chosen to exercise the most common
- * failure surface for each domain against `spec/03-error-manage/`.
+ * failure surface for each domain against `02-spec/03-error-manage/`.
  */
 export const ERROR_SEED_DOMAIN_CODE: Readonly<Record<PreviewDomain, ApiErrorCodeType>> = {
   auth: ApiErrorCodeType.AuthUnauthorized,

@@ -90,7 +90,7 @@ The dispatcher lives in `src/lib/preview-seed-dispatcher.ts` and reads
 - `empty`: every list handler returns `paginated([])` with `Total = 0`,
   `Page = 1`. Show/get handlers return `LaraApiError` with
   `errorCode = "…NotFound"` matching the resource's canonical code
-  from `spec/03-error-manage/03-error-code-registry/error-codes-master.json`.
+  from `02-spec/03-error-manage/03-error-code-registry/error-codes-master.json`.
 - `error`: handlers flip a subset of rows to failure states (expired
   licenses, revoked serials, stalled backups). Table lives in
   Step 90's artifact `docs/testing/plan-18/90-error-seed-mapping.md`.

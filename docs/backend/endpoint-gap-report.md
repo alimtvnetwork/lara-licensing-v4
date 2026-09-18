@@ -2,7 +2,7 @@
 
 Generated: 2026-07-19 (v0.274.0)
 Source: `backend/routes/api.php`, `backend/app/Http/Controllers/**`, `backend/app/Http/Requests/**`, `backend/app/Http/Resources/**` (absent), `backend/app/Policies/**`, `backend/tests/**`, `src/lib/lara-*.ts`.
-Parent plan: `.lovable/plans/pending/09-fluid-ui-and-cpanel-release.md` (Step 1).
+Parent plan: `.ai-memory/plans/pending/09-fluid-ui-and-cpanel-release.md` (Step 1).
 
 ## Method
 

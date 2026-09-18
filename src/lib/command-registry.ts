@@ -1,5 +1,5 @@
 /**
- * Command registry per spec/24-app-ui-design-system/32-command-registry.md §6.
+ * Command registry per 02-spec/24-app-ui-design-system/32-command-registry.md §6.
  *
  * Root cause of prior gap: no closed set for the Command Palette existed, so
  * §5 (permission-hidden rule) and §2 (Label / CommandId shape) could not be

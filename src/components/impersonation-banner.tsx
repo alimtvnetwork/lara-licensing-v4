@@ -11,7 +11,7 @@ import { Banner, BannerTitle } from "@/components/ui/banner";
 
 /**
  * Persistent, non-dismissible impersonation banner required by
- * spec/21-app/46-impersonation.md §6, AC-IMP-008, and Spec 24 §7.4.
+ * 02-spec/21-app/46-impersonation.md §6, AC-IMP-008, and Spec 24 §7.4.
  *
  * v0.509.0 (Plan 15 step 22): refit onto the shared <Banner> primitive
  * (info intent, role="status", aria-live="polite") and adopt the chip

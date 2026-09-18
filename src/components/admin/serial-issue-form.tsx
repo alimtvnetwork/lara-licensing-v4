@@ -14,7 +14,7 @@ import {
 
 const INPUT = "h-9 w-full rounded-md border border-input bg-background px-3 text-sm";
 
-// Per spec/21-app/11-api-contracts/02-license-contracts.md §Idempotency:
+// Per 02-spec/21-app/11-api-contracts/02-license-contracts.md §Idempotency:
 // - Key is ULID or opaque, 16-128 chars.
 // - TTL is exactly 24 hours from CreatedAt.
 // - Replay with same key AND matching request body returns the stored response.

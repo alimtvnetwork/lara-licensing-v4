@@ -5,7 +5,7 @@ declare(strict_types=1);
 // Plan 11 step 33 verification: DetailsRedactor must mask sensitive fields
 // inside a LaraException `$details` payload before they cross either the
 // API surface (ApiEnvelope::failure) or the log surface (`lara.exception`).
-// Guards spec/03-error-manage §4.2 and AC-ERR-005.
+// Guards 02-spec/03-error-manage §4.2 and AC-ERR-005.
 
 use App\Support\DetailsRedactor;
 

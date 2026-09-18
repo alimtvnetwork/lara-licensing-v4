@@ -4,7 +4,7 @@ import { describe, expect, it, vi, beforeEach } from "vitest";
  * Proves the Idempotency-Key contract for every mutating helper in
  * src/lib/lara-license.ts, src/lib/lara-reseller.ts, and
  * src/lib/lara-prefix.ts per
- * spec/21-app/11-api-contracts/08-idempotency-envelope-hardening.md.
+ * 02-spec/21-app/11-api-contracts/08-idempotency-envelope-hardening.md.
  *
  * Root cause these tests lock in: before v0.179.0 the license /
  * reseller / prefix mutations shipped without the header, so a network

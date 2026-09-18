@@ -7,10 +7,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Root `AuthSessions` row (spec/21-app/46-impersonation.md §3).
+ * Root `AuthSessions` row (02-spec/21-app/46-impersonation.md §3).
  *
  * PascalCase table, PK, and column names are preserved on the wire and
- * in Eloquent to match spec/23-app-db/01-schema.md. Timestamps are
+ * in Eloquent to match 02-spec/23-app-db/01-schema.md. Timestamps are
  * application-managed (see migration comment).
  *
  * @property string $SessionId              UUID

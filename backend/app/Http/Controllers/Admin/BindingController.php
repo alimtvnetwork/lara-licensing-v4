@@ -31,7 +31,7 @@ use Illuminate\Support\Facades\Log;
  * cooldown-clear operations on `MachineBindings`.
  *
  * Root cause this controller fixes (one sentence): spec
- * `spec/21-app/30-machine-bindings.md` §"Admin operations" lines 76-82
+ * `02-spec/21-app/30-machine-bindings.md` §"Admin operations" lines 76-82
  * mandates three admin endpoints (list, force-release, clear-cooldown)
  * to keep licensing operators unblocked when a customer machine is
  * stuck, but no controller existed so admins had no supported path

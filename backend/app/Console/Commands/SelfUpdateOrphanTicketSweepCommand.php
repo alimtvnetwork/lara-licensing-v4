@@ -14,7 +14,7 @@ use Throwable;
 /**
  * Plan 06 step 47. `retention:sweep-orphan-tickets`.
  *
- * Root cause this command closes (one sentence): spec/21-app/
+ * Root cause this command closes (one sentence): 02-spec/21-app/
  * 17-self-update-endpoint.md v1.3.0 §"Upload ticket expiry" requires
  * that orphan `AppUpdateAssets` rows (IsFinalized=0) whose
  * `UploadTicketExpiresAt` has passed be reclaimed so a retry of the

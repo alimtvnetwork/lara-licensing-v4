@@ -1,4 +1,4 @@
-// spec/24-app-ui-design-system/26-iconography-and-assets.md.
+// 02-spec/24-app-ui-design-system/26-iconography-and-assets.md.
 // Single wrapper for every icon rendered in the UI. Enforces closed size
 // token set (§2), accessible-name modes (§4), and single-family constraint
 // (§1) at the type level via IconConcept from the registry.

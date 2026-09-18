@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\DB;
 /**
  * Plan 06 step 45 (publish write path, phase 1 of 3).
  *
- * Root cause this controller closes (one sentence): spec/21-app/
+ * Root cause this controller closes (one sentence): 02-spec/21-app/
  * 17-self-update-endpoint.md v1.3.0 §"Publish state machine" line 284
  * requires `POST /Admin/AppUpdates/UploadTicket` to be the FIRST call
  * of every publish saga (it INSERTs the orphan `AppUpdateAssets` row

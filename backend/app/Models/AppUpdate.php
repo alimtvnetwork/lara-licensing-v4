@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Root-scoped Eloquent model for `AppUpdates` per
- * spec/21-app/17-self-update-endpoint.md v1.3.0 §"Database bindings".
+ * 02-spec/21-app/17-self-update-endpoint.md v1.3.0 §"Database bindings".
  * PascalCase column mapping is intentional and matches
- * spec/23-app-db/01-schema.md conventions.
+ * 02-spec/23-app-db/01-schema.md conventions.
  */
 final class AppUpdate extends Model
 {

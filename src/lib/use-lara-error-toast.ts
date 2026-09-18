@@ -7,7 +7,7 @@ import { formatLaraApiError } from "./lara-api-error";
 /**
  * Surfaces a LaraApiError as a Sonner toast the moment a mutation transitions
  * from ok -> error. Guarantees `X-Request-Id` is copy-visible per
- * spec/21-app/20-observability.md. Keyed on error identity to avoid re-firing
+ * 02-spec/21-app/20-observability.md. Keyed on error identity to avoid re-firing
  * on re-renders. Silent-failure ban: unknown errors are still toasted.
  */
 export function useLaraErrorToast(error: unknown, title = "Request failed"): void {

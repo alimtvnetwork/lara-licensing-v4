@@ -12,11 +12,11 @@ use Illuminate\Support\Facades\DB;
 /**
  * Plan 06 step 70. Read-only Feature catalog + TierFeatures matrix.
  *
- * Normative sources: spec/21-app/45-license-features.md v1.0.0 §2 (closed
+ * Normative sources: 02-spec/21-app/45-license-features.md v1.0.0 §2 (closed
  * FeatureKey registry, typed value domains) and §4 (precedence
  * `LicenseFeatures > TierFeatures`; absence of a key means NOT licensed, so
  * a missing matrix cell MUST render as "not set" and never as a synthesized
- * default), plus spec/21-app/43-license-tiers.md §2 (tier ordinals 1..4).
+ * default), plus 02-spec/21-app/43-license-tiers.md §2 (tier ordinals 1..4).
  *
  * The tier axis is read from Root `LicenseTiers`, NOT from
  * config('lara.license_tiers'): the config array stops at Tier3 while the
@@ -24,11 +24,11 @@ use Illuminate\Support\Facades\DB;
  * from config would silently hide every TierFeatures row curated for
  * Unlimited. Server truth is the table.
  *
- * Cross-DB FKs are forbidden (spec/23-app-db/10 §App-tier) but all three
+ * Cross-DB FKs are forbidden (02-spec/23-app-db/10 §App-tier) but all three
  * tables here (`Features`, `LicenseTiers`, `TierFeatures`) live in Root, so
  * this is a single-connection join, no fanout, no shard binding.
  *
- * Read-only by design: spec/24-app-ui-design-system/38 §"Anti-patterns" bans
+ * Read-only by design: 02-spec/24-app-ui-design-system/38 §"Anti-patterns" bans
  * optimistic Switch toggles, and no PATCH endpoint for TierFeatures exists
  * yet, so this controller exposes no mutation. Do not add one here without
  * the `If-Match: <FeatureEtag>` + `Idempotency-Key` contract from §"Mutations".

@@ -3,7 +3,7 @@ import { describe, expect, it, beforeEach, afterEach, vi } from "vitest";
 /**
  * Locks the ETag / If-Match wire behaviour for `GET /Licenses/{id}` and its
  * paired `PATCH` / `DELETE` in `src/lib/lara-license.ts`, per
- * spec/21-app/11-api-contracts/09-concurrency-control.md §Request rules
+ * 02-spec/21-app/11-api-contracts/09-concurrency-control.md §Request rules
  * and §Scope. Root cause these tests prevent regressing: before v0.182.0
  * the client discarded response headers, so `updateLicense` / `deleteLicense`
  * had no ETag to send and the server contract (AC-CONCUR-002 / 003) was

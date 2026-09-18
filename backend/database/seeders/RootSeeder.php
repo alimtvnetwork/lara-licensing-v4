@@ -15,9 +15,9 @@ use RuntimeException;
  * the single source of truth. LicenseTiers, Environments, and Permissions
  * remain enum-only (no Root table exists for them); this seeder asserts
  * those catalogs are present in config so drift is caught at seed time
- * rather than at runtime, per spec/21-app/04-roles.md,
- * spec/21-app/43-license-tiers.md, spec/21-app/44-environments.md,
- * and .lovable/coding-guidelines rule 8 (no magic literals).
+ * rather than at runtime, per 02-spec/21-app/04-roles.md,
+ * 02-spec/21-app/43-license-tiers.md, 02-spec/21-app/44-environments.md,
+ * and .ai-memory/coding-guidelines rule 8 (no magic literals).
  *
  * FeatureCatalogSeeder is composed directly by `DatabaseSeeder::CHAIN`
  * (Plan 10 step 8), so this seeder no longer delegates to it.

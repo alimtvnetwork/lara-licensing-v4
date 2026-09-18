@@ -14,7 +14,7 @@ use RuntimeException;
  *
  * Inserts a demo Reseller + ResellerShardRoute + Prefix into the Root
  * DB so end-to-end shard-provisioning flows have a target to exercise.
- * Guarded by APP_ENV: refuses to run in production per spec/23-app-db
+ * Guarded by APP_ENV: refuses to run in production per 02-spec/23-app-db
  * §Provisioning Lifecycle, which requires production shards be created
  * through the Admin Console, not seed data.
  *

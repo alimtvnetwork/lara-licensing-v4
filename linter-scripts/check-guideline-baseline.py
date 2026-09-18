@@ -15,7 +15,7 @@ TARGETS = {
     "frontend": ROOT / "src",
     "backend": ROOT / "backend" / "app",
 }
-BASELINE = ROOT / "spec" / "02-coding-guidelines" / "guideline-code-red-baseline.json"
+BASELINE = ROOT / "02-spec" / "02-coding-guidelines" / "guideline-code-red-baseline.json"
 
 
 def scan(path: Path) -> Counter[str]:

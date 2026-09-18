@@ -109,7 +109,7 @@ function parseFailure(body: unknown, response: Response, path: string): LaraApiE
  * We warn (never silent) with the raw code preserved, then return a distinct
  * UnknownServerError so telemetry can distinguish "server introduced a new
  * code" from a real ServerError. See F4 in
- * .lovable/pending-issues/issue-002-lib-runtime-spec-drift.md.
+ * .ai-memory/pending-issues/issue-002-lib-runtime-spec-drift.md.
  */
 function createUnknownCodeFailure(
   failure: ApiFailureLenient,

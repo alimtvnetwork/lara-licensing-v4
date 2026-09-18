@@ -10,8 +10,8 @@ import { expect, test, type Page } from "@playwright/test";
  * cells, so Step 87's coverage linter had no artifact to score and
  * degraded-UX regressions shipped invisibly.
  *
- * Contract source of truth: spec/28-runtime-modes/10-screenshot-matrix.md.
- * Scenario semantics: spec/28-runtime-modes/08-preview-scenarios.md v2.
+ * Contract source of truth: 02-spec/28-runtime-modes/10-screenshot-matrix.md.
+ * Scenario semantics: 02-spec/28-runtime-modes/08-preview-scenarios.md v2.
  *
  * Scope: public routes only. Authed admin/portal rows land in Step 93.
  */

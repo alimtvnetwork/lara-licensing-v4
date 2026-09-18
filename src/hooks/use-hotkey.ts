@@ -4,7 +4,7 @@ import { matchShortcut, shortcutById, type ShortcutIdType } from "@/lib/shortcut
 
 /**
  * Global hotkey binder per
- * spec/24-app-ui-design-system/57-keyboard-shortcut-registry.md §3 (scope
+ * 02-spec/24-app-ui-design-system/57-keyboard-shortcut-registry.md §3 (scope
  * hierarchy). Root cause of prior drift: components attached raw `keydown`
  * listeners with hard-coded combos, so `Escape` collided with dialogs and
  * `?` fired while typing in inputs.

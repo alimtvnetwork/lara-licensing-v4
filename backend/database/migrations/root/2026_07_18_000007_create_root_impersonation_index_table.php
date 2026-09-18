@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 /**
  * Plan 06 step 43 (substrate). Root `ImpersonationIndex` table.
  *
- * Normative: spec/21-app/46-impersonation.md v1.1.0 §4.3.5. Lightweight
+ * Normative: 02-spec/21-app/46-impersonation.md v1.1.0 §4.3.5. Lightweight
  * cross-reseller index of every impersonation session. For shard-scoped
  * targets the `AuthSessions` row lives in the target reseller's shard
  * (spec §4.3.2); this Root row is the observability pivot that lets an

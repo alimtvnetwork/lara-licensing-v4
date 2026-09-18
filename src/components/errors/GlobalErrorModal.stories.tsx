@@ -2,7 +2,7 @@
  * Plan 11 step 44: GlobalErrorModal stories.
  *
  * Storybook-compatible CSF3 stories covering the five canonical failure
- * surfaces from spec/03-error-manage/:
+ * surfaces from 02-spec/03-error-manage/:
  *
  *   1. generic 500 ServerError with ErrorId (AC-ERR-003)
  *   2. validation 400 with 3 field-level entries in `details`

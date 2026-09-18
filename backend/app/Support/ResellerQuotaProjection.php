@@ -12,7 +12,7 @@ use App\Models\Quota;
  * Single projection of the shard-bound `Quotas` rows consumed by the reseller
  * dashboard tiles and by the quota-request submit form's client preflight
  * (resources/js/lib/quotaPreflight.ts). `LicensesRemaining` is derived here and
- * never persisted, per spec/21-app/41-reseller-quotas.md §2, so both surfaces
+ * never persisted, per 02-spec/21-app/41-reseller-quotas.md §2, so both surfaces
  * cannot disagree about headroom.
  */
 final class ResellerQuotaProjection

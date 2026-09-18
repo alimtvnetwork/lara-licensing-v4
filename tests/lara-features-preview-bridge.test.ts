@@ -3,7 +3,7 @@
  * tier / license feature preview bridges.
  *
  * Proves the legacy closed-set feature catalog resolves in preview mode
- * from `featureKeyValueTypeRegistry` (spec/21-app/45-license-features.md §2)
+ * from `featureKeyValueTypeRegistry` (02-spec/21-app/45-license-features.md §2)
  * and that `featureCatalogResourceSchema.parse` accepts every synthesized
  * row. After Step 23, tier / license feature queries also resolve from
  * the preview store (previously returned `[]`).

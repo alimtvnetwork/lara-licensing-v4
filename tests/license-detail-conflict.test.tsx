@@ -15,7 +15,7 @@ function render(ui: ReactElement) {
 }
 
 /**
- * Locks AC-CONFLICT-001..005 from spec/21-app/49-concurrency-conflict-ux.md
+ * Locks AC-CONFLICT-001..005 from 02-spec/21-app/49-concurrency-conflict-ux.md
  * against src/components/admin/license-detail-actions.tsx. Root cause the
  * suite prevents regressing: before v0.193.0 a 412 PreconditionFailed from
  * Save/Revoke surfaced only as a raw formatted string with no recovery

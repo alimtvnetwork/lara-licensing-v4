@@ -52,7 +52,7 @@ Each group lists: matrix rows, gap type breakdown, step-range assignment (within
 
 - Matrix rows: 12 (list, MISSING).
 - Backend-only routes attributed: none in current inventory. `FeatureCatalog` seed exists but no HTTP surface.
-- Step 29: implement `Admin\FeatureController@index` returning the FeatureCatalog rows (spec/21-app/12-feature-catalog.md).
+- Step 29: implement `Admin\FeatureController@index` returning the FeatureCatalog rows (02-spec/21-app/12-feature-catalog.md).
 - Step 30: wire `GET /Api/Admin/Features`, DTO, resource.
 
 ### G5. Portal (Steps 31-32, budget 2)

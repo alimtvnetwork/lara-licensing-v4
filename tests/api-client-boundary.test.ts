@@ -7,7 +7,7 @@ import { join } from "node:path";
  * generated typed transport (`apiClient.call` / `useApi` /
  * `useApiMutation`) and the real-BE Zod transport
  * (`requestLaraApi` in src/lib/lara-*.ts). See
- * `spec/25-app-audit/05-api-contract-duality.md` for the drift audit.
+ * `02-spec/25-app-audit/05-api-contract-duality.md` for the drift audit.
  *
  * Step 65 correction: `admin.quotas.list/update` model an aspirational
  * `{Allocated, Used, Restored}` shape that does NOT match the real BE

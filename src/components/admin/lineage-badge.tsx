@@ -15,7 +15,7 @@ import { readActiveImpersonation } from "../../lib/lara-impersonation";
  *
  * Sources of truth:
  * - Actor identity: GET /Users/Me (RoleName in the closed set from
- *   spec/21-app/04-roles.md).
+ *   02-spec/21-app/04-roles.md).
  * - Impersonated subject: LicensingPortal.ActiveImpersonation localStorage
  *   record maintained by lara-impersonation.ts. When no impersonation
  *   session is active the chip degrades to "Acting as <actor>".

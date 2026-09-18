@@ -23,7 +23,7 @@ import {
  *
  * Fetches the update manifest for the caller's current version + platform,
  * shows a Download button that streams the asset via `downloadUpdateAsset`
- * (which enforces the four spec/21-app/17 MUST-abort rows: TLS-only URL,
+ * (which enforces the four 02-spec/21-app/17 MUST-abort rows: TLS-only URL,
  * HTTP 200, present X-Sha256, sha256+size match) and then hands the caller a
  * blob URL so they can save the binary. The bytes never touch the DOM before
  * verification: any integrity failure throws before we call URL.createObjectURL.

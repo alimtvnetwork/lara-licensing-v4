@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\DB;
 /**
  * Plan 06 step 41a. Root DB `LicenseTiers` lookup table.
  *
- * Normative source: spec/21-app/43-license-tiers.md v1.0.0 §2 (closed enum
+ * Normative source: 02-spec/21-app/43-license-tiers.md v1.0.0 §2 (closed enum
  * Tier1/Tier2/Tier3/Unlimited, stable ordinals 1..4, reserved 5..15) and
- * spec/23-app-db/01-schema.md §LicenseTiers.
+ * 02-spec/23-app-db/01-schema.md §LicenseTiers.
  *
  * Root placement rationale: `LicenseTiers` is a cross-reseller catalog
  * referenced by `ResellerQuotas` (Root) and by `Licenses.LicenseTierId`
  * (per-shard). Physical FK crossing shard->root is forbidden per
- * spec/23-app-db/10-reseller-shard-split-db.md §App-tier; shard-side
+ * 02-spec/23-app-db/10-reseller-shard-split-db.md §App-tier; shard-side
  * references are loose numeric references validated by the application
  * against this table. AC-LT-001 is enforced physically by
  * `CkLicenseTiersMemberSet`.

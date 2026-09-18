@@ -1,6 +1,6 @@
 /**
  * Locks the closed-set Badge registry per
- * spec/24-app-ui-design-system/25-component-badge-status.md §4.
+ * 02-spec/24-app-ui-design-system/25-component-badge-status.md §4.
  * Any drift between spec and runtime is a failing test, not a warning
  * (AC-BDG-002 forbids silent neutral fallback).
  */

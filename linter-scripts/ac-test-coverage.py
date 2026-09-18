@@ -2,16 +2,16 @@
 """AC-to-test coverage report.
 
 Scans `tests/` for `AC-*` id references and cross-checks them against the
-canonical set discovered in `spec/21-app/` and `spec/23-app-db/`. Prints a
+canonical set discovered in `02-spec/21-app/` and `02-spec/23-app-db/`. Prints a
 Markdown report to stdout suitable for redirecting to
-`spec/25-app-audit/23-ac-test-coverage.md`.
+`02-spec/25-app-audit/23-ac-test-coverage.md`.
 
 This script is a REPORTER, not a gate. It always exits 0 unless the tests
 folder references an AC id that does not exist in any spec (which IS a
 defect worth failing on).
 
 Usage:
-    python3 linter-scripts/ac-test-coverage.py > spec/25-app-audit/23-ac-test-coverage.md
+    python3 linter-scripts/ac-test-coverage.py > 02-spec/25-app-audit/23-ac-test-coverage.md
 """
 from __future__ import annotations
 
@@ -21,9 +21,9 @@ from collections import defaultdict
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
-SEARCH_ROOTS = [REPO / "spec" / "21-app", REPO / "spec" / "23-app-db"]
+SEARCH_ROOTS = [REPO / "02-spec" / "21-app", REPO / "02-spec" / "23-app-db"]
 TESTS_ROOT = REPO / "tests"
-INDEX_PATH = REPO / "spec" / "21-app" / "97-acceptance-criteria.md"
+INDEX_PATH = REPO / "02-spec" / "21-app" / "97-acceptance-criteria.md"
 AC_RE = re.compile(r"AC-[A-Z]+-[0-9]+")
 
 
@@ -75,7 +75,7 @@ def main() -> int:
     print()
     print("## Summary")
     print()
-    print(f"- Spec AC ids (union of `spec/21-app/` + `spec/23-app-db/`, excluding index): **{len(spec_ids)}**")
+    print(f"- Spec AC ids (union of `02-spec/21-app/` + `02-spec/23-app-db/`, excluding index): **{len(spec_ids)}**")
     print(f"- AC ids referenced from `tests/`: **{len(tested_ids)}**")
     print(f"- Covered (referenced AND in spec): **{len(covered)}**")
     print(f"- Coverage: **{pct:.1f}%**")

@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\DB;
  * audit log.
  *
  * Creates `Resellers`, `ResellerShardRoutes`, and the Root-scoped
- * `AuditLogs` per spec/23-app-db/10-reseller-shard-split-db.md §Root DB
+ * `AuditLogs` per 02-spec/23-app-db/10-reseller-shard-split-db.md §Root DB
  * tables and §Provisioning Lifecycle. `ShardStatus` is a closed enum
  * enforced by CHECK: {Provisioning, Active, Failed, Quiesced}. Every
  * Reseller has exactly one Route row (UNIQUE on ResellerId).
  *
- * `ResellerSlug` is Root-scope UK per spec/23-app-db/10 §Provisioning
+ * `ResellerSlug` is Root-scope UK per 02-spec/23-app-db/10 §Provisioning
  * step 1; it drives the shard DSN template substitution done by
  * ShardResolver::bind() (Plan 06 step 10). Slug format is enforced by
  * CHECK: `^[a-z][a-z0-9-]{2,63}$`.
@@ -73,7 +73,7 @@ return new class extends Migration
         // Root-scoped audit log. Per-reseller audits live in that
         // reseller's shard (spec 23 §App-tier tables). Closed Action
         // catalog is enforced by the application layer, not CHECK,
-        // because the catalog is additive-only per spec/21-app/13.
+        // because the catalog is additive-only per 02-spec/21-app/13.
         DB::connection(self::CONN)->statement('
             CREATE TABLE IF NOT EXISTS "AuditLogs" (
                 "AuditLogId"  BIGSERIAL PRIMARY KEY,

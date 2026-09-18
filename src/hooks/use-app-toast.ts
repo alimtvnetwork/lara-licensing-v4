@@ -10,7 +10,7 @@ import { ApiErrorCodeType, LaraApiError } from "@/lib/lara-api-error";
  *   Conflict-family      : LicenseConflict, PrefixConflict, ResellerConflict,
  *                          UserConflict, ResourceRoleAlreadyAssigned, IdempotencyConflict
  *   IdempotencyReplay    : (idempotency-key repeat with distinct body)
- *   AuthRefreshRaceLost  : transient auth race (spec/21-app/12-error-taxonomy.md)
+ *   AuthRefreshRaceLost  : transient auth race (02-spec/21-app/12-error-taxonomy.md)
  *   Transient/unknown    : ServerError, ServiceUnavailable, UnknownServerError
  *
  * Every other ErrorCode is a routing violation:
@@ -25,7 +25,7 @@ import { ApiErrorCodeType, LaraApiError } from "@/lib/lara-api-error";
  * Violations throw in dev (Vite dev + tests) and log a `ToastRoutingViolation`
  * warning in prod, then downgrade to a warning toast so the caller is not
  * left without any surfacing. This is the "no silent swallow" contract from
- * spec/21-app/12-error-taxonomy.md.
+ * 02-spec/21-app/12-error-taxonomy.md.
  */
 export const TOAST_ELIGIBLE_ERROR_CODES: ReadonlySet<ApiErrorCodeType> = new Set([
   ApiErrorCodeType.LicenseConflict,

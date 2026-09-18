@@ -1,5 +1,5 @@
 // Plan 06 step 82 regression tests. Locks the Inertia console environment
-// guard (backend/resources/js/lib/environment.ts) to spec/21-app/44-environments.md
+// guard (backend/resources/js/lib/environment.ts) to 02-spec/21-app/44-environments.md
 // section 2, backend/config/lara.php `environments`, EnvironmentService.php,
 // and src/lib/lara-environment.ts.
 

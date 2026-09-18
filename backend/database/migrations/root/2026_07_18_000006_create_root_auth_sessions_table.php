@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\DB;
 /**
  * Plan 06 step 43 (substrate). Root `AuthSessions` table.
  *
- * Normative: spec/21-app/46-impersonation.md v1.1.0 §3 (Model),
- * spec/21-app/47-impersonation-server-handler.md v1.0.0 §2 (transactional
- * order), spec/21-app/31-auth-session-family.md (parent session lineage).
+ * Normative: 02-spec/21-app/46-impersonation.md v1.1.0 §3 (Model),
+ * 02-spec/21-app/47-impersonation-server-handler.md v1.0.0 §2 (transactional
+ * order), 02-spec/21-app/31-auth-session-family.md (parent session lineage).
  *
  * Root-scoped rows only: Admin `Normal` sessions and impersonation rows
  * whose target is Root-scoped (Users.TenantId IS NULL). Shard-scoped

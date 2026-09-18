@@ -3,7 +3,7 @@ import { cleanup, render, screen } from "@testing-library/react";
 
 /**
  * Locks the client-side role gate required by
- * spec/21-app/46-impersonation.md §4.3 clause 1 (Admin-only invocation) for
+ * 02-spec/21-app/46-impersonation.md §4.3 clause 1 (Admin-only invocation) for
  * both impersonation UI controls. The server is still the source of truth
  * for PermissionDenied, but the UI MUST NOT render the trigger for non-Admin
  * callers even if the component is imported from another shell.

@@ -47,7 +47,7 @@ const INITIAL: FormState = {
 
 /**
  * Category dropdown bound to the closed ordinal set defined in
- * spec/21-app/05-license-categories.md §Canonical set (AC-CAT-005).
+ * 02-spec/21-app/05-license-categories.md §Canonical set (AC-CAT-005).
  * Labels and ordinals here MUST match that table verbatim.
  */
 const CATEGORY_OPTIONS: ReadonlyArray<{ value: string; label: string }> = [
@@ -89,7 +89,7 @@ type QueryClientLike = ReturnType<typeof useQueryClient>;
 /**
  * Reseller-scoped preflight. When the caller specified a `ResellerId`, we
  * prime the ResellerQuotas cache and throw the exact LaraApiError shape the
- * server would have returned (spec/21-app/11-api-contracts/02-license-contracts.md
+ * server would have returned (02-spec/21-app/11-api-contracts/02-license-contracts.md
  * §Reseller quota decrement steps 3-4, AC-API-LIC-006). Admin-issued licenses
  * (no ResellerId) skip preflight per §Admin-issued (AC-QUOTA-003). A stale
  * cache is a no-op so the server envelope is always authoritative.

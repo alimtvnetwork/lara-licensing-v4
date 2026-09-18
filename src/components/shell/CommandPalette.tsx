@@ -1,5 +1,5 @@
 /**
- * Command Palette per spec/24-app-ui-design-system/31-search-and-command-palette.md
+ * Command Palette per 02-spec/24-app-ui-design-system/31-search-and-command-palette.md
  * and 32-command-registry.md. Opens on `Mod+K` (see 57-keyboard-shortcut-registry.md §5).
  *
  * Root cause the v0.282.0 refit fixes: the palette rendered every command in

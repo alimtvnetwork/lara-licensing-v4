@@ -14,7 +14,7 @@ import { appToast } from "../../hooks/use-app-toast";
  *
  * Reads via `admin.runtime-config.show` and writes via
  * `admin.runtime-config.update` with `If-Match: <UpdatedAt>` (INV-RM-06,
- * spec/28-runtime-modes/05-admin-runtime-toggle.md §C-01..C-03).
+ * 02-spec/28-runtime-modes/05-admin-runtime-toggle.md §C-01..C-03).
  *
  * Surfaces distinct states:
  *   - 412 PreconditionFailed  -> inline "config changed" banner + refetch

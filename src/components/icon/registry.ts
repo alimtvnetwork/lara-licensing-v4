@@ -1,4 +1,4 @@
-// spec/24-app-ui-design-system/26-iconography-and-assets.md §5.
+// 02-spec/24-app-ui-design-system/26-iconography-and-assets.md §5.
 // Normative concept-to-Lucide binding. Reuse the same glyph for the same
 // concept across every surface (AC-ICO-005). Extending this map requires a
 // same-commit update to §5 of the spec.

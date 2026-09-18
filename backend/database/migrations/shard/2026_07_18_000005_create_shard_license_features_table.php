@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\DB;
 /**
  * Plan 06 step 19. Shard DB `LicenseFeatures` (per-license override layer).
  *
- * Normative source: spec/21-app/45-license-features.md v1.0.0 §4
+ * Normative source: 02-spec/21-app/45-license-features.md v1.0.0 §4
  * (Precedence: `LicenseFeatures` > `TierFeatures`) and
- * spec/23-app-db/01-schema.md §LicenseFeatures (lines 215-232).
+ * 02-spec/23-app-db/01-schema.md §LicenseFeatures (lines 215-232).
  *
  * `LicenseFeatures` lives on the shard because every row references a
  * shard-local `Licenses.LicenseId` via ON DELETE CASCADE (spec 23: "an
@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\DB;
  *
  * `FeatureId` is a loose numeric reference to Root `Features.FeatureId`;
  * cross-DB physical FKs are forbidden per split-DB architecture
- * (spec/23-app-db/10-reseller-shard-split-db.md §App-tier).
+ * (02-spec/23-app-db/10-reseller-shard-split-db.md §App-tier).
  *
  * `Value` is stored as JSONB. Type-shape validation
  * (`TrgLicenseFeaturesValueShape`, AC-FEAT-002) requires the

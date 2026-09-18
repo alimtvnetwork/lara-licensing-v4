@@ -1,4 +1,4 @@
-// spec/24-app-ui-design-system/24-component-table.md §2..§10.
+// 02-spec/24-app-ui-design-system/24-component-table.md §2..§10.
 // DataTable orchestrator. Server pagination, single-column sort,
 // typed column config, empty/loading/error slots, sticky header, and
 // pagination footer. URL state wiring is opt-in via useDataTableSearch

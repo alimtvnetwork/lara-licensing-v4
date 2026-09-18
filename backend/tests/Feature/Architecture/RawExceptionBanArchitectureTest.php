@@ -30,8 +30,8 @@ use Tests\TestCase;
  * so every legitimate infra throw has to be renewed by hand when the
  * surrounding file changes, and net-new violations fail the build.
  *
- * Spec anchors: spec/03-error-manage/02-error-architecture,
- * spec/02-coding-guidelines/04-php.
+ * Spec anchors: 02-spec/03-error-manage/02-error-architecture,
+ * 02-spec/02-coding-guidelines/04-php.
  */
 final class RawExceptionBanArchitectureTest extends TestCase
 {

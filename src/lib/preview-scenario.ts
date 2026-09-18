@@ -15,7 +15,7 @@
  *
  * INV-RM-06: overlay MUST emit a `LaraApiError` for offline / rate-
  * limited paths so the FE error contract exercises the same envelope
- * as live transport (spec/03-error-manage §E-01).
+ * as live transport (02-spec/03-error-manage §E-01).
  */
 
 import { ApiErrorCodeType, LaraApiError } from "./lara-api-error";

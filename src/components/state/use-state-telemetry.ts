@@ -1,4 +1,4 @@
-// State telemetry per spec/24-app-ui-design-system/16-route-shell-states.md §2.5.
+// State telemetry per 02-spec/24-app-ui-design-system/16-route-shell-states.md §2.5.
 // Emits one log line per mount, structured, never swallowed.
 
 import { useEffect, useRef } from "react";

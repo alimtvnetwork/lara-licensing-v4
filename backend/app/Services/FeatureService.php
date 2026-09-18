@@ -13,14 +13,14 @@ use Illuminate\Support\Facades\DB;
 /**
  * Plan 06 step 41. Runtime feature-map resolver.
  *
- * Normative source: spec/21-app/45-license-features.md v1.0.0 §4.
+ * Normative source: 02-spec/21-app/45-license-features.md v1.0.0 §4.
  * Precedence is strictly `LicenseFeatures` (shard, per-license override)
  * over `TierFeatures` (Root, tier default). Absence of a key means
  * "not licensed"; callers MUST NOT synthesize defaults (AC-FEAT-004,
  * AC-FEAT-005).
  *
  * Cross-DB physical FKs are forbidden per split-DB architecture
- * (spec/23-app-db/10-reseller-shard-split-db.md §App-tier). This service
+ * (02-spec/23-app-db/10-reseller-shard-split-db.md §App-tier). This service
  * therefore performs two independent reads (Root + shard) and joins them
  * in PHP by FeatureId. FeatureIds referenced by shard rows that do not
  * resolve in Root are logged and dropped, never silently coerced.

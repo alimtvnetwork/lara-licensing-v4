@@ -1,5 +1,5 @@
 /**
- * ProfileMenu: Topbar profile dropdown per spec/24-app-ui-design-system §7.
+ * ProfileMenu: Topbar profile dropdown per 02-spec/24-app-ui-design-system §7.
  *
  * Root cause the v0.283.0 refit fixes: the Admin topbar rendered a bare
  * "Sign out" button with no visible identity, so an operator inside an

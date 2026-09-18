@@ -3,7 +3,7 @@ import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 
 /**
  * Locks AppSidebar contracts per
- * spec/24-app-ui-design-system/13-navigation-ia.md §2, §3, §10:
+ * 02-spec/24-app-ui-design-system/13-navigation-ia.md §2, §3, §10:
  * - deepest-prefix match wins for active-route detection (§10)
  * - `status === "D"` renders `<span aria-disabled="true">` with a
  *   "Coming soon" tooltip, never a link that would 403 (§3, AC-ADS-043)

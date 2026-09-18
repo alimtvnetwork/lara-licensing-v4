@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Log;
  * endpoint. Now handles BOTH `verifyOnly` (200 + preflight report,
  * shipped v0.676.0) and `verifyAndApply` (202 + Location, added here).
  *
- * Contract: spec/26-backup-restore/12-endpoint-import.md v1.0.0.
+ * Contract: 02-spec/26-backup-restore/12-endpoint-import.md v1.0.0.
  *  - Middleware chain (from routes/api.php): auth:sanctum,
  *    session.active, require.role:Admin|SuperAdmin,
  *    IdempotencyKeyMiddleware (prefix `api/admin/backup/imports`).

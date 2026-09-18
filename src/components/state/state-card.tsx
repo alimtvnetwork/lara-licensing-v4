@@ -1,5 +1,5 @@
 // Centered-card composition shared by StateForbidden, StateNotFound, and
-// StateError per spec/24-app-ui-design-system/16-route-shell-states.md §2.1-§2.4.
+// StateError per 02-spec/24-app-ui-design-system/16-route-shell-states.md §2.1-§2.4.
 // Loading uses skeletons instead, so it does NOT reuse this shell.
 
 import { useEffect, useId, useRef, type ReactNode } from "react";

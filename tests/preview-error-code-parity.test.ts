@@ -19,8 +19,8 @@
  *      every failure MUST route through `previewError` /
  *      `new LaraApiError(...)` per INV-ERR-04.
  *
- * See spec/03-error-manage/03-error-code-registry and
- * spec/28-runtime-modes/03-preview-fixture-contract.md.
+ * See 02-spec/03-error-manage/03-error-code-registry and
+ * 02-spec/28-runtime-modes/03-preview-fixture-contract.md.
  */
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";

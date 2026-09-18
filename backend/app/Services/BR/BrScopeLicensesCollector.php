@@ -18,28 +18,28 @@ use Throwable;
  * Export path.
  *
  * Normative sources:
- *  - spec/26-backup-restore/05-scope-catalog.md §"SC-D License artifacts"
+ *  - 02-spec/26-backup-restore/05-scope-catalog.md §"SC-D License artifacts"
  *    (selector = `SELECT * FROM public.licenses`,
  *    `SELECT * FROM public.license_features`,
  *    `SELECT * FROM public.license_epochs` (all epochs, not just current),
  *    whole scope, restore rank 4).
- *  - spec/26-backup-restore/07-manifest-schema.md §"`scope` Shape"
+ *  - 02-spec/26-backup-restore/07-manifest-schema.md §"`scope` Shape"
  *    (manifest slot
  *    `manifest.scope.licenses = {contentHash, licenseCount, epochCount,
  *    featureLinkCount}`).
- *  - spec/26-backup-restore/04-invariants.md `INV-BR-MS-2` (every
+ *  - 02-spec/26-backup-restore/04-invariants.md `INV-BR-MS-2` (every
  *    `scope.*.contentHash` hashes the class's real bytes; empty
  *    placeholders are a validator violation once real content ships).
  *
  * Spec-to-app mapping (mirrors SC-C's `Features` != spec `features`
  * translation):
  *  - `public.licenses`         => shard-side `Licenses` per Plan 06 step 15
- *    (`spec/23-app-db/10-reseller-shard-split-db.md` puts license rows in
+ *    (`02-spec/23-app-db/10-reseller-shard-split-db.md` puts license rows in
  *    the reseller's shard, not Root).
  *  - `public.license_features` => shard-side `LicenseFeatures` per Plan 06
- *    step 19 (spec/21-app/45-license-features.md, per-license overrides).
+ *    step 19 (02-spec/21-app/45-license-features.md, per-license overrides).
  *  - `public.license_epochs`   => shard-side `LicenseLedger` per Plan 06
- *    step 17 (spec/23-app-db/01-schema.md §ResellerQuotaLedger). LARA has
+ *    step 17 (02-spec/23-app-db/01-schema.md §ResellerQuotaLedger). LARA has
  *    no `license_epochs` table; the append-only `LicenseLedger` is the
  *    canonical identity-linked audit trail for license mutations
  *    (`QuotaConsumed` / `QuotaRestored` / `QuotaAdjusted`) and is what

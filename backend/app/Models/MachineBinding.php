@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * Plan 06 step 39 (substrate). Shard-DB `MachineBindings` row.
  *
  * Persists ONLY the canonical `FingerprintHash` per AC-MB-001 in
- * `spec/21-app/30-machine-bindings.md`. Raw MAC / motherboard / CPUID /
+ * `02-spec/21-app/30-machine-bindings.md`. Raw MAC / motherboard / CPUID /
  * MachineGuid MUST NEVER be assigned here or serialized to JSON.
  * Callers MUST bind the correct shard via `App\Db\ShardResolver::bind()`
  * BEFORE querying this model.

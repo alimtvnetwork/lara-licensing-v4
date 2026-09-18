@@ -14,7 +14,7 @@ use Tests\TestCase;
 /**
  * Plan 06 step 59 & 60.
  *  - EtagWeakVsStrongTest: Locking strong ETag requirement and weak validator rejection.
- *  - ErrorTaxonomyTest: Asserting every thrown LaraException matches an entry in spec/21-app/12-error-taxonomy.md.
+ *  - ErrorTaxonomyTest: Asserting every thrown LaraException matches an entry in 02-spec/21-app/12-error-taxonomy.md.
  */
 final class ApiContractTest extends TestCase
 {

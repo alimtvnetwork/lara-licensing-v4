@@ -52,7 +52,7 @@ export const apiFailureSchema = z.object({
         // Backend `ApiEnvelope::failure` (line 66) attaches Details only
         // when non-empty. Kept fully permissive here because Details is
         // an open payload (field errors, upstream codes, etc.) that the
-        // caller renders as-is per spec/21-app/12-error-taxonomy.md.
+        // caller renders as-is per 02-spec/21-app/12-error-taxonomy.md.
         Details: z.array(z.unknown()).optional(),
       })
       .passthrough(),
@@ -63,9 +63,9 @@ export const apiFailureSchema = z.object({
 /**
  * Lenient variant used ONLY when the strict schema rejects an envelope solely
  * because ErrorCode is not (yet) in ApiErrorCodeType. Lets us log the raw
- * unknown code with full context per spec/21-app/12-error-taxonomy.md instead
+ * unknown code with full context per 02-spec/21-app/12-error-taxonomy.md instead
  * of collapsing it to a generic "envelope mismatch". See F4 in
- * .lovable/pending-issues/issue-002-lib-runtime-spec-drift.md.
+ * .ai-memory/pending-issues/issue-002-lib-runtime-spec-drift.md.
  */
 export const apiFailureLenientSchema = z.object({
   Status: apiStatusSchema,

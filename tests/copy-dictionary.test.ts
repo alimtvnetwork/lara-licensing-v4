@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { copy, pluralize, pluralCount, formatRateLimited } from "@/lib/copy";
 
-// spec/24-app-ui-design-system/56-copy-dictionary.md §3, §5, §7, §8, §13.
+// 02-spec/24-app-ui-design-system/56-copy-dictionary.md §3, §5, §7, §8, §13.
 
 const BANNED_TOKENS = [
   "Oops",

@@ -1,6 +1,6 @@
 // Plan 06 step 81. Client-side mirror of the runtime feature-map resolver.
 //
-// Normative source: spec/21-app/45-license-features.md v1.0.0 §4 (Precedence).
+// Normative source: 02-spec/21-app/45-license-features.md v1.0.0 §4 (Precedence).
 // Layer order is strictly `LicenseFeatures` (shard, per-license override) over
 // `TierFeatures` (Root, tier default). Absence of a key means NOT licensed:
 // AC-FEAT-004 / AC-FEAT-005 forbid synthesizing `false` / `0` / `""` for a key

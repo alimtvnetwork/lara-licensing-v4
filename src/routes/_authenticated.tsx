@@ -16,7 +16,7 @@ export const Route = createFileRoute("/_authenticated")({
 
 /**
  * Renders the cross-shell update banner above the outlet. Per
- * spec/21-app/16-ui-surfaces.md §3a the banner is role-gated to
+ * 02-spec/21-app/16-ui-surfaces.md §3a the banner is role-gated to
  * `AppBuilder` / `EndUser`; the `Admin` shell does not set
  * `LaraShellRoleContext`, so `<UpdateBanner />` renders nothing there.
  */

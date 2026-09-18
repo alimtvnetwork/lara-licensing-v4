@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
  *
  * Shard connections are created on-demand: `ShardResolver::bind($resellerId)`
  * clones this template, substitutes the shard database name, and pushes it
- * under connection alias `shard`. See spec/23-app-db/10-reseller-shard-split-db.md.
+ * under connection alias `shard`. See 02-spec/23-app-db/10-reseller-shard-split-db.md.
  */
 
 return [

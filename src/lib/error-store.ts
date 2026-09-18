@@ -47,7 +47,7 @@ export type ErrorStoreEntry = {
   /**
    * Optional caller-supplied component/route hint. Populated when the
    * push site knows which UI surface observed the failure so the Global
-   * Error Modal can render a `Source` row per spec/03-error-manage
+   * Error Modal can render a `Source` row per 02-spec/03-error-manage
    * (compliance-matrix.md v1.1, Modal "source component" row).
    */
   readonly sourceComponent: string | undefined;

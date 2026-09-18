@@ -2,7 +2,7 @@ name: preview-screenshot-matrix
 
 # Plan 16 Step 86. Renders every (public route x scenario x seed) cell and
 # uploads the artifact so Step 87's coverage linter can parse index.json.
-# Contract: spec/28-runtime-modes/10-screenshot-matrix.md.
+# Contract: 02-spec/28-runtime-modes/10-screenshot-matrix.md.
 
 on:
   pull_request:
@@ -13,8 +13,8 @@ on:
       - "src/components/shell/PreviewDebugDrawer*"
       - "src/routes/**"
       - "tests/e2e/specs/preview-screenshot-matrix.spec.ts"
-      - "spec/28-runtime-modes/10-screenshot-matrix.md"
-      - "spec/28-runtime-modes/08-preview-scenarios.md"
+      - "02-spec/28-runtime-modes/10-screenshot-matrix.md"
+      - "02-spec/28-runtime-modes/08-preview-scenarios.md"
       - ".github/workflows/preview-screenshot-matrix.yml"
   schedule:
     - cron: "15 0 * * *"

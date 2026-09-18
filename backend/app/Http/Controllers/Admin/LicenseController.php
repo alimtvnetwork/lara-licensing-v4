@@ -36,8 +36,8 @@ use Throwable;
  * shard. Idempotency is enforced by the global `IdempotencyKeyMiddleware`
  * (prefix `api/admin/licenses` is in its required list). Closed-set
  * guards for `TierName`, `EnvironmentName`, and `Features` follow
- * spec/21-app/43-license-tiers.md, spec/21-app/44-environments.md,
- * and spec/21-app/45-license-features.md. Feature persistence to the
+ * 02-spec/21-app/43-license-tiers.md, 02-spec/21-app/44-environments.md,
+ * and 02-spec/21-app/45-license-features.md. Feature persistence to the
  * shard `LicenseFeatures` table is deferred to Plan 06 step 41
  * (`FeatureService`); this endpoint validates and echoes the features
  * back so admin flows can proceed without silently accepting invalid

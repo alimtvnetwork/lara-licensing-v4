@@ -14,7 +14,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * (`POST /Api/Portal/Serials`). Deliberately slim: never leaks device
  * fingerprint hashes, feature payload hashes, idempotency keys, or
  * last-verified timestamps to end-user devices (see
- * spec/21-app/11-api-contracts/03-verification-contracts.md and
+ * 02-spec/21-app/11-api-contracts/03-verification-contracts.md and
  * AC-API-VER-011). Admin/inspector surfaces that need those fields
  * should introduce a dedicated Resource rather than widening this one.
  *

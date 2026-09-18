@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Root-scoped Eloquent model for `AppUpdateAssets` per
- * spec/21-app/17-self-update-endpoint.md v1.3.0 §"Publish state machine".
+ * 02-spec/21-app/17-self-update-endpoint.md v1.3.0 §"Publish state machine".
  * `IsFinalized = 0` rows are invisible to the read path per spec §"Rule".
  */
 final class AppUpdateAsset extends Model

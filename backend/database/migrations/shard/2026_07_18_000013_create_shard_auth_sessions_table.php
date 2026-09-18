@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\DB;
 /**
  * Plan 06 step 43 (shard substrate). Shard `AuthSessions` table.
  *
- * Normative: spec/21-app/46-impersonation.md v1.1.0 §4.3.2 and §4.3.5,
- * spec/23-app-db/10-reseller-shard-split-db.md.
+ * Normative: 02-spec/21-app/46-impersonation.md v1.1.0 §4.3.2 and §4.3.5,
+ * 02-spec/23-app-db/10-reseller-shard-split-db.md.
  *
  * Root cause this table exists: impersonation rows whose target is a
  * shard-scoped user (Users.TenantId IS NOT NULL) MUST land in that

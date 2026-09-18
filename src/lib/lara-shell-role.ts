@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 
 /**
- * Shell role for gating cross-shell surfaces per spec/21-app/16-ui-surfaces.md §3a.
+ * Shell role for gating cross-shell surfaces per 02-spec/21-app/16-ui-surfaces.md §3a.
  * The update banner MUST render only for `AppBuilder` and `EndUser`; never for
  * `Admin` or `Reseller` shells. Consumers set `LaraShellRoleContext.Provider`
  * on their shell root; unset (null) means "not yet declared" and gated

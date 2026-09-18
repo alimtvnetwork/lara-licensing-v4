@@ -26,7 +26,7 @@ import {
  * complaint.
  *
  * Row-scope: server-side `ShardBindingMiddleware`
- * (spec/23-app-db/10-reseller-shard-split-db.md) binds the query to
+ * (02-spec/23-app-db/10-reseller-shard-split-db.md) binds the query to
  * the caller's tenant so the URL never needs to disambiguate. The
  * identity gate below mirrors `reseller.$resellerId.quota-requests.tsx`
  * and blocks cross-tenant UI even though row-scope is authoritative
@@ -114,7 +114,7 @@ function ForbiddenGate(props: { callerResellerId: number | null; urlResellerId: 
       <p className="mt-2 text-muted-foreground">
         Your account is scoped to reseller {props.callerResellerId ?? "(none)"}, but this page
         targets reseller {props.urlResellerId}. Row-scope enforcement per
-        spec/21-app/40-permissions.md blocks this request server-side; this UI gate prevents the
+        02-spec/21-app/40-permissions.md blocks this request server-side; this UI gate prevents the
         license inventory from mounting.
       </p>
     </section>

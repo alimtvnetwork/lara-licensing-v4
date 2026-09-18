@@ -4,7 +4,7 @@
  * Registry of preview handlers keyed by operationId. Each handler is a
  * pure `async` function that returns the typed `Response` for its
  * operation or throws a `LaraApiError` shaped like the production
- * envelope (spec/28-runtime-modes/03-preview-fixture-contract.md §H-03).
+ * envelope (02-spec/28-runtime-modes/03-preview-fixture-contract.md §H-03).
  *
  * Step 31 ships the registry + dispatch primitive. Steps 33..39 wire in
  * the IndexedDB seed store, latency/offline scenarios, and PreviewSeed

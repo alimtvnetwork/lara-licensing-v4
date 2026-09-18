@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\DB;
 /**
  * Plan 14 step 4. Root DB `FeatureFlags` table + `FeatureFlagValue` enum,
  * seeded with the 7 Backup/Restore flags per
- * spec/26-backup-restore/25-migration-and-rollout.md §"Feature Flags".
+ * 02-spec/26-backup-restore/25-migration-and-rollout.md §"Feature Flags".
  *
  * Normative sources:
- *  - spec/26-backup-restore/25-migration-and-rollout.md v1.0.0 §"Feature
+ *  - 02-spec/26-backup-restore/25-migration-and-rollout.md v1.0.0 §"Feature
  *    Flags (closed set)": 7 flags, tri-state values `off|shadow|on`,
  *    default `off` in every env.
  *  - INV-BR-MG-3: flags MUST be checked in the controller BEFORE any

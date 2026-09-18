@@ -2,7 +2,7 @@
  * Runtime mode resolver core (Plan 16 Step 13).
  *
  * Implements the precedence chain defined in
- * spec/28-runtime-modes/02-mode-selection-precedence.md:
+ * 02-spec/28-runtime-modes/02-mode-selection-precedence.md:
  *
  *   localStorage override (same Version) > /version.json > compile-time default
  *

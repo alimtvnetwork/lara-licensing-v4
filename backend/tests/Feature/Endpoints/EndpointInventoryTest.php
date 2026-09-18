@@ -23,7 +23,7 @@ declare(strict_types=1);
  | handshake `/Api/Portal/Ping`). Do not use it to hide missing coverage.
  |
  | References:
- |  - .lovable/plans/subtasks/10-e2e-tests-and-cicd/SS-01-endpoint-parity-audit.md
+ |  - .ai-memory/plans/subtasks/10-e2e-tests-and-cicd/SS-01-endpoint-parity-audit.md
  |  - backend/app/Console/Commands/AuditEndpoints.php
  */
 

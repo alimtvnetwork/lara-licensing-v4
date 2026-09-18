@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
  * a per-shard advisory transaction lock (hash-chain).
  *
  * Normative sources:
- *  - spec/26-backup-restore/23-audit-and-compliance.md v1.0.0 §"Table"
+ *  - 02-spec/26-backup-restore/23-audit-and-compliance.md v1.0.0 §"Table"
  *    (column list + types), §"Hash-Chain Guarantees" (BEFORE INSERT
  *    trigger reads prevHash under `pg_advisory_xact_lock('audit.chain:'
  *    ||shardId)`), §"GDPR Right-to-Erasure" (only migration role
@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\DB;
  *    procedure).
  *  - INV-BR-AU-1..7 (append-only, chain-continuity, per-shard chain,
  *    genesis prevHash = x'00'*32, chain re-hash under advisory lock).
- *  - spec/26-backup-restore/25-migration-and-rollout.md v1.0.0 §"Migration
+ *  - 02-spec/26-backup-restore/25-migration-and-rollout.md v1.0.0 §"Migration
  *    Order" migration 5 (`backup_audit_events`, reversible in S0 while no
  *    rows exist; forward-only afterwards per INV-BR-MG-2).
  *

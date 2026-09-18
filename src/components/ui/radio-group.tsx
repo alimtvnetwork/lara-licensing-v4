@@ -4,7 +4,7 @@ import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import { cn } from "@/lib/utils";
 
 /**
- * RadioGroup refit per spec/24-app-ui-design-system/20-component-choice.md §3-4, §6.
+ * RadioGroup refit per 02-spec/24-app-ui-design-system/20-component-choice.md §3-4, §6.
  *
  * Item geometry: 20x20 px, radius 50%, 1px --border, fill --primary on
  * check with a centered 8px dot. Focus ring / invalid / disabled rules

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Log;
 /**
  * Plan 14 step 22. Archive-level encryption sealer.
  *
- * Normative source: spec/26-backup-restore/09-encryption-and-keys.md
+ * Normative source: 02-spec/26-backup-restore/09-encryption-and-keys.md
  * v1.0.0 §"Key Hierarchy", §"Nonce Discipline", §"AAD Binding", and
  * §"Sealed DEK". Every scope chunk body (SC-A..H) is wrapped with
  * AES-256-GCM using the archive DEK; the DEK itself is HKDF-derived

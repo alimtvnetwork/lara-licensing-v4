@@ -7,9 +7,9 @@ import {
 } from "@/lib/lara-license";
 
 /**
- * Proves AC-CAT-005 (spec/21-app/05-license-categories.md),
- * AC-LT-002 (spec/21-app/43-license-tiers.md), and
- * AC-LENV-002 (spec/21-app/44-environments.md): the client rejects any id
+ * Proves AC-CAT-005 (02-spec/21-app/05-license-categories.md),
+ * AC-LT-002 (02-spec/21-app/43-license-tiers.md), and
+ * AC-LENV-002 (02-spec/21-app/44-environments.md): the client rejects any id
  * outside the closed ordinal set BEFORE POST /Licenses fires, so callers
  * observe ValidationFailed on both sides of the wire without a round-trip.
  */

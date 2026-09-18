@@ -5,7 +5,7 @@ import { QuotaRequestStatusType } from "../../lib/lara-quota";
 
 /**
  * Admin quota panel (Step 46). Composes summary, adjust form, pending inbox.
- * See spec/21-app/41-reseller-quotas.md and spec/21-app/42-quota-requests.md.
+ * See 02-spec/21-app/41-reseller-quotas.md and 02-spec/21-app/42-quota-requests.md.
  */
 export function AdminQuotaSection({
   resellerId,

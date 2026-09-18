@@ -7,7 +7,7 @@ namespace App\Domain\BR;
 /**
  * Closed-set of Backup/Restore feature flag IDs.
  *
- * Normative source: spec/26-backup-restore/25-migration-and-rollout.md
+ * Normative source: 02-spec/26-backup-restore/25-migration-and-rollout.md
  * §"Feature Flags (closed set)". Adding a value here requires a matching
  * seed row in the `FeatureFlags` migration and a spec version bump.
  *

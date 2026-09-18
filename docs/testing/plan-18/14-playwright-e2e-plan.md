@@ -255,7 +255,7 @@ Cross-cutting artifacts:
 ## 6. Out of scope
 
 - Real backend Playwright runs (still preview-only per
-  `.lovable/memory/standards/preview-is-primary-dev-surface.md`).
+  `.ai-memory/memory/standards/preview-is-primary-dev-surface.md`).
 - Visual regression policy (Step 173 sets the baselines; the pixel
   threshold is Step 179's linter concern).
 - Pest coverage of the same paths (Step 13 owns it — no duplication).

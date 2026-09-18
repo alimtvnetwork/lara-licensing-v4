@@ -5,7 +5,7 @@
  *   - admin.runtime-config.show   (GET /api/admin/runtime-config)
  *   - admin.runtime-config.update (PUT /api/admin/runtime-config)  [If-Match]
  *
- * Behaviour (mirrors `spec/28-runtime-modes/05-admin-runtime-toggle.md`):
+ * Behaviour (mirrors `02-spec/28-runtime-modes/05-admin-runtime-toggle.md`):
  *
  *   * The document lives at `runtime-config::current` (typed
  *     `RuntimeConfigDoc`). `show` returns it directly. If the store is

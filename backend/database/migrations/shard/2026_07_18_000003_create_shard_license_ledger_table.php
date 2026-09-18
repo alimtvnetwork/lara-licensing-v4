@@ -8,16 +8,16 @@ use Illuminate\Support\Facades\DB;
 /**
  * Plan 06 step 17. Shard DB `LicenseLedger` (append-only journal).
  *
- * Per spec/23-app-db/01-schema.md §ResellerQuotaLedger and
- * spec/21-app/28-audit-action-enum.md: this is the append-only source of
+ * Per 02-spec/23-app-db/01-schema.md §ResellerQuotaLedger and
+ * 02-spec/21-app/28-audit-action-enum.md: this is the append-only source of
  * truth for quota movement. Every issue writes a `QuotaConsumed` (Delta=-1);
  * every eligible revoke writes a `QuotaRestored` (Delta=+1) per
- * spec/21-app/48-quota-restore-on-revoke.md v1.0.0; every approved
+ * 02-spec/21-app/48-quota-restore-on-revoke.md v1.0.0; every approved
  * quota-request adjustment writes a `QuotaAdjusted` (Delta signed, non-zero)
- * per spec/21-app/42-quota-requests.md v1.1.0. Invariant
+ * per 02-spec/21-app/42-quota-requests.md v1.1.0. Invariant
  * `SUM(Delta) = LicensesGranted - LicensesConsumed` per
  * `(ResellerId, LicenseTierId)` is enforced at read time by Check 22 of
- * spec/21-app/99-consistency-report.md.
+ * 02-spec/21-app/99-consistency-report.md.
  *
  * The ledger lives on the shard because every row references a shard-local
  * `LicenseId`. The Root `QuotaRequests` inbox mirror (spec 42 v1.1.0) is

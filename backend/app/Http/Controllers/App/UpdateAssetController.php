@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 /**
  * Plan 06 step 45 (publish write path, phase 3b of 3).
  *
- * Root cause this class closes (one sentence): spec/21-app/17-self-update-endpoint.md
+ * Root cause this class closes (one sentence): 02-spec/21-app/17-self-update-endpoint.md
  * v1.3.0 §"HEAD /App/UpdateAsset/{Version}/{Platform}" and the paired
  * `GET` variant define the byte-serving endpoint the CLI streams from
  * after the manifest read, and without it the manifest points at a

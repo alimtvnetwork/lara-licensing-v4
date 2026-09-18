@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
  * Plan 14 step 1c. Root DB `IdempotencyRecords` BR-scoped indexes and
  * endpoint closed-set enforcement.
  *
- * Normative source: spec/26-backup-restore/16-idempotency-and-locks.md
+ * Normative source: 02-spec/26-backup-restore/16-idempotency-and-locks.md
  * v1.0.0 §"Idempotency Record" (closed set of `endpoint` values:
  * `exports`, `imports`, `snapshots`, `restores`, `jobsCancel`) and
  * §"Replay Matrix" (24h retention, body-hash mismatch handling).

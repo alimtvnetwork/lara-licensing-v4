@@ -16,7 +16,7 @@ import {
  * Backend contract: `GET /Api/Reseller/Licenses/{LicenseKey}` in
  * `backend/app/Http/Controllers/Reseller/LicenseController.php::show`.
  * Existence-leak protection: cross-tenant probes get `LicenseNotFound (404)`
- * (see spec/21-app/12-error-taxonomy.md §Existence leak), so the client
+ * (see 02-spec/21-app/12-error-taxonomy.md §Existence leak), so the client
  * treats the loader error the same as a genuinely missing row.
  */
 export const Route = createFileRoute("/_authenticated/reseller/$resellerId/licenses/$licenseKey")({

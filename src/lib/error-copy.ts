@@ -115,7 +115,7 @@ export const errorsByCode: Readonly<Record<ApiErrorCodeType, string>> = {
   RuntimeConfigModeMismatch:
     "Runtime mode and its required fields do not match. Check ApiBaseUrl and PreviewSeed.",
   RuntimeConfigWriteFailed: "Could not save runtime settings. Try again in a moment.",
-  // Plan 14 Backup/Restore. See spec/26-backup-restore/ for the operator
+  // Plan 14 Backup/Restore. See 02-spec/26-backup-restore/ for the operator
   // narrative behind each state; copy is intentionally terse for toasts.
   BackupCorrupt: "This backup archive is corrupt and cannot be restored.",
   BackupExportProductionPending:

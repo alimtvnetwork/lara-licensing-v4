@@ -11,5 +11,5 @@ This release completes Plan 22, introducing major codebase refactoring to enforc
 - **Magic Strings Removed**: Removed magic strings and numbers throughout the codebase, replacing them with properly typed Enums and Constants.
 
 ### Housekeeping
-- Updated `.lovable/memory/standards/05-logging-and-wrapper-rules.md` to document the new constraints.
+- Updated `.ai-memory/memory/standards/05-logging-and-wrapper-rules.md` to document the new constraints.
 - Repaired minor regressions and executed a clean build and testing of all backend and frontend features.

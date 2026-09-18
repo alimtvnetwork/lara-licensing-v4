@@ -4,7 +4,7 @@ import { HttpMethodType, requestLaraApi } from "./lara-api-client";
 
 /**
  * Client bindings for the Admin impersonation contract defined in
- * spec/21-app/46-impersonation.md. This module owns the wire schemas,
+ * 02-spec/21-app/46-impersonation.md. This module owns the wire schemas,
  * the two mutations (start / end), and the browser-side "active
  * impersonation" record that <ImpersonationBanner /> reads to render
  * on every _authenticated route per AC-IMP-008.

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 /**
- * Plan 06 step 53. Locks spec/21-app/30-machine-bindings.md invariants
+ * Plan 06 step 53. Locks 02-spec/21-app/30-machine-bindings.md invariants
  * for BindingService::applyMachineBinding:
  *
  *   AC-MB-003: LicenseMachineLimit (409) when active binding count for

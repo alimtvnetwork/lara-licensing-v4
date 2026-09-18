@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * Plan 06 step 39b. Shard-DB `VerifyKeys` row.
  *
  * Server-issued nonce with single-use, 5-minute expiry, and SHA-256
- * HashKey digest binding per spec/21-app/09-verify-key.md §Generation
+ * HashKey digest binding per 02-spec/21-app/09-verify-key.md §Generation
  * and migration 000010. Callers MUST bind the correct shard via
  * `App\Db\ShardResolver::bind()` BEFORE querying this model. The raw
  * `HashKey` is NEVER persisted; only `HashKeyDigest` is stored so

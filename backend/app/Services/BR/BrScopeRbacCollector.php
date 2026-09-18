@@ -16,16 +16,16 @@ use Throwable;
  * Plan 14 step 18. SC-E "RBAC" collector for the S1 shadow Export path.
  *
  * Normative sources:
- *  - spec/26-backup-restore/05-scope-catalog.md §"SC-E RBAC" (selector =
+ *  - 02-spec/26-backup-restore/05-scope-catalog.md §"SC-E RBAC" (selector =
  *    Root `Users` join `UserRoles` join `Roles`, plus `CasbinRules`;
  *    whole scope; restore rank 5).
- *  - spec/26-backup-restore/07-manifest-schema.md §"`scope` Shape"
+ *  - 02-spec/26-backup-restore/07-manifest-schema.md §"`scope` Shape"
  *    (`manifest.scope.rbac = {contentHash, userRoleCount, casbinRuleCount,
  *    bootstrapPresent}`).
- *  - spec/26-backup-restore/02-casbin-integration.md v1.0.0 §"Adapter"
+ *  - 02-spec/26-backup-restore/02-casbin-integration.md v1.0.0 §"Adapter"
  *    (`CasbinRules` table with `Ptype`, `V0..V5` columns; unique index
  *    `("Ptype","V0","V1", COALESCE("V2",''), COALESCE("V3",''))`).
- *  - spec/23-app-db/01-schema.md §Users, Roles, Tenants (Root identity
+ *  - 02-spec/23-app-db/01-schema.md §Users, Roles, Tenants (Root identity
  *    trio `Roles`/`Users`/`UserRoles`, PascalCase columns).
  *  - INV-BR-MS-2 (every `scope.*.contentHash` hashes the class's real
  *    bytes; empty placeholders are a validator violation once real

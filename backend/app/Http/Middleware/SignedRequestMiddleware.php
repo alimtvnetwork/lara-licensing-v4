@@ -39,7 +39,7 @@ use Symfony\Component\HttpFoundation\Response;
  *  - BodySha256Hex   = lowercase hex sha256 of raw request body bytes
  *                      (empty body hashes as `e3b0...` per RFC 6234).
  *
- * Failure mapping (closed set, tied to spec/21-app/12-error-taxonomy.md):
+ * Failure mapping (closed set, tied to 02-spec/21-app/12-error-taxonomy.md):
  *   - Missing signature header set     -> AuthUnauthorized (401)
  *   - Header format invalid            -> ValidationFailed (400)
  *   - Timestamp skew > 300s past or 60s future -> AbuseBlocked (403)

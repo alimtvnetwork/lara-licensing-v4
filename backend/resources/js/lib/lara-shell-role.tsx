@@ -9,5 +9,5 @@ export function useLaraShellRole(): LaraShellRoleType | null {
 }
 
 export function shellRoleSeesUpdateBanner(role: LaraShellRoleType | null): boolean {
-  return role === "EndUser"; // Matching spec/21-app/16-ui-surfaces.md §3a
+  return role === "EndUser"; // Matching 02-spec/21-app/16-ui-surfaces.md §3a
 }

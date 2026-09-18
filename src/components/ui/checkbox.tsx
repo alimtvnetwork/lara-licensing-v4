@@ -5,7 +5,7 @@ import { Check, Minus } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
- * Checkbox refit per spec/24-app-ui-design-system/20-component-choice.md §3-4.
+ * Checkbox refit per 02-spec/24-app-ui-design-system/20-component-choice.md §3-4.
  *
  * Geometry: visible control 20x20 px, radius --radius-sm, 1px --border,
  * fill --primary when checked, indeterminate glyph = horizontal bar.

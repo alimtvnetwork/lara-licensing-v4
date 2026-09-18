@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\DB;
  * Plan 14 step 1a. Root DB Backup/Restore enum types.
  *
  * Normative sources:
- *  - spec/26-backup-restore/15-jobs-and-progress.md v1.0.0 §"Job Row Schema"
+ *  - 02-spec/26-backup-restore/15-jobs-and-progress.md v1.0.0 §"Job Row Schema"
  *    (closed set of `state` values: Queued, Running, Succeeded, Failed,
  *    Cancelled) and §"Job Kinds" (Export, Import, Restore, SnapshotCreate,
  *    SnapshotRestore).
- *  - spec/26-backup-restore/25-migration-and-rollout.md v1.0.0 §"Migration
+ *  - 02-spec/26-backup-restore/25-migration-and-rollout.md v1.0.0 §"Migration
  *    Order" migration 1 (`br_enums`) as the first BR migration, reversible.
  *
  * Placement: root DB. Jobs are global (single primary queue) per spec 15

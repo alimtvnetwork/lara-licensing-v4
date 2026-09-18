@@ -8,7 +8,7 @@ namespace App\Domain\BR;
  * Closed-set of BR day-one backfill job kinds.
  *
  * Normative source:
- *   spec/26-backup-restore/25-migration-and-rollout.md v1.0.0
+ *   02-spec/26-backup-restore/25-migration-and-rollout.md v1.0.0
  *   §"Day-One Backfills" (table with `Order` column: 1..3).
  *
  * Values MUST match the `BackupJobKind` enum members added by migration

@@ -1,5 +1,5 @@
 /**
- * Plan 11 step 29 + spec/03-error-manage v1.1 compliance:
+ * Plan 11 step 29 + 02-spec/03-error-manage v1.1 compliance:
  * Global Error Modal shows ErrorCode, message, RequestId, ErrorId,
  * HTTP status, Timestamp, and (when present) Source component. A
  * "Copy All" button copies the full diagnostic payload; when the

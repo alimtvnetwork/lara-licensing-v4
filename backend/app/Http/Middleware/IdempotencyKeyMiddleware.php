@@ -21,8 +21,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
 /**
- * Idempotency-Key middleware per spec/21-app/29-idempotency-lifecycle.md v1.0.0
- * and spec/21-app/11-api-contracts/03-idempotency.md.
+ * Idempotency-Key middleware per 02-spec/21-app/29-idempotency-lifecycle.md v1.0.0
+ * and 02-spec/21-app/11-api-contracts/03-idempotency.md.
  *
  * v2 (Plan 06 step 15): DB-backed `IdempotencyRecords` on the Root
  * connection with `SELECT ... FOR UPDATE` acting as the advisory lock

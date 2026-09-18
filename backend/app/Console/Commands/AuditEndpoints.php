@@ -36,10 +36,10 @@ use Throwable;
  * step 15 (Pest matrix). This command is the sensor, not the actuator.
  *
  * References:
- *  - .lovable/plans/pending/10-e2e-tests-and-cicd.md step 1
- *  - .lovable/plans/subtasks/10-e2e-tests-and-cicd/SS-01-endpoint-parity-audit.md
- *  - spec/02-coding-guidelines/04-php (Laravel primitives conventions)
- *  - spec/03-error-manage (logging + error surfacing rules)
+ *  - .ai-memory/plans/pending/10-e2e-tests-and-cicd.md step 1
+ *  - .ai-memory/plans/subtasks/10-e2e-tests-and-cicd/SS-01-endpoint-parity-audit.md
+ *  - 02-spec/02-coding-guidelines/04-php (Laravel primitives conventions)
+ *  - 02-spec/03-error-manage (logging + error surfacing rules)
  */
 final class AuditEndpoints extends Command
 {

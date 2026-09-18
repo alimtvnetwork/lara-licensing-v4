@@ -1,6 +1,6 @@
 /**
  * PageHeader: authenticated-route header composition per
- * spec/24-app-ui-design-system/14-breadcrumbs-and-page-header.md §2, §4, §5.
+ * 02-spec/24-app-ui-design-system/14-breadcrumbs-and-page-header.md §2, §4, §5.
  *
  * Slots: `breadcrumb` (detail routes only), `title` (H1 text), inline
  * `statusBadge` and `identifier` chips after the H1, optional

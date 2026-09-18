@@ -1,4 +1,4 @@
-// spec/24-app-ui-design-system/24-component-table.md §2, §5, §6, §13.
+// 02-spec/24-app-ui-design-system/24-component-table.md §2, §5, §6, §13.
 // Primitive-level refit only. The DataTable orchestrator (URL state,
 // column config, RecordCard fallback) is a follow-up (Plan 07 Step 20b).
 

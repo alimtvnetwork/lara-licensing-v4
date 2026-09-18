@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 /**
  * Plan 06 step 56. Locks `retention:sweep-orphan-tickets`
- * (SelfUpdateOrphanTicketSweepCommand) per spec/21-app/17-self-update-endpoint.md
+ * (SelfUpdateOrphanTicketSweepCommand) per 02-spec/21-app/17-self-update-endpoint.md
  * v1.3.0 §"Upload ticket expiry":
  *
  *   AC-SUS-001: Expired un-finalized rows are deleted, partial upload

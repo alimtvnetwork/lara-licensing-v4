@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
  * (`Users.TenantId`) to a `ResellerSlug` on Root and binds the shard
  * connection (alias `shard`) via `ShardResolver` before controllers run.
  *
- * Spec: spec/23-app-db/10-reseller-shard-split-db.md §Routing Rules
+ * Spec: 02-spec/23-app-db/10-reseller-shard-split-db.md §Routing Rules
  * (every reseller-scoped request runs against its own shard). Plan 06
  * step 27 pairs this with `require.role:Reseller`.
  *

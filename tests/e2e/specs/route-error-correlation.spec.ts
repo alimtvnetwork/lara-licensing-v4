@@ -3,7 +3,7 @@ import { test, expect } from "../fixtures/lara-auth";
 /**
  * v0.672.0: verify the route errorComponent surfaces BOTH `operationId`
  * and `requestId` so support tickets and debug drawer entries correlate
- * 1:1 with server logs (`spec/03-error-manage/`).
+ * 1:1 with server logs (`02-spec/03-error-manage/`).
  *
  * Setup:
  *   - Preview mode, default seed (admin can sign in and reach /admin/audit).

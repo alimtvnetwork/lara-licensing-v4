@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 /**
  * Plan 06 step 15. Root `IdempotencyRecords` table.
  *
- * Normative: spec/21-app/29-idempotency-lifecycle.md v1.0.0 §"Advisory lock
+ * Normative: 02-spec/21-app/29-idempotency-lifecycle.md v1.0.0 §"Advisory lock
  * key" and §"Storage". A DB-backed record per (Endpoint, ActorId, Key) is
  * the single source of truth for replay and conflict decisions across
  * every worker in the fleet. The cache-only implementation used through

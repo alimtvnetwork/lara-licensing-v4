@@ -7,7 +7,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Root `ImpersonationIndex` row (spec/21-app/46-impersonation.md §4.3.5).
+ * Root `ImpersonationIndex` row (02-spec/21-app/46-impersonation.md §4.3.5).
  *
  * @property string $SessionId              UUID (shared with AuthSessions.SessionId)
  * @property int    $ImpersonatorUserId

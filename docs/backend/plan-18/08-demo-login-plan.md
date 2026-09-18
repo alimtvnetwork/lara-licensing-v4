@@ -19,7 +19,7 @@ The user's exact ask: **"When I go to the back-end login section, I should have 
 | reseller | `reseller@lara.local` | `preview-reseller` | `["Reseller"]` | `01H000000000000000RSLLR1` (first demo reseller from `DemoResellersSeeder`) | Sees reseller portal + reseller-scoped admin views. |
 | portal | `portal@lara.local` | `preview-portal` | `["PortalOperator"]` | same reseller as above | Sees portal ops screens. |
 
-Password policy: **bcrypt cost 4** for demo identities only, so seeders finish fast in CI. Production users use the runtime-config default (cost 12). The 4/12 split is documented in `spec/28-runtime-modes/06-acceptance-criteria.md` (added in Step 46 of Plan 17); this plan just consumes it.
+Password policy: **bcrypt cost 4** for demo identities only, so seeders finish fast in CI. Production users use the runtime-config default (cost 12). The 4/12 split is documented in `02-spec/28-runtime-modes/06-acceptance-criteria.md` (added in Step 46 of Plan 17); this plan just consumes it.
 
 Emails and passwords match the strings already hard-coded in `src/lib/preview-seeds/default.ts` for admin and reseller. Portal is new. **Do not change** the two existing strings without updating every preview seed + fixture in one shot.
 

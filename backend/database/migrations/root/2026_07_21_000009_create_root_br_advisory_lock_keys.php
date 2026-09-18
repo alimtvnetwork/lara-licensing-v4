@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\DB;
 
 /**
  * Plan 14 step 3c. Root DB `BrAdvisoryLockKeys` closed-set registry
- * (migration 9 per spec/26-backup-restore/25-migration-and-rollout.md).
+ * (migration 9 per 02-spec/26-backup-restore/25-migration-and-rollout.md).
  *
  * Normative sources:
- *  - spec/26-backup-restore/16-idempotency-and-locks.md v1.0.0
+ *  - 02-spec/26-backup-restore/16-idempotency-and-locks.md v1.0.0
  *    §"Lock Registry" (closed set of six named locks with kind, scope,
  *    timeout, held-during, acquirer) and §"Acquisition Order" (rank
  *    1..6, kek.rotate outermost, backup_jobs.row innermost).
