@@ -1,9 +1,9 @@
 # Cross-Language Rule Matrix
 
-> **Version:** 1.0.0  
-> **Updated:** 2026-04-01  
-> **AI Confidence:** 95%  
-> **Ambiguity:** 5%  
+> **Version:** 1.0.0
+> **Updated:** 2026-04-01
+> **AI Confidence:** 95%
+> **Ambiguity:** 5%
 > **Keywords:** rule matrix, SonarQube, linter, cross-language, comparison
 
 ---
@@ -139,5 +139,5 @@ Side-by-side mapping of every enforced rule across all 8 languages, with SonarQu
 ## Cross-References
 
 - [CI Pipeline Quality Gate](./09-ci-pipeline-quality-gate.md)
-- [Static Analysis Overview](./00-overview.md)
-- [TypeScript ESLint Enforcement](../../02-typescript/11-eslint-enforcement.md)
+- [Static Analysis Overview](./readme.md)
+- [TypeScript ESLint Enforcement](../../02-typescript/12-eslint-enforcement.md)

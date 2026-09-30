@@ -1,7 +1,7 @@
 # Consistency Report: PHP Standards Reference
 
-**Version:** 3.2.0  
-**Generated:** 2026-04-02  
+**Version:** 3.2.0
+**Generated:** 2026-04-02
 **Health Score:** 100/100 (A+)
 
 ---
@@ -10,7 +10,7 @@
 
 | # | File | Status |
 |---|------|--------|
-| 1 | `00-overview.md` | ✅ Present |
+| 1 | `readme.md` | ✅ Present |
 | 2 | `01-naming-and-errors.md` | ✅ Present |
 | 3 | `02-constants-and-deps.md` | ✅ Present |
 | 4 | `03-initialization-and-booleans.md` | ✅ Present |

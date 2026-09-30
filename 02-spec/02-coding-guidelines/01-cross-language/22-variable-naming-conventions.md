@@ -1,14 +1,14 @@
 # Cross-Language Variable Naming Conventions
 
-> **Version:** 1.0.0  
-> **Updated:** 2026-03-31  
+> **Version:** 1.0.0
+> **Updated:** 2026-03-31
 > **Applies to:** PHP, TypeScript, Go
 
 ---
 
 ## Overview
 
-Rules for naming variables, collections, and maps to maximize readability and reduce ambiguity. These complement [Function Naming](./10-function-naming.md) and [Boolean Principles](./02-boolean-principles/00-overview.md).
+Rules for naming variables, collections, and maps to maximize readability and reduce ambiguity. These complement [Function Naming](./10-function-naming.md) and [Boolean Principles](./02-boolean-principles/readme.md).
 
 ---
 
@@ -144,7 +144,7 @@ userMap := make(map[string]*User)
 
 ## Rule 4: Boolean Variables — `is`, `has` Prefix (99%), `should` Rare
 
-Boolean variables **must** use a prefix that reads as a yes/no question. See [Boolean Principles](./02-boolean-principles/00-overview.md) for the full specification.
+Boolean variables **must** use a prefix that reads as a yes/no question. See [Boolean Principles](./02-boolean-principles/readme.md) for the full specification.
 
 ```typescript
 // ❌ FORBIDDEN
@@ -204,7 +204,7 @@ const connectionManager = new ConnectionManager();
 
 ## Cross-References
 
-- [Boolean Principles](./02-boolean-principles/00-overview.md) — P1–P6 boolean naming rules
+- [Boolean Principles](./02-boolean-principles/readme.md) — P1–P6 boolean naming rules
 - [Function Naming](./10-function-naming.md) — Function and method naming conventions
 - [Key Naming PascalCase](./11-key-naming-pascalcase.md) — API/database key casing
 - [Database Naming](./07-database-naming.md) — Table and column naming

@@ -1,6 +1,6 @@
 # Consistency Report: Static Analysis
 
-**Version:** 3.2.0  
+**Version:** 3.2.0
 **Generated:** 2026-04-01
 **Health Score:** 100/100 (A+)
 
@@ -10,7 +10,7 @@
 
 | # | File | Status |
 |---|------|--------|
-| 1 | `00-overview.md` | ✅ Present |
+| 1 | `readme.md` | ✅ Present |
 | 2 | `02-go-golangci-lint.md` | ✅ Present |
 | 3 | `03-php-phpcs-phpstan.md` | ✅ Present |
 | 4 | `04-csharp-stylecop.md` | ✅ Present |

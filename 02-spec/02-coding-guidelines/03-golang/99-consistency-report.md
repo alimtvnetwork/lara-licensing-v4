@@ -1,7 +1,7 @@
 # Consistency Report: Golang Standards
 
-**Version:** 3.2.0  
-**Generated:** 2026-03-31  
+**Version:** 3.2.0
+**Generated:** 2026-03-31
 **Health Score:** 100/100 (A+)
 
 ---
@@ -10,10 +10,10 @@
 
 | # | File | Status |
 |---|------|--------|
-| 1 | `00-overview.md` | ✅ Present |
+| 1 | `readme.md` | ✅ Present |
 | 2 | `02-boolean-standards.md` | ✅ Present |
 | 3 | `03-httpmethod-enum.md` | ✅ Present |
-| 4 | `04-golang-standards-reference/00-overview.md` | ✅ Present |
+| 4 | `04-golang-standards-reference/readme.md` | ✅ Present |
 | 5 | `05-defer-rules.md` | ✅ Present |
 | 6 | `06-string-slice-internals.md` | ✅ Present |
 | 7 | `07-code-severity-taxonomy.md` | ✅ Present |

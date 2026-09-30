@@ -1,6 +1,6 @@
 # Slug Conventions
 
-**Version:** 3.2.0  
+**Version:** 3.2.0
 **Updated:** 2026-04-16
 
 ---
@@ -79,6 +79,7 @@ DELETE /api/v1/error-logs/2026-04-02-url-error
 ### Full REST API Design Sample
 
 ```yaml
+
 # OpenAPI-style paths — all slugs are lowercase kebab-case
 
 paths:
@@ -205,7 +206,7 @@ function to_slug(string $input): string {
 | Plugin/theme slugs | `my-awesome-plugin` |
 | Error documentation | `2026-04-02-url-error-casing-fix` |
 | Config keys (URL-safe) | `smtp-email-settings` |
-| File names (spec docs) | `08-cross-references.md` |
+| File names (spec docs) | `10-cross-references.md` |
 
 ---
 
@@ -213,6 +214,6 @@ function to_slug(string $input): string {
 
 | Reference | Location |
 |-----------|----------|
-| Cross-Language Overview | [./00-overview.md](./00-overview.md) |
+| Cross-Language Overview | [./readme.md](./readme.md) |
 | Variable Naming | [./22-variable-naming-conventions.md](./22-variable-naming-conventions.md) |
 | Key Naming PascalCase | [./11-key-naming-pascalcase.md](./11-key-naming-pascalcase.md) |

@@ -1,7 +1,7 @@
 # Go String & Slice Internals
 
-**Version:** 3.2.0  
-**Updated:** 2026-04-16  
+**Version:** 3.2.0
+**Updated:** 2026-04-16
 **Source:** Consolidated from `01-pre-code-review-guides/03-golang-code-review-guides.md`
 
 ---
@@ -25,11 +25,13 @@ type StringHeader struct {
 ```
 
 **Implications:**
+
 - Passing a string to a function copies the header (16 bytes) but **not** the data
 - No need to pass `*string` for read-only use — it's already efficient
 - Strings are immutable — any modification creates a new allocation
 
 **References:**
+
 - [What is the point of passing a pointer to strings in Go?](https://stackoverflow.com/questions/24642311)
 - [Is string passed by value or reference?](https://groups.google.com/g/golang-nuts/c/ZRKSJ3GPkLw)
 
@@ -47,11 +49,13 @@ type SliceHeader struct {
 ```
 
 **Implications:**
+
 - Passing a slice copies the header (24 bytes) but shares the underlying array
 - `append()` may create a new array if capacity is exceeded
 - Slicing (`s[1:3]`) shares the same underlying array — mutations affect both
 
 **References:**
+
 - [Go Slice Tricks](https://github.com/golang/go/wiki/SliceTricks)
 - [Go Slice Tricks Cheat Sheet](https://ueokande.github.io/go-slice-tricks/)
 

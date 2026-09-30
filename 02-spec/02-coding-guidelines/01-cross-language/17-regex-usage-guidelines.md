@@ -1,8 +1,8 @@
 # Regex Usage Guidelines
 
-**Version:** 3.2.0  
-**Updated:** 2026-04-16  
-**Applies to:** Go (primary), general principle cross-language  
+**Version:** 3.2.0
+**Updated:** 2026-04-16
+**Applies to:** Go (primary), general principle cross-language
 **Source:** Consolidated from `01-pre-code-review-guides/03-golang-code-review-guides.md`
 
 ---
@@ -88,8 +88,8 @@ Moving regex from inside a function to a package-level `var` can yield significa
 
 ## 6. Cross-References
 
-- [Code Style](./04-code-style/00-overview.md) — Performance considerations
-- [Master Coding Guidelines](./15-master-coding-guidelines/00-overview.md) — §8 Magic Strings (regex patterns are not magic strings)
+- [Code Style](./04-code-style/readme.md) — Performance considerations
+- [Master Coding Guidelines](./15-master-coding-guidelines/readme.md) — §8 Magic Strings (regex patterns are not magic strings)
 
 ---
 

@@ -1,7 +1,7 @@
 # SOLID Principles Reference
 
-> **Version:** 1.0.0  
-> **Updated:** 2026-03-31  
+> **Version:** 1.0.0
+> **Updated:** 2026-03-31
 > **Applies to:** All languages
 
 ---
@@ -201,8 +201,8 @@ const usePlugins = (fetcher: () => Promise<Plugin[]>) => {
 ## Cross-References
 
 - [Function Naming](./10-function-naming.md) — Verb-led, single-purpose naming
-- [Code Style §R6](./04-code-style/00-overview.md) — Max 15 lines per function (SRP at function level)
-- [Code Style §R17](./04-code-style/00-overview.md) — Max 120 lines per struct/class (SRP at type level)
+- [Code Style §R6](./04-code-style/readme.md) — Max 15 lines per function (SRP at function level)
+- [Code Style §R17](./04-code-style/readme.md) — Max 120 lines per struct/class (SRP at type level)
 - [DRY Principles](./08-dry-principles.md) — Avoid duplication (supports OCP)
 - [Strict Typing](./13-strict-typing.md) — Type safety supports LSP
 

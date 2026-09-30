@@ -65,9 +65,9 @@ These are the **canonical rule sources** (if a conflict is found, these win):
 
 | Rule Domain | Canonical Source |
 |-------------|-----------------|
-| Naming (all languages) | `02-spec/02-coding-guidelines/01-cross-language/15-master-coding-guidelines/00-overview.md` |
+| Naming (all languages) | `02-spec/02-coding-guidelines/01-cross-language/15-master-coding-guidelines/readme.md` |
 | Key naming (PascalCase) | `02-spec/02-coding-guidelines/01-cross-language/11-key-naming-pascalcase.md` |
-| Boolean logic | `02-spec/02-coding-guidelines/03-golang/02-boolean-standards.md` + `02-spec/02-coding-guidelines/01-cross-language/02-boolean-principles/00-overview.md` |
+| Boolean logic | `02-spec/02-coding-guidelines/03-golang/02-boolean-standards.md` + `02-spec/02-coding-guidelines/01-cross-language/02-boolean-principles/readme.md` |
 | Strict typing | `02-spec/02-coding-guidelines/01-cross-language/13-strict-typing.md` |
 | Error handling | `02-spec/03-error-manage/01-error-resolution/10-apperror-package/01-apperror-reference.md` |
 | Code style | `02-spec/02-coding-guidelines/01-cross-language/04-code-style/` |
@@ -80,16 +80,21 @@ These are the **canonical rule sources** (if a conflict is found, these win):
 For each rule domain, search ALL spec files for code examples or prose that contradict the canonical source:
 
 ```bash
+
 # Example: find camelCase log keys that should be PascalCase
+
 grep -rn '"[a-z][a-zA-Z]*"' spec/ --include="*.md" | grep -i "logkey\|log.*key\|context.*key"
 
 # Example: find type assertions in business logic examples
+
 grep -rn '\.\(\*\?[A-Z]' spec/ --include="*.md" | grep -v "EXEMPTED\|Exempt\|stdlib\|test"
 
 # Example: find raw nil checks that should use IsDefined()
+
 grep -rn 'if.*!= nil' spec/ --include="*.md" | grep -v "err\|error\|recover\|ok"
 
 # Example: find negative boolean helpers
+
 grep -rn 'isNot[A-Z]\|hasNo[A-Z]' spec/ --include="*.md" | grep -v "FORBIDDEN\|WRONG\|❌"
 ```
 
@@ -155,6 +160,6 @@ These areas have historically produced contradictions and need extra scrutiny:
 - Global Consistency Report <!-- external: 02-02-spec/99-consistency-report.md -->
 - Mistake Remediation Protocol <!-- external: .ai-memory/memories/workflow/03-mistake-remediation-protocol.md -->
 - Issue Template <!-- external: 02-spec/23-how-app-issues-track/01-issue-template.md -->
-- [Master Coding Guidelines](./15-master-coding-guidelines/00-overview.md)
+- [Master Coding Guidelines](./15-master-coding-guidelines/readme.md)
 - [PascalCase Key Naming](./11-key-naming-pascalcase.md)
 - [Boolean Standards](../03-golang/02-boolean-standards.md)

@@ -1,7 +1,7 @@
 # Go Defer Rules
 
-**Version:** 3.2.0  
-**Updated:** 2026-04-16  
+**Version:** 3.2.0
+**Updated:** 2026-04-16
 **Source:** Consolidated from `01-pre-code-review-guides/03-golang-code-review-guides.md`
 
 ---
@@ -87,8 +87,8 @@ func processWithFile(tx *sql.Tx, path string) error {
 
 ## 4. Cross-References
 
-- [Master Coding Guidelines §6](../01-cross-language/15-master-coding-guidelines/00-overview.md) — Error handling
-- [Golang Standards Reference](./04-golang-standards-reference/00-overview.md) — Go conventions
+- [Master Coding Guidelines §6](../01-cross-language/15-master-coding-guidelines/readme.md) — Error handling
+- [Golang Standards Reference](./04-golang-standards-reference/readme.md) — Go conventions
 
 ---
 

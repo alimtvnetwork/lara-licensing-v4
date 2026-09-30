@@ -1,8 +1,8 @@
 # Rust — Clippy Lint Enforcement
 
-**Version:** 3.2.0  
-**Updated:** 2026-04-16  
-**AI Confidence:** Production-Ready  
+**Version:** 3.2.0
+**Updated:** 2026-04-16
+**AI Confidence:** Production-Ready
 **Ambiguity:** None
 
 ---
@@ -17,7 +17,7 @@
 
 | Criterion | Status |
 |-----------|--------|
-| `00-overview.md` present | ✅ |
+| `readme.md` present | ✅ |
 | AI Confidence assigned | ✅ |
 | Ambiguity assigned | ✅ |
 | Keywords present | ✅ |
@@ -89,6 +89,7 @@ Enable these Clippy lint groups project-wide:
 ### `clippy.toml`
 
 ```toml
+
 # clippy.toml — project root
 
 too-many-arguments-threshold = 3
@@ -164,10 +165,10 @@ cargo fmt --all -- --check
 
 ## Cross-References
 
-- [Static Analysis Overview](./00-overview.md) — Parent document
-- [Rust Coding Standards](../../05-rust/00-overview.md) — Rust-specific guidelines
-- [Cross-Language Code Style](../04-code-style/00-overview.md) — Source rules
-- [Master Coding Guidelines](../15-master-coding-guidelines/00-overview.md) — Full checklist
+- [Static Analysis Overview](./readme.md) — Parent document
+- [Rust Coding Standards](../../05-rust/readme.md) — Rust-specific guidelines
+- [Cross-Language Code Style](../04-code-style/readme.md) — Source rules
+- [Master Coding Guidelines](../15-master-coding-guidelines/readme.md) — Full checklist
 
 ---
 

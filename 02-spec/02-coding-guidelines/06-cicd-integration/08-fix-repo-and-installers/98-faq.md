@@ -18,7 +18,9 @@
 
 ```bash
 ./install.sh --version v3.21.0
+
 # OR
+
 curl -fsSL https://github.com/<o>/<r>/releases/download/v3.21.0/release-install.sh | bash
 ```
 
@@ -50,7 +52,9 @@ is mandated by §5.3 of the contract.
 
 ```bash
 ./install.sh --run-fix-repo --max-fix-repo-logs 5
+
 # or via env:
+
 INSTALL_MAX_FIX_REPO_LOGS=5 ./install.sh --run-fix-repo
 ```
 

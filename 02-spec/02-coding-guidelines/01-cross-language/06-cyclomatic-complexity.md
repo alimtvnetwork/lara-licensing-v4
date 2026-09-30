@@ -1,7 +1,7 @@
 # Cross-Language Rule: Reduce Cyclomatic Complexity to Near-Zero
 
-> **Version:** 1.0.0  
-> **Updated:** 2026-03-09  
+> **Version:** 1.0.0
+> **Updated:** 2026-03-09
 > **Applies to:** PHP, TypeScript, Go, C#, and any delegated language
 
 ---
@@ -47,6 +47,7 @@ public void Process(Order? order)
 ```
 
 **Problems:**
+
 - 5 levels of nesting — reader must track all conditions mentally
 - The "happy path" is buried at the deepest level
 - Adding a new validation requires finding the right nesting level
@@ -101,6 +102,7 @@ public void Process(Order? order)
 ```
 
 **Benefits:**
+
 - Zero nesting — every guard is at the same indentation level
 - Happy path is at the bottom, clearly visible
 - Adding a new guard is trivial — just add another `if (...) { return; }` block
@@ -306,9 +308,9 @@ This spec works in concert with:
 
 | Rule | How It Helps |
 |------|-------------|
-| [Rule 2: Zero Nested `if`](./04-code-style/01-braces-and-nesting.md) | Enforces the same principle at the syntax level |
-| [Rule 6: 15-Line Function Limit](./04-code-style/04-function-and-type-size.md) | Guards keep functions short — if too many guards, extract a `validate()` helper |
-| [Boolean Principles](./02-boolean-principles/00-overview.md) | Guards use `is`/`has` named booleans for clarity |
+| [Rule 2: Zero Nested `if`](./04-code-style/02-braces-and-nesting.md) | Enforces the same principle at the syntax level |
+| [Rule 6: 15-Line Function Limit](./04-code-style/05-function-and-type-size.md) | Guards keep functions short — if too many guards, extract a `validate()` helper |
+| [Boolean Principles](./02-boolean-principles/readme.md) | Guards use `is`/`has` named booleans for clarity |
 | [No Raw Negations](./12-no-negatives.md) | Guards use positive names (`isFileMissing`) not `!fileExists()` |
 
 ---
@@ -328,8 +330,8 @@ This spec works in concert with:
 
 ## Cross-References
 
-- [Code Style — Rules 2, 6, 7](./04-code-style/00-overview.md) — Zero nesting, 15-line limit
-- [Boolean Principles](./02-boolean-principles/00-overview.md) — Named boolean variables
+- [Code Style — Rules 2, 6, 7](./04-code-style/readme.md) — Zero nesting, 15-line limit
+- [Boolean Principles](./02-boolean-principles/readme.md) — Named boolean variables
 - [No Raw Negations](./12-no-negatives.md) — Positive guard function names
 - [Function Naming](./10-function-naming.md) — Explicit method names over boolean flags
 

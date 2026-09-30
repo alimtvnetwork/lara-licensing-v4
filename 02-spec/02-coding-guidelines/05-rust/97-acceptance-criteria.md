@@ -1,6 +1,6 @@
 # Rust Coding Standards — Acceptance Criteria
 
-**Version:** 3.2.0  
+**Version:** 3.2.0
 **Last Updated:** 2026-04-16
 
 ---
@@ -45,10 +45,10 @@
 
 ## Cross-References
 
-- [Overview](./00-overview.md)
-- [Naming Conventions](./01-naming-conventions.md)
-- [Error Handling](./02-error-handling.md)
-- [Async Patterns](./03-async-patterns.md)
-- [Memory Safety](./04-memory-safety.md)
-- [Testing Standards](./05-testing-standards.md)
-- [FFI & Platform](./06-ffi-platform.md)
+- [Overview](./readme.md)
+- [Naming Conventions](../../01-spec-authoring-guide/03-naming-conventions.md)
+- [Error Handling](./03-error-handling.md)
+- [Async Patterns](./04-async-patterns.md)
+- [Memory Safety](./05-memory-safety.md)
+- [Testing Standards](./06-testing-standards.md)
+- [FFI & Platform](./07-ffi-platform.md)

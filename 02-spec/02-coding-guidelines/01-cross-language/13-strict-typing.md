@@ -1,7 +1,7 @@
 # Strict Typing — Cross-Language Type Declaration Rules
 
-> **Version:** 1.0.0  
-> **Updated:** 2026-03-09  
+> **Version:** 1.0.0
+> **Updated:** 2026-03-09
 > **Applies to:** PHP, TypeScript, Go
 
 ---
@@ -69,7 +69,7 @@ PHP does not support type declarations on local variables. Types apply to parame
 
 Already enforced by the generics-first rule and `strict: true` in tsconfig. Key reinforcements:
 
-- `any` is **prohibited** everywhere (see [TypeScript Standards](../02-typescript/08-typescript-standards-reference.md))
+- `any` is **prohibited** everywhere (see [TypeScript Standards](../02-typescript/09-typescript-standards-reference.md))
 - `unknown` only at parse boundaries with immediate narrowing
 - All function signatures must have explicit parameter and return types
 
@@ -79,11 +79,11 @@ Already enforced by the generics-first rule and `strict: true` in tsconfig. Key 
 
 Already statically typed. Key reinforcements:
 
-- `interface{}` / `any` is **prohibited** in exported APIs (see [Go Standards](../03-golang/04-golang-standards-reference/00-overview.md))
+- `interface{}` / `any` is **prohibited** in exported APIs (see [Go Standards](../03-golang/04-golang-standards-reference/readme.md))
 - Use concrete types or constrained generics (`[T any]` in generic signatures is acceptable)
 - All struct fields must use concrete types, not `map[string]interface{}`
-- **Single return value:** Functions return `apperror.Result[T]` — never `(T, error)` or multi-value tuples (see [§7.1](./15-master-coding-guidelines/04-type-safety.md#71-single-return-value-rule-go))
-- **No type assertions:** `.(Type)` casting is prohibited in business logic — use concrete structs (see [§7.2](./15-master-coding-guidelines/04-type-safety.md#72-no-type-assertions--casting-go))
+- **Single return value:** Functions return `apperror.Result[T]` — never `(T, error)` or multi-value tuples (see [§7.1](./15-master-coding-guidelines/05-type-safety.md#71-single-return-value-rule-go))
+- **No type assertions:** `.(Type)` casting is prohibited in business logic — use concrete structs (see [§7.2](./15-master-coding-guidelines/05-type-safety.md#72-no-type-assertions--casting-go))
 
 ---
 
@@ -290,7 +290,7 @@ func (a *Adapter) GetById(ctx context.Context, id int64) (*models.Plugin, error)
 }
 ```
 
-> **Full examples with PHP/Go/TypeScript:** see [apperror § Result Guard Rule](../../03-error-manage/02-error-architecture/06-apperror-package/01-apperror-reference/06-serialization-and-guards.md#12-result-guard-rule--mandatory-error-check-before-value-access)
+> **Full examples with PHP/Go/TypeScript:** see [apperror § Result Guard Rule](../../03-error-manage/02-error-architecture/06-apperror-package/01-apperror-reference/08-serialization-and-guards.md#12-result-guard-rule--mandatory-error-check-before-value-access)
 
 ### Enforcement Checklist
 
@@ -305,13 +305,13 @@ func (a *Adapter) GetById(ctx context.Context, id int64) (*models.Plugin, error)
 
 ## Cross-References
 
-- [PHP Standards](../04-php/07-php-standards-reference/00-overview.md)
-- [TypeScript Standards](../02-typescript/08-typescript-standards-reference.md)
-- [Go Standards](../03-golang/04-golang-standards-reference/00-overview.md)
+- [PHP Standards](../04-php/07-php-standards-reference/readme.md)
+- [TypeScript Standards](../02-typescript/09-typescript-standards-reference.md)
+- [Go Standards](../03-golang/04-golang-standards-reference/readme.md)
 - [Function Naming](./10-function-naming.md)
-- Generic Enforce <!-- external: 02-spec/31-generic-enforce/00-overview.md -->
+- Generic Enforce <!-- external: 02-spec/31-generic-enforce/readme.md -->
 - apperror Package — Result Guard Rule <!-- external: 02-spec/03-error-manage/01-error-resolution/10-apperror-package/01-apperror-reference.md -->
-- [Master Guidelines — Section 6.1](./15-master-coding-guidelines/03-code-style-and-errors.md#61--result-guard-rule-zero-silent-failures)
+- [Master Guidelines — Section 6.1](./15-master-coding-guidelines/04-code-style-and-errors.md#61--result-guard-rule-zero-silent-failures)
 
 ---
 

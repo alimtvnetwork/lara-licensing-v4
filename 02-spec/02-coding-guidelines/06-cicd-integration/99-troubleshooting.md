@@ -48,13 +48,17 @@ setup step:
 ### Fix — self-hosted runners
 
 ```bash
+
 # Debian / Ubuntu
+
 sudo apt-get update && sudo apt-get install -y python3 python3-venv
 
 # RHEL / Amazon Linux
+
 sudo dnf install -y python3.11
 
 # Alpine (note: 'python3' symlink may be missing)
+
 apk add --no-cache python3 && ln -sf /usr/bin/python3 /usr/local/bin/python3
 ```
 
@@ -113,13 +117,17 @@ hanging on a 90-second compile that ultimately fails.
 ### Fix — install build tools (last resort)
 
 ```bash
+
 # Debian / Ubuntu
+
 sudo apt-get install -y build-essential python3-dev
 
 # RHEL / Fedora
+
 sudo dnf install -y gcc python3-devel
 
 # Alpine
+
 apk add --no-cache build-base python3-dev
 ```
 
@@ -282,7 +290,7 @@ A check fires on code you believe is correct. Examples:
                                   ▼                                 ▼
                           File a spec issue with             File a check issue
                           repro + proposed wording.          with the source line
-                          Once merged, regenerate            and expected behaviour.
+                          Once merged, regenerate            and expected behavior.
                           baseline.                          Suppress locally until
                                                              a fix ships.
 ```
@@ -360,14 +368,18 @@ ignored.
 #### b) Quoting — values must be valid TOML strings or arrays
 
 ```toml
+
 # ❌ WRONG — bare list, comma-less, unquoted
+
 [run]
 languages = go typescript php
 
 # ❌ WRONG — Python-style list with single quotes (TOML allows but mixing types breaks)
+
 exclude-rules = ['STYLE-002', "STYLE-099"]
 
 # ✅ RIGHT
+
 [run]
 languages = ["go", "typescript", "php"]
 exclude-rules = ["STYLE-002"]
@@ -413,10 +425,12 @@ python3 -c "import tomllib; print(tomllib.loads(open('.codeguidelines.toml').rea
 A `tomllib.TOMLDecodeError` traceback pinpoints the exact line and
 column.
 
-### Reference config (copy + customise)
+### Reference config (copy + customize)
 
 ```toml
+
 # .codeguidelines.toml — repo-level defaults for the linter pack.
+
 # CLI flags always override these values.
 
 [run]
@@ -431,18 +445,20 @@ fail-on-warning   = false                 # only `error` level breaks the build
 
 ```bash
 python3 linters-cicd/scripts/load-config.py --config .codeguidelines.toml
+
 # Should print the effective LANGUAGES=, RULES=, EXCLUDE_RULES=, FAIL_ON_WARNING= values
+
 ```
 
 ---
 
 ## Cross-References
 
-- [SARIF Contract](./01-sarif-contract.md) — wire format every check emits
+- [SARIF Contract](./02-sarif-contract.md) — wire format every check emits
 - [FAQ](./98-faq.md) — suppression syntax, baseline workflow, version pinning
-- [Performance](./07-performance.md) — timeouts, parallel jobs, walker order
+- [Performance](./08-performance.md) — timeouts, parallel jobs, walker order
 - [Acceptance Criteria](./97-acceptance-criteria.md) — testable AC list
-- [Distribution](./05-distribution.md) — install methods, version pinning
+- [Distribution](./06-distribution.md) — install methods, version pinning
 
 ---
 
@@ -453,4 +469,4 @@ python3 linters-cicd/scripts/load-config.py --config .codeguidelines.toml
 
 ---
 
-*Part of [CI/CD Integration](./00-overview.md)*
+*Part of [CI/CD Integration](./readme.md)*

@@ -1,8 +1,8 @@
 # Null Pointer Safety
 
-**Version:** 3.2.0  
-**Updated:** 2026-04-16  
-**Applies to:** Go (primary), general principle cross-language  
+**Version:** 3.2.0
+**Updated:** 2026-04-16
+**Applies to:** Go (primary), general principle cross-language
 **Source:** Consolidated from `01-pre-code-review-guides/03-golang-code-review-guides.md`
 
 ---
@@ -119,15 +119,15 @@ func anyBytesSafePtr() *[]byte {
 | PHP | `if ($x === null)` | `if ($x->isDefined())` (preferred) |
 | TypeScript | `if (x === null \|\| x === undefined)` | `if (isDefined(x))` (preferred) |
 
-See [Master Coding Guidelines §3.1](./15-master-coding-guidelines/00-overview.md) for the full `isDefined`/`isDefinedAndValid` guard pattern.
+See [Master Coding Guidelines §3.1](./15-master-coding-guidelines/readme.md) for the full `isDefined`/`isDefinedAndValid` guard pattern.
 
 ---
 
 ## 4. Cross-References
 
-- [Boolean Principles](./02-boolean-principles/00-overview.md) — Positive null guards (`isDefined`)
-- [Master Coding Guidelines §3.1](./15-master-coding-guidelines/00-overview.md) — Guard table
-- [Casting Elimination Patterns](./03-casting-elimination-patterns.md) — Type-safe access
+- [Boolean Principles](./02-boolean-principles/readme.md) — Positive null guards (`isDefined`)
+- [Master Coding Guidelines §3.1](./15-master-coding-guidelines/readme.md) — Guard table
+- [Casting Elimination Patterns](./04-casting-elimination-patterns.md) — Type-safe access
 
 ---
 

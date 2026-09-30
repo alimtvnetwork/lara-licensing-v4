@@ -1,6 +1,6 @@
 # C# Coding Standards — Acceptance Criteria
 
-**Version:** 3.2.0  
+**Version:** 3.2.0
 **Last Updated:** 2026-04-16
 
 ---
@@ -66,10 +66,11 @@
 ## Validation
 
 All criteria are testable via code review or static analysis. Each AC maps to rules in:
-- [01-naming-and-conventions.md](./01-naming-and-conventions.md)
-- [02-method-design.md](./02-method-design.md)
-- [03-error-handling.md](./03-error-handling.md)
-- [04-type-safety.md](./04-type-safety.md)
+
+- [01-naming-and-conventions.md](./02-naming-and-conventions.md)
+- [02-method-design.md](./03-method-design.md)
+- [03-error-handling.md](../05-rust/03-error-handling.md)
+- [04-type-safety.md](./05-type-safety.md)
 - [Boolean Flag Methods (cross-language)](../01-cross-language/24-boolean-flag-methods.md)
 - [Generic Return Types (cross-language)](../01-cross-language/25-generic-return-types.md)
 

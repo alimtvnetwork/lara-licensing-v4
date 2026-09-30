@@ -1,7 +1,7 @@
 # Consistency Report: Enum Specification
 
-**Version:** 3.2.0  
-**Generated:** 2026-03-21  
+**Version:** 3.2.0
+**Generated:** 2026-03-21
 **Health Score:** 100/100 (A+)
 
 ---
@@ -10,10 +10,10 @@
 
 | # | File | Status |
 |---|------|--------|
-| 1 | `00-overview.md` | ✅ Present |
+| 1 | `readme.md` | ✅ Present |
 | 2 | `01-enum-pattern.md` | ✅ Present |
 | 3 | `02-required-methods.md` | ✅ Present |
-| 4 | `03-folder-structure.md` | ✅ Present |
+| 4 | `03-folder-03-structure.md` | ✅ Present |
 | 5 | `04-validation-checklist.md` | ✅ Present |
 
 **Total:** 5 files (excluding this report)

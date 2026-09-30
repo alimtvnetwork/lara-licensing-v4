@@ -1,7 +1,7 @@
 # DRY Principles — Coding Guidelines
 
-> **Version:** 1.0.0  
-> **Updated:** 2026-03-09  
+> **Version:** 1.0.0
+> **Updated:** 2026-03-09
 > **Applies to:** All code (Go, TypeScript, PHP, PowerShell)
 
 ---
@@ -35,6 +35,7 @@ When you find yourself writing the same logic a second time, **extract it immedi
 ```
 
 **Extraction targets:**
+
 - **3+ lines** of identical logic → Extract to function
 - **2+ components** sharing state logic → Extract to custom hook (React) or service (Go)
 - **2+ endpoints** sharing validation → Extract to middleware or shared validator
@@ -99,6 +100,7 @@ Each implementation references the schema version in a comment.
 ### During Code Review
 
 Ask these questions:
+
 - "Have I seen this pattern before in the codebase?"
 - "Would a new team member know where to find this logic?"
 - "If this requirement changes, how many files would I need to update?"
@@ -133,9 +135,9 @@ Ask these questions:
 
 - [DRY Refactoring Summary](./09-dry-refactoring-summary.md) — Complete 10-phase history
 - [Response Envelope Schema](../../03-error-manage/02-error-architecture/05-response-envelope/envelope.schema.json) — Cross-stack type contract
-- [TypeScript Standards](../02-typescript/08-typescript-standards-reference.md) — TS-specific rules
-- [Golang Standards](../03-golang/04-golang-standards-reference/00-overview.md) — Go-specific rules
-- [PHP Standards](../04-php/07-php-standards-reference/00-overview.md) — PHP-specific rules
+- [TypeScript Standards](../02-typescript/09-typescript-standards-reference.md) — TS-specific rules
+- [Golang Standards](../03-golang/04-golang-standards-reference/readme.md) — Go-specific rules
+- [PHP Standards](../04-php/07-php-standards-reference/readme.md) — PHP-specific rules
 
 ---
 

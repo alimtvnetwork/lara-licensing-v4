@@ -1,6 +1,6 @@
 # TypeScript Standards — Acceptance Criteria
 
-**Version:** 3.2.0  
+**Version:** 3.2.0
 **Last Updated:** 2026-04-16
 
 ---
@@ -21,4 +21,4 @@
 
 ## Cross-References
 
-- [Overview](./00-overview.md)
+- [Overview](./readme.md)

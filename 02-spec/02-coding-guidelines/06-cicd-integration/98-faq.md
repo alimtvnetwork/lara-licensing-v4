@@ -180,7 +180,7 @@ LINTERS_VERSION=v3.9.0 \
 
 The installer verifies the SHA-256 of the downloaded ZIP against the
 checksum embedded in the release notes — see
-[`05-distribution.md`](./05-distribution.md).
+[`05-distribution.md`](./06-distribution.md).
 
 ### ZIP download
 
@@ -219,12 +219,12 @@ run so audit trails always show what enforced what:
 
 ## Cross-References
 
-- [SARIF Contract](./01-sarif-contract.md)
-- [Rules Mapping](./06-rules-mapping.md)
-- [Distribution](./05-distribution.md)
-- [Performance](./07-performance.md)
+- [SARIF Contract](./02-sarif-contract.md)
+- [Rules Mapping](./07-rules-mapping.md)
+- [Distribution](./06-distribution.md)
+- [Performance](./08-performance.md)
 - [Acceptance Criteria](./97-acceptance-criteria.md)
 
 ---
 
-*Part of [CI/CD Integration](./00-overview.md)*
+*Part of [CI/CD Integration](./readme.md)*

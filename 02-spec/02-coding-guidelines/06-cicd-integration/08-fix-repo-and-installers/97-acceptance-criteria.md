@@ -83,10 +83,13 @@
 ## How to run the matrix
 
 ```bash
+
 # All installer + fix-repo + visibility tests
+
 bash tests/installer/run-tests.sh
 
 # CODE RED check on the 8 scripts
+
 bash linters-cicd/run-all.sh --path . --format text
 ```
 

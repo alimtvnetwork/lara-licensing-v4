@@ -1,7 +1,7 @@
 # Cross-Language Rule: No Raw Negations — Use Positive Guard Functions
 
-> **Version:** 2.1.0  
-> **Updated:** 2026-03-31  
+> **Version:** 2.1.0
+> **Updated:** 2026-03-31
 > **Applies to:** PHP, TypeScript, Go
 
 ---
@@ -30,8 +30,9 @@ Raw negations are easy to miss during code review, cause cognitive overhead, and
 ### Key: Every negative check becomes a **positively named function**
 
 The function name must express the **positive assertion** of what is being checked:
+
 - "is missing" not "is not existing"
-- "is disabled" not "is not active"  
+- "is disabled" not "is not active"
 - "is empty" not "is not filled"
 - "is disconnected" not "is not connected"
 
@@ -73,6 +74,7 @@ if (BooleanHelpers::isClassMissing('PDO')) {
 ```
 
 **Utility classes:**
+
 - `PathHelper` (`RiseupAsia\Helpers\PathHelper`) — file/directory guards
 - `BooleanHelpers` (`RiseupAsia\Helpers\BooleanHelpers`) — function/class/extension/database guards
 
@@ -270,16 +272,15 @@ a second column.
 | `IsEnabled`      | `IsDisabled()`              | `!IsEnabled` |
 | `HasLicense`     | `HasNoLicense()`            | `!HasLicense` |
 
-> **Spec:** [Database Naming Conventions — Rule 9: Auto-Generated Inverted (Computed) Fields](../../04-database-conventions/01-naming-conventions.md#rule-9-auto-generated-inverted-computed-fields-in-code)
+> **Spec:** [Database Naming Conventions — Rule 9: Auto-Generated Inverted (Computed) Fields](../../04-database-conventions/02-naming-conventions.md#rule-9-auto-generated-inverted-computed-fields-in-code)
 >
-> **Codegen:** [`linters-cicd/codegen/`](../../../linters-cicd/codegen/README.md) emits the inverse methods/traits/getters for Go, PHP, and TypeScript automatically.
+> **Codegen:** [`linters-cicd/codegen/`](../../../linters-cicd/codegen/readme.md) emits the inverse methods/traits/getters for Go, PHP, and TypeScript automatically.
 >
 > **Linter:** `BOOL-NEG-001` blocks `Not`/`No`-prefixed column names from being introduced via migration.
 
 ---
 
 ## When Raw `!` Is Still Acceptable
-
 
 Raw negation is **only** acceptable for:
 
@@ -324,13 +325,13 @@ Raw negation is **only** acceptable for:
 
 ## Cross-References
 
-- [Boolean Principles Overview](./02-boolean-principles/00-overview.md) — Is/Has prefix rules and parent index
-- [Database Naming — Rule 9 (Inverted Fields)](../../04-database-conventions/01-naming-conventions.md#rule-9-auto-generated-inverted-computed-fields-in-code) — DB-side inverse contract + codegen
-- [PHP Boolean Logic](../04-php/07-php-standards-reference/03-initialization-and-booleans.md#boolean-logic) — PHP-specific helpers
-- [PHP Forbidden Patterns](../04-php/02-forbidden-patterns.md) — Pattern 4.x
-- [Cross-Language Code Style](./04-code-style/00-overview.md) — Braces, nesting, spacing
-- [TypeScript Standards](../02-typescript/08-typescript-standards-reference.md)
-- [Golang Standards](../03-golang/04-golang-standards-reference/00-overview.md)
+- [Boolean Principles Overview](./02-boolean-principles/readme.md) — Is/Has prefix rules and parent index
+- [Database Naming — Rule 9 (Inverted Fields)](../../04-database-conventions/02-naming-conventions.md#rule-9-auto-generated-inverted-computed-fields-in-code) — DB-side inverse contract + codegen
+- [PHP Boolean Logic](../04-php/07-php-standards-reference/04-initialization-and-booleans.md#boolean-logic) — PHP-specific helpers
+- [PHP Forbidden Patterns](../04-php/03-forbidden-patterns.md) — Pattern 4.x
+- [Cross-Language Code Style](./04-code-style/readme.md) — Braces, nesting, spacing
+- [TypeScript Standards](../02-typescript/09-typescript-standards-reference.md)
+- [Golang Standards](../03-golang/04-golang-standards-reference/readme.md)
 
 ---
 

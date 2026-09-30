@@ -1,9 +1,9 @@
 # Generic Return Types — No interface{}/any/object Returns
 
-> **Parent:** [Cross-Language Overview](./00-overview.md)  
-> **Version:** 1.0.0  
-> **Updated:** 2026-04-02  
-> **AI Confidence:** Production-Ready  
+> **Parent:** [Cross-Language Overview](./readme.md)
+> **Version:** 1.0.0
+> **Updated:** 2026-04-02
+> **AI Confidence:** Production-Ready
 > **Ambiguity:** None
 
 ## Keywords
@@ -239,8 +239,8 @@ type OrderResult = Result<Order, AppError>;
 ## Cross-References
 
 - [Strict Typing](./13-strict-typing.md) — all parameters and returns must be explicitly typed
-- [Casting Elimination Patterns](./03-casting-elimination-patterns.md) — centralize casts at boundaries
+- [Casting Elimination Patterns](./04-casting-elimination-patterns.md) — centralize casts at boundaries
 - [Boolean Flag Methods](./24-boolean-flag-methods.md) — split methods instead of returning different types
-- [AppError Result Types](../../03-error-manage/02-error-architecture/06-apperror-package/01-apperror-reference/03-result-types.md) — Go Result[T] pattern
+- [AppError Result Types](../../03-error-manage/02-error-architecture/06-apperror-package/01-apperror-reference/04-result-types.md) — Go Result[T] pattern
 
 ---

@@ -1,6 +1,6 @@
 # Consistency Report — Rust Coding Standards
 
-**Version:** 3.2.0  
+**Version:** 3.2.0
 **Last Updated:** 2026-04-16
 
 ---
@@ -9,7 +9,7 @@
 
 | Criterion | Status |
 |-----------|--------|
-| `00-overview.md` present | ✅ |
+| `readme.md` present | ✅ |
 | `97-acceptance-criteria.md` present | ✅ |
 | `99-consistency-report.md` present | ✅ |
 | Lowercase kebab-case naming | ✅ |
@@ -23,8 +23,8 @@
 
 | # | File | Status |
 |---|------|--------|
-| 00 | `00-overview.md` | ✅ Present |
-| 01 | `01-naming-conventions.md` | ✅ Present |
+| 00 | `readme.md` | ✅ Present |
+| 01 | `02-naming-conventions.md` | ✅ Present |
 | 02 | `02-error-handling.md` | ✅ Present |
 | 03 | `03-async-patterns.md` | ✅ Present |
 | 04 | `04-memory-safety.md` | ✅ Present |

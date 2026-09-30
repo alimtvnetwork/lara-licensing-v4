@@ -1,7 +1,7 @@
 # Consistency Report: PHP Standards
 
-**Version:** 3.2.0  
-**Generated:** 2026-03-31  
+**Version:** 3.2.0
+**Generated:** 2026-03-31
 **Health Score:** 100/100 (A+)
 
 ---
@@ -10,12 +10,12 @@
 
 | # | File | Status |
 |---|------|--------|
-| 1 | `00-overview.md` | ✅ Present |
+| 1 | `readme.md` | ✅ Present |
 | 2 | `01-enums.md` | ✅ Present |
 | 3 | `02-forbidden-patterns.md` | ✅ Present |
 | 4 | `03-naming-conventions.md` | ✅ Present |
 | 5 | `05-response-array-standard.md` | ✅ Present |
-| 6 | `07-php-standards-reference/00-overview.md` | ✅ Present |
+| 6 | `07-php-standards-reference/readme.md` | ✅ Present |
 | 7 | `08-spacing-and-imports.md` | ✅ Present |
 | 8 | `09-response-key-type-inventory.md` | ✅ Present |
 | 9 | `10-php-go-consistency-audit.md` | ✅ Present |

@@ -1,8 +1,8 @@
 # Unified CI Pipeline & Quality Gate Specification
 
-**Version:** 3.2.0  
-**Updated:** 2026-04-16  
-**AI Confidence:** Production-Ready  
+**Version:** 3.2.0
+**Updated:** 2026-04-16
+**AI Confidence:** Production-Ready
 **Ambiguity:** None
 
 ---
@@ -17,7 +17,7 @@
 
 | Criterion | Status |
 |-----------|--------|
-| `00-overview.md` present | ✅ |
+| `readme.md` present | ✅ |
 | AI Confidence assigned | ✅ |
 | Ambiguity assigned | ✅ |
 | Keywords present | ✅ |
@@ -87,7 +87,7 @@ Every CI pipeline MUST execute these stages **in order**. A failure in any stage
 | Stage | Command | Spec Reference |
 |-------|---------|----------------|
 | Format | `npx prettier --check .` | — |
-| Lint | `npx eslint . --max-warnings 0` | [TS ESLint](../../02-typescript/11-eslint-enforcement.md) |
+| Lint | `npx eslint . --max-warnings 0` | [TS ESLint](../../02-typescript/12-eslint-enforcement.md) |
 | Type | `npx tsc --noEmit --strict` | — |
 | Test | `npx vitest run --coverage` | — |
 
@@ -161,37 +161,48 @@ Every CI pipeline MUST execute these stages **in order**. A failure in any stage
 ### 4.1 `sonar-project.properties`
 
 ```properties
+
 # Project identification
+
 sonar.projectKey=<project-key>
 sonar.projectName=<project-name>
 sonar.projectVersion=1.0
 
 # Source configuration
+
 sonar.sources=src
 sonar.tests=tests
 sonar.sourceEncoding=UTF-8
 
 # Language-specific coverage reports
+
 # TypeScript / Node.js
+
 sonar.javascript.lcov.reportPaths=coverage/lcov.info
 
 # Go
+
 sonar.go.coverage.reportPaths=coverage.out
 
 # PHP
+
 sonar.php.coverage.reportPaths=coverage.xml
 
 # C# / VB.NET
+
 sonar.cs.opencover.reportsPaths=**/coverage.opencover.xml
 sonar.vbnet.opencover.reportsPaths=**/coverage.opencover.xml
 
 # Python
+
 sonar.python.coverage.reportPaths=coverage.xml
 
 # Rust (community plugin)
+
 # sonar.rust.lcov.reportPaths=lcov.info
 
 # Quality gate thresholds (custom)
+
 sonar.qualitygate.wait=true
 ```
 
@@ -229,7 +240,9 @@ Enable these rules in **every** language profile:
 ## 5. Reference GitHub Actions Workflow
 
 ```yaml
+
 # .github/workflows/quality-gate.yml
+
 name: Quality Gate
 
 on:
@@ -283,7 +296,9 @@ jobs:
 ## 6. Reference GitLab CI Configuration
 
 ```yaml
+
 # .gitlab-ci.yml
+
 stages:
   - format
   - lint
@@ -337,7 +352,9 @@ sonar:
 For repositories containing multiple languages, run language-specific checks in **parallel jobs**:
 
 ```yaml
+
 # GitHub Actions — mono-repo
+
 jobs:
   typescript:
     runs-on: ubuntu-latest
@@ -423,8 +440,8 @@ When a rule must be suppressed:
 
 ## Cross-References
 
-- [Static Analysis Overview](./00-overview.md) — Parent document
-- [TypeScript ESLint Enforcement](../../02-typescript/11-eslint-enforcement.md) — TS linter config
+- [Static Analysis Overview](./readme.md) — Parent document
+- [TypeScript ESLint Enforcement](../../02-typescript/12-eslint-enforcement.md) — TS linter config
 - [Go golangci-lint](./02-go-golangci-lint.md) — Go linter config
 - [PHP PHPCS + PHPStan](./03-php-phpcs-phpstan.md) — PHP linter config
 - [C# StyleCop + Roslyn](./04-csharp-stylecop.md) — C# linter config
@@ -432,7 +449,7 @@ When a rule must be suppressed:
 - [VB.NET Analyzers](./06-vb-dotnet-analyzers.md) — VB.NET linter config
 - [Node.js ESLint](./07-nodejs-eslint.md) — Node.js linter config
 - [Python Ruff](./08-python-ruff.md) — Python linter config
-- [Cross-Language Code Style](../04-code-style/00-overview.md) — Source rules
+- [Cross-Language Code Style](../04-code-style/readme.md) — Source rules
 
 ---
 

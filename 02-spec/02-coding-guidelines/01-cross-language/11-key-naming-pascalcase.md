@@ -128,11 +128,11 @@ Abbreviations follow the same rule as identifiers — capitalize only the first 
 | `"apiURL"` | `"ApiUrl"` |
 | `"httpMethod"` | `"HttpMethod"` |
 
-See [Master Coding Guidelines §1.2](./15-master-coding-guidelines/01-naming-and-database.md#12--abbreviation-standard-all-languages) for the full abbreviation table.
+See [Master Coding Guidelines §1.2](./15-master-coding-guidelines/02-naming-and-database.md#12--abbreviation-standard-all-languages) for the full abbreviation table.
 
 ## 8. Cross-References
 
-- [Master Coding Guidelines §1.1](./15-master-coding-guidelines/00-overview.md) — JSON / API keys row
+- [Master Coding Guidelines §1.1](./15-master-coding-guidelines/readme.md) — JSON / API keys row
 - Go Backend Prompt — PascalCase mandate <!-- external: 02-spec/02-spec-management-software/12-prompts/01-coding-guideline/01-backend-go.md -->
 - Coding Standards Foundation §10 — Log key constants <!-- external: 02-spec/01-general-spec/01-foundation/01-coding-standards-foundation.md -->
 - [Database Naming](./07-database-naming.md) — Column naming
