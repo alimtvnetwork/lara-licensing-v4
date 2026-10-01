@@ -1,5 +1,12 @@
 # Changelog
 
+## [v0.691.8] - 2026-10-01
+
+### Added
+- Synchronize V6 prompts, SQLite task manager, skills, and coding guidelines
+
+---
+
 ## [0.691.0] - 2026-08-10
 
 ### Added
@@ -32,7 +39,6 @@
 - Fixed `tests/lara-reseller-license-preview-bridge.test.ts` to account for expanded license seeds.
 
 ## [0.680.0] - 2026-08-06
-
 
 ### Added
 - Phase B of Plan 18 complete: Seeder & Seed-Mode Foundation.

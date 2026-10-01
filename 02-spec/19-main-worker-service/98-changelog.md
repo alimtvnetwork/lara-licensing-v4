@@ -1,3 +1,9 @@
+## v0.691.8 — 2026-10-01 (Synchronize V6 prompts, SQLite task manager, skills, and coding guidelines)
+
+**Scope:** Version bump. Synchronize V6 prompts, SQLite task manager, skills, and coding guidelines.
+
+---
+
 # 98 — Changelog
 
 **Spec:** `19-main-worker-service`
