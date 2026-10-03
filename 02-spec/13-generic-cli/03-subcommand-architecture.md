@@ -1,6 +1,7 @@
 # Subcommand Architecture
 
 > **Related specs:**
+>
 > - [04-flag-parsing.md](04-flag-parsing.md) — per-command flag parsing within dispatched handlers
 > - [09-help-system.md](09-help-system.md) — `--help` integration for each subcommand
 > - [19-shell-completion.md](19-shell-completion.md) — tab-completion driven by the subcommand registry

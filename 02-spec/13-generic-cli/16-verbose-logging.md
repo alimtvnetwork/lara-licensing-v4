@@ -1,6 +1,7 @@
 # Verbose Logging
 
 > **Related specs:**
+>
 > - [04-flag-parsing.md](04-flag-parsing.md) — `--verbose` flag parsing
 > - [07-error-handling.md](07-error-handling.md) — verbose output for error diagnosis
 > - [15-constants-reference.md](15-constants-reference.md) — logging format constants

@@ -7,6 +7,7 @@ A progress tracker provides real-time visual feedback so the user knows
 what is happening, how far along the operation is, and how it concluded.
 
 > **Related specs:**
+>
 > - [20-terminal-output-design.md](20-terminal-output-design.md) — full terminal
 >   formatting reference (banner, item list, tree, color system, `NO_COLOR` support).
 >   Progress counters follow the same `[current/total]` pattern used in item lists.

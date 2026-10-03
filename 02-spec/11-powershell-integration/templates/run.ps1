@@ -1,7 +1,7 @@
 # PowerShell Build & Run Script — Generic Template
 # Version: 1.3.0
 # Generic template for Go backend + React frontend projects with pnpm PnP support
-# Configure via powershell.json — see 02-spec/powershell-integration/01-configuration-schema.md
+# Configure via powershell.json — see 02-spec/powershell-integration/02-configuration-schema.md
 #
 # USAGE:
 #   Copy this file and powershell.json to your project root.
@@ -69,7 +69,7 @@
 #   Example:
 #     .\run.ps1 -u              # Upload default plugin
 #     .\run.ps1 -u -d           # Upload with debug output
-#     .\run.ps1 -u -pp "C:\custom-plugin"  # Upload custom path
+#     .\run.ps1 -u -pp "/custom-plugin"  # Upload custom path
 #
 # See 02-spec/powershell-integration/ for full documentation.
 
@@ -112,7 +112,7 @@ $ConfigPath = Join-Path $ScriptDir "powershell.json"
 if (-not (Test-Path $ConfigPath)) {
     Write-Host "ERROR: powershell.json not found at: $ConfigPath" -ForegroundColor Red
     Write-Host "Create a powershell.json configuration file in the script directory." -ForegroundColor Yellow
-    Write-Host "See 02-spec/powershell-integration/01-configuration-schema.md for format." -ForegroundColor Yellow
+    Write-Host "See 02-spec/powershell-integration/02-configuration-schema.md for format." -ForegroundColor Yellow
     exit 1
 }
 
@@ -204,7 +204,7 @@ if ($help) {
     Write-Host "  .\run.ps1 -p -f        # Clean build without git pull"
     Write-Host "  .\run.ps1 -u           # Upload default plugin to WordPress"
     Write-Host "  .\run.ps1 -u -d        # Upload with debug output"
-    Write-Host "  .\run.ps1 -u -pp 'C:\path'  # Upload custom plugin path"
+    Write-Host "  .\run.ps1 -u -pp '/path'  # Upload custom plugin path"
     Write-Host ""
     Write-Host "CONFIGURATION:" -ForegroundColor Yellow
     Write-Host "  Config file: $ConfigPath"
@@ -253,7 +253,7 @@ function Format-ElapsedTime($Stopwatch) {
 function Test-Command($Command) {
     $oldPreference = $ErrorActionPreference
     $ErrorActionPreference = 'SilentlyContinue'
-    try { 
+    try {
         $result = Get-Command $Command -ErrorAction SilentlyContinue
         return $null -ne $result
     }
@@ -272,7 +272,7 @@ function Test-IsAdmin {
 }
 
 function Refresh-Path {
-    $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + 
+    $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" +
                 [System.Environment]::GetEnvironmentVariable("Path", "User")
 }
 
@@ -546,7 +546,7 @@ if ($upload) {
     Write-Host "  Upload Mode (-u)" -ForegroundColor Cyan
     Write-Host "========================================" -ForegroundColor Cyan
     Write-Host ""
-    
+
     # Resolve upload config from powershell.json
     $uploadConfig = $Config.upload
     if (-not $uploadConfig) {
@@ -559,37 +559,37 @@ if ($upload) {
         Write-Host '  }' -ForegroundColor Gray
         exit 1
     }
-    
+
     $uploadScript = Resolve-RelativePath $uploadConfig.scriptPath
     $defaultPlugin = Resolve-RelativePath $uploadConfig.defaultPluginPath
     $wpConfig = Resolve-RelativePath $uploadConfig.configPath
-    
+
     if (-not (Test-Path $uploadScript)) {
         Write-Host "ERROR: Upload script not found: $uploadScript" -ForegroundColor Red
         exit 1
     }
-    
+
     # Determine plugin path (CLI override or default from config)
     $targetPlugin = if ($pluginpath -ne "") { $pluginpath } else { $defaultPlugin }
-    
+
     if (-not (Test-Path $targetPlugin)) {
         Write-Host "ERROR: Plugin folder not found: $targetPlugin" -ForegroundColor Red
         exit 1
     }
-    
+
     $pluginName = Split-Path $targetPlugin -Leaf
     Write-Host "  Plugin: $pluginName" -ForegroundColor White
     Write-Host "  Path:   $targetPlugin" -ForegroundColor Gray
-    
+
     # Read config to show site URL
     if (Test-Path $wpConfig) {
         try {
             $wpConfigData = Get-Content $wpConfig -Raw | ConvertFrom-Json
             Write-Host "  Site:   $($wpConfigData.wordPressSiteURL)" -ForegroundColor Gray
-        } catch {}
+        } catch { Write-Warning "  ⚠️  failed to read config $wpConfig: $($_.Exception.Message)" }
     }
     Write-Host ""
-    
+
     # Build JSON config for V2 script
     if (Test-Path $wpConfig) {
         $configContent = Get-Content $wpConfig -Raw | ConvertFrom-Json
@@ -600,11 +600,11 @@ if ($upload) {
         Write-Host "ERROR: Config file not found: $wpConfig" -ForegroundColor Red
         exit 1
     }
-    
+
     # Build V2 arguments
     $v2Args = @("-JsonConfig", $jsonConfig)
     if ($debugmode) { $v2Args += "-DebugMode" }
-    
+
     & $uploadScript @v2Args
     exit $LASTEXITCODE
 }
@@ -616,7 +616,7 @@ if ($install) {
     $stepWatch = [System.Diagnostics.Stopwatch]::StartNew()
     Write-Host "[INSTALL] Installing/updating all dependencies..." -ForegroundColor Cyan
     Write-Host ""
-    
+
     # Frontend
     if ($rebuild) {
         Write-Host "  [Frontend] Rebuild mode: deferring until after force-clean..." -ForegroundColor Yellow
@@ -632,7 +632,7 @@ if ($install) {
         }
         finally { Pop-Location }
     }
-    
+
     # Backend
     Write-Host ""
     Write-Host "  [Backend] Running go mod tidy && go mod download..." -ForegroundColor Yellow
@@ -645,10 +645,10 @@ if ($install) {
         Write-Host "  ✓ Backend dependencies installed" -ForegroundColor Green
     }
     finally { Pop-Location }
-    
+
     $stepWatch.Stop()
     $StepTimes["Install Dependencies"] = $stepWatch.Elapsed
-    
+
     if (-not $rebuild) {
         Write-Host ""
         Write-Host "========================================" -ForegroundColor Cyan
@@ -665,13 +665,13 @@ if ($install) {
 $stepWatch = [System.Diagnostics.Stopwatch]::StartNew()
 if (-not $skipbuild) {
     Write-Host "[3/5] Building React frontend..." -ForegroundColor Yellow
-    
+
     Push-Location $FrontendDir
     try {
         # Force clean
         if ($force) {
             Write-Host "  FORCE MODE: Cleaning build artifacts..." -ForegroundColor Magenta
-            
+
             foreach ($cleanPath in $CleanPaths) {
                 if ($cleanPath -match '\*') {
                     $resolvedPath = Resolve-RelativePath ($cleanPath -replace '\*.*$', '')
@@ -698,7 +698,7 @@ if (-not $skipbuild) {
                     Remove-Item -Recurse -Force $extraPath -ErrorAction SilentlyContinue
                 }
             }
-            
+
             if ($CheckPnpm) {
                 Write-Host "  Clearing pnpm cache..." -ForegroundColor Gray
                 pnpm store prune 2>&1 | Out-Null
@@ -723,14 +723,14 @@ if (-not $skipbuild) {
                     }
                 }
             }
-            
+
             Write-Host "  ✓ Clean complete" -ForegroundColor Magenta
         }
-        
+
         # Check if install needed
         $depsPresent = if ($EffectiveNodeLinker -eq "pnp") { (Test-Path ".pnp.cjs") } else { (Test-Path "node_modules") }
         $NeedsInstall = $install -or (-not $depsPresent)
-        
+
         if (-not $NeedsInstall -and $EffectiveNodeLinker -ne "pnp" -and $RequiredModules.Count -gt 0) {
             foreach ($m in $RequiredModules) {
                 if (-not (Test-Path (Join-Path "node_modules" $m))) {
@@ -745,7 +745,7 @@ if (-not $skipbuild) {
             Invoke-Expression $EffectiveInstallCommand
             if ($LASTEXITCODE -ne 0) { throw "pnpm install failed" }
         }
-        
+
         # Build
         Write-Host "  Running: $BuildCommand" -ForegroundColor Gray
         $oldNodeOptions = $env:NODE_OPTIONS
@@ -757,16 +757,16 @@ if (-not $skipbuild) {
             if ($LASTEXITCODE -ne 0) { throw "Build failed" }
         }
         finally { $env:NODE_OPTIONS = $oldNodeOptions }
-        
+
         Write-Host "  ✓ Frontend built successfully" -ForegroundColor Green
     }
     finally { Pop-Location }
-    
+
     $stepWatch.Stop()
     $StepTimes["Frontend Build"] = $stepWatch.Elapsed
     Write-Host "  ⏱ $(Format-ElapsedTime $stepWatch)" -ForegroundColor DarkGray
     Write-Host ""
-    
+
     # STEP 4: COPY BUILD TO BACKEND
     $stepWatch = [System.Diagnostics.Stopwatch]::StartNew()
     if ($TargetDir) {
@@ -822,7 +822,7 @@ Push-Location $BackendDir
 try {
     $BackendConfigPath = Join-Path $BackendDir $ConfigFile
     $BackendConfigExample = Join-Path $BackendDir $ConfigExampleFile
-    
+
     if (-not (Test-Path $BackendConfigPath)) {
         if (Test-Path $BackendConfigExample) {
             Write-Host "  Creating $ConfigFile from $ConfigExampleFile..." -ForegroundColor Gray
@@ -831,7 +831,7 @@ try {
             Write-Host "  WARNING: No $ConfigFile found" -ForegroundColor Yellow
         }
     }
-    
+
     if ($DataDir -and -not (Test-Path $DataDir)) {
         New-Item -ItemType Directory -Path $DataDir -Force | Out-Null
     }
@@ -839,7 +839,7 @@ try {
     if ($openfirewall) {
         Ensure-FirewallRules -PortList $Ports
     }
-    
+
     $TotalStopwatch.Stop()
     Write-Host ""
     Write-Host "========================================" -ForegroundColor Cyan
@@ -849,7 +849,7 @@ try {
     Write-Host "  Build time: $(Format-ElapsedTime $TotalStopwatch)" -ForegroundColor Cyan
     Write-Host "========================================" -ForegroundColor Cyan
     Write-Host ""
-    
+
     Invoke-Expression $RunCommand
 }
 finally { Pop-Location }

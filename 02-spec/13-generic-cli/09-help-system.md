@@ -1,6 +1,7 @@
 # Help System
 
 > **Related specs:**
+>
 > - [03-subcommand-architecture.md](03-subcommand-architecture.md) — dispatch pattern that triggers help
 > - [04-flag-parsing.md](04-flag-parsing.md) — `--help` flag handling within flag sets
 > - [19-shell-completion.md](19-shell-completion.md) — completion that references help metadata
@@ -20,6 +21,7 @@ toolname/helptext/<command-name>.md
 ## Help File Format
 
 ```markdown
+
 # toolname <command>
 
 <One-line description>

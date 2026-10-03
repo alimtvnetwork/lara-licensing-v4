@@ -1,8 +1,9 @@
 # Implementation Checklist
 
 > **Related specs:**
-> - [01-overview.md](00-overview.md) — design philosophy guiding each phase
-> - [02-project-structure.md](02-project-structure.md) — scaffold phase package layout
+>
+> - [readme.md](readme.md) — design philosophy guiding each phase
+> - [02-project-03-structure.md](./02-project-structure.md) — scaffold phase package layout
 > - [11-build-deploy.md](11-build-deploy.md) — build and deploy phase details
 
 ## Instructions for AI
@@ -10,6 +11,7 @@
 This is a sequenced implementation plan. Execute each phase in order.
 Reference the numbered spec files for detailed patterns.
 All constraints from `08-code-style.md` apply to every file you write.
+
 - After any Go refactor or file split, run `go test ./<affected-package>` immediately.
 - Do not leave unused imports or stale symbols for a later cleanup pass.
 
@@ -114,8 +116,15 @@ All constraints from `08-code-style.md` apply to every file you write.
 - [ ] For installer scripts, print a post-install summary with version, binary path, install directory, and PATH target/status
 - [ ] Implement `update` command with copy-and-handoff self-update
 - [ ] Implement `update-cleanup` command for artifact removal
+- [ ] Implement post-install shell wrapper per [21-post-install-shell-activation.md](21-post-install-shell-activation.md):
+  - [ ] Add `<TOOL>_WRAPPER` constant + `ShellWrapperMarkerPrefix`/`Suffix` constants
+  - [ ] Create `setup/wrapper.go` with `DetectShell`, `ResolveProfilePath`, `InjectSnippet`, `RemoveSnippet`, `TryInSessionActivate`, `PrintReloadInstruction`
+  - [ ] Wire wrapper injection into `setup` (and installer); attempt in-session activation, fall back to printed reload one-liner
+  - [ ] Add `doctor` check returning `LOADED` / `INSTALLED_BUT_NOT_LOADED` / `NOT_INSTALLED`
+  - [ ] Emit stderr warning from every shell-dependent subcommand when `<TOOL>_WRAPPER` is unset
+  - [ ] Tests: fresh injection, re-injection (no duplicates), marker-based removal, all three `doctor` states
 
-**Verify:** `./run.ps1` builds, deploys, and prints correct version; `./toolname update` works
+**Verify:** `./run.ps1` builds, deploys, and prints correct version; `./toolname update` works; `./toolname setup` activates the wrapper in the current shell (or prints the exact reload command); `./toolname doctor` reports `LOADED`
 
 ---
 
@@ -126,6 +135,7 @@ All constraints from `08-code-style.md` apply to every file you write.
 - [ ] Add unit tests for `formatter` (capture output via `io.Writer`)
 - [ ] Add unit tests for `store` (in-memory SQLite)
 - [ ] Add integration tests under `tests/` for command flag parsing
+- [ ] Add wrapper tests: snippet injection (fresh), re-injection (idempotent), marker-based removal, `doctor` status detection
 - [ ] Verify all tests pass: `go test ./...`
 
 **Verify:** `go test ./...` — zero failures
@@ -134,7 +144,7 @@ All constraints from `08-code-style.md` apply to every file you write.
 
 ## Phase 10: Polish
 
-- [ ] Update `README.md` with grouped command reference + examples
+- [ ] Update `readme.md` with grouped command reference + examples
 - [ ] Verify all files ≤ 200 lines (split if exceeded)
 - [ ] Verify all functions ≤ 15 lines (extract helpers if exceeded)
 - [ ] Verify every edited Go file has zero unused imports after refactors

@@ -1,0 +1,99 @@
+# 06 — AppFault Package Migration & Package Stutter Elimination
+
+> **Created:** 2026-09-01
+> **Version:** 3.3.0
+> **Severity:** Medium (Architectural Hygiene & AI Consistency)
+
+---
+
+## 1. Executive Summary & Problem
+
+In earlier iterations of the Go backend error architecture, structured errors were housed in package `apperror` with struct `AppError`. This caused stuttering in signatures and call sites:
+
+```go
+// ❌ Redundant package stutter
+import "pkg/apperror"
+
+func validate() *apperror.AppError
+```
+
+When an attempt was made to rename the struct to `Fault` (`*apperror.Fault`), it introduced naming inconsistencies across multi-language projects where TypeScript, PHP, Python, and C# use `AppError`.
+
+---
+
+## 2. Root Cause & Decision
+
+To maintain the universal **AppError** struct/class standard across all supported languages while completely eliminating Go package stutter, the package was renamed to **appfault**:
+
+```text
+┌─────────────────────────────────────────────────────────────┐
+│                   CANONICAL GO ERROR TYPES                  │
+├─────────────────────────────────────────────────────────────┤
+│ Package:      package appfault                              │
+│ Import Path:  "coding-guidelines/common/pkg/appfault"       │
+│ Struct Name:  type AppError struct                          │
+│ Type Signature: *appfault.AppError                          │
+│ Result:       result.Result[T] / appfault.Result[T]         │
+│ Monadic Call: res.AppError() / res.Fault()                  │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 3. Code Migration Reference for AI Agents
+
+### 3.1 Function Return Signatures
+
+```go
+// ❌ OLD
+func FindUser(id int64) *apperror.AppError
+func FindUser(id int64) *apperror.Fault
+
+// ✅ NEW (Canonical Standard)
+func FindUser(id int64) *appfault.AppError
+```
+
+### 3.2 Constructors & Context Chaining
+
+```go
+// ✅ NEW (Canonical Standard)
+return appfault.NewSimple("user.find", appfault.ErrDatabaseNotFound.String())
+
+return appfault.NewWithDetails(
+    "auth.login",
+    "E1001",
+    "invalid credentials",
+    "auth_service",
+    appfault.ErrorTypeValidation,
+    appfault.SeverityError,
+    map[string]any{"username": username},
+)
+
+return appfault.Wrap(err, "http.request", map[string]any{"url": url}).
+    WithStatusCode(502).
+    WithSiteId(siteId)
+```
+
+### 3.3 Monadic Result Usage & Concrete Types
+
+```go
+// types.go:
+// type PluginResult = result.Result[Plugin]
+
+// ✅ Standard Result Usage with concrete named type
+func QueryPlugin(id int64) PluginResult {
+    if id <= 0 {
+        return result.NewFailureWithType[Plugin]("E1001", "id must be positive", "repo.query")
+    }
+
+    return result.SuccessResult(Plugin{ID: id, Name: "Optimizer"})
+}
+```
+
+---
+
+## 4. Verification & Prevention
+
+1. **Clean Directory Structure:** `04-code/golang/pkg/` contains `appfault`, `logger`, and `result`. No `apperror` directory exists.
+2. **Quality Gates:** Local CI/CD pipeline (`python 03-ai-scripts/06-cicd-local-runner.py`) enforces strict relative paths, line limits, and compile hygiene.
+3. **AI Rule:** AI agents encountering legacy `apperror` references MUST convert imports to `pkg/appfault` and signatures to `*appfault.AppError`.

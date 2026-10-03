@@ -1,6 +1,7 @@
 # Configuration Pattern
 
 > **Related specs:**
+>
 > - [04-flag-parsing.md](04-flag-parsing.md) — CLI flags that override config values
 > - [10-database.md](10-database.md) — SQLite persistence complementing file-based config
 > - [15-constants-reference.md](15-constants-reference.md) — constant naming for config keys

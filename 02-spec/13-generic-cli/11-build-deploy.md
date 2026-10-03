@@ -1,7 +1,8 @@
 # Build & Deploy
 
 > **Related specs:**
-> - [02-project-structure.md](02-project-structure.md) — package layout that the build targets
+>
+> - [02-project-03-structure.md](./02-project-structure.md) — package layout that the build targets
 > - [12-testing.md](12-testing.md) — tests that run as part of the build pipeline
 > - [13-checklist.md](13-checklist.md) — implementation phases including build setup
 

@@ -1,6 +1,7 @@
 # Error Handling
 
 > **Related specs:**
+>
 > - [15-constants-reference.md](15-constants-reference.md) — error message constants (`Err*` naming)
 > - [16-verbose-logging.md](16-verbose-logging.md) — verbose debug output for error diagnosis
 > - [18-batch-execution.md](18-batch-execution.md) — continue-on-failure pattern for batch operations

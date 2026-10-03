@@ -1,6 +1,7 @@
 # Flag Parsing
 
 > **Related specs:**
+>
 > - [03-subcommand-architecture.md](03-subcommand-architecture.md) — dispatch pattern that invokes per-command flag parsers
 > - [05-configuration.md](05-configuration.md) — config layers that provide flag defaults
 > - [18-batch-execution.md](18-batch-execution.md) — example of `--all` / `--group` flag parsing

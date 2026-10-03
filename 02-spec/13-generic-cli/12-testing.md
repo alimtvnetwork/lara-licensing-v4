@@ -1,9 +1,10 @@
 # Testing
 
 > **Related specs:**
+>
 > - [08-code-style.md](08-code-style.md) — code style rules that tests must also follow
 > - [11-build-deploy.md](11-build-deploy.md) — build pipeline that executes tests
-> - [02-project-structure.md](02-project-structure.md) — test file placement within the package layout
+> - [02-project-03-structure.md](./02-project-structure.md) — test file placement within the package layout
 
 ## Test Structure
 

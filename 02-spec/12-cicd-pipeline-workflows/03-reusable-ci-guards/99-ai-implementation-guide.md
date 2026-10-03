@@ -51,7 +51,7 @@ REQUEST: "Add CI guards to <repo>"
 
 Always implement in this order — each builds on the previous:
 
-1. **Shared scaffolding** — create `.github/scripts/` with a `README.md`
+1. **Shared scaffolding** — create `.github/scripts/` with a `readme.md`
    listing every guard's purpose and exit codes
 2. **Test aggregator (Pattern 06)** — gives reviewers immediate value
 3. **Baseline-diff lint gate (Pattern 04)** — biggest CI quality win
@@ -147,7 +147,7 @@ jobs:
       - run: bash .github/scripts/test-summary.sh ./test-artifacts
 ```
 
-Apply the [shared conventions](../01-shared-conventions.md):
+Apply the [shared conventions](../03-shared-conventions.md):
 exact-version pinning, `working-directory:` instead of `cd`,
 least-privilege permissions.
 
@@ -157,7 +157,7 @@ least-privilege permissions.
 
 | Mistake | Why It's Wrong | Correct Approach |
 |---------|---------------|------------------|
-| Use `@latest` for actions or tools | Breaks reproducibility silently | Pin every version per [shared conventions](../01-shared-conventions.md) |
+| Use `@latest` for actions or tools | Breaks reproducibility silently | Pin every version per [shared conventions](../03-shared-conventions.md) |
 | Use 3-arg `match()` in awk | Fails on mawk (default GH runner) with no error | Use 2-arg `match()` + `RSTART` / `RLENGTH` |
 | Skip string-literal awareness in extractor | False positives from SQL keywords | Track raw-string + quote state per file |
 | Sort baseline in non-C locale | `comm -23` produces phantom diffs | `LC_ALL=C sort -u` everywhere |
@@ -178,7 +178,7 @@ Before declaring an integration done, the AI MUST:
 2. Trigger a deliberate violation (e.g. add `func runOne(){}`) and
    confirm the guard exits `1` with a useful annotation
 3. Verify the workflow YAML passes `actionlint` (or any equivalent)
-4. Document each guard in `.github/scripts/README.md` with one-line
+4. Document each guard in `.github/scripts/readme.md` with one-line
    summary, invocation, and exit-code legend
 
 ---
@@ -200,9 +200,9 @@ answers:
 
 ## Cross-References
 
-- [00-overview.md](./00-overview.md) — Pattern inventory
-- [01-shared-conventions.md](../01-shared-conventions.md) — Pinning, triggers, permissions
-- [Coding Guidelines (Cross-Language)](../../02-coding-guidelines/01-cross-language/15-master-coding-guidelines/00-overview.md)
+- [readme.md](./readme.md) — Pattern inventory
+- [03-shared-conventions.md](../03-shared-conventions.md) — Pinning, triggers, permissions
+- [Coding Guidelines (Cross-Language)](../../02-coding-guidelines/01-cross-language/15-master-coding-guidelines/readme.md)
 - [Linters CI/CD Integration](../../02-coding-guidelines/06-cicd-integration/97-acceptance-criteria.md)
 
 ---

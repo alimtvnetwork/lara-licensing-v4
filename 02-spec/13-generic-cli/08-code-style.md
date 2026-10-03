@@ -1,7 +1,8 @@
 # Code Style Rules
 
 > **Related specs:**
-> - [02-project-structure.md](02-project-structure.md) — package layout these rules apply within
+>
+> - [02-project-03-structure.md](./02-project-structure.md) — package layout these rules apply within
 > - [12-testing.md](12-testing.md) — test conventions that complement code style
 > - [15-constants-reference.md](15-constants-reference.md) — naming conventions for constants
 

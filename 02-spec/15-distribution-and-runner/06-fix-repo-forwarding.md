@@ -3,7 +3,7 @@
 **Version:** 1.0.0
 **Updated:** 2026-04-27
 **Status:** Normative
-**Companion to:** [02-runner-contract.md](./02-runner-contract.md)
+**Companion to:** [03-runner-contract.md](./03-runner-contract.md)
 **Inner scripts:** `fix-repo.sh`, `fix-repo.ps1`
 **Inner spec:** [`spec-authoring/22-fix-repo/01-spec.md`](../../spec-authoring/22-fix-repo/01-spec.md)
 
@@ -108,6 +108,7 @@ function Assert-FixRepoPresent {
 }
 
 # dispatch (inlined — no wrapper Invoke-FixRepo function):
+
 "fix-repo" {
     $inner = Assert-FixRepoPresent
     Write-FixRepoDebugPreflight -Inner $inner -Argv $args

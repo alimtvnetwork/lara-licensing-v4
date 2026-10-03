@@ -1,6 +1,7 @@
 # Terminal Output Design — Rich CLI Report Formatting
 
 > **Related specs:**
+>
 > - [06-output-formatting.md](06-output-formatting.md) — multi-format output strategy this spec details for terminal
 > - [15-constants-reference.md](15-constants-reference.md) — format string and color constants
 > - [17-progress-tracking.md](17-progress-tracking.md) — progress counters following the `[current/total]` pattern
@@ -413,10 +414,10 @@ filename, and a short description.
   ■ Output Files
   ──────────────────────────────────────────
 
-  📁 D:\projects\.toolname\output/
+  📁 /projects/.toolname/output/
   ├── 📄 data.csv  Data in CSV format
   ├── 📄 data.json  Data in JSON format
-  ├── 📄 structure.md  Folder tree
+  ├── 📄 03-structure.md  Folder tree
   ├── 📄 clone.ps1  PowerShell clone script
   ├── 📄 direct-clone.ps1  Plain clone commands (HTTPS)
   ├── 📄 direct-clone-ssh.ps1  Plain clone commands (SSH)
@@ -509,9 +510,9 @@ plain, unformatted confirmation lines.
 ### Format
 
 ```
-CSV written to D:\projects\.toolname\output\data.csv
-JSON written to D:\projects\.toolname\output\data.json
-Structure written to D:\projects\.toolname\output\structure.md
+CSV written to /projects/.toolname/output/data.csv
+JSON written to /projects/.toolname/output/data.json
+Structure written to /projects/.toolname/output/03-structure.md
 Database updated: 41 items upserted
 ```
 

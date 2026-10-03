@@ -1,9 +1,10 @@
 # Local Database
 
 > **Related specs:**
+>
 > - [05-configuration.md](05-configuration.md) — config layer that coexists with DB persistence
 > - [18-batch-execution.md](18-batch-execution.md) — DB-based repo loading for batch operations
-> - [02-project-structure.md](02-project-structure.md) — `store/` package placement for DB code
+> - [02-project-03-structure.md](./02-project-structure.md) — `store/` package placement for DB code
 
 ## Overview
 
@@ -28,6 +29,7 @@ No C compiler required.
 ### Auto-Creation
 
 On first data-producing command:
+
 1. Check if database exists.
 2. If missing, create it and initialize all tables.
 3. Upsert data into tables.
@@ -114,6 +116,7 @@ ON CONFLICT(AbsolutePath) DO UPDATE SET
 ## DB-First Lookup with Fallback
 
 Commands that resolve items by slug:
+
 1. Try the database first.
 2. Fall back to JSON file if database doesn't exist.
 
