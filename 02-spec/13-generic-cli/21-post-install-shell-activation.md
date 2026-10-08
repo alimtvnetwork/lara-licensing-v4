@@ -1,10 +1,11 @@
 # Post-Install Shell Activation — Generic CLI Spec
 
 > **Related specs:**
+>
 > - [11-build-deploy.md](11-build-deploy.md) — install/deploy step that places the binary on PATH
 > - [19-shell-completion.md](19-shell-completion.md) — completion install uses the same profile-injection pattern
 > - [13-checklist.md](13-checklist.md) — implementation phases that include setup
-> - Implementation reference: [06-version-and-help.md](../12-cicd-pipeline-workflows/06-version-and-help.md) — shell-integrated commands and help output
+> - Implementation reference: [12-version-and-help.md](../12-cicd-pipeline-workflows/12-version-and-help.md) — shell-integrated commands and help output
 > - Historical sibling-app issue references live outside this repo; this spec keeps the activation contract local
 
 ## Purpose
@@ -32,9 +33,9 @@ This contract eliminates the "PATH not active after install" and
 
 ---
 
-## Required Behaviours
+## Required Behaviors
 
-| ID | Behaviour | Required For |
+| ID | Behavior | Required For |
 |----|-----------|--------------|
 | PIA-1 | `setup` writes shell snippet to user's profile, idempotent via marker comment. | All shells |
 | PIA-2 | `setup` exports a shell-detection env var (e.g. `<TOOL>_WRAPPER=1`) so the binary can tell if the wrapper is active. | All shells |
@@ -79,36 +80,52 @@ matching closing marker so the CLI can rewrite or remove it without
 disturbing surrounding content:
 
 ```
+
 # <tool> shell wrapper v2 — managed by `<tool> setup`. Do not edit manually.
+
 ...snippet body...
+
 # <tool> shell wrapper v2 end
+
 ```
 
 ### PowerShell (`$PROFILE`)
 
 ```powershell
+
 # toolname shell wrapper v2 — managed by `toolname setup`. Do not edit manually.
+
 $env:TOOLNAME_WRAPPER = "1"
 function gcd { Set-Location (toolname cd @args) }
+
 # toolname shell wrapper v2 end
+
 ```
 
 ### Bash / Zsh (`~/.bashrc`, `~/.zshrc`)
 
 ```bash
+
 # toolname shell wrapper v2 — managed by `toolname setup`. Do not edit manually.
+
 export TOOLNAME_WRAPPER=1
 gcd() { cd "$(toolname cd "$@")" ; }
+
 # toolname shell wrapper v2 end
+
 ```
 
 ### Fish (`~/.config/fish/config.fish`)
 
 ```fish
+
 # toolname shell wrapper v2 — managed by `toolname setup`. Do not edit manually.
+
 set -gx TOOLNAME_WRAPPER 1
 function gcd; cd (toolname cd $argv); end
+
 # toolname shell wrapper v2 end
+
 ```
 
 The detection variable name MUST follow `<TOOL>_WRAPPER` (uppercased,
@@ -198,15 +215,16 @@ Detection algorithm:
 Any subcommand that requires the wrapper (typically anything that
 would change the parent shell's CWD or env) MUST detect missing
 wrapper state and print a stderr warning, then continue with reduced
-behaviour where possible:
+behavior where possible:
 
 ```
   ⚠ Shell wrapper not active. The current command will print the path
     instead of changing directory. Run `toolname setup` (and reload
-    your shell) to enable shell-integrated behaviour.
+    your shell) to enable shell-integrated behavior.
 ```
 
 The warning text MUST include both:
+
 1. The action the user should run (`toolname setup`).
 2. The reload step required after setup (`. $PROFILE`, `source ~/.<rc>`).
 
