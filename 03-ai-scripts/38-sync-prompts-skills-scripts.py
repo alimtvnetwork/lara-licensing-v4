@@ -83,6 +83,8 @@ TARGET_REPOS = [
     WORK_ROOT / "wp-html-automate",
     WORK_ROOT / "wp-link-manager",
     WORK_ROOT / "wp-onboarding",
+    WORK_ROOT / "seo-writing" / "alim-seo-writing",
+    WORK_ROOT / "seo-packages",
 ]
 
 def get_sync_dirs() -> list[tuple[str, str, bool]]:
@@ -665,6 +667,18 @@ def sync_repo(target: Path, is_dry_run: bool = False, is_no_push: bool = False) 
             if legacy_dir.exists():
                 shutil.rmtree(legacy_dir, ignore_errors=True)
 
+        # Purge deprecated scripts superseded by native gitmap agent commands
+        for dep_script in (
+            "03-ai-scripts/46-agent-sqlite-task-manager.py",
+            ".agents/scripts/46-agent-sqlite-task-manager.py",
+        ):
+            dep_path = target / dep_script
+            if dep_path.exists():
+                try:
+                    dep_path.unlink()
+                except Exception:
+                    pass
+
     # 4. Mirror directories and conditional coding guidelines cleanly
     total_copied = 0
     total_removed = 0
@@ -711,7 +725,7 @@ def sync_repo(target: Path, is_dry_run: bool = False, is_no_push: bool = False) 
     # 6. Commit changes on base branch and push
     run_cmd("git add -A", target)
     commit_msg = (
-        "feat(sync): sync v6 prompts, sqlite task manager, skills, and coding guidelines"
+        "feat(sync) - sync canonical prompts, skills, gitmap agent standards, and purge deprecated 46 task manager"
     )
     code, out, err = run_cmd(f'git commit -m "{commit_msg}"', target)
 
@@ -782,7 +796,7 @@ def sync_repo(target: Path, is_dry_run: bool = False, is_no_push: bool = False) 
 
     if is_ver_updated:
         run_cmd("git add -A", target)
-        run_cmd(f'git commit -m "chore(version): bump to {release_tag}"', target)
+        run_cmd(f'git commit -m "chore(version) - bump to {release_tag}"', target)
 
     run_cmd(
         f'git tag -a {release_tag} -m "Release {release_tag} - Synchronize prompts, skills, AI scripts, and coding guidelines"',
@@ -795,7 +809,7 @@ def sync_repo(target: Path, is_dry_run: bool = False, is_no_push: bool = False) 
 
     # Merge back into base branch and push
     run_cmd(f"git checkout {base_branch}", target)
-    run_cmd(f'git merge {release_branch} -m "chore(release): merge {release_tag} [skip ci]"', target)
+    run_cmd(f'git merge {release_branch} -m "chore(release) - merge {release_tag} [skip ci]"', target)
 
     if not is_no_push:
         p_code, p_out, p_err = run_cmd(f"git push origin {base_branch}", target)
