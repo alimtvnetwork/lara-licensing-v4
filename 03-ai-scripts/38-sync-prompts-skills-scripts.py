@@ -83,14 +83,13 @@ TARGET_REPOS = [
     WORK_ROOT / "wp-html-automate",
     WORK_ROOT / "wp-link-manager",
     WORK_ROOT / "wp-onboarding",
-    WORK_ROOT / "seo-writing" / "alim-seo-writing",
-    WORK_ROOT / "seo-packages",
 ]
 
 def get_sync_dirs() -> list[tuple[str, str, bool]]:
     """Build dynamic sync directory mappings including shared specs 01 to 20."""
     dirs: list[tuple[str, str, bool]] = [
         ("01-prompts", "01-prompts", False),
+        # Skills update from the canonical set. Local-only skill folders are kept.
         (".agents/skills", ".agents/skills", False),
         (".cursor/skills", ".cursor/skills", False),
         ("03-ai-scripts", "03-ai-scripts", True),
@@ -395,6 +394,12 @@ def copy_single_file(
     return 0
 
 
+def keeps_local_skill_dirs(dst: Path) -> bool:
+    """True for the two skill roots. Canonical skills still update. Target-only skills stay."""
+    norm = str(dst).replace("\\", "/").rstrip("/").lower()
+    return norm.endswith("/.agents/skills") or norm.endswith("/.cursor/skills")
+
+
 def mirror_directory(
     src: Path,
     dst: Path,
@@ -409,6 +414,9 @@ def mirror_directory(
       - Existing scripts modified by repo are NEVER overwritten.
       - Unmodified scripts have upstream prioritized.
       - New scripts from src are added.
+
+    Skill roots (`.agents/skills`, `.cursor/skills`) update canonical skills and
+    never delete a skill folder that exists only in the target repository.
 
     Memory & plans protection (Boundary 4):
       - Never delete or overwrite target repo memory or plans.
@@ -432,53 +440,12 @@ def mirror_directory(
     if not is_dry_run:
         dst.mkdir(parents=True, exist_ok=True)
 
-    # 1. Clean stale files/dirs in dst that are no longer in src (SKIPPED in additive mode)
-    if not is_additive_only:
-        if dst.exists():
-            for root, dirs, files in os.walk(dst, topdown=False):
-                rel_root = Path(root).relative_to(dst)
-                src_root = src / rel_root
+    # 1. Clean stale files/dirs in dst that are no longer in src.
+    # User Mandate & Non-Destructive Invariant: Under NO circumstances should any additional file
+    # created or updated by the target repository on its own be removed. The sync engine must be
+    # strictly non-destructive for repo-owned files: only update/replace canonical assets and add
+    # new canonical assets. Stale file deletion in target repositories is strictly disabled.
 
-                for f in files:
-                    dst_file = Path(root) / f
-                    src_file = src_root / f
-
-                    if f in EXCLUDE_NAMES:
-                        continue
-
-                    if dst_file.suffix.lower() in EXCLUDE_EXTS:
-                        continue
-
-                    if is_spec_21(dst_file):
-                        continue
-
-                    if is_protected_memory_or_plan(dst_file):
-                        continue
-
-                    if not src_file.exists():
-                        if not is_dry_run:
-                            dst_file.unlink(missing_ok=True)
-
-                        removed += 1
-
-                for d in dirs:
-                    dst_dir = Path(root) / d
-                    src_dir = src_root / d
-
-                    if d in EXCLUDE_NAMES:
-                        continue
-
-                    if is_spec_21(dst_dir):
-                        continue
-
-                    if is_protected_memory_or_plan(dst_dir):
-                        continue
-
-                    if not src_dir.exists():
-                        if not is_dry_run:
-                            shutil.rmtree(dst_dir, ignore_errors=True)
-
-                        removed += 1
 
     # 2. Copy files from src to dst
     for root, dirs, files in os.walk(src):
