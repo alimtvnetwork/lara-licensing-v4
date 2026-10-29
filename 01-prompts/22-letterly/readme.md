@@ -17,10 +17,13 @@ This collection contains deterministic prompt transformation templates designed 
 | **09** | [`09-execute-with-verification-letterly.md`](09-execute-with-verification-letterly.md) | Execute + Retrospective Audit | Formats input into execute N-steps with mandatory retrospective AI verification at task end | `execute-parent-task-with-n-steps-v6` / `ai-verification` |
 | **10** | [`10-execute-with-release-letterly.md`](10-execute-with-release-letterly.md) | Execute + Minor Release | Formats input into execute N-steps followed directly by green CI verification and minor release | `execute-parent-task-with-n-steps-v6` / `minor-bump` |
 | **11** | [`11-git-pull-first-letterly.md`](11-git-pull-first-letterly.md) | Git Pull First | Formats input into pull-first execution directives ensuring gitmap pull runs before any work | `execute-parent-task-with-n-steps-v6` |
+| **12** | [`12-muse-long-update-letterly.md`](12-muse-long-update-letterly.md) | Muse Long Update | Formats input into Muse long-running overnight execution with gitmap update first, rate-limited gitmap pa / repo pull, autopilot ambiguity logging, pragmatic commits, and conditional CI release | `execute-parent-task-with-n-steps-v6` |
+| **13** | [`13-muse-sleepy-letterly.md`](13-muse-sleepy-letterly.md) | Muse Sleepy Mode | Formats input into "I am sleepy" autopilot execution with repo pull first, closest-choice ambiguity resolution, morning review log, no-build/no-test default, and pragmatic commits | `execute-parent-task-with-n-steps-v6` |
+| **14** | [`14-execute-recommit-time-restricted-letterly.md`](14-execute-recommit-time-restricted-letterly.md) | Recommit & Time-Restricted | Formats voice dictation with on-call time restrictions (< 08:00 AM weekdays, anytime weekends in target timezone), recommit instructions, autobot identity, and V7 execution engine | `execute-parent-task-with-n-steps-v7` |
 
 ### Cursor Prompt Suite (`23-cursor-prompts/`)
 
-For Cursor environments requiring `.cursor/skills/` resolution, see [`../23-cursor-prompts/readme.md`](../23-cursor-prompts/readme.md) which houses the dedicated Cursor prompt suite (`01-mobile-letterly-cursor.md` through `11-git-pull-first-letterly-cursor.md`).
+For Cursor environments requiring `.cursor/skills/` resolution, see [`../23-cursor-prompts/readme.md`](../23-cursor-prompts/readme.md) which houses the dedicated Cursor prompt suite (`01-mobile-letterly-cursor.md` through `14-execute-recommit-time-restricted-letterly-cursor.md`).
 
 ## Core Invariants
 
@@ -29,7 +32,7 @@ For Cursor environments requiring `.cursor/skills/` resolution, see [`../23-curs
 3. **Mandatory Canonical Skill Triggers:** Every formatted prompt must conclude with its designated canonical skill trigger: `[<skill-name>](file;.agents/skills/<skill-name>)`.
 4. **Standard Letterly Suffix:** All prompt files in this directory strictly carry the `-letterly.md` file suffix.
 5. **Strict Relative Git Paths Only:** Only add the relative paths, never add the absolute path during your work, and ensure this is respected on the release page and in release notes as well.
-6. **400-Step Lifecycle Budget:** All execution prompts declare a continuous 400-step lifecycle budget self-loop (Phase 1: 100 plan, Phase 2: 150 intermediate/archival, Phase 3: 150 implementation/sync).
+6. **Decoupled Execution Engine:** Letterly prompts remain generic and decoupled from internal engine step budgeting; lifecycle execution parameters and concurrency are encapsulated directly within the invoked skills (e.g. `execute-parent-task-with-n-steps-v6`).
 7. **Heatmap Telemetry & Write Collision Mandate:** All Letterly formatters embed the GitMap Heatmap one-liner (`gitmap heatmap discuss` / `gitmap heatmap log` / `gitmap heatmap live`) to track in-flight file touches, prevent write collisions across parallel agent swarms ($A = 3$, Capacity = 6), and transparently report 3-tier database locations.
 
 ## GitMap Heatmap One-Liner Integration

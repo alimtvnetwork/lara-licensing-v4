@@ -17,6 +17,9 @@ This directory contains deterministic prompt transformation templates specifical
 | **09** | [`09-execute-with-verification-letterly-cursor.md`](09-execute-with-verification-letterly-cursor.md) | Execute + Retrospective Audit | Formats input into execute N-steps with mandatory retrospective AI verification at task end | `execute-parent-task-with-n-steps-v6` / `ai-verification` |
 | **10** | [`10-execute-with-release-letterly-cursor.md`](10-execute-with-release-letterly-cursor.md) | Execute + Minor Release | Formats input into execute N-steps followed directly by green CI verification and minor release | `execute-parent-task-with-n-steps-v6` / `minor-bump` |
 | **11** | [`11-git-pull-first-letterly-cursor.md`](11-git-pull-first-letterly-cursor.md) | Git Pull First | Formats input into pull-first execution directives ensuring gitmap pull runs before any work | `execute-parent-task-with-n-steps-v6` |
+| **12** | [`12-muse-long-update-letterly-cursor.md`](12-muse-long-update-letterly-cursor.md) | Muse Long Update | Formats input into Muse long-running overnight execution with gitmap update first, rate-limited gitmap pa / repo pull, autopilot ambiguity logging, pragmatic commits, and conditional CI release | `execute-parent-task-with-n-steps-v6` |
+| **13** | [`13-muse-sleepy-letterly-cursor.md`](13-muse-sleepy-letterly-cursor.md) | Muse Sleepy Mode | Formats input into "I am sleepy" autopilot execution with repo pull first, closest-choice ambiguity resolution, morning review log, no-build/no-test default, and pragmatic commits | `execute-parent-task-with-n-steps-v6` |
+| **14** | [`14-execute-recommit-time-restricted-letterly-cursor.md`](14-execute-recommit-time-restricted-letterly-cursor.md) | Recommit & Time-Restricted | Formats voice dictation with on-call time restrictions (< 08:00 AM weekdays, anytime weekends in target timezone), recommit instructions, autobot identity, and V7 Cursor execution engine | `execute-parent-task-with-n-steps-v7` |
 
 ## Core Invariants
 
@@ -25,7 +28,7 @@ This directory contains deterministic prompt transformation templates specifical
 3. **Mandatory Canonical Skill Triggers:** Every formatted prompt must conclude with its designated canonical skill trigger: `[<skill-name>](file;.cursor/skills/<skill-name>)`.
 4. **Standard Cursor Suffix:** All prompt files in this directory strictly carry the `-letterly-cursor.md` file suffix.
 5. **Strict Relative Git Paths Only:** Only add the relative paths, never add the absolute path during your work, and ensure this is respected on the release page and in release notes as well.
-6. **400-Step Lifecycle Budget:** All execution prompts declare a continuous 400-step lifecycle budget self-loop (Phase 1: 100 plan, Phase 2: 150 intermediate/archival, Phase 3: 150 implementation/sync).
+6. **Decoupled Execution Engine:** Cursor prompts remain generic and decoupled from internal engine step budgeting; lifecycle execution parameters and concurrency are encapsulated directly within the invoked skills (e.g. `execute-parent-task-with-n-steps-v6`).
 7. **Heatmap Telemetry & Collision Prevention:** All formatters enforce tracking in-flight file touches, avoiding write collisions across concurrent subagents, and querying cognitive graphs via GitMap Heatmap (`gitmap heatmap discuss` / `gitmap heatmap log` / `gitmap heatmap live`) with transparent 3-tier database location reporting.
 
 ## GitMap Heatmap One-Liner Integration
