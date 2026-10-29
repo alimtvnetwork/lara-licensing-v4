@@ -75,3 +75,9 @@ Short version, in order:
 8. `.ai-memory/suggestions.md` (pending suggestions)
 9. `.ai-memory/pending-tasks/` and `.ai-memory/pending-issues/` (open work)
 10. Task-specific spec under `02-spec/`
+
+## Memory
+
+- .ai-memory/memory/readme.md
+- .ai-memory/memory/learned/01-recent-session-2026-10-29.md
+- .ai-memory/plans/readme.md

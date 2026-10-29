@@ -49,3 +49,5 @@ Last updated: 2026-07-15
 ## Conflict Resolution
 
 If a rule here conflicts with a `spec/**` file, the folder-level spec wins for that domain. Call out the conflict in the reply and open a follow-up to reconcile this file.
+- Do not store a personal access token inside a git remote URL. Use SSH.
+- Do not commit Go coverage profiles or SQLite `-shm` and `-wal` sidecars.
