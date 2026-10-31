@@ -1,12 +1,12 @@
 {
   "syncManifest": {
     "manifestVersion": "1.0.0",
-    "generatedAt": "2026-10-31T15:23:37Z",
+    "generatedAt": "2026-10-31T15:58:58Z",
     "sourceAuthority": "gitmap",
-    "assetCount": 1369,
+    "assetCount": 1370,
     "sectionHashes": {
       "prompts": "b65fad912a5ea103023a3412b422613b10028007105614ea65eec74fdb8478fb",
-      "scripts": "21ca4185ea7d5251a01e2c2cc50481e32e3230e10d6e7b2eba7e9ea65dced41f",
+      "scripts": "230074e6a3f24707c4bb752dd4814dee9e12b8272186c2c35be1ee14d2cf94f0",
       "skills": "0656c6a9d944d173411b733ee01ac052a3d611d292db36478df2173718c1e426",
       "specs": "0c74e59e8ea4d80c883fbcfd8392480c8b98edb5caa0304ef4912a9d66d9150c"
     },
@@ -1367,6 +1367,7 @@
       "02-spec/19-main-worker-service/images/04-endpoint-service-full-overview.png": "fe81dfddeb4433e1a16f0595b2eb6f019775dc148488c23be68f1ab3bad2ffba",
       "02-spec/19-main-worker-service/images/readme.md": "ab08d6565c08190063200484841177c8c737d72f54c8146b1cc54602b9039e5b",
       "02-spec/19-main-worker-service/readme.md": "34986cbe54750f5931eea7f99e895f3f8fdf5cbda4fac8121e4503580b9c6183",
+      "03-ai-scripts/__pycache__/02-shared-engine.cpython-313.pyc": "992d3dd22217e61b86c1176ac1b9031698897dd173d0fffd0c8f7bea8b7a1cef",
       "03-ai-scripts/fix-spec-cross-links.py": "f4b4e963bebadcc40d49974c6908887ce92a329d7d2bf6182c59a8c4ad578561",
       "03-ai-scripts/generate-ui-remote-registry.py": "cd58c955671394b4bed7430a083a827704dc22e8505a88febc5d04355166dd78",
       "03-ai-scripts/update_categories.py": "f5698951ec94e19f55e5b89dbb959c057e7e47582c601154ad1378aa2959bb32",
