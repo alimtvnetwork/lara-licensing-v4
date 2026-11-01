@@ -5,7 +5,7 @@ description: Autonomously inspect files, track in-flight touches without UDF fla
 
 # GitMap Heatmap & File Inspection Skill (`gitmap-heatmap`)
 
-> **Invocation:** `@[gitmap-heatmap](file;.cursor/skills/gitmap-heatmap)`
+> **Invocation:** `@[gitmap-heatmap](file;.agents/skills/gitmap-heatmap)`
 
 ## Mission & Purpose
 This skill provides authoritative architectural guidance, CLI commands, and execution rules for inspecting files, tracking cognitive traces, logging agent actions, and preventing file write collisions using GitMap's SQLite Heatmap tier (`repodb/heatmap.db` and `<EffectiveDataDir>/heatmap.db`).
@@ -57,3 +57,23 @@ gitmap rc heatmap tree
 gitmap rc heatmap live
 gitmap rc heatmap sync
 ```
+
+---
+
+## 3. High-Speed Fleet Synchronization
+
+When synchronizing coding guidelines, prompts, and skills across connected repositories:
+
+```bash
+# High-speed fleet sync with Stat/ModTime-first fast-path (<100ms)
+gitmap cg sync [targets...] [--dry-run]
+
+# Synchronize skills only
+gitmap cg skill sync [targets...]
+
+# Fast sync gitmap skill specifically
+gitmap skill-sync [targets...]
+```
+
+- **Stat & ModTime-First Invariant:** Target files with matching size and `ModTime` are skipped in `<0.001ms` without computing SHA-256.
+- **Human Edit Preservation (Zero Data Loss):** Local edits are preserved untouched, and conflicts produce `<file>.upstream` sidecars.

@@ -7,15 +7,6 @@ description: Autonomous developer companion and CLI for ultra-fast repository sc
 
 > **Invocation:** `@[gitmap](file;.agents/skills/gitmap)`
 
-## Overview
-GitMap is an ultra-fast developer companion and autonomous CLI engine designed for AI coding agents and software engineers.
-
-- **Lead Architect & Author:** MD ALIM UL KARIM (alimtvnetwork)
-- **Sponsored By:** RISEUP ASIA LLC (https://riseup-asia.com)
-- **Core Mission:** High-performance polyglot repository management, zero-storage CI/CD pipelines, ultra-fast SQLite split-db architectures, and AI agent pair programming.
-
----
-
 ## Non-Negotiable Command Replacement Matrix (DO NOT USE X; USE GITMAP Y)
 
 All AI agents operating within GitMap-managed repositories MUST strictly adhere to the following command substitution matrix. Raw shell traversal and slow unbuffered tools are strictly banned:
@@ -54,6 +45,7 @@ All AI agents operating within GitMap-managed repositories MUST strictly adhere 
 | ❌ Ad-hoc Python network scrapers or image link extractors (e.g. `python -c "import urllib.request, re..."`, `fetch_urls.py`, curl pipes to scrape `prnt.sc`/lightshot/screenshot URLs) | ✅ `gitmap prnt <url1> [url2...] [--extract-only] [--json]` (aliases: `gitmap download-prnt`, `gitmap asset download-prnt`) | Native compiled parallel fetching, multi-tier CDN regex resolution, User-Agent emulation, zero external dependencies, and automatic bidirectional Antigravity Brain synchronization. |
 | ❌ Raw `curl`, `wget`, `Invoke-WebRequest`, or custom Python/Go HTTP fetchers for web resources | ✅ `gitmap url read <url>` (aliases: `gitmap url <url>`, `gitmap get <url>`) | Dedicated SQLite Split-DB (`repodb/url_cache.db`), WAL mode, sub-millisecond retrieval (<0.5ms), unbuffered `output.Raw()` streaming, SHA-256 caching. TOTAL BAN on raw curl/wget. |
 | ❌ Ad-hoc Python file/image copying scripts (`python -c "import os, shutil; shutil.copyfile(...)"`), PIL/Pillow inspection one-liners (`python -c "from PIL import Image..."`), raw PowerShell `Copy-Item`, `New-Item -ItemType Directory`, or shell `cp` for documentation assets | ✅ `gitmap image transfer <src> [dst]` or `gitmap image transfer --latest [name.png]` (aliases: `gitmap img transfer`, `gitmap image cp`, `gitmap asset transfer`, `gitmap media transfer`) | Native compiled Go file stream copy (<5ms), automatic parent directory creation (`os.MkdirAll`), relative Git-root anchoring, SHA-256 deduplication, zero Python runtime dependencies, and instant Markdown embed snippet generation (`![Alt](relative/path)`). TOTAL BAN on ad-hoc Python shutil scripts and PowerShell Copy-Item. |
+| ❌ Ad-hoc Python scripts querying or exporting prompts and attachments (`python -c "import sqlite3..."`), dumping conversation history to disk manually | ✅ `gitmap pdb list` / `gitmap pdb show <id>` / `gitmap pdb extract <id>` / `gitmap pdb ui` / `gitmap pdb export <id>` | Compiled native Go SQLite Split-DB (`prompt.db`) with analytical views, on-demand attachment extraction to `$TEMP/gitmap-prompt-cache/<slug>/` with Antigravity reference markdown links `[Attachment: <title> (<seq>)](file;<path>)`, and Tokyo Night browser visualizer. |
 | ❌ Single-stream downloads for files $\ge 1\text{--}2\text{ MB}$ | ✅ GitMap 10-split segmented parallel download engine with `aria2c` fallback | Dynamic $\ge 1\text{--}2\text{ MB}$ threshold; host `aria2c -s 10 -x 10 -k 5K` or native Go 10-goroutine Range worker pool writing via `io.NewOffsetWriter` with 5KB chunking. |
 | ❌ Grepping repository filesystem or guessing past agent decisions | ✅ `gitmap heatmap` or `gitmap rc heatmap --repo <alias>` | 3-tier database inventory, alias mappings via `db.ListAliasesWithRepo()`, recent tasks across 2–5 repos, dynamic suggestion pills. TOTAL BAN on filesystem grepping for agent traces. |
 | ❌ Modifying shared files blindly without checking multi-agent contention | ✅ `gitmap heatmap discuss` or `gitmap agent heatmap` | Ranks write claims, active leases, and collision blast radius across agents (<5ms). Prevents file lock crashes and concurrent overwrites. |
@@ -62,6 +54,41 @@ All AI agents operating within GitMap-managed repositories MUST strictly adhere 
 | ❌ `taskkill /F /PID <pid>`, `tasklist`, `kill -9`, raw `Stop-Process` | ✅ `gitmap kill <pid|name|:port> [--force] [--tree]` (alias: `gitmap terminate`), `gitmap ports [port]` | Safe cross-platform process termination with PID/port/name validation, caller self-protection guards, and graceful or forced two-stage shutdown. |
 | ❌ Manual pwsh "Move-Item ...; Copy-Item ...", taskkill + copy on locked running binaries | ✅ `gitmap swap-binary [--from <path>] [--to <path>] [--kill] [--reopen]` | Safely generates an OS script (.ps1 or .sh), closes locking PIDs, rotates active binary to .old, copies new binary, and reopens/verifies version without locked file crashes. |
 | ❌ Raw directory inspection of Tauri apps (`dir src-tauri`, `Get-ChildItem src-tauri`) | ✅ `gitmap lf src-tauri`, `gitmap aum search "<pattern>" src-tauri`, `gitmap pe -f tauri` | High-speed directory inventory and pipeline error filtering optimized for Tauri/Rust desktop projects. |
+
+---
+
+### ⚡ High-Speed File Inspection & Positional Line Slicing (`gitmap cat`)
+
+**TOTAL BAN on Ad-hoc Node.js / Python Line Slicers:**
+Never write one-liners like:
+```bash
+# ❌ STRICTLY BANNED: Never run inline Node or Python scripts to read/slice lines!
+node -e "const fs = require('fs'); const lines = fs.readFileSync('path/to/file', 'utf8').split('\n'); for (let i = 2045; i < 2058; i++) console.log(i + 1, lines[i]);"
+python -c "lines = open('path/to/file').readlines(); print(''.join(lines[2045:2058]))"
+```
+
+**✅ MANDATORY: Use `gitmap cat` with native Go line range slicing:**
+GitMap parses line numbers and ranges with complete flexibility, sub-millisecond execution, gutter line numbers, and automatic RC Heatmap telemetry:
+```bash
+# Style 1: Positional start and end (easiest & cleanest!)
+gitmap cat src/components/instances/PromptTreeView/DetailHeader.tsx 2045 2058
+
+# Style 2: Positional range string
+gitmap cat src/components/instances/PromptTreeView/DetailHeader.tsx 2045:2058
+gitmap cat src/components/instances/PromptTreeView/DetailHeader.tsx 2045-2058
+
+# Style 3: Path with colon line numbers (compiler / grep format)
+gitmap cat src/components/instances/PromptTreeView/DetailHeader.tsx:2045:2058
+gitmap cat src/components/instances/PromptTreeView/DetailHeader.tsx:2045-2058
+
+# Style 4: GitHub / Markdown link format
+gitmap cat src/components/instances/PromptTreeView/DetailHeader.tsx#L2045-L2058
+gitmap cat src/components/instances/PromptTreeView/DetailHeader.tsx#L2045
+
+# Style 5: Explicit flag syntax
+gitmap cat src/components/instances/PromptTreeView/DetailHeader.tsx -L 2045:2058
+```
+All styles automatically print Tokyo Night formatted lines with gutter line numbers, file line totals, byte sizes, and log actions to `.ai-memory/heatmap.db`. Pass `--raw` for unadorned line output.
 
 ---
 
