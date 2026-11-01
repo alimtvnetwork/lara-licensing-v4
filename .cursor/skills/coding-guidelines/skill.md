@@ -68,25 +68,181 @@ When auditing, applying fixes, or creating skills, navigate and respect these ca
 
 ## Canonical Folder Structure & Sizing Rules (Embedded Contract)
 
-Every AI agent and developer must strictly adhere to this central repository layout and sizing rules:
+> **Synchronization:** Single Source of Truth Mirror for `.ai-memory/folder-structure.md` and `01-prompts/00-folder-structure/01-canonical-folder-structure.md`
 
-### 1. Repository Layout Standard
-- `01-prompts/`: Canonical AI workflow prompts (read-only reference). Never place scratch scripts here.
-- `02-spec/`: Architectural specifications. Shared chapters `01-*` through `20-*`; domain application specs strictly in `21-app/` through `25-*` (Spec 21 exclusion: never sync domain application specs across repositories).
-- `03-ai-scripts/`: Reusable, additive Python automation scripts (`06-cicd-local-runner.py`, `38-sync-prompts-skills-scripts.py`, etc.).
-- `.agents/`: Antigravity agent configuration: `rules/` (boot rules), `skills/` (agent capabilities), `scripts/` (mirrored helper scripts).
-- `.cursor/`: Cursor IDE configuration: `skills/` (100% hash parity with `.agents/skills/`).
-- `.ai-memory/`: Operational memory & task ledger: `plans/pending/`, `plans/subtasks/`, `plans/completed/`, `memory/`. Never touch or overwrite target repository memory during sync.
-- `assets/`: Media, screenshots, and visual assets (`assets/screenshots/`).
-- `cli/`: Go implementation source code, tests, and CLI entry points.
+Every AI prompt, agent, and engineer MUST strictly adhere to the central repository layout and sizing standards defined below. No invented folders, no alternate paths. All dates are UTC. All filenames are lowercase kebab-case with a two-digit zero-padded `XX-` prefix where sequencing applies (`XX-` is monotonic within its folder scope).
 
-### 2. File and Function Sizing Standards
+### 1. High-Level Architecture Overview & Four Core Domains
+
+GitMap is designed with strict domain separation:
+1. **Source Code & CLI Engine** (`cli/`): Pure Go implementation adhering to strict size limits and error sovereignty.
+2. **Canonical Specifications** (`02-spec/`): The authoritative specifications (modules 01 through 25).
+3. **User Documentation & Visual Assets** (`docs/commands/` & `docs/assets/`): Modular, lowercase command guides and animated terminal SVG demos.
+4. **Agent Intelligence & Memory Core** (`.ai-memory/`): The AI operating environment governing plans, memory, constraints, and operational guidelines.
+
+```text
+/                                      # Root of the repository
+  01-prompts/                          # Canonical AI workflow prompts (read-only reference)
+    00-folder-structure/               # Repository structure specs
+    01-meta-prompts/                   # Meta orchestration and prompt index
+    ...                                # Categorized workflow prompts
+  02-spec/                             # Canonical layered specifications (source of truth)
+    01-spec-authoring-guide/           # Meta-guide for writing and maintaining specs
+    02-coding-guidelines/              # Detailed cross-language coding architectures
+    03-error-manage/                   # Error management, envelopes, error codes
+    04-database-conventions/          # Database schema design, ORM mappings, views
+    05-split-db-architecture/          # Operational vs. configuration DB patterns
+    06-seedable-config-architecture/   # Seedable configuration with versioned changelogs
+    07-design-system/                  # Design tokens, UI component hierarchy, dark mode
+    08-docs-viewer-ui/                 # Documentation viewer UI & presentation system
+    09-code-block-system/              # Syntax highlighting pipeline & interaction system
+    10-research/                       # Technology benchmarks and comparative studies
+    11-powershell-integration/         # PowerShell scripting and automation conventions
+    12-cicd-pipeline-workflows/        # CI/CD workflows, GitHub Actions, quality gates
+    13-generic-cli/                    # Generic CLI UX, terminal colors, flag semantics
+    14-update/                         # CLI self-update architecture & release delivery
+    15-distribution-and-runner/        # Cross-platform installers, runners, forwarding
+    16-generic-release/                # Universal release blueprint & asset matrices
+    17-consolidated-guidelines/        # Single-file AI summaries of all major spec modules
+    18-wp-plugin-how-to/               # WordPress plugin architecture & REST APIs
+    19-main-worker-service/            # Split-tier worker service & proxy nodes
+    21-app/ ... 25-app-spec-audit/     # Application-specific business features & schemas
+  03-ai-scripts/                       # Reusable high-speed Python automation toolchain
+    02-shared-engine.py                # Universal streaming engine, lazy regex, cache
+    06-cicd-local-runner.py            # Local CI runner (18 parallel checks)
+    ...                                # Specialized linters, fixers, and local runners
+  .agents/                             # Antigravity agent configuration
+    rules/                             # Boot rules and mandatory constraints
+    skills/                            # Consolidated core agent capabilities
+    scripts/                           # Mirrored helper automation scripts
+  .cursor/                             # Cursor IDE configuration
+    skills/                            # Mirrored core agent capabilities
+  .ai-memory/                          # AI metadata, cognitive memory, and automation layer
+    readme.md                          # Master repository index and directory router
+    02-user-preferences                # Explicit user communication preferences
+    03-strictly-avoid.md               # Universal hard prohibitions & CODE RED constraints
+    04-suggestions.md                  # Architectural suggestions & pending improvements
+    05-plan.md                         # Active high-level roadmap and milestone tracker
+    06-what-to-read.md                 # Reading sequence and entrypoint priority list
+    folder-structure.md                # 📄 Authoritative Single Source of Truth for Folder Structure
+    coding-guidelines.md               # Root coding guidelines mirror
+    plans/                             # Micro-task execution center
+      readme.md                        # Master registry of active and completed plans
+      pending/                         # High-level active parent plans (xx-<slug>.md)
+      subtasks/                        # Bounded micro-tasks (xx-<slug>/01-step.md)
+      completed/                       # Archived completed parent plans & subtasks
+    memory/                            # Long-term institutional cognitive memory (SINGULAR)
+      readme.md                        # Master table of contents & CODE RED rules
+      architecture/                    # System architecture decisions & split-DB patterns
+      constraints/                     # Non-negotiable technical constraints
+      done/                            # Historical completed milestones
+      features/                        # Feature-specific knowledge and requirements
+      issues/                          # Root cause analyses and bug postmortems
+      patterns/                        # Reusable design and coding patterns
+      processes/                       # Operational and maintenance procedures
+      project/                         # Project metadata and author attributions
+      standards/                       # Coding standards and enum specifications
+      style/                           # Code style and naming conventions
+      suggestions/                     # Granular suggestion trackers
+      workflow/                        # Sprint and migration state trackers
+    prompts/                           # Prompt repository & category hierarchy
+    release/                           # Release automation & version bumping hub
+    question-and-ambiguity/            # Ambiguity resolution & iteration counters
+    suggestions/                       # Detailed suggestion proposals
+    cicd-issues/                       # CI pipeline failure diagnostics and RCAs
+    assets/                            # Mockups, diagrams, and reference media
+  docs/                                # User documentation & visual media
+    assets/                            # Vector animated terminal SVGs (.svg)
+    commands/                          # Modular command & subcommand reference
+  cli/                                 # Go CLI implementation source engine & tests
+  bin/                                 # Compiled executables & local databases
+  readme.md                            # Root gateway & project README
+```
+
+### 2. `.ai-memory/` Internal Taxonomy & Role Map
+
+The `.ai-memory/` directory functions as the cognitive workspace for autonomous AI agents collaborating on the codebase:
+
+| `.ai-memory/` Directory / File | Functional Purpose | Upstream Code / Doc Mapping |
+| :--- | :--- | :--- |
+| **`overview.md`** | High-level project identity, versioning, stack summary, and directory index | Roots `readme.md` & `cli/constants/constants.go` |
+| **`folder-structure.md`** | Canonical architectural blueprint | Maps repo topology to agent execution workflows |
+| **`coding-guidelines.md`** | Root coding guidelines mirror | `02-spec/02-coding-guidelines/` |
+| **`strictly-avoid.md`** | Critical anti-patterns, dangerous commands, and forbidden techniques | Safeguards database, git state, and build tags |
+| **`suggestions.md`** | Backlog of architectural proposals and optimizations | Backlog for future release planning |
+| **`plans/`** | Multi-phase task planning lifecycle (`pending/`, `subtasks/`, `completed/`) | Drives agent task execution engines |
+| **`memory/`** | Long-term cross-session knowledge storage |
+| ├── `features/` | Verified feature capabilities and CLI registries | Maps to `cli/cmd/` and `docs/commands/` |
+| ├── `constraints/` | Invariants, hard limits, and non-negotiables | Maps to `02-spec/02-coding-guidelines/` |
+| ├── `specs/` | Spec synchronization and schema caches | Maps to `02-spec/21-app/` |
+| └── `issues/` | Solved regressions and root-cause post-mortems | Maps to `02-spec/02-app-issues/` |
+| **`prompts/`** | Agent personas, subagent templates, and prompt chains | Referenced by agent execution skills |
+| **`audits/`** | Audit logs verifying compliance with repository standards | Output of continuous CI and verification sweeps |
+| **`release/`** | Release automation, version bump scripts, and issue logs | Maps to `02-spec/16-generic-release/` |
+| **`question-and-ambiguity/`** | Ambiguity resolution & iteration counters | Operational governance |
+
+### 3. Detailed Mapping: Code, Specs, Docs to `.ai-memory/`
+
+- **CLI Commands:**
+  - Implementation: `cli/cmd/<command>.go`
+  - Terminal Help: `cli/helptext/<command>.md`
+  - User Documentation: `docs/commands/<category>/<subcommand>.md`
+  - Animated SVG Visuals: `docs/assets/<category>.svg`
+  - AI Agent Tracking: `.ai-memory/memory/features/cli-commands.md`
+- **Architectural Decisions & Database:**
+  - Master & Split DB Engine: `cli/db/` & `cli/cmd/cmddb_*.go`
+  - Formal Spec: `02-spec/21-app/120-database-suite-and-start-fresh.md`
+  - User Guide: `docs/commands/db/readme.md` & `docs/commands/db/start-fresh.md`
+  - Agent Guidelines: `.ai-memory/coding-guidelines.md` & `.ai-memory/memory/constraints/`
+- **Antigravity (AGY) Integration:**
+  - Implementation: `cli/cmd/agy_*.go`
+  - Formal Spec: `02-spec/21-app/122-antigravity-empty-conversations-pruner.md`
+  - User Guide: `docs/commands/agy/readme.md` & `docs/commands/agy/ls.md`
+  - Visual Demo: `docs/assets/agy.svg`
+  - Agent Prompts: `01-prompts/`
+
+### 4. Numbering Rules (`XX-` Monotonic Sequencing)
+
+1. Two-digit zero-padded, monotonic per folder scope (`01-`, `02-`, ...).
+2. Next `XX-` = max existing `XX-` in that folder scope + 1. Never reuse or decrement.
+3. Plans: `XX-` is monotonic across `pending/`, `subtasks/`, and `completed/` combined.
+
+### 5. Special Default Companion Repositories (`repo-secrets` = `rs` & `repo-cache` = `rc`)
+
+Every workspace operates alongside two fixed special repositories in the work directory (`gitmap settings`):
+1. **`repo-secrets` (shortcut: `rs` / `gitmap cd rs`):**
+   - Stores all repository secrets, `.env` files, tokens, and passwords under `XX-<repo-name>/01-<slug>.ext` (`01-gitmap/01-env.txt`, `02-coding-guidelines/01-api-keys.json`) so standard repositories remain 100% free of secrets and safe to open-source.
+   - Commands (`auto-commits & pushes` automatically):
+     - `gitmap rs file <filepath>`
+     - `gitmap rs folder <folderpath>`
+     - `gitmap rs text "<secret-text>" [--slug <slug>]`
+2. **`repo-cache` / `repo-storage` (shortcut: `rc` / `gitmap cd rc`):**
+   - Stores reusable temporary scripts (`.ps1` PowerShell scripts, shell utilities, diagnostic test items, and benchmark harnesses) under `XX-<repo-name>/01-<slug>.ps1` so any project can reuse them without leaving temporary files in application repositories.
+   - Commands (`auto-commits & pushes` automatically):
+     - `gitmap rc file <script.ps1>`
+     - `gitmap rc folder <folderpath>`
+     - `gitmap rc text "<script-body>" --slug <slug> --ext .ps1`
+
+### 6. Hard Rules & Prohibitions
+
+- **Single Authority:** [`.ai-memory/folder-structure.md`](.ai-memory/folder-structure.md) is the absolute single source of truth.
+- **Strict Plurality:** Always `.ai-memory/memory/` (singular), `.ai-memory/plans/` (plural), `01-prompts/` (plural), `.ai-memory/suggestions/` (plural).
+- **No Orphaned Folders:** Never invent unapproved folders (e.g., `memories/`, `tasks/`, `todos/`).
+- **Relative Paths Only:** All file paths must be relative from the git root. Absolute paths (`C:\...`, `file:///...`) are banned.
+- **Maintenance Invariants for `.ai-memory/`:**
+  1. *Lowercase File Names:* All documentation files and subdirectories created for features must use lowercase names (e.g. `readme.md`, `folder-structure.md`).
+  2. *Modular Granularity:* Do not combine unrelated topics into monolithic files. Separate into topic-specific markdown files and route them via `readme.md` or index files.
+  3. *Traceability:* Every plan created under `.ai-memory/plans/pending/` must cite relevant specs under `02-spec/` and user documentation under `docs/commands/`.
+
+### 7. File and Function Sizing Standards
+
 - **Function Limits**: Functions <= 8 lines preferred, <= 15 lines strict maximum. Any function exceeding 15 lines MUST be decomposed into private single-responsibility helper functions or map dispatch tables.
 - **File Limits**: Preferred file size: 100–300 lines. Strict cap: 500 lines. Split oversized files along logical boundaries (`_ops.go`, `_render.go`, `_types.go`, or subpackages).
 - **Zero Nested Ifs**: Flatten all nested conditionals using guard clauses and early returns. Maximum cyclomatic complexity <= 4 per function.
 - **Whitespace Discipline**: Mandatory blank line after closing brace `}` and mandatory blank line before `return` statements.
 - **Boolean Naming**: All booleans MUST begin with `is*` or `has*` ONLY (`can`, `should`, `was`, `will` are banned). NO negative booleans.
-- **Error Sovereignty**: Leaf functions that declare an error return type MUST return the error directly. Leaf functions MUST NEVER call exit handlers (`cliexit.HandleError`) or `os.Exit` and then return `nil`. Outer callers handle exits.
+- **Error Sovereignty**: Leaf functions that declare an error return type MUST return the error directly (`return err` or `return appfault.Wrap(...)`). Leaf functions MUST NEVER call exit handlers (`cliexit.HandleError`) or `os.Exit` and then return `nil`. Outer callers handle exits.
+- **Total Ban on Ad-hoc Node.js / Python Line Slicers**: Never run inline Node.js (`node -e "const fs = require('fs'); const lines = fs.readFileSync('...', 'utf8').split('\n'); for (let i = A; i < B; i++) console.log(i + 1, lines[i]);"`) or Python (`python -c "open('...').readlines()[A:B]"`) to read or slice lines from files. Always use compiled Go `gitmap cat <file> <start> <end>` or `gitmap cat <file>:<start>:<end>` or `gitmap cat <file>#L<start>-L<end>`, which executes in <5ms, prints gutter line numbers, and logs cognitive exploration to `.ai-memory/heatmap.db`.
 
 ---
 

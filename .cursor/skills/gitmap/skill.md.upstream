@@ -66,6 +66,41 @@ All AI agents operating within GitMap-managed repositories MUST strictly adhere 
 
 ---
 
+### ⚡ High-Speed File Inspection & Positional Line Slicing (`gitmap cat`)
+
+**TOTAL BAN on Ad-hoc Node.js / Python Line Slicers:**
+Never write one-liners like:
+```bash
+# ❌ STRICTLY BANNED: Never run inline Node or Python scripts to read/slice lines!
+node -e "const fs = require('fs'); const lines = fs.readFileSync('path/to/file', 'utf8').split('\n'); for (let i = 2045; i < 2058; i++) console.log(i + 1, lines[i]);"
+python -c "lines = open('path/to/file').readlines(); print(''.join(lines[2045:2058]))"
+```
+
+**✅ MANDATORY: Use `gitmap cat` with native Go line range slicing:**
+GitMap parses line numbers and ranges with complete flexibility, sub-millisecond execution, gutter line numbers, and automatic RC Heatmap telemetry:
+```bash
+# Style 1: Positional start and end (easiest & cleanest!)
+gitmap cat src/components/instances/PromptTreeView/DetailHeader.tsx 2045 2058
+
+# Style 2: Positional range string
+gitmap cat src/components/instances/PromptTreeView/DetailHeader.tsx 2045:2058
+gitmap cat src/components/instances/PromptTreeView/DetailHeader.tsx 2045-2058
+
+# Style 3: Path with colon line numbers (compiler / grep format)
+gitmap cat src/components/instances/PromptTreeView/DetailHeader.tsx:2045:2058
+gitmap cat src/components/instances/PromptTreeView/DetailHeader.tsx:2045-2058
+
+# Style 4: GitHub / Markdown link format
+gitmap cat src/components/instances/PromptTreeView/DetailHeader.tsx#L2045-L2058
+gitmap cat src/components/instances/PromptTreeView/DetailHeader.tsx#L2045
+
+# Style 5: Explicit flag syntax
+gitmap cat src/components/instances/PromptTreeView/DetailHeader.tsx -L 2045:2058
+```
+All styles automatically print Tokyo Night formatted lines with gutter line numbers, file line totals, byte sizes, and log actions to `.ai-memory/heatmap.db`. Pass `--raw` for unadorned line output.
+
+---
+
 ## Essential Command Cheat Sheet
 
 ### 1. Authentication & GitHub Credential Management

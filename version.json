@@ -1,13 +1,13 @@
 {
   "syncManifest": {
     "manifestVersion": "1.0.0",
-    "generatedAt": "2026-11-01T08:43:59Z",
+    "generatedAt": "2026-11-01T09:39:21Z",
     "sourceAuthority": "gitmap",
     "assetCount": 1428,
     "sectionHashes": {
       "prompts": "73a393ae6d2ffbf3e1bb962fa9d81089cf146ae1f11a3227f9db0af9a63a01ed",
       "scripts": "cf669a5476b033bd80525b18516c94e8612ee319f7283f4a02428bfb2d2f22ab",
-      "skills": "3fc33ee517d8bba6a217450fe9529249ef0eed3d5a8a1b2f9f44d2790747e52b",
+      "skills": "2dccd57e6638e7828c8ed5835263511b8ec57e8f4f9f20cf66804f7d53055c81",
       "specs": "c93b065c3b4f68f9531e038f7828fe86fd49a66eaae27893f38dd405fbc7f921"
     },
     "assets": {
@@ -62,7 +62,7 @@
       ".agents/skills/cli-commands-and-help/skill.md": "d1a19375d3871f7f16a576581a836abde8167327ee70f98f6c5dd8b167ddc9c0",
       ".agents/skills/code-dryness-and-library-extraction/skill.md": "588ce51eb9bdfa4e5640fbc3c50e12e56b980eb19e7e7d6c4b16f7f88e75dfd1",
       ".agents/skills/code-hygiene/skill.md": "3b8e732504210baaed24629c744266a3c1852f1be98474289f0cef67de131fdf",
-      ".agents/skills/coding-guidelines/skill.md": "e02ca428f6c77129c1fca1418815485ee2169b5fafeb38db7f353438e55ec466",
+      ".agents/skills/coding-guidelines/skill.md": "d3732e38a649c8c439c3b635c59b751027f49080ff4993402860f148de8b35f3",
       ".agents/skills/commit-and-push-all-repos/skill.md": "7653c99e6e55ceeaf80c4848ad7ba317dfef341192b8d9e332ea40ac8e55f271",
       ".agents/skills/commit-fix-v2/skill.md": "d6dbf59ba1d7106a13a484c200e7ca8e70a629619b3e18a884f86c5f9e12836b",
       ".agents/skills/consolidated-insults-v2/skill.md": "9c8273902951ec06a0b00d921cfa1b3208388d374c18f3daec3ff04792f53830",
@@ -235,7 +235,7 @@
       ".cursor/skills/cli-commands-and-help/skill.md": "6cc0706310430257690f6e6ce1cb337069372ecf13d5d9c2e12495fb151dff17",
       ".cursor/skills/code-dryness-and-library-extraction/skill.md": "588ce51eb9bdfa4e5640fbc3c50e12e56b980eb19e7e7d6c4b16f7f88e75dfd1",
       ".cursor/skills/code-hygiene/skill.md": "6901630fc0088b5a91dc46a018f262f89a9ee20eb1d07ff3dd443453dfc6d3b4",
-      ".cursor/skills/coding-guidelines/skill.md": "2e252bfb4baa79405c915b419cc4e1ba678df10fe3c713afd7d939d835369073",
+      ".cursor/skills/coding-guidelines/skill.md": "bf7c601e7abae21beab114eb296c9f2510fc23933cb350c11d68c198ed44b12e",
       ".cursor/skills/commit-and-push-all-repos/skill.md": "736fbdf8b39b80c4f4288768cd24a95d61383217f931bb00331c5c5193f1a7bf",
       ".cursor/skills/commit-fix-v2/skill.md": "f94e5c51edac04131925903555d32977dc41c51ef20df8b0881341d031760f20",
       ".cursor/skills/consolidated-insults-v2/skill.md": "9c8273902951ec06a0b00d921cfa1b3208388d374c18f3daec3ff04792f53830",
