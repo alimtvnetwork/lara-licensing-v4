@@ -66,6 +66,30 @@ When auditing, applying fixes, or creating skills, navigate and respect these ca
 
 ---
 
+## Canonical Folder Structure & Sizing Rules (Embedded Contract)
+
+Every AI agent and developer must strictly adhere to this central repository layout and sizing rules:
+
+### 1. Repository Layout Standard
+- `01-prompts/`: Canonical AI workflow prompts (read-only reference). Never place scratch scripts here.
+- `02-spec/`: Architectural specifications. Shared chapters `01-*` through `20-*`; domain application specs strictly in `21-app/` through `25-*` (Spec 21 exclusion: never sync domain application specs across repositories).
+- `03-ai-scripts/`: Reusable, additive Python automation scripts (`06-cicd-local-runner.py`, `38-sync-prompts-skills-scripts.py`, etc.).
+- `.agents/`: Antigravity agent configuration: `rules/` (boot rules), `skills/` (agent capabilities), `scripts/` (mirrored helper scripts).
+- `.cursor/`: Cursor IDE configuration: `skills/` (100% hash parity with `.agents/skills/`).
+- `.ai-memory/`: Operational memory & task ledger: `plans/pending/`, `plans/subtasks/`, `plans/completed/`, `memory/`. Never touch or overwrite target repository memory during sync.
+- `assets/`: Media, screenshots, and visual assets (`assets/screenshots/`).
+- `cli/`: Go implementation source code, tests, and CLI entry points.
+
+### 2. File and Function Sizing Standards
+- **Function Limits**: Functions <= 8 lines preferred, <= 15 lines strict maximum. Any function exceeding 15 lines MUST be decomposed into private single-responsibility helper functions or map dispatch tables.
+- **File Limits**: Preferred file size: 100–300 lines. Strict cap: 500 lines. Split oversized files along logical boundaries (`_ops.go`, `_render.go`, `_types.go`, or subpackages).
+- **Zero Nested Ifs**: Flatten all nested conditionals using guard clauses and early returns. Maximum cyclomatic complexity <= 4 per function.
+- **Whitespace Discipline**: Mandatory blank line after closing brace `}` and mandatory blank line before `return` statements.
+- **Boolean Naming**: All booleans MUST begin with `is*` or `has*` ONLY (`can`, `should`, `was`, `will` are banned). NO negative booleans.
+- **Error Sovereignty**: Leaf functions that declare an error return type MUST return the error directly. Leaf functions MUST NEVER call exit handlers (`cliexit.HandleError`) or `os.Exit` and then return `nil`. Outer callers handle exits.
+
+---
+
 ## 1. High-Contrast Code Standards (❌ BAD vs ✅ GOOD Grounded Examples)
 
 ### A. Boolean Evaluation & Naming (P1–P6, R3)

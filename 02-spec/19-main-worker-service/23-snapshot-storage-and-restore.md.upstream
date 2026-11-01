@@ -5,7 +5,7 @@
 **Created:** 2026-05-06
 **Status:** Authoritative (spec-only, per plan §Mode)
 **Resolves:** Locked decision **D14** (date-by-date full snapshot storage on backup; main-controlled restore by date). Closes open question **OQ-A4** — default snapshot retention adopted at **30 days rolling**.
-**Depends on:** [`18-backup-nodes.md`](./19-backup-nodes.md), [`19-incremental-backup-sync.md`](./20-incremental-backup-sync.md), [`20-backup-encryption-and-keys.md`](./21-backup-encryption-and-keys.md), [`21-backup-endpoints.md`](./21-backup-endpoints.md) §6, [`22-backup-apply-logic.md`](./22-backup-apply-logic.md), [`05-auth-and-2fa.md`](./06-auth-and-2fa.md) §S2S.
+**Depends on:** [`18-backup-nodes.md`](./18-backup-nodes.md), [`19-incremental-backup-sync.md`](./19-incremental-backup-sync.md), [`20-backup-encryption-and-keys.md`](./20-backup-encryption-and-keys.md), [`21-backup-endpoints.md`](./21-backup-endpoints.md) §6, [`22-backup-apply-logic.md`](./22-backup-apply-logic.md), [`05-auth-and-2fa.md`](./05-auth-and-2fa.md) §S2S.
 
 ---
 
@@ -30,11 +30,11 @@ Pin the **at-rest** half of the backup story. Phases 6–10 covered registration
 
 Three lifecycle moments, each owned by a single component.
 
-| Moment      | Owner                   | Trigger                                                 | Output                                                                            |
-| ----------- | ----------------------- | ------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| **Build**   | Backup node             | Daily cron at `MainWorker.Backup.Snapshot.BuildHourUtc` | New file under `var/snapshots/<YYYY-MM-DD>.zip` + new `BackupSnapshotCatalog` row |
-| **Catalog** | Backup node             | After successful Build                                  | INSERT into `BackupSnapshotCatalog`; surfaces via BE-4                            |
-| **Restore** | Main → Backup → Primary | Operator BE-3 call                                      | Backup decompresses + signs + ships to primary's restore-inbox                    |
+| Moment | Owner | Trigger | Output |
+|---|---|---|---|
+| **Build** | Backup node | Daily cron at `MainWorker.Backup.Snapshot.BuildHourUtc` | New file under `var/snapshots/<YYYY-MM-DD>.zip` + new `BackupSnapshotCatalog` row |
+| **Catalog** | Backup node | After successful Build | INSERT into `BackupSnapshotCatalog`; surfaces via BE-4 |
+| **Restore** | Main → Backup → Primary | Operator BE-3 call | Backup decompresses + signs + ships to primary's restore-inbox |
 
 Each moment is independent. A failed Build does **not** block the next day's Build (idempotent by date). A failed Restore does not damage the snapshot — Builds are append-only; Restores are read-only.
 
@@ -141,10 +141,10 @@ S4  Emit one summary log line per sweep with (reaped_count, freed_bytes, oldest_
 
 Operator overrides:
 
-| Override              | Mechanism                                                                                                                 | Effect                                                                                                                                                |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Per-pairing retention | Seedable-Config `MainWorker.Backup.SnapshotRetentionDays`                                                                 | Lifts/lowers the global default. Linter `BACKUP-SNAP-002` enforces ≥ 7 days minimum (compliance floor).                                               |
-| Pin a snapshot        | BE-3 sub-route `POST /API/V1/Backup/Snapshot/Pin` (per `21-backup-endpoints.md`) — see §6.1 below for the column contract | Sets `Status='Pinned'` and stamps `PinReason`, `PinnedAtEpoch`, `PinnedByActor`. Pinned rows survive every retention sweep until explicitly unpinned. |
+| Override | Mechanism | Effect |
+|---|---|---|
+| Per-pairing retention | Seedable-Config `MainWorker.Backup.SnapshotRetentionDays` | Lifts/lowers the global default. Linter `BACKUP-SNAP-002` enforces ≥ 7 days minimum (compliance floor). |
+| Pin a snapshot | BE-3 sub-route `POST /API/V1/Backup/Snapshot/Pin` (per `21-backup-endpoints.md`) — see §6.1 below for the column contract | Sets `Status='Pinned'` and stamps `PinReason`, `PinnedAtEpoch`, `PinnedByActor`. Pinned rows survive every retention sweep until explicitly unpinned. |
 
 **No auto-shortening.** The sweep never deletes a snapshot whose date is ≥ cutoff regardless of disk pressure — disk pressure is an operational alert, not a data-loss trigger.
 
@@ -156,12 +156,12 @@ Operator overrides:
 
 **Required column contract on every pin transition (`Available` → `Pinned`):**
 
-| Column          | Required value                                 | Validation                                                                                 |
-| --------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| `Status`        | `'Pinned'`                                     | Enum check (linter `BACKUP-SNAP-005`).                                                     |
-| `PinReason`     | NON-empty TEXT, ≤ 500 chars                    | Free-text per Rule 12 (TEXT NULL on the table — but the pin operation refuses NULL/empty). |
-| `PinnedAtEpoch` | `now()` epoch seconds (D2)                     | Set server-side; client-supplied values rejected.                                          |
-| `PinnedByActor` | One of: `"S2S:<PairingId>"`, `"User:<UserId>"` | Derived from the calling token; never client-supplied.                                     |
+| Column | Required value | Validation |
+|---|---|---|
+| `Status` | `'Pinned'` | Enum check (linter `BACKUP-SNAP-005`). |
+| `PinReason` | NON-empty TEXT, ≤ 500 chars | Free-text per Rule 12 (TEXT NULL on the table — but the pin operation refuses NULL/empty). |
+| `PinnedAtEpoch` | `now()` epoch seconds (D2) | Set server-side; client-supplied values rejected. |
+| `PinnedByActor` | One of: `"S2S:<PairingId>"`, `"User:<UserId>"` | Derived from the calling token; never client-supplied. |
 
 **Unpin transition (`Pinned` → `Available`):** clears all four pin columns in a single transaction. The previous values are preserved in the `EndpointAuthAuditEvent` row written for the pin/unpin call (per `06-core-api-endpoints.md` §5.6) — so the table itself is the **current** state and the audit log is the **history**.
 
@@ -229,9 +229,9 @@ CREATE TABLE BackupRestoreJob (
 
 Symmetric counterpart to BE-1 but flowing **backward**. Cataloged as **BE-6** for Phase-12 merge into `06-core-api-endpoints.md`.
 
-| #    | Method | Path                          | Hosted on          | Auth                                     | Purpose                                                                           |
-| ---- | ------ | ----------------------------- | ------------------ | ---------------------------------------- | --------------------------------------------------------------------------------- |
-| BE-6 | POST   | `/API/V1/Backup/RestoreInbox` | **Primary** Worker | S2S OAuth + scope `Backup.Restore.Apply` | Receive a re-sealed full snapshot from a paired backup; replace App tier offline. |
+| # | Method | Path | Hosted on | Auth | Purpose |
+|---|---|---|---|---|---|
+| BE-6 | POST | `/API/V1/Backup/RestoreInbox` | **Primary** Worker | S2S OAuth + scope `Backup.Restore.Apply` | Receive a re-sealed full snapshot from a paired backup; replace App tier offline. |
 
 Request shape mirrors BE-1 §4.1 (multipart with `Metadata` + `Envelope`) — see `21-backup-endpoints.md` §4.1 for the schema. Differences:
 
@@ -243,22 +243,22 @@ Response (`200 OK`):
 
 ```jsonc
 {
-  "RestoreJobId": "01J...ULID",
-  "AcceptedAtEpoch": 1746528900,
+  "RestoreJobId":         "01J...ULID",
+  "AcceptedAtEpoch":      1746528900,
   "AppTierBytesReplaced": 4194304,
-  "PreviousAppTierSha256": "...",
-  "NewAppTierSha256": "...",
+  "PreviousAppTierSha256":"...",
+  "NewAppTierSha256":     "..."
 }
 ```
 
 Failure codes:
 
-| Trigger                                     | Code                                     |
-| ------------------------------------------- | ---------------------------------------- |
-| Caller scope missing `Backup.Restore.Apply` | `MAIN-100-01 AuthHandshakeFail`          |
-| `Metadata.SnapshotDate` not parseable       | `WORKER-300-03 RequestBodyInvalid`       |
-| Signature verify failure                    | `WORKER-920-05 EnvelopeSignatureInvalid` |
-| Offline import write fails                  | `WORKER-940-02 RestoreImportFailed`      |
+| Trigger | Code |
+|---|---|
+| Caller scope missing `Backup.Restore.Apply` | `MAIN-100-01 AuthHandshakeFail` |
+| `Metadata.SnapshotDate` not parseable | `WORKER-300-03 RequestBodyInvalid` |
+| Signature verify failure | `WORKER-920-05 EnvelopeSignatureInvalid` |
+| Offline import write fails | `WORKER-940-02 RestoreImportFailed` |
 
 ---
 
@@ -266,9 +266,9 @@ Failure codes:
 
 Phase 9 §9 reserved the `Backup` audience for this file. Final wiring:
 
-| Audience | Issuer | Subject                               | Allowed scopes                                                                                            | Consumer   |
-| -------- | ------ | ------------------------------------- | --------------------------------------------------------------------------------------------------------- | ---------- |
-| `Backup` | Main   | A specific Backup or Primary identity | `Backup.Diff.Write`, `Backup.Rotate.Write`, `Backup.Restore.Write`, `Backup.Restore.Apply`, `Backup.Read` | BE-1..BE-6 |
+| Audience | Issuer | Subject | Allowed scopes | Consumer |
+|---|---|---|---|---|
+| `Backup` | Main | A specific Backup or Primary identity | `Backup.Diff.Write`, `Backup.Rotate.Write`, `Backup.Restore.Write`, `Backup.Restore.Apply`, `Backup.Read` | BE-1..BE-6 |
 
 Token claims (per `12-jwt-delivery-contract.md`):
 
@@ -291,13 +291,13 @@ Add a stub note to `05-auth-and-2fa.md` §S2S in Phase 12: "Backup audience defi
 
 ## 10. Tunables introduced (mirrored verbatim into `15-tunable-constants.md` §2.15)
 
-| Key                                                  |  Default | Unit               | Used by  | Notes                                                                                                              |
-| ---------------------------------------------------- | -------: | ------------------ | -------- | ------------------------------------------------------------------------------------------------------------------ |
-| `MainWorker.Backup.SnapshotRetentionDays`            |   **30** | days               | §6 sweep | **Resolves OQ-A4.** Linter `BACKUP-SNAP-002` enforces ≥ 7 (compliance floor).                                      |
-| `MainWorker.Backup.Snapshot.BuildHourUtc`            |    **3** | hour-of-day (0-23) | §3 cron  | Off-peak default; overridable per node.                                                                            |
-| `MainWorker.Backup.Snapshot.QuiesceTimeoutSeconds`   |  **120** | seconds            | §3 B2    | Below `MaxRetriesPerEnvelope × TransactionTimeoutSeconds` (5×30=150) so quiesce never out-races a single envelope. |
-| `MainWorker.Backup.Snapshot.MaxBuildSeconds`         | **1800** | seconds (30 m)     | §3 B3    | Hard ceiling on `sqlite3_backup_step` total elapsed; exceeded → `WORKER-940-03 SnapshotBuildTimeout`.              |
-| `MainWorker.Backup.Restore.PrimaryAckTimeoutSeconds` |  **600** | seconds (10 m)     | §7 R8    | Backup waits this long for the primary's BE-6 200 before flipping `BackupRestoreJob.Status='Failed'`.              |
+| Key | Default | Unit | Used by | Notes |
+|---|---:|---|---|---|
+| `MainWorker.Backup.SnapshotRetentionDays` | **30** | days | §6 sweep | **Resolves OQ-A4.** Linter `BACKUP-SNAP-002` enforces ≥ 7 (compliance floor). |
+| `MainWorker.Backup.Snapshot.BuildHourUtc` | **3** | hour-of-day (0-23) | §3 cron | Off-peak default; overridable per node. |
+| `MainWorker.Backup.Snapshot.QuiesceTimeoutSeconds` | **120** | seconds | §3 B2 | Below `MaxRetriesPerEnvelope × TransactionTimeoutSeconds` (5×30=150) so quiesce never out-races a single envelope. |
+| `MainWorker.Backup.Snapshot.MaxBuildSeconds` | **1800** | seconds (30 m) | §3 B3 | Hard ceiling on `sqlite3_backup_step` total elapsed; exceeded → `WORKER-940-03 SnapshotBuildTimeout`. |
+| `MainWorker.Backup.Restore.PrimaryAckTimeoutSeconds` | **600** | seconds (10 m) | §7 R8 | Backup waits this long for the primary's BE-6 200 before flipping `BackupRestoreJob.Status='Failed'`. |
 
 ---
 
@@ -305,18 +305,18 @@ Add a stub note to `05-auth-and-2fa.md` §S2S in Phase 12: "Backup audience defi
 
 Worker tier (snapshot/restore failures, range `WORKER-940-*` — slots `21204-21207` in the freshly-allocated overflow window from Phase 10):
 
-| Prefixed        |    Flat | HTTP | Name                     | Meaning                                              |
-| --------------- | ------: | ---: | ------------------------ | ---------------------------------------------------- |
-| `WORKER-940-01` | `21204` |  504 | `SnapshotQuiesceTimeout` | B2 quiesce wait exceeded `QuiesceTimeoutSeconds`.    |
-| `WORKER-940-02` | `21205` |  500 | `RestoreImportFailed`    | BE-6 R7 offline import write failed.                 |
-| `WORKER-940-03` | `21206` |  504 | `SnapshotBuildTimeout`   | B3 `sqlite3_backup_step` exceeded `MaxBuildSeconds`. |
-| `WORKER-940-04` | `21207` |  500 | `SnapshotSealFailed`     | B4 AES-256-zip seal raised IO/crypto error.          |
+| Prefixed | Flat | HTTP | Name | Meaning |
+|---|---:|---:|---|---|
+| `WORKER-940-01` | `21204` | 504 | `SnapshotQuiesceTimeout` | B2 quiesce wait exceeded `QuiesceTimeoutSeconds`. |
+| `WORKER-940-02` | `21205` | 500 | `RestoreImportFailed` | BE-6 R7 offline import write failed. |
+| `WORKER-940-03` | `21206` | 504 | `SnapshotBuildTimeout` | B3 `sqlite3_backup_step` exceeded `MaxBuildSeconds`. |
+| `WORKER-940-04` | `21207` | 500 | `SnapshotSealFailed` | B4 AES-256-zip seal raised IO/crypto error. |
 
 Main tier (snapshot integrity, slot `21192` — first free in Phase-11-reserved window per §9.2 of Phase 10):
 
-| Prefixed      |    Flat | HTTP | Name              | Meaning                                                                           |
-| ------------- | ------: | ---: | ----------------- | --------------------------------------------------------------------------------- |
-| `MAIN-840-02` | `21192` |  n/a | `SnapshotCorrupt` | R3 SHA-256 mismatch against `BackupSnapshotCatalog.Sha256Hex`; surfaced via BE-5. |
+| Prefixed | Flat | HTTP | Name | Meaning |
+|---|---:|---:|---|---|
+| `MAIN-840-02` | `21192` | n/a | `SnapshotCorrupt` | R3 SHA-256 mismatch against `BackupSnapshotCatalog.Sha256Hex`; surfaced via BE-5. |
 
 §4 (range table) of `13-error-codes.md` updates: `WORKER-21204-21207` consumed; `MAIN-21192` consumed; `MAIN-21193-21199` reserved for future.
 
@@ -324,13 +324,13 @@ Main tier (snapshot integrity, slot `21192` — first free in Phase-11-reserved 
 
 ## 12. Linter hooks queued for Phase 12
 
-| ID                | Rule                                                                                                                                                               |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `BACKUP-SNAP-001` | Every `BackupSnapshotCatalog.Status='Available'` row MUST have `StoragePath` resolving to a real file under `var/snapshots/` matching `Sha256Hex`.                 |
-| `BACKUP-SNAP-002` | `MainWorker.Backup.SnapshotRetentionDays` MUST be ≥ 7. Compliance floor.                                                                                           |
+| ID | Rule |
+|---|---|
+| `BACKUP-SNAP-001` | Every `BackupSnapshotCatalog.Status='Available'` row MUST have `StoragePath` resolving to a real file under `var/snapshots/` matching `Sha256Hex`. |
+| `BACKUP-SNAP-002` | `MainWorker.Backup.SnapshotRetentionDays` MUST be ≥ 7. Compliance floor. |
 | `BACKUP-SNAP-003` | `BackupSnapshotJob` rows older than 90 days with `Status='Failed'` MUST be either reaped or have a paired `BackupApplyDeadLetter` row — orphaned failures fail CI. |
-| `BACKUP-SNAP-004` | Build pipeline functions MUST be ≤15 lines, zero nested `if`, ≤2 operands per boolean (CODE RED).                                                                  |
-| `BACKUP-SNAP-005` | Every `BackupSnapshotCatalog.Status='Pinned'` row MUST have NON-empty `PinReason`, NON-NULL `PinnedAtEpoch`, and NON-NULL `PinnedByActor` matching `^(S2S:         | User:).+`. Silent pins fail CI. |
+| `BACKUP-SNAP-004` | Build pipeline functions MUST be ≤15 lines, zero nested `if`, ≤2 operands per boolean (CODE RED). |
+| `BACKUP-SNAP-005` | Every `BackupSnapshotCatalog.Status='Pinned'` row MUST have NON-empty `PinReason`, NON-NULL `PinnedAtEpoch`, and NON-NULL `PinnedByActor` matching `^(S2S:|User:).+`. Silent pins fail CI. |
 
 ---
 
@@ -361,15 +361,15 @@ This section formalizes the dispositions of v1.0 open questions so dumb-AI imple
 
 **Rationale.**
 
-| Concern                                             | Flat full snapshots (chosen for v1.0)                                         | Diff pyramid (deferred)                                                                                                                                             |
-| --------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Restore complexity                                  | One file → one decrypt → one re-seal → one BE-6 push                          | N files (base + diffs in date order) → ordered decrypt → reconciliation step → re-seal → BE-6 push                                                                  |
-| Failure modes                                       | A corrupt snapshot loses **one day**                                          | A corrupt base loses **a week**; a corrupt diff loses everything from that diff forward until next base                                                             |
-| Retention sweep                                     | One UPDATE per day's row (§6 S2)                                              | Retention must reason about the entire dependency graph — cannot reap a base while any diff still references it                                                     |
-| Operator mental model                               | "Restore the snapshot from `2026-05-03`"                                      | "Restore the snapshot whose chain resolves to `2026-05-03`"                                                                                                         |
-| Disk savings (target audience: low-write primaries) | Baseline                                                                      | Real but bounded — SQLite page-level diffs of a mostly-static DB are typically 1–5% of full size; absolute saving is small in absolute bytes at v1.0 expected scale |
-| CODE RED footprint                                  | Adds 0 functions to the Build pipeline                                        | Adds chain-resolution + diff-application + diff-build paths, each must obey 8–15 line + 0-nesting + ≤2-operand caps                                                 |
-| Forward-secrecy interaction                         | Each snapshot independently re-sealable under current Active KeyEpoch (§7 R5) | A diff sealed under the base's KeyEpoch may need the base's keystream to apply — re-introduces the retired-epoch revival problem the §7 R5 design exists to avoid   |
+| Concern | Flat full snapshots (chosen for v1.0) | Diff pyramid (deferred) |
+|---|---|---|
+| Restore complexity | One file → one decrypt → one re-seal → one BE-6 push | N files (base + diffs in date order) → ordered decrypt → reconciliation step → re-seal → BE-6 push |
+| Failure modes | A corrupt snapshot loses **one day** | A corrupt base loses **a week**; a corrupt diff loses everything from that diff forward until next base |
+| Retention sweep | One UPDATE per day's row (§6 S2) | Retention must reason about the entire dependency graph — cannot reap a base while any diff still references it |
+| Operator mental model | "Restore the snapshot from `2026-05-03`" | "Restore the snapshot whose chain resolves to `2026-05-03`" |
+| Disk savings (target audience: low-write primaries) | Baseline | Real but bounded — SQLite page-level diffs of a mostly-static DB are typically 1–5% of full size; absolute saving is small in absolute bytes at v1.0 expected scale |
+| CODE RED footprint | Adds 0 functions to the Build pipeline | Adds chain-resolution + diff-application + diff-build paths, each must obey 8–15 line + 0-nesting + ≤2-operand caps |
+| Forward-secrecy interaction | Each snapshot independently re-sealable under current Active KeyEpoch (§7 R5) | A diff sealed under the base's KeyEpoch may need the base's keystream to apply — re-introduces the retired-epoch revival problem the §7 R5 design exists to avoid |
 
 **Trigger conditions that would force OQ-23-1 to be reopened in v2.0** (any one is sufficient):
 
@@ -392,14 +392,14 @@ This section formalizes the dispositions of v1.0 open questions so dumb-AI imple
 
 **Rationale.**
 
-| Concern                       | Full App-tier restore (chosen)                                                     | Partial-table restore (rejected)                                                                                                       |
-| ----------------------------- | ---------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| Conceptual ownership          | Backup tier owns "the App-DB at point in time" — a single coherent unit            | Tenant-level recovery is the **application data model's** job (soft-delete, audit log, undo stack), not the backup tier's              |
-| Cross-row consistency         | Trivially preserved — the entire DB is consistent at the snapshot's `MaxSyncOpSeq` | Restoring tenant A's rows without tenant A's foreign-key referents is a corruption pattern, not a feature                              |
-| Re-seal step (§7 R5)          | Single zip re-sealed once under Active KeyEpoch                                    | Per-tenant filter step before re-seal — adds a slow plaintext extract path and a new attack surface                                    |
-| Watermark realignment (§7 R7) | One `BackupSyncWatermark` reset to snapshot's `MaxSyncOpSeq`                       | Watermark cannot be "partially" reset — leaves the system in an undefined state vs. the CDC ledger                                     |
-| Operator mental model         | "Roll the App-DB back to `2026-05-03`"                                             | "Roll tenant `acme` back to `2026-05-03` while leaving `globex` at today" — every cross-tenant invariant in the App becomes a question |
-| Forward-secrecy contract      | Preserved — full re-seal under current Active KeyEpoch                             | Partial re-seal of a row subset has no defined epoch story                                                                             |
+| Concern | Full App-tier restore (chosen) | Partial-table restore (rejected) |
+|---|---|---|
+| Conceptual ownership | Backup tier owns "the App-DB at point in time" — a single coherent unit | Tenant-level recovery is the **application data model's** job (soft-delete, audit log, undo stack), not the backup tier's |
+| Cross-row consistency | Trivially preserved — the entire DB is consistent at the snapshot's `MaxSyncOpSeq` | Restoring tenant A's rows without tenant A's foreign-key referents is a corruption pattern, not a feature |
+| Re-seal step (§7 R5) | Single zip re-sealed once under Active KeyEpoch | Per-tenant filter step before re-seal — adds a slow plaintext extract path and a new attack surface |
+| Watermark realignment (§7 R7) | One `BackupSyncWatermark` reset to snapshot's `MaxSyncOpSeq` | Watermark cannot be "partially" reset — leaves the system in an undefined state vs. the CDC ledger |
+| Operator mental model | "Roll the App-DB back to `2026-05-03`" | "Roll tenant `acme` back to `2026-05-03` while leaving `globex` at today" — every cross-tenant invariant in the App becomes a question |
+| Forward-secrecy contract | Preserved — full re-seal under current Active KeyEpoch | Partial re-seal of a row subset has no defined epoch story |
 
 **Trigger conditions that would force OQ-23-2 to be reopened:**
 
@@ -431,4 +431,4 @@ If/when the product reopens §14.1 or §14.2, the v2.0 spec MUST specify, in thi
 
 ---
 
-_Snapshot storage + restore flow v1.2.0 — 2026-05-06 (Phase 12.5 — §14 OQ-23-1 / OQ-23-2 dispositions formalized: rationale matrices + v2.0 trigger conditions + forbidden v1.0 patterns + future-work catalog. OQ-23-3 resolution preserved as §14.3)._
+*Snapshot storage + restore flow v1.2.0 — 2026-05-06 (Phase 12.5 — §14 OQ-23-1 / OQ-23-2 dispositions formalized: rationale matrices + v2.0 trigger conditions + forbidden v1.0 patterns + future-work catalog. OQ-23-3 resolution preserved as §14.3).*
