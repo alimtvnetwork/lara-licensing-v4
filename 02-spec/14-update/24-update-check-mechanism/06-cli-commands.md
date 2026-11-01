@@ -37,7 +37,7 @@ Latest version:  V1.7.0
 Status:          UpdateFound
 Published at:    2026-04-15 10:00:00 UTC
 Install (this OS):
-  iwr -useb https://github.com/MahinKarim/repo-v17/releases/download/v1.7.0/Install.ps1 | iex
+  iwr -useb https://github.com/AlifKarim/repo-v17/releases/download/v1.7.0/Install.ps1 | iex
 
 Run `<cli> do-update` to upgrade now.
 Next automatic check: in 12 hours.
@@ -46,7 +46,7 @@ Next automatic check: in 12 hours.
 If `NewRepoUrl` is set, an extra line is printed:
 
 ```
-⚠  This project has moved to: https://github.com/MahinKarim/repo-v20
+⚠  This project has moved to: https://github.com/AlifKarim/repo-v20
 ```
 
 ### `--async` behavior

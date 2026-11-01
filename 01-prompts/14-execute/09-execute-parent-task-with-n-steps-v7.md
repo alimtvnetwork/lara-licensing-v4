@@ -22,9 +22,9 @@ WAVES = ceil(subtasks / (A x H))
 > [!IMPORTANT]
 > **Prompt Version:** 7.0.0  
 > **Runtime:** Google Antigravity 2.0 (IDE and CLI)  
-> **Canonical Prompt Specification:** [`01-prompts/14-execute/09-execute-parent-task-with-n-steps-v7.md`](file;01-prompts/14-execute/09-execute-parent-task-with-n-steps-v7.md)  
-> **Toolchain Discovery & Primacy:** [/learn](slashCommand;learn) from [gitmap](file;.agents/skills/gitmap)  
-> **Invocation:** `@[execute-parent-task-with-n-steps-v7](file;.agents/skills/execute-parent-task-with-n-steps-v7)`  
+> **Canonical Prompt Specification:** [V7 Master Autonomous Execution Engine | 09-execute-parent-task-with-n-steps-v7 | 09](file;01-prompts/14-execute/09-execute-parent-task-with-n-steps-v7.md)  
+> **Toolchain Discovery & Primacy:** /learn from @[.agents/skills/gitmap]  
+> **Invocation:** @@[.agents/skills/execute-parent-task-with-n-steps-v7]  
 >
 > **Top-Instruction Priority Mandate (Above Precedence / Preamble Precedence):**  
 > Whatever directives, constraints, checklists, or user instructions are given ABOVE this prompt (including in the user preamble, header blocks, or incoming user request above) are HIGHEST PRIORITY and MUST BE FOLLOWED as strictly NON-NEGOTIABLE. They supersede and strictly override any conflicting general advice, default conventions, or lower-level guidelines below.
@@ -55,7 +55,7 @@ Active when the user prompt specifies time windows, schedule bounds, restricted 
    - `--auto-window`: Automatically calculates the next valid morning window slot (07:30 AM) and sets compliant `GIT_AUTHOR_DATE` / `GIT_COMMITTER_DATE` timestamps.
 4. **Recommit & History Normalization:**
    - When amending or recommitting prior work: verify clean working tree (`gitmap st`), soft reset (`gitmap git-reset HEAD~1 --no-push`), and recommit using semantic verbs with target timezone stamps.
-   - Operational reference: [gitmap-time-restriction](file;.agents/skills/gitmap-time-restriction).
+   - Operational reference: @[.agents/skills/gitmap-time-restriction].
 
 ---
 
@@ -96,7 +96,7 @@ Active when the user requests an automated bot persona, AI commit authoring, or 
      ```bash
      gitmap login set global ai-auto
      ```
-     Defaults (bot name, bot email, fallback agent) can be adjusted via Settings CLI (`gitmap settings set ai_auto.default_agent <name>`) or Web Settings UI (`Speed & Automation` -> `ai-auto`).
+     Defaults (bot name, bot email, fallback agent) can be adjusted via Settings CLI (`gitmap settings set ai_auto.default_agent antigravity` under Antigravity, or `cursor-model`/`claude`/`gemini`; TOTAL BAN on hardcoded `muse`) or Web Settings UI (`Speed & Automation` -> `ai-auto`).
    - Commit Provenance Attribution (MANDATORY):
      ```bash
      gitmap cpf/cpb/cpc/cfr/cpr "<module> - <summary>" --ai-agent <name>
@@ -113,7 +113,7 @@ Active when the user requests an automated bot persona, AI commit authoring, or 
      gitmap login set global ai-auto
      gitmap cpf "Module - summary" --ai-agent <name> --tz <timezone> --schedule --auto-window --non-interactive
      ```
-4. **Operational reference:** [gitmap-automation-bot](file;.agents/skills/gitmap-automation-bot) and [gitmap-time-restriction](file;.agents/skills/gitmap-time-restriction).
+4. **Operational reference:** @[.agents/skills/gitmap-automation-bot] and @[.agents/skills/gitmap-time-restriction].
 
 ---
 

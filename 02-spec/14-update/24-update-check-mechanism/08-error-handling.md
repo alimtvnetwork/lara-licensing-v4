@@ -68,7 +68,7 @@ When `CheckForUpdate` or `PersistResult` returns an error:
 
    ```
    2026-04-20T12:34:56Z LEVEL=Error Op=CheckForUpdate Code=NetworkError
-     Owner=MahinKarim Repo=repo-v15 Message="dial tcp: i/o timeout"
+     Owner=AlifKarim Repo=repo-v15 Message="dial tcp: i/o timeout"
      File=internal/update/probe.go Line=87
    ```
 

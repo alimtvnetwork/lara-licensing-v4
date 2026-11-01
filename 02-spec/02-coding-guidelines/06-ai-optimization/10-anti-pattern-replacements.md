@@ -10,6 +10,7 @@
 - [ ] `/goal` Inspect past agent decisions, file touch history, and active leases using `gitmap heatmap` or `gitmap rc heatmap --repo <alias>`.
 - [ ] `/learn` Strictly ban `rg`, `ripgrep`, `grep`, `git grep`, `Select-String`, and `findstr` in favor of `gitmap aum search`, `gitmap find`, and `gitmap cat`.
 - [ ] `/goal` Prohibit absolute filesystem paths (`C:\`, `D:\`, `file:///`) across all scripts, specs, and documentation, enforcing relative paths from repository root.
+- [ ] `/goal` Strictly ban raw directory and file execution via `gitmap ps`; enforce exact replacements: `gitmap dir`, `gitmap ls`, `gitmap agent subtask ls`, `gitmap heatmap`, and `gitmap cat`.
 
 . **CRITICAL AI INSTRUCTION:** This specification is an active AI execution directive. All code generated or modified must strictly follow the rules below.
 
@@ -29,7 +30,7 @@ Autonomous AI agents operating within GitMap repositories frequently fall back t
 4. **Context Window Exhaustion:** Unfiltered shell output from `grep` or `Select-String` floods agent context windows with megabytes of unstructured text.
 5. **Portability Failures:** Hardcoded drive letters and absolute paths break cross-platform portability across Windows, Linux, and macOS environments.
 
-This specification mandates 5 primary anti-pattern replacements with native GitMap CLI tools.
+This specification mandates 6 primary anti-pattern replacements with native GitMap CLI tools.
 
 ---
 
@@ -41,10 +42,15 @@ This specification mandates 5 primary anti-pattern replacements with native GitM
 | ❌ Single-stream downloads for files $\ge 1\text{--}2\text{ MB}$ | ✅ GitMap 10-split segmented engine<br>*(Host `aria2c` or native Go Range workers)* | Automatic threshold detection; 10 parallel connections with 5KB chunks saturate bandwidth and prevent socket timeouts. |
 | ❌ Grepping filesystem or guessing past agent decisions | ✅ `gitmap heatmap`<br>`gitmap rc heatmap --repo <alias>` | 3-tier SQLite discovery, alias resolution via `db.ListAliasesWithRepo()`, recent tasks across 2–5 repos, dynamic suggestion pills. |
 | ❌ `rg`, `ripgrep`, `grep`, `git grep`, `Select-String`, `findstr` | ✅ `gitmap aum search "<pattern>" [dir]`<br>`gitmap find "<pattern>" [dir]`<br>`gitmap cat <filepath>` | Multi-core streaming live search (<15ms), binary null-byte probe, 500 KB file cap, DH2D SQLite hot cache, zero buffer bloat. |
+| ❌ Raw directory/file execution via `gitmap ps` (e.g. `gitmap ps "dir"`, `gitmap ps "ls"`, `gitmap ps "Get-ChildItem"`, `gitmap ps "cat"`, `gitmap ps "Get-Content"`), or querying subtasks/plans via PowerShell | ✅ Dedicated native commands:<br>• `gitmap dir [path]` or `gitmap ls [path]`<br>• `gitmap agent subtask ls [task-id]`<br>• `gitmap heatmap`<br>• `gitmap cat <filepath>` | `gitmap ps` resolves `pwsh` first (or `powershell.exe` on Windows fallback), spawning an OS process with `-NoProfile -Command`. Spawning PowerShell for filesystem traversal or file inspection incurs 200–800ms process startup latency, risks cross-platform failure on Linux/macOS, dumps unstructured pipeline objects into context, and bypasses GitMap's Split-DB, DH2D hot cache, and cognitive Heatmap tracking. TOTAL BAN on raw directory/file execution via `gitmap ps`. |
 | ❌ Raw `$env:LIBCLANG_PATH` exports & ad-hoc Cargo scripts | ✅ `gitmap cargo [args...]`<br>`gitmap rust status` | Automated LLVM/libclang path discovery on Windows & Linux, injecting `LIBCLANG_PATH` & `PATH` transparently. |
 | ❌ Raw `taskkill /F /PID <pid>` or `kill -9 <pid>` | ✅ `gitmap kill <pid\|name\|:port>`<br>*(alias: `gitmap terminate`)* | Cross-platform process termination with safety guards protecting system-critical processes, IDEs, and shells. |
-| ❌ Third brackets (`feat([module]): ...`) or 'commit' as module (`feat(commit): ...`) | ✅ `gitmap cpf "<module> - summary"`<br>`gitmap cpb "<module> - summary"` | Enforces hyphen-separated format `<module> - summary` with Title Case or lowercase subsystem (e.g. `Auth`, `ui`); square brackets and tautological 'commit' modules are strictly prohibited. |
+| ❌ Third brackets or lower-case commits (`feat([module]): ...`) | ✅ `gitmap cpf "(module): summary"`<br>`gitmap cbf "(module): summary"`<br>`gitmap cfr "(module): summary"` | Enforces uppercase `TYPE(MODULE): summary` with parentheses; square brackets `[...]` are strictly prohibited. |
 | ❌ Manual per-folder `~/.ssh/config` host aliases | ✅ `gitmap wg add <name> <dir> --ssh-key <key>`<br>`gitmap wg bind <dir> <key>` | SQLite-backed folder & ancestor SSH key inheritance for zero-prompt remote Git operations. |
+| ❌ Ad-hoc Python SQLite scripts (`check_summaries.py`, `import sqlite3`) | ✅ `gitmap agy summaries [N]`<br>`gitmap db query "<SQL>" --db agy`<br>`gitmap db query "<SQL>" --db <alias\|path>` | Built-in SQLite query engine with system aliases (`agy`, `master`, `heatmap`, `pipeline`, `tasks`), tabular borders, and JSON output. |
+| ❌ Ad-hoc PowerShell/Node.js transcript extractors (`node -e fs.readFileSync`, `pwsh Get-Content \| Select-String`) | ✅ `gitmap cat <file> -L <line> --field <key>`<br>`gitmap cat <file> -t <count> -q "<query>"` | Fast streaming reader with line bounds, pipe-delimited search, and instant JSON field extraction without node/python runtimes. |
+| ❌ Hardcoding or blindly defaulting AI identity to `muse` (`gitmap settings set ai_auto.default_agent muse`) | ✅ Dynamically set host agent:<br>`gitmap login set ai-auto antigravity`<br>`gitmap settings set ai_auto.default_agent antigravity` | Prevents commit provenance attribution poisoning. Active agent must reflect host platform (`antigravity`, `cursor-model`, `claude`, `gemini`). |
+| ❌ Ad-hoc Python file reading (`open('...').readlines()`, `open('...').read()`) | ✅ `gitmap heatmap <filepath>`<br>`gitmap cat <filepath>` | Automatically displays file content and logs cognitive inspection trace into `repodb/heatmap.db` without requiring UDF flags. |
 | ❌ Absolute filesystem paths (`C:\`, `D:\`, `file:///`) | ✅ Relative Git-root paths<br>*(e.g. `02-spec/...`, `cli/...`)* | Ensures zero path leakage across host machines, container boundaries, and multi-node SSH cluster fleets. |
 
 ---
@@ -195,6 +201,15 @@ gitmap find "*heatmap*.go" cli
 
 # Zero-disk direct stream of file content into process stdout
 gitmap cat cli/cmdurl/cmd_url.go
+
+# Flexible path parsing: handles bracket notation, markdown embeds, repo-cache paths, bullets, and comments
+gitmap cat @[<drive>:\path\to\media_1792894009084_45b4893f.png]
+gitmap cat "![Attached Image 1](file:///<drive>:/path/to/media_1792894009084_45b4893f.png)"
+gitmap cat "1. @[assets/media_1792894009084_45b4893f.png] # consider the file is relative from the repo"
+gitmap cat "1. @[../repo-cache/assets/media_1792894009084_45b4893f.png] # consider the file is relative from the repo outside of the repo"
+
+# Safe image asset inspection: renders structured TokyoNight cards (dimensions, size, status) instead of binary noise
+gitmap cat assets/screenshots/media_1792894009084_45b4893f.png
 ```
 
 ---
@@ -221,6 +236,77 @@ Database: repodb/url_cache.db
 Source: cli/cmdurl/cmd_url.go
 Plan: .ai-memory/plans/subtasks/314-gitmap-heatmap-and-url-handling-instructions/07-subtask-coding-guidelines-and-skills.md
 ```
+
+---
+
+### Anti-Pattern 6: Raw Directory & File Execution via gitmap ps vs Dedicated Native Commands
+
+#### Context & Forbidden Pattern
+AI agents frequently misuse `gitmap ps` or `gitmap pwsh` to run ad-hoc directory listings, explore file trees, read file contents, or query subtasks through PowerShell commands. Spawning a heavy PowerShell subprocess just to inspect files is an anti-pattern.
+
+```powershell
+<!-- ❌ FORBIDDEN: Raw directory/file execution via gitmap ps -->
+gitmap ps "dir"
+gitmap ps "ls cli/cmd"
+gitmap ps "Get-ChildItem -Path .ai-memory/plans/subtasks -Recurse"
+gitmap ps "Get-Content cli/cmd/cmd_powershell.go"
+gitmap ps "cat 02-spec/readme.md"
+gitmap ps "Get-ChildItem | Select-Object -ExpandProperty Name"
+```
+
+#### Execution Mechanics: How & Where PowerShell Runs
+GitMap's PowerShell runner (`gitmap ps`, `gitmap pwsh`) operates under the following host resolution mechanics:
+1. **Executable Resolution (`findPowerShellExecutable`):**
+   - GitMap first probes `pwsh` (PowerShell 7+ Core, modern cross-platform runtime) in system `PATH`.
+   - If `pwsh` is not found, on Windows hosts only (`constants.IsWindowsPlatform()`), GitMap falls back to legacy Windows PowerShell (`powershell.exe` / Windows PowerShell 5.1).
+   - On non-Windows platforms (Linux, macOS), if `pwsh` is missing, execution terminates immediately with structured error `E_POWERSHELL_NOT_FOUND` and installation guidance.
+2. **Process Invocation (`assemblePowerShellCmd` & `executePowerShellProcess`):**
+   - On Windows: launches the resolved binary with `-NoProfile -Command "<script>"`.
+   - On Linux/macOS: launches the resolved binary with `-Command "<script>"`.
+   - Standard input, output, and error streams (`os.Stdin`, `os.Stdout`, `os.Stderr`) are directly bound to the running terminal.
+3. **Why Directory & File Operations via `gitmap ps` are Prohibited:**
+   - **Subprocess Startup Overhead:** Spawning an entire .NET/PowerShell engine incurs 200ms–800ms+ startup latency, whereas native compiled Go commands execute in <1ms–15ms.
+   - **Cross-Platform Failure Risk:** Non-Windows agent nodes without `pwsh` fail completely on `powershell.exe` commands.
+   - **Bypasses Split-DB & Hot Cache:** Native GitMap file commands leverage SQLite Split-DB (`repodb/heatmap.db`), DH2D hot caching, and streaming null-byte safety probes that PowerShell bypasses.
+   - **Missing Cognitive Telemetry:** File inspections via PowerShell are invisible to cognitive heatmap tracking (`HeatmapActionLog`), preventing multi-agent collision avoidance.
+   - **Context Window Flooding:** Raw PowerShell output emits verbose formatting artifacts (headers, horizontal dividers, CLIXML metadata) that consume LLM token context.
+
+#### Required Replacements
+All directory listings, file reads, subtask queries, and cognitive traces must use dedicated native GitMap commands:
+
+```bash
+<!-- ✅ REQUIRED: Dedicated native GitMap commands -->
+# 1. Directory and file listing (sub-millisecond native Go traversal)
+gitmap dir [path]
+gitmap ls [path]
+gitmap lf [dir]
+gitmap find "*.*" [dir]
+
+# 2. Subtask and plan listing (SQLite Split-DB query <1ms)
+gitmap agent subtask ls [task-id]
+gitmap agent subtask ls --json
+gitmap plans [N]
+
+# 3. Cognitive trace and task state inspection (Heatmap discovery)
+gitmap heatmap
+gitmap heatmap --task <slug-or-id>
+gitmap heatmap tree --task <slug-or-id>
+
+# 4. Zero-disk streaming file reading, line slicing, and image inspection
+gitmap cat <filepath>
+gitmap cat <filepath> -L <start>:<end>
+gitmap cat <filepath> -q "<query>"
+gitmap cat <filepath> -t <tail>
+```
+
+#### Technical Comparison Matrix
+
+| Inspection Need | ❌ Banned Pattern (`gitmap ps`) | ✅ Mandatory GitMap Command | Latency & Architectural Advantage |
+| :--- | :--- | :--- | :--- |
+| Directory file listing | `gitmap ps "dir [path]"`<br>`gitmap ps "Get-ChildItem [path]"` | `gitmap dir [path]`<br>`gitmap ls [path]`<br>`gitmap lf [path]` | <1ms compiled Go file enumeration; zero PowerShell .NET runtime startup. |
+| Subtask / plan inventory | `gitmap ps "Get-ChildItem .ai-memory/plans"` | `gitmap agent subtask ls [task-id]`<br>`gitmap plans` | Queries SQLite task registry directly; outputs formatted Tokyo Night status cards. |
+| Cognitive decision trace | `gitmap ps "Select-String ..."` | `gitmap heatmap`<br>`gitmap heatmap tree` | 3-tier SQLite discovery, active agent lease tracking, and causal execution trees. |
+| File viewing & slicing | `gitmap ps "Get-Content <file>"`<br>`gitmap ps "cat <file>"` | `gitmap cat <file> [-L A:B] [-q query]` | Zero-disk unbuffered streaming, line range slicing, query extraction, image card safety. |
 
 ---
 

@@ -106,7 +106,7 @@ fn PostCommandHook(ctx, cmdName) {
 If `Selected.NewRepoUrl` is non-null, a second line is appended:
 
 ```
-↪  This project has moved to https://github.com/MahinKarim/repo-v20
+↪  This project has moved to https://github.com/AlifKarim/repo-v20
 ```
 
 The warning goes to **stderr** so it never contaminates piped stdout

@@ -33,12 +33,16 @@ The script is **always** fetched from `raw.githubusercontent.com` and
 Standalone invocation (executed when an end-user pastes from the README):
 
 ```powershell
+
 # Windows
+
 irm https://raw.githubusercontent.com/{owner}/repo-v20/main/Status.ps1 | iex
 ```
 
 ```bash
+
 # Unix
+
 curl -fsSL https://raw.githubusercontent.com/{owner}/repo-v20/main/Status.sh | bash
 ```
 

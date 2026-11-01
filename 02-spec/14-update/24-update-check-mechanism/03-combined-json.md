@@ -23,14 +23,14 @@ table and printed by `update-check` (sync mode).
   "HasUpdate": true,
   "CheckedAt": "2026-04-20T12:00:00Z",
   "OwnerKind": "User",
-  "Owner": "MahinKarim",
+  "Owner": "AlifKarim",
   "CurrentRepo": "Movie-Cli-V15",
   "Candidates": [
-    { "Version": "V1.1.0", "Found": true,  "Url": "https://raw.githubusercontent.com/MahinKarim/Movie-Cli-V16/main/Status.ps1" },
-    { "Version": "V1.2.0", "Found": true,  "Url": "https://raw.githubusercontent.com/MahinKarim/Movie-Cli-V17/main/Status.ps1" },
+    { "Version": "V1.1.0", "Found": true,  "Url": "https://raw.githubusercontent.com/AlifKarim/Movie-Cli-V16/main/Status.ps1" },
+    { "Version": "V1.2.0", "Found": true,  "Url": "https://raw.githubusercontent.com/AlifKarim/Movie-Cli-V17/main/Status.ps1" },
     { "Version": "V1.3.0", "Found": false, "Url": null },
-    { "Version": "V1.4.0", "Found": true,  "Url": "https://raw.githubusercontent.com/MahinKarim/Movie-Cli-V19/main/Status.ps1" },
-    { "Version": "V1.5.0", "Found": true,  "Url": "https://raw.githubusercontent.com/MahinKarim/Movie-Cli-V20/main/Status.ps1" }
+    { "Version": "V1.4.0", "Found": true,  "Url": "https://raw.githubusercontent.com/AlifKarim/Movie-Cli-V19/main/Status.ps1" },
+    { "Version": "V1.5.0", "Found": true,  "Url": "https://raw.githubusercontent.com/AlifKarim/Movie-Cli-V20/main/Status.ps1" }
   ],
   "Selected": {
     "Version": "V1.5.0",

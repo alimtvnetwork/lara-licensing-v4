@@ -1,6 +1,7 @@
 # Multi-Site Deployment
 
 ## Overview
+
 Upload plugins to multiple WordPress sites from a single command using Base64-encoded credentials stored in `powershell.json`.
 
 ## Configuration
@@ -34,10 +35,13 @@ Upload plugins to multiple WordPress sites from a single command using Base64-en
 All credentials are Base64-encoded for basic obfuscation (not encryption):
 
 ```powershell
+
 # Encode
+
 [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes("my-username"))
 
 # Decode (done automatically by run.ps1)
+
 [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String("bXktdXNlcm5hbWU="))
 ```
 
@@ -62,16 +66,21 @@ All credentials are Base64-encoded for basic obfuscation (not encryption):
 ## Usage
 
 ```powershell
+
 # Upload all plugins to ALL enabled sites
+
 .\run.ps1 -uas
 
 # Upload all plugins to a specific site by name
+
 .\run.ps1 -uas -site "Test V1"
 
 # Upload all plugins to site #1 (1-based index from -ls)
+
 .\run.ps1 -uas -index 1
 
 # Upload all plugins to site #2
+
 .\run.ps1 -uas -index 2
 ```
 

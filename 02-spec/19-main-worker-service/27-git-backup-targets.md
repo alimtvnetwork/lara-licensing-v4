@@ -61,7 +61,7 @@ Repo layout:
 
 ```
 acme-backups/worker-eu-1/
-├── README.md                          # Auto-generated, see §3.1
+├── readme.md                          # Auto-generated, see §3.1
 ├── manifest.json                      # Latest GitBackupManifest (see §3.2)
 ├── envelopes/
 │   ├── 0000000001.env.bin             # Sealed BackupOutboxEnvelope (ch. 19)
@@ -148,7 +148,7 @@ No backup-node-side endpoints. Backups do NOT push to git (ch. 26 §2 matrix).
 
 ## 7. Failure semantics
 
-| Condition | Code | Behaviour |
+| Condition | Code | Behavior |
 |---|---|---|
 | SSH key rejected | `WORKER-870-02 GitBackupAuthFailed` | Retry with exponential backoff up to `GitBackup.MaxRetries`; then alert. |
 | Repo missing and auto-create disabled | `WORKER-870-03 GitBackupRepoMissing` | Halt pushes for this target; alert operator. |

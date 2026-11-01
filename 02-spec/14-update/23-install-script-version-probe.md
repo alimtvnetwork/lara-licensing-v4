@@ -94,7 +94,7 @@ request. So why bother ordering at all? Two reasons:
    accept is already the winner. No second pass, no `Sort-Object` on every
    iteration.
 2. **Middle-out dispatch helps degraded environments.** On networks that
-   serialise outbound HTTPS connections (corporate proxies, low-fd shells,
+   serialize outbound HTTPS connections (corporate proxies, low-fd shells,
    throttled CI runners), 20 "parallel" requests effectively become a queue.
    Most active forks land in the middle of the +1..+20 window — start there
    and expand outward so the queue hits the likely winner sooner.
@@ -120,7 +120,7 @@ public contract.
 ### Short-circuit / cancellation
 
 After a result settles for the highest queued `N`, in-flight lower-N
-probes MAY be cancelled to free sockets. This is an optimisation, not
+probes MAY be canceled to free sockets. This is an optimization, not
 required for correctness.
 
 ---
@@ -128,7 +128,9 @@ required for correctness.
 ## Hand-Off
 
 ```powershell
+
 # PowerShell hand-off
+
 $newerUrl = "https://raw.githubusercontent.com/$Owner/$Base-v$Latest/main/install.ps1"
 Write-OK "Newer version found: v$Latest (was v$Current). Handing off..."
 Invoke-RestMethod -Uri $newerUrl | Invoke-Expression
@@ -136,7 +138,9 @@ exit $LASTEXITCODE   # propagate child exit
 ```
 
 ```bash
+
 # Bash hand-off
+
 newer_url="https://raw.githubusercontent.com/$OWNER/$BASE-v$LATEST/main/install.sh"
 ok "Newer version found: v$LATEST (was v$CURRENT). Handing off..."
 curl -fsSL "$newer_url" | bash
@@ -150,14 +154,14 @@ exit $?
 | The child install MUST inherit stdout/stderr (no detach). | User sees one continuous log. |
 | The parent MUST exit with the child's exit code. | Pipelines and CI see the real outcome. |
 | The probe is **not** repeated by the child. | Each install.* runs the prologue exactly once for its own `currentVersion`. The child will probe for its own +1..+20 and (correctly) find nothing higher, so it falls through to install. |
-| Loop guard — env var `INSTALL_PROBE_HANDOFF_DEPTH` (int, default 0) is incremented on hand-off. If it reaches `3`, abort with a clear error to prevent runaway. | Defence in depth. |
+| Loop guard — env var `INSTALL_PROBE_HANDOFF_DEPTH` (int, default 0) is incremented on hand-off. If it reaches `3`, abort with a clear error to prevent runaway. | Defense in depth. |
 
 ---
 
 ## Logging Contract
 
 User-visible output MUST follow this exact pattern so any AI / user
-can recognise the probe phase in support logs:
+can recognize the probe phase in support logs:
 
 ```
 ▸ Detecting installer identity...
@@ -188,7 +192,7 @@ Or, when the probe is skipped:
 
 ## Failure Modes
 
-| Condition | Behaviour |
+| Condition | Behavior |
 |-----------|-----------|
 | No internet | Log `⚠ Probe skipped: network unreachable`. Continue local install. |
 | GitHub rate-limit (HTTP 403/429) | Log warning with `X-RateLimit-Reset` if present. Continue local install. |
@@ -205,7 +209,9 @@ probe path falls back to "install whatever I am right now".
 ## PowerShell Reference Implementation
 
 ```powershell
+
 # ── Version probe ─────────────────────────────────────────────────
+
 function Invoke-LatestVersionProbe {
     # 1. Self-identify
     $sourceUrl = $null
@@ -288,12 +294,15 @@ function Invoke-LatestVersionProbe {
 }
 
 # Maintainer-supplied fallback constants (used when URL parse fails)
+
 $script:ProbeOwner   = "alimtvnetwork"
 $script:ProbeBase    = "coding-guidelines"
 $script:ProbeVersion = 19
 
 Invoke-LatestVersionProbe
+
 # ── End probe ─────────────────────────────────────────────────────
+
 ```
 
 ---
@@ -301,7 +310,9 @@ Invoke-LatestVersionProbe
 ## Bash Reference Implementation
 
 ```bash
+
 # ── Version probe ─────────────────────────────────────────────────
+
 PROBE_OWNER_FALLBACK="alimtvnetwork"
 PROBE_BASE_FALLBACK="coding-guidelines"
 PROBE_VERSION_FALLBACK=19
@@ -387,7 +398,9 @@ invoke_latest_version_probe() {
 }
 
 invoke_latest_version_probe
+
 # ── End probe ─────────────────────────────────────────────────────
+
 ```
 
 ---
@@ -398,7 +411,7 @@ invoke_latest_version_probe
 - MUST be idempotent — calling twice on the same script is a no-op.
 - MUST NOT prompt the user (one-liner installs are unattended).
 - MUST NOT fail-close. Any probe error → continue local install.
-- MUST honour `INSTALL_PROBE_HANDOFF_DEPTH` to prevent loops.
+- MUST honor `INSTALL_PROBE_HANDOFF_DEPTH` to prevent loops.
 - MUST inherit stdout/stderr on hand-off (no `Start-Process -NoNewWindow` quirks).
 - MUST cap probe range at +20 from current version.
 - MUST cap per-request timeout at 2 seconds and total wall-time at 4 seconds.
