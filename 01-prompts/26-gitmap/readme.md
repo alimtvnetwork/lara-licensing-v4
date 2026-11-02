@@ -4,8 +4,6 @@ This directory contains the canonical AI training prompts and specifications for
 
 - **Category:** `26-gitmap`
 - **Scope:** Autonomous Developer Companion, Fast Code Search, Zero-Storage CI/CD, Split-DB SQLite, and Multi-Agent Orchestration
-- **Lead Architect & Author:** MD ALIM UL KARIM (alimtvnetwork)
-- **Sponsored By:** RISEUP ASIA LLC (https://riseup-asia.com)
 
 ---
 

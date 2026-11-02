@@ -399,27 +399,7 @@ def detect_base_branch(target: Path) -> str:
 
 
 def detect_latest_version(target: Path) -> str:
-    """Detect current SemVer string from version.json (canonical SOT), package.json, or fallback git tags."""
-    # Priority 1: Canonical version manifests (version.json is single source of truth)
-    for vf in ["version.json", "package.json", "version.txt", "VERSION"]:
-        vpath = target / vf
-
-        if vpath.exists():
-            try:
-                content = vpath.read_text(encoding="utf-8")
-                match = re.search(r'"[Vv]ersion"\s*:\s*"(\d+\.\d+\.\d+)(?:-[^"]*)?"', content)
-
-                if match:
-                    return match.group(1)
-
-                match = re.search(r"(\d+\.\d+\.\d+)", content)
-
-                if match:
-                    return match.group(1)
-            except Exception:
-                pass
-
-    # Priority 2: Git tags fallback (ONLY if no manifest files exist)
+    """Detect current SemVer string from git tags or version files."""
     code, out, _ = run_cmd("git tag --list \"v[0-9]*\" --sort=-v:refname", target)
     has_tag_output = code == 0 and bool(out.strip())
 
@@ -430,6 +410,24 @@ def detect_latest_version(target: Path) -> str:
 
             if match:
                 return match.group(1)
+
+    for vf in ["version.json", "package.json", "version.txt", "VERSION"]:
+        vpath = target / vf
+
+        if vpath.exists():
+            try:
+                content = vpath.read_text(encoding="utf-8")
+                match = re.search(r'"[Vv]ersion"\s*:\s*"(\d+\.\d+\.\d+)"', content)
+
+                if match:
+                    return match.group(1)
+
+                match = re.search(r"(\d+\.\d+\.\d+)", content)
+
+                if match:
+                    return match.group(1)
+            except Exception:
+                pass
 
     return "0.1.0"
 
@@ -1074,13 +1072,6 @@ def sync_repo(target: Path, is_dry_run: bool = False, is_push_disabled: bool = F
 
     # 7. Post-change release ceremony: Bump patch version, create release branch & tag, and push
     next_ver = bump_patch_version(current_ver)
-
-    # Invariant: Never allow automated sync to execute an uncommanded major bump
-    cur_major = current_ver.split(".")[0]
-    if next_ver.split(".")[0] != cur_major:
-        parts = current_ver.split(".")
-        next_ver = f"{parts[0]}.{parts[1]}.{int(parts[2]) + 1}"
-
     release_tag = f"v{next_ver}"
     release_branch = f"release/{release_tag}"
     result["release_tag"] = release_tag

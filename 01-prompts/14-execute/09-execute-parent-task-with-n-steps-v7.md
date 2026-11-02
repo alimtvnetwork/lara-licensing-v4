@@ -47,13 +47,26 @@ Active when the user prompt specifies time windows, schedule bounds, restricted 
 2. **Calendar-Aware Window Constraints:**
    - **Weekday Constraint (Monday–Friday):** Commits are strictly permitted **before 08:00 AM** (`00:00:00` to `07:59:59`) in the resolved target timezone. Commits attempted at or after 08:00 AM are blocked unless auto-window simulation is enabled.
    - **Weekend Rule (Saturday–Sunday):** Commits are permitted **at any time** (24 hours unconstrained, `00:00:00` to `23:59:59`).
-3. **Headless & One-Liner Automation (Mandatory for Subagents):**
+3. **Universal Date/Time Standard (per gitmap-time-restriction skill):**
+   - **Storage & Persistence:** UTC normalized — always call `t.UTC()` before writing to databases, git trees, or JSON logs.
+   - **Compact Date Token:** `DD-MMM-YY` (3-char upper month, e.g. `29-OCT-26`) for commits, tags, and daily manifests.
+   - **Display / Telemetry:** Local 12-hour AM/PM (e.g. `29-Oct-2026 11:24 AM`) for workstation display.
+   - **Branch Naming:** Date-only slug (e.g. `feature/29-OCT-26-user-change`); zero time-of-day tokens permitted in branches or tags.
+4. **Pre-Commit Time Validation Sequence:**
+   - Query current time in the target timezone before any commit verb when time restriction is active:
+     ```bash
+     gitmap time-now --tz "<timezone>" --format "DD-MMM-YY hh:mm A"
+     ```
+   - If Saturday or Sunday: commit execution is immediately permitted.
+   - If Monday–Friday and current target hour is strictly before 08:00 AM: permitted.
+   - If Monday–Friday at or after 08:00 AM: with `--auto-window`, shift the commit timestamp to a valid window; with strict block and no auto-window, halt and report the schedule block.
+5. **Headless & One-Liner Automation (Mandatory for Subagents):**
    - Subagents and automated pipelines must never hang on interactive prompts; always pass headless flags:
      ```bash
      gitmap cpf "Module - summary" --tz <timezone> --schedule --auto-window --non-interactive
      ```
    - `--auto-window`: Automatically calculates the next valid morning window slot (07:30 AM) and sets compliant `GIT_AUTHOR_DATE` / `GIT_COMMITTER_DATE` timestamps.
-4. **Recommit & History Normalization:**
+6. **Recommit & History Normalization:**
    - When amending or recommitting prior work: verify clean working tree (`gitmap st`), soft reset (`gitmap git-reset HEAD~1 --no-push`), and recommit using semantic verbs with target timezone stamps.
    - Operational reference: @[.agents/skills/gitmap-time-restriction].
 
@@ -78,14 +91,14 @@ Active by default when no time restrictions, maintenance windows, or scheduling 
 Active when the user requests an automated bot persona, AI commit authoring, or headless execution.
 
 1. **Identity Standards & Invariants:**
-   - Default Global Identity: `gitmap automation bot - runs autonomously <info@rgitmap.com>`
+   - Default Global Identity: `gitmap automation bot - muse - runs autonomously <info@rgitmap.com>`
    - Named Subagent Identity: `gitmap automation bot - <agent-name> - runs autonomously <info@rgitmap.com>`
 2. **Activation & Identity Locking:**
    - Machine-Global Bot Identity:
      ```bash
      gitmap login set global ai-auto
      ```
-     Locks workstation-global Git config (`user.name` and `user.email`) to `gitmap automation bot - runs autonomously <info@rgitmap.com>` and preserves original human user configuration in `original_user.json`.
+     Locks workstation-global Git config (`user.name` and `user.email`) to `gitmap automation bot - muse - runs autonomously <info@rgitmap.com>` and preserves original human user configuration in `original_user.json`.
    - Repository-Local / Named Agent Identity (MANDATORY):
      ```bash
      # MANDATORY: Every autonomous AI agent MUST provide its AI name:

@@ -243,20 +243,28 @@ def discover_repositories(root: Path, custom_excludes: Optional[set[str]] = None
         if not is_skip:
             discovered.append(root_resolved)
 
-    for git_dir in root_resolved.glob("**/.git"):
-        repo_dir = git_dir.parent
-        # Skip if within build / cache artifacts
-        parts = repo_dir.relative_to(root_resolved).parts
-        if any(skip_part in parts for skip_part in SKIP_PARENT_PATTERNS):
-            continue
+    # Use fast os.walk with immediate in-place directory pruning to avoid traversing node_modules / .cache / .pnpm-store
+    for dirpath, dirnames, _ in os.walk(root_resolved):
+        # Prune known huge directories and hidden caches in-place
+        dirnames[:] = [
+            d for d in dirnames
+            if d not in SKIP_PARENT_PATTERNS
+            and not (d.startswith(".") and d != ".git")
+        ]
 
-        # Skip non-owned or third-party repositories (e.g. oh-my-zsh, omis, dotfiles)
-        is_skip, _ = is_non_owned_repo(repo_dir, root_resolved, custom_excludes)
-        if is_skip:
-            continue
+        # Check if current directory has a authentic .git folder
+        if ".git" in dirnames:
+            repo_dir = Path(dirpath)
+            # Remove .git from recursion so we don't scan internal objects
+            dirnames.remove(".git")
 
-        if repo_dir not in discovered:
-            discovered.append(repo_dir)
+            # Skip non-owned or third-party repositories (e.g. oh-my-zsh, omis, dotfiles)
+            is_skip, _ = is_non_owned_repo(repo_dir, root_resolved, custom_excludes)
+            if not is_skip and repo_dir not in discovered:
+                discovered.append(repo_dir)
+
+            # Do not recurse into nested submodules/trees unless explicitly needed
+            dirnames[:] = []
 
     discovered.sort(key=lambda p: str(p.relative_to(root_resolved)).lower())
     return discovered
@@ -473,11 +481,17 @@ def run_orchestration(
     audits: List[RepoAuditResult] = []
     executions: List[RepoExecutionResult] = []
 
-    for repo_path in repositories:
+    print(f"Discovered {len(repositories)} repositories under {workspace_root}. Auditing...", flush=True)
+
+    for idx, repo_path in enumerate(repositories, 1):
+        rel_name = repo_path.relative_to(workspace_root)
+        print(f"[{idx}/{len(repositories)}] Auditing {rel_name}...", end="\r", flush=True)
         audit = audit_repository(repo_path, workspace_root)
         audits.append(audit)
 
         if not is_check_only:
+            if audit.is_dirty or audit.ahead_count > 0:
+                print(f"\n[{idx}/{len(repositories)}] Processing {rel_name} (dirty={audit.is_dirty}, ahead={audit.ahead_count})...", flush=True)
             exec_res = execute_commit_and_push(
                 repo_path=repo_path,
                 audit=audit,

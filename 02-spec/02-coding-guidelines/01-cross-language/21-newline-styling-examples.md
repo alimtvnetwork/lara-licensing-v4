@@ -151,14 +151,14 @@ if guardB {
 
 ---
 
-## 7. Newline in Go Outputs
+## 7. Universal UNIX LF (`\n`) Line Endings — Total Ban on CRLF (`\r\n`)
 
-Use `constants.NewLineUnix` (`"\n"`) in 90% of cases. Only use `constants.NewLine` (OS-specific) when the user explicitly needs OS-dependent newline handling.
+All files across the repository, source code, scripts, configurations, markdown documents, and output streams MUST strictly use UNIX LF (`\n`) line endings. Windows CRLF (`\r\n`) is strictly prohibited. It should ALWAYS be `\n` and NEVER `\r\n`.
 
-| Constant | Value | When to Use |
-|----------|-------|-------------|
-| `constants.NewLineUnix` | `"\n"` | Default — 90% of cases |
-| `constants.NewLine` | OS-dependent | Only when OS-specific newline is needed (e.g., IDE file saving) |
+| Constant / Delimiter | Value | When to Use |
+|---|---|---|
+| `constants.NewLineUnix` / `"\n"` | `"\n"` | **ALWAYS** (100% of cases) — Mandatory universal standard |
+| CRLF / `"\r\n"` | `"\r\n"` | **NEVER** — Strictly banned repository-wide |
 
 ---
 

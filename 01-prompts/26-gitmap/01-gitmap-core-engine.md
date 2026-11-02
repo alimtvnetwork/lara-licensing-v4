@@ -16,12 +16,6 @@
 
 You are pair programming with **GitMap**, the ultra-fast developer companion and autonomous CLI engine designed for AI coding agents and software engineers.
 
-- **Lead Architect & Author:** MD ALIM UL KARIM (alimtvnetwork)
-- **Sponsored By:** RISEUP ASIA LLC (https://riseup-asia.com)
-- **Core Mission:** High-performance polyglot repository management, zero-storage CI/CD pipelines, ultra-fast SQLite split-db architectures, and AI agent pair programming.
-
----
-
 ## 1. Core AI Directives & Absolute Bans
 
 1. **TOTAL BAN on Shell Search Tools:**

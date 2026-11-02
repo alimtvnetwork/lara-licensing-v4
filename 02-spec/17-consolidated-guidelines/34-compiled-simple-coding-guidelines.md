@@ -70,6 +70,7 @@ auto-reject on the same tier as RULE 0.
 32. **High-Performance Fast-Path Typecasting (`typecast`)**: Dynamic reflection-based casting (`ReflectSetTo`) must implement fast-path type switches for primitive types (`string`, `int`, `int64`, `bool`, `float64`, `[]byte`) before allocating reflection objects. Compound types (JSON unmarshaling from `[]byte` and marshaling to `*[]byte`) must use direct type assertions.
 33. **Unified Result and Error Generic Casting**: Monadic result wrappers (`Result[T]`, `Wrap[T]`) and structured error representations (`*AppError`) must provide generic conversion helpers (`CastTo[T]`, `ReflectTo[T]`, `CastResult[T, U]`, `CastContextPayload[T]`) returning explicit `*AppError` wrappers on failure, ensuring type safety across boundaries without panic.
 34. **GitHub Actions Zero Storage (Total Ban on `actions/upload-artifact` in CI)**: Never use `actions/upload-artifact` in CI workflows (`ci.yml`, test runs, linting, matrix builds). GitHub accounts operate under strict storage quotas (e.g. 500 MB free quota), and multi-platform matrix builds uploading test binaries or artifacts quickly cause account-wide storage exhaustion, blocking all subsequent workflow runs. Build binaries in CI only to verify compilation (`go build`, `npm run build`), keeping execution completely ephemeral. If failure diagnostics or logs are strictly required, use `retention-days: 1` as a temporary override. Permanent release binaries belong exclusively on GitHub Releases (`release.yml` using `gh release upload`), which do not count against the Actions workflow artifact quota.
+35. **Universal UNIX LF (`\n`) Line Endings (Total Ban on CRLF `\r\n`)**: Every file, script, markdown document, JSON schema, and source code file across the repository MUST use strictly Unix LF (`\n`) line endings. Windows CRLF (`\r\n`) is permanently and unconditionally banned across all repositories, files, and scripts. It should ALWAYS be `\n` and NEVER `\r\n`. Windows CRLF breaks cross-platform runners, causes bash syntax crashes (`\r: command not found`), creates noisy phantom git diffs, fails CI/CD quality gates, corrupts regex line matchers (`$`), and causes automated string replacement tools to fail. Always verify files have 0 occurrences of `\r\n` before committing.
 
 ---
 
@@ -88,6 +89,7 @@ auto-reject on the same tier as RULE 0.
 2. One blank line after a closing `}`, unless the next line is another `}`, `else`, `case`, or `catch`.
 3. Never two blank lines in a row anywhere.
 4. No blank line immediately after `{` or immediately before `}`.
+5. **Strict Unix LF (`\n`) Line Endings:** All files must end with a single newline (`\n`). Windows `\r\n` line endings are strictly forbidden. Always `\n`, never `\r\n`.
 5. One blank line between top-level declarations (functions, classes, exported constants).
 6. Group imports with one blank line between groups: standard library, third-party, first-party absolute, first-party relative. Never mix groups.
 7. Trailing newline at end of file. No trailing whitespace on any line.

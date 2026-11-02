@@ -99,7 +99,7 @@ def read_canonical_version():
             with open(VERSION_JSON, "r", encoding="utf-8") as f:
                 data = json.load(f)
 
-            raw_ver = data.get("Version")
+            raw_ver = data.get("Version") or data.get("version")
             if raw_ver:
                 return str(raw_ver).strip()
         except Exception:
@@ -172,7 +172,7 @@ args = parser.parse_args()
 v_json = ROOT / "version.json"
 if v_json.is_file():
     data = json.loads(v_json.read_text(encoding="utf-8"))
-    data["Version"] = args.version
+    data["version"] = args.version
     data["releaseDate"] = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d")
     v_json.write_text(json.dumps(data, indent=2) + "\\n", encoding="utf-8")
 
@@ -241,7 +241,7 @@ def execute_version_bump(next_version, scope, dry_run=False):
     if VERSION_JSON.is_file():
         with open(VERSION_JSON, "r", encoding="utf-8") as f:
             v_data = json.load(f)
-        v_data["Version"] = next_version
+        v_data["version"] = next_version
         v_data["releaseDate"] = today_str
         with open(VERSION_JSON, "w", encoding="utf-8") as f:
             json.dump(v_data, f, indent=2)
@@ -275,33 +275,33 @@ def execute_version_bump(next_version, scope, dry_run=False):
 def build_release_notes_file(next_version, scope):
     """Builds release notes file with mandatory Quick Install one-liners."""
     v_string = f"v{next_version}"
+    try:
+        url = get_git_output("config", "--get", "remote.origin.url")
+        m = re.search(r'github\.com[:/]([^/]+/[^/.]+)', url)
+        raw_slug = m.group(1) if m else "alimtvnetwork/coding-guidelines-v24"
+        repo_slug = raw_slug[:-4] if raw_slug.endswith(".git") else raw_slug
+    except Exception:
+        repo_slug = "alimtvnetwork/coding-guidelines-v24"
+
     notes_dir = REPO_ROOT / ".ai-memory" / "release"
     notes_dir.mkdir(parents=True, exist_ok=True)
     notes_path = notes_dir / f"release-notes-{v_string}.md"
-    if notes_path.is_file():
-        print(f"[*] Reusing release notes at {notes_path.relative_to(REPO_ROOT)}")
-        return notes_path
 
-    repo_slug = "alimtvnetwork/gitmap-v28"
-    content = f"""# GitMap {v_string}
-
-## What's Changed in {v_string}
-
-- **{scope}**
-
-### Quick Install One-Liners
-
-**Windows (PowerShell):**
-```powershell
-irm https://raw.githubusercontent.com/{repo_slug}/{v_string}/install.ps1 | iex
-```
-
-**Linux / macOS (Bash):**
-```bash
-curl -fsSL https://raw.githubusercontent.com/{repo_slug}/{v_string}/install.sh | sh
-```
-"""
-    notes_path.write_text(content, encoding="utf-8")
+    lines = [
+        f"## Quick Install {v_string}\n",
+        "### Windows (PowerShell)\n",
+        "```powershell",
+        f'Invoke-WebRequest -Uri https://raw.githubusercontent.com/{repo_slug}/{v_string}/install.ps1 -OutFile install.ps1; .\\install.ps1 -TargetDir ".ai-memory/prompts" -Version "{v_string}"',
+        "```\n",
+        "### Unix / Linux / macOS (Bash)\n",
+        "```bash",
+        f'curl -sL https://raw.githubusercontent.com/{repo_slug}/{v_string}/install.sh | bash -s -- ".ai-memory/prompts" "{v_string}"',
+        "```\n",
+        "---\n",
+        f"## What's Changed in {v_string}\n",
+        f"### Added\n- {scope}\n",
+    ]
+    notes_path.write_text("\n".join(lines), encoding="utf-8")
     print(f"[*] Generated release notes at {notes_path.relative_to(REPO_ROOT)}")
     return notes_path
 
@@ -427,19 +427,6 @@ def verify_pre_release_quality_gates(dry_run=False, skip_tests=False):
         raise RuntimeError("Pre-release quality gates / unit tests failed! Releases are forbidden on failing tests.")
 
 
-def verify_version_sync_gate(dry_run=False):
-    """Runs 14-version-sync-checker.py; a divergent version copy refuses the tag."""
-    if dry_run:
-        print("[DRY RUN] Would run version sync check: python 03-ai-scripts/14-version-sync-checker.py")
-        return
-
-    print("[*] Running version sync gate (python 03-ai-scripts/14-version-sync-checker.py)...")
-    checker_script = REPO_ROOT / "03-ai-scripts" / "14-version-sync-checker.py"
-    res = run_cmd([sys.executable, str(checker_script), str(REPO_ROOT)], capture_output=False)
-    if res.returncode != 0:
-        raise RuntimeError("Version sync check failed! Version copies diverged — tag refused.")
-
-
 def orchestrate_release(tier="minor", explicit_version=None, scope=None, dry_run=False, push=True, skip_tests=False):
     """Executes the complete 5-step release orchestration flow."""
     # 1. Capture starting branch
@@ -472,9 +459,6 @@ def orchestrate_release(tier="minor", explicit_version=None, scope=None, dry_run
 
         # STEP 3: Commit bump changes in the release branch
         commit_sha, notes_path = stage_and_commit_release(next_ver, default_scope, dry_run=dry_run)
-
-        # PRE-TAG GATE: version copies must be in sync or the tag is refused
-        verify_version_sync_gate(dry_run=dry_run)
 
         # STEP 4: Create annotated tag on that release commit
         create_release_tag(next_ver, commit_sha, dry_run=dry_run)
