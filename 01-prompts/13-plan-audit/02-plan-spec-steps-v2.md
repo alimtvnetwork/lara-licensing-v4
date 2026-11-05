@@ -38,6 +38,8 @@ Always prefer native GitMap commands over slow generic shell pipelines:
    - **Directory Tree & Scaffolding:** `gitmap folder-tree` (alias `gitmap ft`)
    - **Zero-Write File Stream:** `gitmap cat <filepath>`
    - **Instant Multi-Core Regex Search:** `gitmap search "<term>"` or `gitmap aum search "<query>" [dir] --ext <ext>`
+   - **Git Commit History & Pickaxe Code Search:** `gitmap log -S "<pattern>" [path]` or `gitmap aum search-commits "<pattern>" [path]`
+   - **Native MCP Server First:** When MCP is active, start `gitmap mcp serve` and use tools (`gitmap_aum_search`, `gitmap_log`, `gitmap_find`, `gitmap_cat`). TOTAL BAN on ad-hoc Python subprocess snippets (`python -c "import os, subprocess; ... git log ..."`) or raw `git grep`.
 2. **Fast Repository Hygiene, Lowercase & Symlink Repair:**
    - **Auto-Lowercase Files (Safe 2-Step `git mv`):** `gitmap lowercase` (alias `gitmap lcf [--dry-run]`)
    - **Lowercase Root Readme:** `gitmap lowercase-readme`

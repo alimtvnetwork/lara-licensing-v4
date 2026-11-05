@@ -365,6 +365,8 @@ GitMap is your **PRIMARY** acceleration engine. Banned ALL variants of `Get-Chil
   - ❌ `python -c "p = '...'; c = open(p, 'rb').read().replace(b'\r\n', b'\n'); open(p, 'wb').write(c)"` -> ✅ `gitmap eol --lf <path>` (or `gitmap eol --crlf <path>`)
   - ❌ `python -c "import json; ..."` or ad-hoc scripts to read JSONL transcripts -> ✅ `gitmap jsonl <path> [-s step] [-t type] [-q query]`
   - ❌ `python -c "import sqlite3; ..."` -> ✅ `gitmap agent task status`, `gitmap agent subtask ls`, `gitmap promptdb query ...`
+  - ❌ `python -c "import os, subprocess; out = subprocess.check_output(['git', 'log', '-S', ...])"` or ad-hoc git subprocess scripts -> ✅ `gitmap log -S "<pattern>" [path]` or `gitmap aum search-commits "<pattern>" [path]` (or MCP tool `gitmap_log`)
+  - ❌ Searching code or git history via raw shell scripts when MCP is active -> ✅ Start `gitmap mcp serve` first and use native tools (`gitmap_aum_search`, `gitmap_log`, `gitmap_find`, `gitmap_cat`)
   - ❌ Ad-hoc node/python one-liners to calculate line counts -> ✅ `gitmap lines <files|glob>`
 - **TOTAL BAN (CRITICAL REPRIMAND):** Avoid using Python code or Node.js code for ad-hoc execution. Always use GitMap commands first. If a command does not exist in GitMap, implement it natively in GitMap or only use canonical pre-existing scripts from `03-ai-scripts/`. Never execute inline `python -c "..."` or temporary Node.js one-liners to manipulate files, normalize line endings, or parse logs.
 
