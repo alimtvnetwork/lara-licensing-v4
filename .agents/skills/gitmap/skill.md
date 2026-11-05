@@ -286,10 +286,12 @@ Disciplined atomic commit workflow enforcing hyphen-separated messages (`<Module
 
 ### 11. Native MCP Server, Rights Matrix, Screen Capture & Line-Cap Linter
 - `gitmap self-install` / `gitmap setup` First-Time Rights Prompt — Prompts for administrative capabilities (`screenshot`, `mcp`, `remote_exec`) with non-blocking `[Y]es`, `[N]o`, `[S]kip`, or Enter (defaults); persists decision in Split-DB (`rights_prompted = true`) to prevent repetitive prompting while allowing ongoing toggling via `gitmap rights` or Web Settings.
-- `gitmap mcp serve` — Starts native JSON-RPC 2.0 Model Context Protocol (MCP) server over stdio, exposing 17 GitMap tools (`gitmap_aum_search`, `gitmap_find`, `gitmap_cat`, `gitmap_lf`, `gitmap_log`, `gitmap_status`, `gitmap_pull`, `gitmap_nodes`, `gitmap_deploy`, `gitmap_agy`, `gitmap_db`, `gitmap_pipeline_errors`, `gitmap_screenshot`, `gitmap_lines`, `gitmap_plans`, `gitmap_doctor`, `gitmap_rights_status`). Emits stderr diagnostic startup banners leaving stdout pristine for JSON-RPC 2.0 framing.
-- `gitmap mcp serve --port 8765` — Starts HTTP/SSE MCP server with automatic failover across candidate ports `8765`, `8766`, `8767`, active running-instance detection, and endpoints (`/mcp`, `/status`, `/tools`).
+- `gitmap mcp serve` — Starts native MCP server (HTTP on port 8765 with automatic failover to 8766, 8767). If already running, immediately reports active PID, port, endpoints, and exits without pausing. Exposes 17 GitMap tools (`gitmap_aum_search`, `gitmap_find`, `gitmap_cat`, `gitmap_lf`, `gitmap_log`, `gitmap_status`, `gitmap_pull`, `gitmap_nodes`, `gitmap_deploy`, `gitmap_agy`, `gitmap_db`, `gitmap_pipeline_errors`, `gitmap_screenshot`, `gitmap_lines`, `gitmap_plans`, `gitmap_doctor`, `gitmap_rights_status`).
+- `gitmap mcp serve --stdio` (or `-s`) — Starts stdio JSON-RPC 2.0 MCP server for AI clients requiring stdio piping.
+- `gitmap mcp serve --port <port>` — Starts HTTP/SSE MCP server on explicit port.
+- `gitmap mcp status` — Inspects MCP server active port, running status, and registered tools.
+- `gitmap mcp stop` (alias: `gitmap mcp kill`) — Safely terminates running MCP server process and cleans runtime state.
 - `gitmap mcp tools` (alias: `gitmap mcp list`) — Displays all 17 registered MCP tools, capabilities, and descriptions in a formatted table.
-- `gitmap mcp status` — Inspects MCP server permission status, HTTP fallback port pool, and registered tools.
 - `gitmap mcp install` — Generates client configuration stanzas for Claude Desktop, Cursor, and Google Antigravity.
 - `gitmap login ssh` — Auto-discovers existing active SSH keys (`~/.ssh/id_ed25519`, `~/.ssh/id_rsa`, `~/.ssh/id_ecdsa`), probes GitHub/GitLab SSH authentication, displays public key, and binds GitHub CLI to use the SSH protocol (`gh config set git_protocol ssh -h github.com`).
 - `gitmap rights status` — Displays Tokyo Night table of active administrative security capabilities.
@@ -1277,7 +1279,7 @@ AI agents are STRICTLY PROHIBITED from running ad-hoc Python subprocess snippets
   👉 **MANDATORY REPLACEMENT:** `gitmap log --grep="<query>" [path]` or `gitmap aum search-commits --grep "<query>" [path]`.
 - ❌ **BANNED:** Raw `git grep`, `grep -rn`, `ripgrep`, or `findstr` in terminal.
   👉 **MANDATORY REPLACEMENT:** `gitmap aum search "<pattern>" [path] [--ext <ext>]` or native MCP tool `gitmap_aum_search`.
-- ❌ **MANDATORY MCP SERVE FIRST:** When operating inside an MCP-enabled IDE (Google Antigravity, Cursor, Claude Desktop), start and interact with `gitmap mcp serve` first. Utilize the native 17 MCP tools (`gitmap_aum_search`, `gitmap_find`, `gitmap_cat`, `gitmap_log`, etc.) for zero-disk, sub-millisecond workspace exploration.
+- ✅ **MANDATORY MCP SERVE FIRST:** When operating inside an MCP-enabled IDE (Google Antigravity, Cursor, Claude Desktop), start and interact with `gitmap mcp serve` first. It serves on HTTP port 8765 (with automatic failover to 8766, 8767), displays active running info, and subsequent calls exit immediately without pausing. Utilize the native 17 MCP tools (`gitmap_aum_search`, `gitmap_find`, `gitmap_cat`, `gitmap_log`, etc.) for zero-disk, sub-millisecond workspace exploration.
 
 22. **Total Ban on Ad-Hoc Python Database Scripts Querying SQLite / Antigravity Databases:**
 - **❌ BANNED:** Creating scratch Python scripts (e.g. `check_summaries.py`, `query.py`, `brain/.../scratch/*.py`) or executing inline Python one-liners (`python -c "import sqlite3..."`, `gitmap py -c "import sqlite3..."`) to query `conversation_summaries.db`, `gitmap.db`, or any Split-DB SQLite database.
