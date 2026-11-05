@@ -1,3 +1,8 @@
+---
+name: plan-spec-steps-v2
+description: "Architectural planning directive establishing dual-agent concurrency (A=2, H=2), spec modularization, no-build and no-test rules, and continuous self-looping until 100% complete."
+---
+
 ```text
 N = 300 (Total self-loop steps budget — editable top-header parameter, default: 300)
 A = 2   (MANDATORY number of spawned autonomous subagents running concurrently via invoke_subagent, default: 2)
