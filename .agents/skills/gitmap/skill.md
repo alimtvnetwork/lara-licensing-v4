@@ -280,9 +280,12 @@ Disciplined atomic commit workflow enforcing hyphen-separated messages (`<Module
 - `gitmap sync --workers <N>` — Sets parallel worker pool concurrency (default: 8).
 
 ### 11. Native MCP Server, Rights Matrix, Screen Capture & Line-Cap Linter
-- `gitmap mcp serve` — Starts native JSON-RPC 2.0 Model Context Protocol (MCP) server over stdio, exposing 16 GitMap tools (`gitmap_aum_search`, `gitmap_find`, `gitmap_cat`, `gitmap_lf`, `gitmap_status`, `gitmap_pull`, `gitmap_nodes`, `gitmap_deploy`, `gitmap_agy`, `gitmap_db`, `gitmap_pipeline_errors`, `gitmap_screenshot`, `gitmap_lines`, `gitmap_plans`, `gitmap_doctor`, `gitmap_rights_status`).
-- `gitmap mcp status` — Inspects MCP server permission status and registered tools.
+- `gitmap mcp serve` — Starts native JSON-RPC 2.0 Model Context Protocol (MCP) server over stdio, exposing 16 GitMap tools (`gitmap_aum_search`, `gitmap_find`, `gitmap_cat`, `gitmap_lf`, `gitmap_status`, `gitmap_pull`, `gitmap_nodes`, `gitmap_deploy`, `gitmap_agy`, `gitmap_db`, `gitmap_pipeline_errors`, `gitmap_screenshot`, `gitmap_lines`, `gitmap_plans`, `gitmap_doctor`, `gitmap_rights_status`). Emits stderr diagnostic startup banners leaving stdout pristine for JSON-RPC 2.0 framing.
+- `gitmap mcp serve --port 8765` — Starts HTTP/SSE MCP server with automatic failover across candidate ports `8765`, `8766`, `8767`, active running-instance detection, and endpoints (`/mcp`, `/status`, `/tools`).
+- `gitmap mcp tools` (alias: `gitmap mcp list`) — Displays all 16 registered MCP tools, capabilities, and descriptions in a formatted table.
+- `gitmap mcp status` — Inspects MCP server permission status, HTTP fallback port pool, and registered tools.
 - `gitmap mcp install` — Generates client configuration stanzas for Claude Desktop, Cursor, and Google Antigravity.
+- `gitmap login ssh` — Auto-discovers existing active SSH keys (`~/.ssh/id_ed25519`, `~/.ssh/id_rsa`, `~/.ssh/id_ecdsa`), probes GitHub/GitLab SSH authentication, displays public key, and binds GitHub CLI to use the SSH protocol (`gh config set git_protocol ssh -h github.com`).
 - `gitmap rights status` — Displays Tokyo Night table of active administrative security capabilities.
 - `gitmap rights enable <cap>` / `disable <cap>` — Toggles administrative permissions (`screenshot`, `mcp`, `remote_exec`).
 - `gitmap rights confirm admin` — Admin confirmation gate authorizing sensitive remote actions.
