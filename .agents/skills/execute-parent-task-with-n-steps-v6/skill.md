@@ -21,11 +21,11 @@ WAVES = ceil(subtasks / (A x H))
 ```
 
 > [!IMPORTANT]
-> **Prompt Version:** 6.0.0  
-> **Runtime:** Google Antigravity 2.0 (IDE and CLI)  
-> **Canonical Prompt Specification:** [`01-prompts/14-execute/02-execute-parent-task-with-n-steps-v6.md`](file;01-prompts/14-execute/02-execute-parent-task-with-n-steps-v6.md)  
-> **Toolchain Discovery & Primacy:** [/learn](slashCommand;learn) from [gitmap](file;.agents/skills/gitmap)  
-> **Invocation:** `@[execute-parent-task-with-n-steps-v6](file;.agents/skills/execute-parent-task-with-n-steps-v6)`  
+> **Prompt Version:** 6.0.0
+> **Runtime:** Google Antigravity 2.0 (IDE and CLI)
+> **Canonical Prompt Specification:** [`01-prompts/14-execute/02-execute-parent-task-with-n-steps-v6.md`](file;01-prompts/14-execute/02-execute-parent-task-with-n-steps-v6.md)
+> **Toolchain Discovery & Primacy:** [/learn](slashCommand;learn) from [gitmap](file;.agents/skills/gitmap)
+> **Invocation:** `@[execute-parent-task-with-n-steps-v6](file;.agents/skills/execute-parent-task-with-n-steps-v6)`
 >
 > **Top-Instruction Priority Mandate (Above Precedence / Preamble Precedence):**
 > Whatever directives, constraints, checklists, or user instructions are given ABOVE this prompt (including in the user preamble, header blocks, or incoming user request above) are HIGHEST PRIORITY and MUST BE FOLLOWED as strictly NON-NEGOTIABLE. They supersede and strictly override any conflicting general advice, default conventions, or lower-level guidelines below. The agent MUST inspect and follow the instructions above with absolute precedence.
@@ -166,7 +166,7 @@ If sources conflict, follow stricter one and record under `Conflicts:` in ledger
 
 ### 1.1.E Strict Coding Guideline Enforcement Matrix
 Every code modification executed across any subtask or wave must pass the 12-Pillar Quality Gate:
-1. **Error Management & Leaf Sovereignty:** 
+1. **Error Management & Leaf Sovereignty:**
    - Zero orphaned or swallowed errors (`_ = err` is strictly banned).
    - Leaf functions returning `error` or `result.Wrap[T]` MUST return the error directly upward (`return appfault.Wrap(...)`). Leaf methods MUST NEVER invoke `cliexit.HandleError` or `os.Exit` and return `nil`.
    - All errors bubble up to top-level command dispatchers so they are recorded by `finishCommandAudit` and `persistLastError` in `gitmap.db`.
@@ -278,11 +278,33 @@ Every code modification executed across any subtask or wave must pass the 12-Pil
     - `gitmap cpc "Formatter - clean constructor helpers and strip redundant tokens"` -> `Chore: Formatter - clean constructor helpers and strip redundant tokens`
   GitMap stages, formats, commits, and pushes atomically. TOTAL BAN on raw git commits (`git commit`, `git commit -m "..."`, `git add -A`, raw `git push`), square brackets/third brackets `[...]`. ZERO intermediate commits: never commit during Phase 1 (plans/specs) or Phase 2; all files across the turn MUST be committed together at the final step of Phase 3. Before GitMap, all push gates must pass (targeted checks, secrets gate, and `.gitignore` hygiene; untrack any ignored files: `git rm --cached`). Push rejected: `gitmap pull` (fallback `git pull --rebase`), re-run command. Miss after push: allow one follow-up `gitmap cpb "<module> - <fix summary>"`, logged as `FOLLOW_UP_PUSH: <sha>`. Never amend pushed commits. Workers never run git commands or GitMap commit tools; only lead does.
 - **R10 Zero Unauthorized Releases.** Never bump versions, edit `version.json`, update changelogs, or trigger release scripts unless user explicitly requested release.
-- **Rule R11 (Leaf Error Sovereignty & DB Audit Capture):** Every leaf function across `cli/`, `pkg/`, and `store/` must return errors directly to its caller. Calling `os.Exit()` or exit handlers inside leaf logic is an immediate auto-reject violation. Exits belong exclusively to the top-level command dispatch orchestrator in `cli/cmd/root.go` to guarantee that SQLite command audit records are committed to `gitmap.db`.
+- **Rule R11 (Coding Guidelines, Architectural Limits & Full-Thread Error Sovereignty):**
+  - **300-Line File Cap:** NO file (including `.ts`, `.tsx`, `.go`, `.rs`, `.py`, `.js`, `.jsx`), EXCEPT for Markdown (`*.md`) files and test inventory JSON files (`*inventory*.json`, `*catalog*.json`), should have more than 300 lines of code. Files exceeding 300 lines require decomposition. Run `gitmap lines --max 300` to verify compliance.
+  - **15-Line Function Limit:** Every function must be 15 lines at maximum (strictly <= 8 lines preferred, up to 25 lines maximum under exceptional complexity, but never bloated). Flatten all conditional branching with guard clauses and early returns.
+  - **Zero Mutation / Copy-on-Write:** No in-place mutation of objects or structs across conditional branches. Enforce pure constructor helper returns and copy-on-write immutability.
+  - **Full-Thread Error Sovereignty & DB Audit Capture:** Leaf error sovereignty is strictly enforced across the entire call thread. Errors must never be swallowed or silently dropped; leaf functions that declare an error return type MUST return the error directly (`return err` or `return apperror.Wrap(...)`). Leaf functions must never call `os.Exit()` or exit handlers. Exits belong exclusively to the top-level command dispatch orchestrator in `cli/cmd/root.go` to guarantee that SQLite command audit records are committed to `gitmap.db`.
+  - **Boolean Naming & Conditionals:** Positive booleans only (`is*`, `has*` prefixes; ban `can`, `should`, `was`, `will`). NO negative booleans. Zero nested ifs; flatten all branching with guard clauses and early returns.
+  - **Return & Vertical Spacing:** Blank line after `}` and blank line before `return`.
 - **R11b Strict Relative Git Paths & Lowercase Hygiene.** Strict ban on absolute paths (`C:\...`, `/home/...`) and `file:///` URIs. Only add the relative paths, never add the absolute path during your work, and ensure this is respected on the release page and in release notes as well. Paths relative from git root. All filenames, documentation, and specs strictly lowercase (e.g. `readme.md`, `agents.md`, `skill.md`).
 - **R12 No Polling / Immediate Turn Yielding.** When calling `invoke_subagent`, make it the sole tool action at turn end, print progress line (`Dispatched Worker 01 .. Worker <A> (wave k / WAVES); waiting for their results.`) and **STOP CALLING TOOLS**. Never poll in loop. Check `manage_subagents` once if wave runs long.
 - **R13 Two-Strike Retry Cap & Anti-Looping.** Tool failing twice: worker replies `STATUS: BLOCKED` with exact error and stops. Lead takes over and logs `LEAD_FALLBACK: <reason>`. Subtask failing two remediation rounds is marked `FAILED` with RCA (Section 12).
-- **R14 100% Ambiguity & Decision Boundaries.** Non-blocking: choose conservative option, log in ledger `Assumptions:`, proceed. Blocking: `ask_question` once, log in `.ai-memory/ambiguous-questions/01-new-ambiguity/`, continue unblocked tasks.
+- **R14 100% Ambiguity ("mbud") Protocol & Missing Asset Interrogation:**
+  - **Deduction vs. Question Boundary:** Easily deduced or related codebase context must be resolved autonomously by the AI via GitMap search. Do NOT ask trivial questions about things readily found in the repository. A question is strictly reserved for when the AI truly could NOT find something after comprehensive search (e.g. a screenshot was referenced but not found, an event or hook was mentioned but not defined, external credentials or endpoints are unconfigured).
+  - **Prominent Red Markdown Warning Alert:** When an essential asset or event cannot be found, NEVER guess or hallucinate an answer. Immediately output a prominent, high-visibility red markdown callout in visible chat:
+    ```markdown
+    > [!CAUTION]
+    > <span style="color:red; font-size:1.15em; font-weight:bold;">🚨 UNRESOLVED AMBIGUITY / MISSING ASSET (mbud)</span>
+    >
+    > **Could Not Find:** [Exact asset name, screenshot, or event identifier]
+    > **Searched Locations:** [Paths and GitMap search queries attempted]
+    > **Question to Owner:** "Where did you put it? How did you put it?"
+    > **Possible Solutions / Suggestions:**
+    > 1. [Suggestion A — e.g. path in assets/screenshots/ or specific folder]
+    > 2. [Suggestion B — e.g. fallback identifier or alternate event name]
+    > 3. [Suggestion C — e.g. generate synthetic mock fixture for development]
+    ```
+  - **Persistence to `.ai-memory/ambiguity/`:** Every unresolved ambiguity must be persisted directly to `.ai-memory/ambiguity/<sequence>-<slug>-ambiguities.md` following the canonical folder structure. Carry the question along across steps in the task ledger under `Assumptions:` and `Open Ambiguities:`.
+  - **Issue & RCA Routing:** If any bug, unexpected failure, CI/CD break, or Root Cause Analysis (RCA) problem arises, document it immediately in the dedicated issues folder: `.ai-memory/issues/<issue-slug>.md` (or `.ai-memory/cicd-issues/<issue-slug>.md` for CI/CD failures) with grounded 4-part RCA (1. Symptom & Context, 2. Root Cause Analysis, 3. Surgical Fix, 4. Verification Evidence). Never leave unresolved bugs or error traces floating in chat alone.
 - **R15 Zero Generated Artifacts Committed.** Never commit build caches, logs, temp scripts, or newly generated code (Hard Rule 1) unless repository already tracked them.
 - **R16 Zero Secrets in Standard Repos.** Never write credentials, tokens, passwords, or `.env` contents into tracked files, commits, ledger, plans, specs, or prompts (`agents.md` section 9).
   - *Secrets Gate (lead, before GitMap call):*
@@ -318,6 +340,10 @@ GitMap is your **PRIMARY** acceleration engine. Banned ALL variants of `Get-Chil
 | **RC Heatmap Suite** | `gitmap rc heatmap <status|tables|query|view|tree|live|sync>` | `gitmap rc heatmap` | Unified RC heatmap commands with automatic vault auto-provisioning & roadmap linkage |
 | **Heatmap Diagnostics** | `gitmap heatmap query|tables|view` / `gitmap heatmap rc ...` | `gitmap heatmap` | Non-blocking read-only SQL queries, tree view, and live activity stream |
 | **Fleet Synchronization** | `gitmap sync [--workers 8] [--projects <json>]` | `gitmap sync` | Parallel Go sync engine across 43 repositories in <5s with 6-stage ceremony |
+| **Native MCP Server** | `gitmap mcp serve` / `gitmap mcp status` | `gitmap mcp` | Serves 16 high-performance GitMap tools over stdio JSON-RPC 2.0 |
+| **Rights & Security** | `gitmap rights status` / `gitmap rights confirm admin` | `gitmap rights` | SQLite Split-DB administrative permissions matrix for fleet tools |
+| **Screen Capture** | `gitmap screenshot [node] [--output <path>]` | `gitmap screen` | Cross-machine screenshot capture over SSH/SCP with Tokyo Night feedback |
+| **Line-Cap Linter** | `gitmap lines --max 300 -r <path>` | `gitmap lines` | Streaming line counter enforcing 300-line cap (exempts *.md & inventory JSON) |
 
 ### 🔍 Code & Symbol Search Protocol (TOTAL BAN ON `rg`, `ripgrep`, `Select-String`, `git grep`, `Get-ChildItem`, `dir`, `ls`)
 - **Anti-Pattern vs. Mandatory Replacement:**
@@ -333,6 +359,14 @@ GitMap is your **PRIMARY** acceleration engine. Banned ALL variants of `Get-Chil
   - **Finding files by substring:** `gitmap find-files-any "<substring>"` (e.g. `gitmap find-files-any "Title"`)
   - **Stream file:** `gitmap cat <filepath>` (e.g. `gitmap cat 02-spec/21-app/readme.md`)
 - **TOTAL BAN (AUTO-REJECT FAILURE):** Banned ALL variants of `Get-ChildItem` (with or without flags/parameters: `-Path`, `-Filter`, `-Recurse`, bare `Get-ChildItem`), `dir`, `ls` in shell, `rg`, `ripgrep`, `grep`, `git grep`, `Select-String`, and `findstr`. Running raw grep, ripgrep, or slow shell search pipelines wastes execution steps, causes Windows process hangs, and violates GitMap primacy. Search exclusively through `gitmap aum search`, `gitmap find`, `gitmap lf`, or `gitmap cat`.
+
+### 🚫 Banned Ad-Hoc Scripts & GitMap Tool Primacy (TOTAL BAN ON `python -c "..."` AND AD-HOC CODE EXECUTION)
+- **Anti-Pattern vs. Mandatory GitMap Replacement:**
+  - ❌ `python -c "p = '...'; c = open(p, 'rb').read().replace(b'\r\n', b'\n'); open(p, 'wb').write(c)"` -> ✅ `gitmap eol --lf <path>` (or `gitmap eol --crlf <path>`)
+  - ❌ `python -c "import json; ..."` or ad-hoc scripts to read JSONL transcripts -> ✅ `gitmap jsonl <path> [-s step] [-t type] [-q query]`
+  - ❌ `python -c "import sqlite3; ..."` -> ✅ `gitmap agent task status`, `gitmap agent subtask ls`, `gitmap promptdb query ...`
+  - ❌ Ad-hoc node/python one-liners to calculate line counts -> ✅ `gitmap lines <files|glob>`
+- **TOTAL BAN (CRITICAL REPRIMAND):** Avoid using Python code or Node.js code for ad-hoc execution. Always use GitMap commands first. If a command does not exist in GitMap, implement it natively in GitMap or only use canonical pre-existing scripts from `03-ai-scripts/`. Never execute inline `python -c "..."` or temporary Node.js one-liners to manipulate files, normalize line endings, or parse logs.
 
 ---
 

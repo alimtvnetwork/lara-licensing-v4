@@ -447,14 +447,42 @@ rule for releases.
 
 ---
 
-## RULE 0G — ambiguity handling (a question mark is a file, not prose)
+## RULE 0G — ambiguity ("mbud") handling & missing asset interrogation
 
 Ambiguity is not a licence to guess. Any sentence in the plan or in a task file
 that ends in a question mark, or that says "assume", "probably", "TBD" or
 "we think", MUST become an ambiguity file instead of staying in the body.
 
-- Open: `.ai-memory/ambiguous-questions/01-new-ambiguity/01-<slug>.md`
-- Answered: `.ai-memory/ambiguous-questions/02-ambiguity-resolved/01-<slug>.md`
+### Deduction vs. Question Boundary:
+- Related codebase context that should be easy to figure out MUST NOT be turned into a question. The AI must autonomously search and deduce related implementations via GitMap.
+- A question is strictly reserved for situations where the AI truly could NOT find something after comprehensive search:
+  * A screenshot was referenced or expected, but the screenshot image file could not be found.
+  * An event, webhook, or trigger was mentioned, but the event definition does not exist in the codebase.
+  * An unresolvable secret, external host, or proprietary dependency is missing.
+
+### Prominent Red Warning Alert & Solution Options:
+When an asset or event cannot be found, NEVER guess or hallucinate an answer. Immediately output a prominent, high-visibility red markdown callout in visible chat:
+
+```markdown
+> [!CAUTION]
+> <span style="color:red; font-size:1.15em; font-weight:bold;">🚨 UNRESOLVED AMBIGUITY / MISSING ASSET (mbud)</span>
+>
+> **Could Not Find:** [Exact asset name, screenshot, or event identifier]
+> **Searched Locations:** [Paths and GitMap search queries attempted]
+> **Question to Owner:** "Where did you put it? How did you put it?"
+> **Possible Solutions / Suggestions:**
+> 1. [Suggestion A — e.g. path in assets/screenshots/ or specific folder]
+> 2. [Suggestion B — e.g. fallback identifier or alternate event name]
+> 3. [Suggestion C — e.g. generate synthetic mock fixture for development]
+```
+
+Offer 2-3 concrete possible solutions so the user can easily pick from suggestions or provide the right answer.
+
+### Persistence & Lifecyle:
+- Open Ambiguity File: `.ai-memory/ambiguity/<sequence>-<slug>-ambiguities.md` and `.ai-memory/ambiguous-questions/01-new-ambiguity/01-<slug>.md`
+- Resolved Ambiguity File: `.ai-memory/ambiguous-questions/02-ambiguity-resolved/01-<slug>.md`
+
+Carry every open question along in the master plan and subtask ledgers under `Assumptions:` and `Open Ambiguities:`. Never drop an ambiguity mid-execution.
 
 ```markdown
 
@@ -466,8 +494,11 @@ Raised: <YYYY-MM-DD>
 Blocking: <plan slug(s) or "none">
 
 ## Question
+- "Where did you put it? How did you put it?"
 
-## Options considered
+## Searched Locations & GitMap Queries
+
+## Possible Solutions / Suggestions for User
 
 ## Impact if guessed wrong
 

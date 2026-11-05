@@ -278,6 +278,17 @@ Disciplined atomic commit workflow enforcing hyphen-separated messages (`<Module
 - `gitmap sync --projects <path|json>` — Accepts a path to JSON file or inline JSON array of repositories (e.g. `'[{"folder": "cat-my"}]'`).
 - `gitmap sync --repo <name>` — Synchronizes a single target repository by name.
 - `gitmap sync --workers <N>` — Sets parallel worker pool concurrency (default: 8).
+
+### 11. Native MCP Server, Rights Matrix, Screen Capture & Line-Cap Linter
+- `gitmap mcp serve` — Starts native JSON-RPC 2.0 Model Context Protocol (MCP) server over stdio, exposing 16 GitMap tools (`gitmap_aum_search`, `gitmap_find`, `gitmap_cat`, `gitmap_lf`, `gitmap_status`, `gitmap_pull`, `gitmap_nodes`, `gitmap_deploy`, `gitmap_agy`, `gitmap_db`, `gitmap_pipeline_errors`, `gitmap_screenshot`, `gitmap_lines`, `gitmap_plans`, `gitmap_doctor`, `gitmap_rights_status`).
+- `gitmap mcp status` — Inspects MCP server permission status and registered tools.
+- `gitmap mcp install` — Generates client configuration stanzas for Claude Desktop, Cursor, and Google Antigravity.
+- `gitmap rights status` — Displays Tokyo Night table of active administrative security capabilities.
+- `gitmap rights enable <cap>` / `disable <cap>` — Toggles administrative permissions (`screenshot`, `mcp`, `remote_exec`).
+- `gitmap rights confirm admin` — Admin confirmation gate authorizing sensitive remote actions.
+- `gitmap screenshot [node] [flags]` (alias: `gitmap screen`, `gitmap shot`) — Captures local or remote screen across cluster nodes via SSH/SCP with Tokyo Night summary cards and relative markdown links.
+- `gitmap lines [targets...]` (alias: `gitmap line-count`, `gitmap lc`) — High-speed streaming line counter.
+- `gitmap lines --max 300 -r <path>` — Enforces 300-line code ceiling across workspace, highlighting violating files (`[REFACTOR REQUIRED]`) while strictly exempting all `*.md` files and test inventory JSON files.
 - `gitmap sync --dry-run` — Previews changes across all repositories without making git or file mutations.
 - `gitmap sync --no-push` — Applies changes and commits locally without pushing to remote.
 - `gitmap sync --no-release` — Disables post-sync SemVer release tagging.

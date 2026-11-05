@@ -85,10 +85,11 @@ Query conflicted files using `git diff --name-only --diff-filter=U`. For each co
 - **Stage Resolved File:** Run `git add <file>` once verified.
 
 ### Step 6: Merge Commit Creation
-- Once all conflicted files are resolved and staged:
+- Once all conflicted files are resolved and staged, commit via the canonical GitMap bug verb (local only — the script pushes separately in Step 7):
   ```bash
-  git commit -m "Merge remote-tracking branch '<remote>/<branch>' into <branch> (mechanically resolved conflicts)"
+  gitmap cbf --no-push "GIT - auto-resolve merge conflicts"
   ```
+- Fallback only when `gitmap` is unavailable (bootstrap): `git commit -m "Bug: GIT - auto-resolve merge conflicts"`. Raw `git commit` with any other message is banned.
 
 ### Step 7: Push & Final Synchronization Verification
 - Push synchronized branch to remote tracking repository:
