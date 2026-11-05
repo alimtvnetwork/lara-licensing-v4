@@ -20,11 +20,10 @@ This collection contains deterministic prompt transformation templates designed 
 | **12** | [`12-muse-long-update-letterly.md`](12-muse-long-update-letterly.md) | Muse Long Update | Formats input into Muse long-running overnight execution with gitmap update first, rate-limited gitmap pa / repo pull, autopilot ambiguity logging, pragmatic commits, and conditional CI release | `execute-parent-task-with-n-steps-v6` |
 | **13** | [`13-muse-sleepy-letterly.md`](13-muse-sleepy-letterly.md) | Muse Sleepy Mode | Formats input into "I am sleepy" autopilot execution with repo pull first, closest-choice ambiguity resolution, morning review log, no-build/no-test default, and pragmatic commits | `execute-parent-task-with-n-steps-v6` |
 | **14** | [`14-execute-recommit-time-restricted-letterly.md`](14-execute-recommit-time-restricted-letterly.md) | Recommit & Time-Restricted | Formats voice dictation with on-call time restrictions (< 08:00 AM weekdays, anytime weekends in target timezone), recommit instructions, autobot identity, and V7 execution engine | `execute-parent-task-with-n-steps-v7` |
-| **15** | [`15-execute-parent-task-v7-letterly.md`](15-execute-parent-task-v7-letterly.md) | Execute N-Steps (V7 Time-Restricted) | Verbatim input capture with time-restricted constraints, dynamic scheduling, and V7 master execution engine | `execute-parent-task-with-n-steps-v7` |
 
 ### Cursor Prompt Suite (`23-cursor-prompts/`)
 
-For Cursor environments requiring `.cursor/skills/` resolution, see [`../23-cursor-prompts/readme.md`](../23-cursor-prompts/readme.md) which houses the dedicated Cursor prompt suite (`01-mobile-letterly-cursor.md` through `15-execute-parent-task-v7-letterly-cursor.md`).
+For Cursor environments requiring `.cursor/skills/` resolution, see [`../23-cursor-prompts/readme.md`](../23-cursor-prompts/readme.md) which houses the dedicated Cursor prompt suite (`01-mobile-letterly-cursor.md` through `14-execute-recommit-time-restricted-letterly-cursor.md`).
 
 ## Core Invariants
 

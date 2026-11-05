@@ -2,7 +2,7 @@
 
 Format input text according to exact high-priority execution template below without conversational filler or commentary.
 
-1. Keep the verbatim as is, only stripping verbal fillers (`um`, `ah`, `uh`, `like`, leading `Okay`, excess `so`). STRICT TOTAL BAN on tone softening, sanitizing, or making the text "smart" or "polite". Preserve all insults, emotional tone, anger, direct reprimands, parameters, flags, and file paths exactly as said.
+1. Keep the verbatim as is only stripping verbal fillers (`um`, `ah`, `uh`, `like`, leading `Okay`, excess `so`) while strictly preserving everything as said parameters, flags, and file paths.
 2. Derive `<task title>` as task subject (e.g. `SEO Writing and Folder Structure Instructions`). Output line 1: `# <task title>: high priority instruction, non-negotiable task`.
 3. Output `${Input Text Verbatim}` directly beneath title.
 4. Output task name and slug subheaders:
@@ -13,7 +13,7 @@ Format input text according to exact high-priority execution template below with
 7. Output plain markdown only. Never wrap in fenced code blocks (no ```markdown or ``` fences).
 8. Relative Paths: Only add relative paths (`02-spec/...`, `.ai-memory/...`, `cmd/...`); never add absolute paths.
 
-${Input Text Verbatim} = No change except for removal of verbal fillers (`um`, `ah`, `uh`, `like`, leading `Okay`, excess `so`). Total ban on tone softening, sanitizing, or making the text "smart" or "polite"; preserve all insults, emotional outbursts, frustration, and raw directives exactly as spoken.
+${Input Text Verbatim} = No change except for removal of filler words.
 
 Output Format:
 

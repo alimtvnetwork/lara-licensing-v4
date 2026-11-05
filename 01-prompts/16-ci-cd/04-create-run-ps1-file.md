@@ -121,8 +121,15 @@ The script must implement:
    - Run build, lint, and test sequentially.
    - Exit with code 1 immediately on any failure.
 4. **Process Cleanup (Trap / Finally):**
-   - Track all spawned child process PIDs.
-   - Kill all child processes cleanly on exit, leaving zero orphan processes blocking ports.
+   - Track all spawned child process PIDs and reused listener PIDs.
+   - Kill all child process trees cleanly via `Stop-ProcessTree` (`taskkill.exe /F /T /PID` or recursive kill on Unix) on exit, leaving zero orphan processes blocking ports or leaking RAM.
+   - Verify port release via `Wait-PortFree` before claiming completion.
+5. **Supervision & Process Lifecycle Invariants:**
+   - **No Deep Nesting & Small Helper Functions:** Decompose nested loops and conditionals into discrete helper functions (< 25 lines) with guard clauses and early returns. Maximum 1 level of `if` nesting.
+   - **Stack Trace Recording in Catch Blocks:** Never use empty `catch {}`. Log context, exact exception message, and complete script stack trace (`$_.ScriptStackTrace`) to `.logs/diagnostics.log`.
+   - **Uniform Supervision Across New & Reused Processes:** Monitor both freshly spawned process objects and reused service listener PIDs so that terminating any component cleanly breaks supervision.
+   - **Console Input Redirection Protection:** Always guard keyboard input checks with `if (-not [Console]::IsInputRedirected -and [Console]::KeyAvailable)` to prevent `InvalidOperationException` crashes in IDE tasks and subshells.
+   - **Direct Browser Exit Monitoring:** Always check `$browserProcess.HasExited` in addition to window visibility handles.
 
 ### 3. Standalone Installer Scripts (`local-install.ps1` & `local-install.sh`)
 - Detects the operating system (`Windows`, `Linux`, `macOS`).

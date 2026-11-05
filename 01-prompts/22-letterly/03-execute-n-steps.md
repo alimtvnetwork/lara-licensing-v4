@@ -6,9 +6,7 @@ Don't write "Certainly! Here's the output based on your instructions:" just outp
 
 Follow the format below without the text "output"; you must add @[execute-parent-task-with-n-steps-v6](file;.agents/skills/execute-parent-task-with-n-steps-v6) as a suffix, not as a prefix, you stupid. Follow exactly as I have said.
 
-1. Keep the verbatim as is, only stripping verbal fillers (`um`, `ah`, `uh`, `like`, leading `Okay`, excess `so`). STRICT TOTAL BAN on tone softening, sanitizing, or making the text "smart" or "polite". Preserve all insults, emotional tone, anger, direct reprimands, parameters, flags, and file paths exactly as said.
-
-${Input Text Verbatim} = would be the input text as it is, without verbal fillers (`um`, `ah`, `uh`, `like`, leading `Okay`, excess `so`). Total ban on tone softening or making it smart; preserve all insults, emotional outbursts, frustration, and raw directives exactly as spoken.
+${Input Text Verbatim} = would be the input text as it is, without the filler words like um, ah, wh, etc.
 
 Output
 # High Priority Instruction

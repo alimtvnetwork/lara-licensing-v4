@@ -334,14 +334,6 @@ GitMap is your **PRIMARY** acceleration engine. Banned ALL variants of `Get-Chil
   - **Stream file:** `gitmap cat <filepath>` (e.g. `gitmap cat 02-spec/21-app/readme.md`)
 - **TOTAL BAN (AUTO-REJECT FAILURE):** Banned ALL variants of `Get-ChildItem` (with or without flags/parameters: `-Path`, `-Filter`, `-Recurse`, bare `Get-ChildItem`), `dir`, `ls` in shell, `rg`, `ripgrep`, `grep`, `git grep`, `Select-String`, and `findstr`. Running raw grep, ripgrep, or slow shell search pipelines wastes execution steps, causes Windows process hangs, and violates GitMap primacy. Search exclusively through `gitmap aum search`, `gitmap find`, `gitmap lf`, or `gitmap cat`.
 
-### 🚫 Banned Ad-Hoc Scripts & GitMap Tool Primacy (TOTAL BAN ON `python -c "..."` AND AD-HOC CODE EXECUTION)
-- **Anti-Pattern vs. Mandatory GitMap Replacement:**
-  - ❌ `python -c "p = '...'; c = open(p, 'rb').read().replace(b'\r\n', b'\n'); open(p, 'wb').write(c)"` -> ✅ `gitmap eol --lf <path>` (or `gitmap eol --crlf <path>`)
-  - ❌ `python -c "import json; ..."` or ad-hoc scripts to read JSONL transcripts -> ✅ `gitmap jsonl <path> [-s step] [-t type] [-q query]`
-  - ❌ `python -c "import sqlite3; ..."` -> ✅ `gitmap agent task status`, `gitmap agent subtask ls`, `gitmap promptdb query ...`
-  - ❌ Ad-hoc node/python one-liners to calculate line counts -> ✅ `gitmap lines <files|glob>`
-- **TOTAL BAN (CRITICAL REPRIMAND):** Avoid using Python code or Node.js code for ad-hoc execution. Always use GitMap commands first. If a command does not exist in GitMap, implement it natively in GitMap or only use canonical pre-existing scripts from `03-ai-scripts/`. Never execute inline `python -c "..."` or temporary Node.js one-liners to manipulate files, normalize line endings, or parse logs.
-
 ---
 
 ## 5. Step 0: Preflight, Platform Handshake & SQLite Task DB Initialization (Phase 1 Budget)

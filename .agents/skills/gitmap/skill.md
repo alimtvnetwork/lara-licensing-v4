@@ -286,36 +286,12 @@ Disciplined atomic commit workflow enforcing hyphen-separated messages (`<Module
 
 ### 11. Native MCP Server, Rights Matrix, Screen Capture & Line-Cap Linter
 - `gitmap self-install` / `gitmap setup` First-Time Rights Prompt — Prompts for administrative capabilities (`screenshot`, `mcp`, `remote_exec`) with non-blocking `[Y]es`, `[N]o`, `[S]kip`, or Enter (defaults); persists decision in Split-DB (`rights_prompted = true`) to prevent repetitive prompting while allowing ongoing toggling via `gitmap rights` or Web Settings.
-- `gitmap mcp serve` — Starts native MCP server (HTTP on port 8765 with automatic failover to 8766, 8767). If already running, immediately reports active PID, port, endpoints, and exits with code 0 without pausing. Exposes 24 native GitMap tools with embedded rich code examples:
-  1. `gitmap_aum_search`: Ultra-fast code search across repository files via AUM index.
-  2. `gitmap_find`: Glob pattern and filename discovery across repositories.
-  3. `gitmap_cat`: Read file contents with line range support.
-  4. `gitmap_lf`: Enforce LF line endings across repository files.
-  5. `gitmap_log`: Commit history and pickaxe (-S) diff search across repos. Examples: `{"query": "fix(ui)"}`, `{"query": "gitmap_nodes", "diff": "true"}`, `{"query": "auth", "limit": "5"}`.
-  6. `gitmap_nodes`: Inspect, manage, and coordinate cluster fleet nodes and infrastructure. Subcommands: `ls`, `status`, `ping`, `resources`, `tasks`, `bootstrap`, `scan`, `rescan`. Examples: `{"subcommand": "ls", "filter": "online"}`, `{"subcommand": "ping", "target": "u1"}`, `{"subcommand": "resources"}`, `{"subcommand": "tasks", "flags": "--heavy-only"}`, `{"subcommand": "bootstrap", "target": "u1"}`.
-  7. `gitmap_deploy`: Deploy binaries, configuration topology, IDE presets, SSH keys, or git repositories across cluster nodes. Subcommands: `binary`, `config`, `keys`, `ide`, `repo`, `import`, `export`. Examples: `{"action": "binary", "target": "u1"}`, `{"action": "keys", "target": "all"}`, `{"action": "ide", "target": "u1"}`, `{"action": "config", "target": "all"}`, `{"action": "repo", "target": "u1", "source": "gitmap"}`.
-  8. `gitmap_delegate`: Delegate and execute shell commands remotely on cluster fleet nodes, VMs, and peers over SSH. Examples: `{"node": "u1", "command": "uname -a && uptime"}`, `{"node": "u1", "command": "gitmap status"}`, `{"broadcast": "true", "command": "gitmap version"}`, `{"node": "w1", "command": "git status -s", "cluster": "true"}`.
-  9. `gitmap_screenshot`: Local or remote screen capture across cluster nodes. Examples: `{}`, `{"node": "u1", "output": "u1.png"}`.
-  10. `gitmap_rights_status`: Inspect administrative security capabilities and permission matrix.
-  11. `gitmap_pipeline_errors`: Extract CI/CD pipeline error logs and 4-part RCA.
-  12. `gitmap_lines`: Enforce 300-line ceiling across workspace files (exempts `*.md` & test JSON).
-  13. `gitmap_doctor`: System diagnostic health check across binaries, DB, and network.
-  14. `gitmap_plans`: List active and pending plans in `.ai-memory/plans/`.
-  15. `gitmap_status`: Multi-repo git working tree status overview.
-  16. `gitmap_pull`: High-speed parallel workspace git pull.
-  17. `gitmap_agy`: Antigravity process manager, cache cleaner, and Chrome profile sync.
-  18. `gitmap_db`: Safe read-only Split-DB SQL query runner.
-  19. `gitmap_ps`: Cross-platform PowerShell runner (-NoProfile -Command) and OS process inspector (`gitmap ps`). Examples: `{"command": "Get-ChildItem -Path . -Filter *.go | Measure-Object"}`, `{"command": "gitmap version --json"}`, `{"action": "processes"}`, `{"action": "processes", "filter": "node"}`, `{"action": "kill", "pid": "12345"}`.
-  20. `gitmap_py`: Python script and module runner utilizing verified environment. Examples: `{"command": "import sys; print(sys.version)"}`, `{"file": "03-ai-scripts/06-cicd-local-runner.py", "args": "--fast"}`, `{"file": "03-ai-scripts/38-sync-prompts-skills-scripts.py", "args": "--check"}`.
-  21. `gitmap_node`: Node.js and npm execution engine. Examples: `{"command": "console.log(process.versions)"}`, `{"script": "scripts/build.js", "args": "--prod"}`, `{"action": "npm", "args": "run test"}`, `{"action": "npm", "args": "run build"}`.
-  22. `gitmap_cargo`: Rust and Cargo toolchain compiler with automatic install suggestions. Subcommands: `build`, `check`, `test`, `status`, `clippy`, `run`, `install`. Examples: `{"subcommand": "status"}`, `{"subcommand": "check"}`, `{"subcommand": "build", "args": "--release"}`, `{"subcommand": "test", "args": "-- --nocapture"}`.
-  23. `gitmap_run`: Unified repository task runner executing lifecycle scripts (`run.ps1` / `run.sh` / `run.config.json`). Examples: `{"target": "build"}`, `{"target": "test", "args": "--verbose"}`, `{"target": "lint"}`, `{"target": "clean", "dry_run": "true"}`.
-  24. `gitmap_build`: GitMap multi-ecosystem high-performance build engine (Go, Vite, Node, Cargo, PnP, Generic). Subcommands: `go`, `vite`, `pnp`, `node`, `cargo`, `rust`, `generic`. Examples: `{}`, `{"subcommand": "vite", "clean_cache": "true"}`, `{"subcommand": "go", "release": "true", "diagnostics": "true"}`, `{"subcommand": "cargo", "release": "true"}`.
+- `gitmap mcp serve` — Starts native MCP server (HTTP on port 8765 with automatic failover to 8766, 8767). If already running, immediately reports active PID, port, endpoints, and exits without pausing. Exposes 17 GitMap tools (`gitmap_aum_search`, `gitmap_find`, `gitmap_cat`, `gitmap_lf`, `gitmap_log`, `gitmap_status`, `gitmap_pull`, `gitmap_nodes`, `gitmap_deploy`, `gitmap_agy`, `gitmap_db`, `gitmap_pipeline_errors`, `gitmap_screenshot`, `gitmap_lines`, `gitmap_plans`, `gitmap_doctor`, `gitmap_rights_status`).
 - `gitmap mcp serve --stdio` (or `-s`) — Starts stdio JSON-RPC 2.0 MCP server for AI clients requiring stdio piping.
 - `gitmap mcp serve --port <port>` — Starts HTTP/SSE MCP server on explicit port.
 - `gitmap mcp status` — Inspects MCP server active port, running status, and registered tools.
 - `gitmap mcp stop` (alias: `gitmap mcp kill`) — Safely terminates running MCP server process and cleans runtime state.
-- `gitmap mcp tools` (alias: `gitmap mcp list`) — Displays all 24 registered MCP tools, capabilities, and descriptions in a formatted table.
+- `gitmap mcp tools` (alias: `gitmap mcp list`) — Displays all 17 registered MCP tools, capabilities, and descriptions in a formatted table.
 - `gitmap mcp install` — Generates client configuration stanzas for Claude Desktop, Cursor, and Google Antigravity.
 - `gitmap login ssh` — Auto-discovers existing active SSH keys (`~/.ssh/id_ed25519`, `~/.ssh/id_rsa`, `~/.ssh/id_ecdsa`), probes GitHub/GitLab SSH authentication, displays public key, and binds GitHub CLI to use the SSH protocol (`gh config set git_protocol ssh -h github.com`).
 - `gitmap rights status` — Displays Tokyo Night table of active administrative security capabilities.

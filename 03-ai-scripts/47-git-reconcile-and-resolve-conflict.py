@@ -116,38 +116,6 @@ def run_git(args: List[str], repo_root: Path, check_exit: bool = True) -> Tuple[
     return process.returncode, process.stdout.strip(), process.stderr.strip()
 
 
-def commit_merge_resolution(repo_root: Path) -> bool:
-    """Commit a mechanically resolved merge via gitmap cbf (no push).
-
-    Canonical message is "GIT - auto-resolve merge conflicts" so the
-    formatter emits "Bug: GIT - auto-resolve merge conflicts". Falls back
-    to raw git commit with the same formatted message when gitmap is
-    unavailable (bootstrap) or the gitmap commit fails.
-    """
-    import shutil
-
-    message = "GIT - auto-resolve merge conflicts"
-    gitmap_bin = shutil.which("gitmap")
-    if gitmap_bin:
-        result = subprocess.run(
-            [gitmap_bin, "cbf", "--no-push", message],
-            cwd=str(repo_root),
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-            encoding="utf-8",
-            errors="replace",
-            check=False,
-        )
-        if result.returncode == 0:
-            return True
-
-    ret, _, _ = run_git(
-        ["commit", "-m", f"Bug: {message}"], repo_root, check_exit=False
-    )
-    return ret == 0
-
-
 def inspect_git_status(repo_root: Path, remote_name: str = "origin") -> GitStatusSummary:
     """Inspect repository git state, tracking divergence and active conflicts."""
     # Current branch
@@ -712,8 +680,12 @@ def reconcile_repository(
                 report["status"] = "failed_unresolved_conflicts"
                 return report
 
-            # Commit the resolved conflict via canonical gitmap verb
-            commit_merge_resolution(repo_root)
+            # Commit the resolved conflict
+            commit_msg = (
+                f"Merge conflict resolution ({strategy.value} strategy)\n\n"
+                f"Mechanically resolved files:\n" + "\n".join(f"- {f}" for f in resolved)
+            )
+            run_git(["commit", "-m", commit_msg], repo_root, check_exit=False)
             report["steps_taken"].append("Committed resolved merge conflict")
 
     # Step 3: Divergence evaluation
@@ -754,11 +726,13 @@ def reconcile_repository(
                     report["status"] = "failed_unresolved_conflicts"
                     return report
 
-                # Complete merge commit via canonical gitmap verb
-                if not commit_merge_resolution(repo_root):
-                    report["status"] = "failed_commit"
-                    return report
-
+                # Complete merge commit
+                commit_msg = (
+                    f"Merge remote-tracking branch '{remote_name}/{status.branch}' into {status.branch}\n\n"
+                    f"Mechanically resolved conflicts using '{strategy.value}' strategy:\n"
+                    + "\n".join(f"- {f}" for f in resolved)
+                )
+                run_git(["commit", "-m", commit_msg], repo_root)
                 report["steps_taken"].append("Successfully committed mechanical merge resolution")
             else:
                 report["steps_taken"].append("Clean automatic merge completed without conflict")
