@@ -274,12 +274,14 @@ Disciplined atomic commit workflow enforcing hyphen-separated messages (`<Module
 - `gitmap install --list` — Discover developer toolchains, profiles, and runtime packages.
 
 ### 10. Native Fleet Synchronization & SQLite Agent Task Engine
+- `gitmap node bootstrap <target>` (aliases: `gitmap nodes bootstrap`, `gitmap node setup`, `gitmap fleet bootstrap`) — Host-orchestrated one-shot remote Linux/Ubuntu node restoration and onboarding over SSH in 6 automated stages (OS probe, package install `gh/git/curl`, GitMap source clone & `/usr/local/bin/gitmap` compilation, GitHub CLI SSH protocol binding, multi-IDE & Antigravity sync, and `gitmap doctor` telemetry).
 - `gitmap sync` — Synchronizes canonical prompts, skills, shared specs (`02-spec/01-20`), and additive scripts across all 43 registered fleet repositories.
 - `gitmap sync --projects <path|json>` — Accepts a path to JSON file or inline JSON array of repositories (e.g. `'[{"folder": "cat-my"}]'`).
 - `gitmap sync --repo <name>` — Synchronizes a single target repository by name.
 - `gitmap sync --workers <N>` — Sets parallel worker pool concurrency (default: 8).
 
 ### 11. Native MCP Server, Rights Matrix, Screen Capture & Line-Cap Linter
+- `gitmap self-install` / `gitmap setup` First-Time Rights Prompt — Prompts for administrative capabilities (`screenshot`, `mcp`, `remote_exec`) with non-blocking `[Y]es`, `[N]o`, `[S]kip`, or Enter (defaults); persists decision in Split-DB (`rights_prompted = true`) to prevent repetitive prompting while allowing ongoing toggling via `gitmap rights` or Web Settings.
 - `gitmap mcp serve` — Starts native JSON-RPC 2.0 Model Context Protocol (MCP) server over stdio, exposing 16 GitMap tools (`gitmap_aum_search`, `gitmap_find`, `gitmap_cat`, `gitmap_lf`, `gitmap_status`, `gitmap_pull`, `gitmap_nodes`, `gitmap_deploy`, `gitmap_agy`, `gitmap_db`, `gitmap_pipeline_errors`, `gitmap_screenshot`, `gitmap_lines`, `gitmap_plans`, `gitmap_doctor`, `gitmap_rights_status`). Emits stderr diagnostic startup banners leaving stdout pristine for JSON-RPC 2.0 framing.
 - `gitmap mcp serve --port 8765` — Starts HTTP/SSE MCP server with automatic failover across candidate ports `8765`, `8766`, `8767`, active running-instance detection, and endpoints (`/mcp`, `/status`, `/tools`).
 - `gitmap mcp tools` (alias: `gitmap mcp list`) — Displays all 16 registered MCP tools, capabilities, and descriptions in a formatted table.
