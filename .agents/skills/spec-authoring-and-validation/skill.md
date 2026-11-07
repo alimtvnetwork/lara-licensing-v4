@@ -1,6 +1,6 @@
 ---
 name: spec-authoring-and-validation
-description: Author, structure, sequence, and validate repository specifications adhering to 02-spec/01-spec-authoring-guide/.
+description: "Author, structure, sequence, and validate repository specifications adhering to 02-spec/01-spec-authoring-guide/."
 ---
 
 # Specification Authoring & Validation Guide

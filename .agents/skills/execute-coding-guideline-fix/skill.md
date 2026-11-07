@@ -1,6 +1,6 @@
 ---
 name: execute-coding-guideline-fix
-description: Autonomously orchestrate and apply concrete, surgical refactoring fixes for all coding guideline violations across the target codebase in bounded 5-8 file micro-batches.
+description: "Autonomously orchestrate and apply concrete, surgical refactoring fixes for all coding guideline violations across the target codebase in bounded 5-8 file micro-batches."
 ---
 
 # Execute Coding Guideline Fix

@@ -1,6 +1,6 @@
 ---
 name: image-transfer
-description: Autonomously discover, transfer, optimize, and embed screenshot and diagram assets into repository documentation and specifications with automatic directory creation, SHA-256 deduplication, and strictly relative Markdown links.
+description: "Autonomously discover, transfer, optimize, and embed screenshot and diagram assets into repository documentation and specifications with automatic directory creation, SHA-256 deduplication, and strictly relative Markdown links."
 ---
 
 # Image Transfer & Documentation Asset Ingestion Skill (`image-transfer`)

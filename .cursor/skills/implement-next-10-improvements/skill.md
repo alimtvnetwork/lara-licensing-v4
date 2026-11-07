@@ -1,6 +1,6 @@
 ---
 name: implement-next-10-improvements
-description: Autonomously implement the next 10 pending improvements from the plan backlog in fast-forwarding mode (zero builds, zero tests) with strict coding guideline enforcement (*appfault.AppError, Result[T], parameter structs, string constants/enums, 8-15 line functions, 150-300 line files), repeatable via 'next', with decoupled terminal E2E verification.
+description: "Autonomously implement the next 10 pending improvements from the plan backlog in fast-forwarding mode (zero builds, zero tests) with strict coding guideline enforcement (*appfault.AppError, Result[T], parameter structs, string constants/enums, 8-15 line functions, 150-300 line files), repeatable via 'next', with decoupled terminal E2E verification."
 ---
 
 # Implement Next 10 Improvements (Cursor IDE)

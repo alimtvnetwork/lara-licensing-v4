@@ -1,6 +1,6 @@
 ---
 name: follow-ui-ux-design-system
-description: Autonomously construct production-grade marketing websites, blogs, dashboards, navigation systems, avant-garde mega menus, buttons, and responsive sections by strictly following grounded design system specifications without inventing values or hallucinating aesthetics.
+description: "Autonomously construct production-grade marketing websites, blogs, dashboards, navigation systems, avant-garde mega menus, buttons, and responsive sections by strictly following grounded design system specifications without inventing values or hallucinating aesthetics."
 ---
 
 # Follow UI/UX Design System Specification & Component Assembly

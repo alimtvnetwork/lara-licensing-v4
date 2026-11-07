@@ -1,6 +1,6 @@
 ---
 name: git-reconcile-and-resolve-conflict
-description: Autonomously reconcile diverged Git branches, mechanically resolve merge conflicts across known file patterns, and safely push to remote tracking branches without rewriting Git history.
+description: "Autonomously reconcile diverged Git branches, mechanically resolve merge conflicts across known file patterns, and safely push to remote tracking branches without rewriting Git history."
 ---
 
 # Git Reconciliation & Mechanical Conflict Resolver

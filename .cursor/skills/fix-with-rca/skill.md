@@ -1,6 +1,6 @@
 ---
 name: fix-with-rca
-description: Diagnose, analyze, and fix bugs using grounded 4-part Root Cause Analysis (RCA) without guessing.
+description: "Diagnose, analyze, and fix bugs using grounded 4-part Root Cause Analysis (RCA) without guessing."
 ---
 
 # Fix with Root Cause Analysis (RCA)

@@ -1,6 +1,6 @@
 ---
 name: cg-database-conventions
-description: Autonomously audits, refactors, and validates repository-wide database conventions using SQLite split-db patterns, PascalCase rules, and ORM standards.
+description: "Autonomously audits, refactors, and validates repository-wide database conventions using SQLite split-db patterns, PascalCase rules, and ORM standards."
 ---
 
 # Database Conventions Coding Guidelines (`cg-database-conventions`)

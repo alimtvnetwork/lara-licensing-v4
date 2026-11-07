@@ -1,6 +1,6 @@
 ---
 name: movie-cli-migration-and-optimization
-description: Migration and DRY optimization plan orchestration for movie-cli-v8.
+description: "Migration and DRY optimization plan orchestration for movie-cli-v8."
 ---
 
 # Movie CLI Migration and Optimization

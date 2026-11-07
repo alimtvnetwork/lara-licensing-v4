@@ -1,6 +1,6 @@
 ---
 name: release
-description: Unified release management orchestrator governing major, minor, patch version bumps, release notes generation, changelog synchronization, and Git tag release ceremonies.
+description: "Unified release management orchestrator governing major, minor, patch version bumps, release notes generation, changelog synchronization, and Git tag release ceremonies."
 ---
 
 # Unified Release Management & Version Bump Orchestrator (`release`)

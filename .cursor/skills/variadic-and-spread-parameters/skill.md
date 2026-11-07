@@ -1,6 +1,6 @@
 ---
 name: variadic-and-spread-parameters
-description: Executes the Variadic & Spread Parameters prompt. Autonomously scan, plan, refactor, and fix all rigid slice and array parameters across Go, TypeScript, and Rust to variadic and spread patterns.
+description: "Executes the Variadic & Spread Parameters prompt. Autonomously scan, plan, refactor, and fix all rigid slice and array parameters across Go, TypeScript, and Rust to variadic and spread patterns."
 ---
 
 # Variadic & Spread Parameters, Rest Elements & Slices

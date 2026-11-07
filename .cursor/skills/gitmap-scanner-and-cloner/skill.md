@@ -1,6 +1,6 @@
 ---
 name: gitmap-scanner-and-cloner
-description: Autonomously audit, extend, test, and modify GitMap's repository discovery scanner, output formatters (CSV, JSON, Markdown), and high-speed parallel cloner.
+description: "Autonomously audit, extend, test, and modify GitMap's repository discovery scanner, output formatters (CSV, JSON, Markdown), and high-speed parallel cloner."
 ---
 
 # GitMap Scanner and Cloner Skill (`gitmap-scanner-and-cloner`)

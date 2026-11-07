@@ -1,6 +1,6 @@
 ---
 name: cg-boolean-and-naming
-description: Autonomously audits, refactors, and validates repository-wide boolean conventions, positive prefixes, implicit checks, enum Type suffixes, and nested if flattening against 02-spec/02-coding-guidelines/.
+description: "Autonomously audits, refactors, and validates repository-wide boolean conventions, positive prefixes, implicit checks, enum Type suffixes, and nested if flattening against 02-spec/02-coding-guidelines/."
 ---
 
 # Skill: Coding Guidelines — Booleans, Naming & Enums (`cg-boolean-and-naming`)

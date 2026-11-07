@@ -1,6 +1,6 @@
 ---
 name: autonomous-qa-and-testing
-description: Autonomously run test suites, verify quality gates, and prevent regressions across polyglot stacks.
+description: "Autonomously run test suites, verify quality gates, and prevent regressions across polyglot stacks."
 ---
 
 # Autonomous QA and Testing

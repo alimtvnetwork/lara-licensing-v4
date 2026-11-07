@@ -1,6 +1,6 @@
 ---
 name: react-ui-theming-design
-description: Develop, theme, and maintain modern React UI components using Tailwind CSS, Radix UI primitives, and design tokens.
+description: "Develop, theme, and maintain modern React UI components using Tailwind CSS, Radix UI primitives, and design tokens."
 ---
 
 # React UI, Components & Theming Design System

@@ -1,6 +1,6 @@
 ---
 name: next-100-ui-improvements
-description: Autonomously scan, discover, plan, and refactor 100 UI-level improvements across color tokens, WCAG contrast, 4-plane depth hierarchy, 60/30/10 balance, typography stacks, button systems, sticky navigation physics, spacing rhythm, CSS3 motion, and React component hygiene.
+description: "Autonomously scan, discover, plan, and refactor 100 UI-level improvements across color tokens, WCAG contrast, 4-plane depth hierarchy, 60/30/10 balance, typography stacks, button systems, sticky navigation physics, spacing rhythm, CSS3 motion, and React component hygiene."
 ---
 
 # Next 100 UI Improvements

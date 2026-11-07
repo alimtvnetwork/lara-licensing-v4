@@ -1,6 +1,6 @@
 ---
 name: string-normalization-and-equalfoldany
-description: Executes the String Normalization & EqualFoldAny prompt. Autonomously scan, audit, plan, and refactor repetitive string comparisons, ToLower/TrimSpace calls, and chained equality checks to strutil.EqualFoldAnyTrim.
+description: "Executes the String Normalization & EqualFoldAny prompt. Autonomously scan, audit, plan, and refactor repetitive string comparisons, ToLower/TrimSpace calls, and chained equality checks to strutil.EqualFoldAnyTrim."
 ---
 
 # String Normalization & EqualFoldAny

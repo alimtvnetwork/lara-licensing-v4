@@ -1,6 +1,6 @@
 ---
 name: check-pending-improvements
-description: Autonomously scan, aggregate, and visualize all pending improvements across the workspace, generating executive KPI dashboards, category breakdowns, priority tiers, and the immediate Next 10 execution queue.
+description: "Autonomously scan, aggregate, and visualize all pending improvements across the workspace, generating executive KPI dashboards, category breakdowns, priority tiers, and the immediate Next 10 execution queue."
 ---
 
 # Check Pending Improvements (Cursor IDE)

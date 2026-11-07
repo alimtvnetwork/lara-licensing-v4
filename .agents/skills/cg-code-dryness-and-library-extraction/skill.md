@@ -1,6 +1,6 @@
 ---
 name: cg-code-dryness-and-library-extraction
-description: Autonomously analyze codebases deeply, identify duplicated patterns, extract reusable util/framework/package/library modules, and drastically reduce code lines using a 400-step 3-phase self-loop (100 Analyze / 150 Plan / 150 Execute) with strict no-build and no-test rules.
+description: "Autonomously analyze codebases deeply, identify duplicated patterns, extract reusable util/framework/package/library modules, and drastically reduce code lines using a 400-step 3-phase self-loop (100 Analyze / 150 Plan / 150 Execute) with strict no-build and no-test rules."
 ---
 
 # Skill: Code DRYness & Reusable Library Extraction (`cg-code-dryness-and-library-extraction`)

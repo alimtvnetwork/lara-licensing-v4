@@ -1,6 +1,6 @@
 ---
 name: cg-variadic-and-spread-parameters
-description: Autonomously audits, refactors, and enforces variadic and spread parameters (...T, ...items, &[T]) across polyglot codebases to eliminate artificial slice wrappers.
+description: "Autonomously audits, refactors, and enforces variadic and spread parameters (...T, ...items, &[T]) across polyglot codebases to eliminate artificial slice wrappers."
 ---
 
 # Skill: Variadic & Spread Parameters, Rest Elements & Slices (`cg-variadic-and-spread-parameters`)

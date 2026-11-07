@@ -1,6 +1,6 @@
 ---
 name: write-antigravity
-description: Author, update, and persist Antigravity skills, rules, and configuration architecture in alignment with repo standards.
+description: "Author, update, and persist Antigravity skills, rules, and configuration architecture in alignment with repo standards."
 ---
 
 # Antigravity Customization Architecture & Rule Authoring

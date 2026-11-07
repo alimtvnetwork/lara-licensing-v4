@@ -1,6 +1,6 @@
 ---
 name: cg-file-size-and-function-reduction
-description: Autonomously audits, decomposes, and refactors files over 100 lines and functions over 8–15 lines across the codebase using a two-part decomposition strategy, wrapper objects, and strict whitespace preservation without intermediate test or build runs.
+description: "Autonomously audits, decomposes, and refactors files over 100 lines and functions over 8–15 lines across the codebase using a two-part decomposition strategy, wrapper objects, and strict whitespace preservation without intermediate test or build runs."
 ---
 
 # Skill: File Size & Function Size Reduction (`cg-file-size-and-function-reduction`)

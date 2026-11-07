@@ -1,6 +1,6 @@
 ---
 name: gitmap-pipeline-and-diagnostics
-description: Autonomously manage, optimize, and diagnose CI/CD pipeline runs, error extraction, bounded stack traces, and 4-part RCA generation.
+description: "Autonomously manage, optimize, and diagnose CI/CD pipeline runs, error extraction, bounded stack traces, and 4-part RCA generation."
 ---
 
 # GitMap Pipeline & Diagnostics Skill (`gitmap-pipeline-and-diagnostics`)

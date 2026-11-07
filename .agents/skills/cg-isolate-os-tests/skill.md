@@ -1,6 +1,6 @@
 ---
 name: cg-isolate-os-tests
-description: Autonomously audits, refactors, and validates repository-wide unit tests to ensure that tests NEVER trigger real OS shutdown, reboot, power-off, system modifications, or heavy unmocked system calls, enforcing injectable executors and mock duration verification across polyglot stacks.
+description: "Autonomously audits, refactors, and validates repository-wide unit tests to ensure that tests NEVER trigger real OS shutdown, reboot, power-off, system modifications, or heavy unmocked system calls, enforcing injectable executors and mock duration verification across polyglot stacks."
 ---
 
 # Skill: Unit Test Isolation & Destructive OS Prevention (`cg-isolate-os-tests`)

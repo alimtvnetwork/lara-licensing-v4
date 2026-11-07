@@ -1,6 +1,6 @@
 ---
 name: gitmap-automation-bot
-description: Autonomous developer companion skill for system-wide single-user AI bot identity governance, headless pipeline orchestration, and credential-isolated git configurations.
+description: "Autonomous developer companion skill for system-wide single-user AI bot identity governance, headless pipeline orchestration, and credential-isolated git configurations."
 ---
 
 # GitMap AI Automation Bot Skill

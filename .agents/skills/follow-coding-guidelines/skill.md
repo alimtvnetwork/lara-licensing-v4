@@ -1,6 +1,6 @@
 ---
 name: follow-coding-guidelines
-description: Autonomously enforce, audit, and follow repository coding guidelines, zero-nesting rules, leaf error sovereignty, parameter structs, positive booleans, and GitMap commit discipline.
+description: "Autonomously enforce, audit, and follow repository coding guidelines, zero-nesting rules, leaf error sovereignty, parameter structs, positive booleans, and GitMap commit discipline."
 ---
 
 # Follow Coding Guidelines Autonomous Skill

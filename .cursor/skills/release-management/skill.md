@@ -1,6 +1,6 @@
 ---
 name: release-management
-description: Execute full release ceremony, SemVer version bumps, package synchronization, and changelog updates.
+description: "Execute full release ceremony, SemVer version bumps, package synchronization, and changelog updates."
 ---
 
 # Release Management

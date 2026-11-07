@@ -1,6 +1,6 @@
 ---
 name: prompts-and-skills-sync
-description: Autonomously synchronize canonical prompts (01-prompts/), Antigravity skills (.agents/skills/), and AI scripts (03-ai-scripts/) from coding-guidelines across all connected repositories using 03-ai-scripts/38-sync-prompts-skills-scripts.py.
+description: "Autonomously synchronize canonical prompts (01-prompts/), Antigravity skills (.agents/skills/), and AI scripts (03-ai-scripts/) from coding-guidelines across all connected repositories using 03-ai-scripts/38-sync-prompts-skills-scripts.py."
 ---
 
 # Prompts, Skills & AI Scripts Multi-Repository Synchronizer

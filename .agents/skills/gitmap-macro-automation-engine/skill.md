@@ -1,6 +1,6 @@
 ---
 name: gitmap-macro-automation-engine
-description: Autonomously extend and troubleshoot interactive macro recording, replay, cross-platform shell adapters, and automated task execution.
+description: "Autonomously extend and troubleshoot interactive macro recording, replay, cross-platform shell adapters, and automated task execution."
 ---
 
 # GitMap Macro Automation Engine Skill (`gitmap-macro-automation-engine`)

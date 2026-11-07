@@ -1,6 +1,6 @@
 ---
 name: nuclear-package-modularization
-description: Autonomously modularize monolithic Go packages into smaller acyclic subpackages, isolate heavy subprocess tests into cli/tests/heavy_test, and estimate test inventory durations.
+description: "Autonomously modularize monolithic Go packages into smaller acyclic subpackages, isolate heavy subprocess tests into cli/tests/heavy_test, and estimate test inventory durations."
 ---
 
 # Nuclear Package Modularization & Heavy Test Isolation

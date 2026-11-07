@@ -1,6 +1,6 @@
 ---
 name: cg-follow-other-prompts
-description: Autonomously ingest, follow, and execute referenced external prompts and coding guideline directives across the codebase using bounded 5-8 file micro-batches, subagents (A=3, H=2, Capacity=6), GitMap acceleration, and strict no-build/no-test rules.
+description: "Autonomously ingest, follow, and execute referenced external prompts and coding guideline directives across the codebase using bounded 5-8 file micro-batches, subagents (A=3, H=2, Capacity=6), GitMap acceleration, and strict no-build/no-test rules."
 ---
 
 # Skill: Follow External Prompts & Guidelines (`cg-follow-other-prompts`)

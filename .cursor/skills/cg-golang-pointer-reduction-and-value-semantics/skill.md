@@ -1,6 +1,6 @@
 ---
 name: cg-golang-pointer-reduction-and-value-semantics
-description: Autonomously audits, plans, and refactors Golang codebases to reduce pointer usage (*T) and enforce value semantics across small structs, parameters, and query receivers using a 400-step 3-phase self-loop.
+description: "Autonomously audits, plans, and refactors Golang codebases to reduce pointer usage (*T) and enforce value semantics across small structs, parameters, and query receivers using a 400-step 3-phase self-loop."
 ---
 
 # Skill: Golang Pointer Reduction & Value Semantics (`cg-golang-pointer-reduction-and-value-semantics`)

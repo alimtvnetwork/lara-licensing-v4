@@ -1,6 +1,6 @@
 ---
 name: inventory-pending-tasks
-description: Discover, catalog, and sequence all pending plans, subtasks, and unresolved issues across .ai-memory/.
+description: "Discover, catalog, and sequence all pending plans, subtasks, and unresolved issues across .ai-memory/."
 ---
 
 # Inventory Pending Tasks

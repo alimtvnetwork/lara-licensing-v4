@@ -1,6 +1,6 @@
 ---
 name: zero-storage-actions-purge
-description: Autonomously discover, purge, and govern GitHub Actions storage, deleting stored artifacts and caches to maintain 0.0 GB usage across repositories.
+description: "Autonomously discover, purge, and govern GitHub Actions storage, deleting stored artifacts and caches to maintain 0.0 GB usage across repositories."
 ---
 
 # Zero-Storage Actions Purge & Storage Governance

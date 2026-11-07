@@ -1,6 +1,6 @@
 ---
 name: smart-test-runner-and-inventory
-description: Autonomously orchestrate smart incremental test execution, centralized inventory manifests, dual-queue worker pools, failure isolation, and dynamic ETA sleep protocols.
+description: "Autonomously orchestrate smart incremental test execution, centralized inventory manifests, dual-queue worker pools, failure isolation, and dynamic ETA sleep protocols."
 ---
 
 # Smart Test Runner & Centralized Inventory Manifest

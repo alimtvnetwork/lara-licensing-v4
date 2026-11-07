@@ -1,6 +1,6 @@
 ---
 name: cg-branch-immutability-and-clean-construction
-description: Autonomously audits, refactors, and enforces branch immutability, clean constructor helper returns, and discrete condition decomposition across polyglot codebases.
+description: "Autonomously audits, refactors, and enforces branch immutability, clean constructor helper returns, and discrete condition decomposition across polyglot codebases."
 ---
 
 # Skill: Branch Immutability, Clean Construction & Condition Decomposition (`cg-branch-immutability-and-clean-construction`)

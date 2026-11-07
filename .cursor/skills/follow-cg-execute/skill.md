@@ -1,6 +1,6 @@
 ---
 name: follow-cg-execute
-description: Master 39-step orchestrator for executing all coding guideline compliance prompts in order. Steps 1-38 run in fast-forwarding mode (zero-build, zero-test, bounded micro-batches), and step 39 conducts terminal full builds, E2E test verification to 100% pass, and release ceremony.
+description: "Master 39-step orchestrator for executing all coding guideline compliance prompts in order. Steps 1-38 run in fast-forwarding mode (zero-build, zero-test, bounded micro-batches), and step 39 conducts terminal full builds, E2E test verification to 100% pass, and release ceremony."
 ---
 
 # Master 39-Step Coding Guideline Orchestrator (`follow-cg-execute`)

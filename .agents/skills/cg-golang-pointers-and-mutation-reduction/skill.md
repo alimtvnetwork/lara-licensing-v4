@@ -1,6 +1,6 @@
 ---
 name: cg-golang-pointers-and-mutation-reduction
-description: Autonomously audits, plans, and refactors Golang codebases to eliminate excessive pointer indirection (*T) and in-place variable mutations, enforcing value semantics, pure constructor helper returns, and copy-on-write immutability across polyglot codebases.
+description: "Autonomously audits, plans, and refactors Golang codebases to eliminate excessive pointer indirection (*T) and in-place variable mutations, enforcing value semantics, pure constructor helper returns, and copy-on-write immutability across polyglot codebases."
 ---
 
 # Skill: Golang Pointers Reduction & Mutation Reduction (cg-golang-pointers-and-mutation-reduction)

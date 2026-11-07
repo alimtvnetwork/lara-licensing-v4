@@ -1,6 +1,6 @@
 ---
 name: gitmap-time-restriction
-description: On-call skill for enforcing maintenance time windows, repository date/time standards (DD-MMM-YY, UTC persistence), and historical commit replays via GitMap commitin.
+description: "On-call skill for enforcing maintenance time windows, repository date/time standards (DD-MMM-YY, UTC persistence), and historical commit replays via GitMap commitin."
 ---
 
 # GitMap Time Restriction & Recommit Skill

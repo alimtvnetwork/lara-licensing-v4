@@ -1,6 +1,6 @@
 ---
 name: plan-coding-guideline-audit
-description: Plan a structured coding guideline audit across repository codebases against 02-spec/02-coding-guidelines/.
+description: "Plan a structured coding guideline audit across repository codebases against 02-spec/02-coding-guidelines/."
 ---
 
 # Plan Coding Guideline Audit

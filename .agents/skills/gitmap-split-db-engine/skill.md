@@ -1,6 +1,6 @@
 ---
 name: gitmap-split-db-engine
-description: Autonomously audit, extend, migrate, and modify GitMap's three-tier SQLite Split-DB architecture (gitmap.db, installation.db, repodb/pipeline.db).
+description: "Autonomously audit, extend, migrate, and modify GitMap's three-tier SQLite Split-DB architecture (gitmap.db, installation.db, repodb/pipeline.db)."
 ---
 
 # GitMap Split-DB Engine Skill (`gitmap-split-db-engine`)

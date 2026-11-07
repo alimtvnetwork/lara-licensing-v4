@@ -1,6 +1,6 @@
 ---
 name: gitmap-ssh-cluster-fleet
-description: Autonomously develop, test, and modify GitMap's multi-node SSH delegation, cluster management, node joining, credential vault, and termpad/termtable rendering.
+description: "Autonomously develop, test, and modify GitMap's multi-node SSH delegation, cluster management, node joining, credential vault, and termpad/termtable rendering."
 ---
 
 # GitMap SSH & Fleet Cluster Skill (`gitmap-ssh-cluster-fleet`)

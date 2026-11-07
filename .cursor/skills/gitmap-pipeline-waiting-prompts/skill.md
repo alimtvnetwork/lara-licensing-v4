@@ -1,6 +1,6 @@
 ---
 name: gitmap-pipeline-waiting-prompts
-description: Update execute, RCA, and CI/CD fix prompts and skills to use GitMap pipeline-ai with dynamic timeout waiting.
+description: "Update execute, RCA, and CI/CD fix prompts and skills to use GitMap pipeline-ai with dynamic timeout waiting."
 ---
 
 # GitMap Pipeline-AI & Dynamic Waiting Protocol

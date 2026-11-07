@@ -1,6 +1,6 @@
 ---
 name: app-db-architecture
-description: Design, implement, and maintain Split SQLite databases, Casbin RBAC schemas, PascalCase tables, and positive boolean fields.
+description: "Design, implement, and maintain Split SQLite databases, Casbin RBAC schemas, PascalCase tables, and positive boolean fields."
 ---
 
 # Split SQLite & Database Architecture Guidelines (`app-db-architecture`)

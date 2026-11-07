@@ -1,6 +1,6 @@
 ---
 name: cg-string-normalization-and-equalfoldany
-description: Autonomously audits, refactors, and standardizes string normalization, case-insensitive comparisons, and chained equality into reusable strutil helpers (EqualFoldAny, EqualFoldAnyTrim) across Go, TypeScript, and Rust.
+description: "Autonomously audits, refactors, and standardizes string normalization, case-insensitive comparisons, and chained equality into reusable strutil helpers (EqualFoldAny, EqualFoldAnyTrim) across Go, TypeScript, and Rust."
 ---
 
 # Skill: String Normalization, `EqualFoldAny` & Centralized Utility Discovery (`cg-string-normalization-and-equalfoldany`)

@@ -1,6 +1,6 @@
 ---
 name: next-100-ideas-for-improvements
-description: Autonomously survey, discover, architect, and catalog the next 100 high-leverage innovation and improvement ideas for any target codebase across 10 ideation clusters using an 8-field specification schema, review-first gating, and pending plan enqueueing.
+description: "Autonomously survey, discover, architect, and catalog the next 100 high-leverage innovation and improvement ideas for any target codebase across 10 ideation clusters using an 8-field specification schema, review-first gating, and pending plan enqueueing."
 ---
 
 # Next 100 Ideas for Improvements

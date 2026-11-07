@@ -1,6 +1,6 @@
 ---
 name: cg-clean-repo-build-and-caches
-description: Autonomously clean repository build issues, purge temporary directories, OS temp folders, Golang build/test caches, pnpm/npm stores, Vite/TS incremental caches, and polyglot caches while enforcing lowercase hygiene and .gitignore sync.
+description: "Autonomously clean repository build issues, purge temporary directories, OS temp folders, Golang build/test caches, pnpm/npm stores, Vite/TS incremental caches, and polyglot caches while enforcing lowercase hygiene and .gitignore sync."
 ---
 
 # Skill: Clean Repository Build Issues & Polyglot Caches (`cg-clean-repo-build-and-caches`)

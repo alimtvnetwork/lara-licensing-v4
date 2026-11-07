@@ -1,6 +1,6 @@
 ---
 name: cg-map-dispatch-and-handler-lookup
-description: Autonomously audits, refactors, and replaces repetitive chained if-else if ladders and switch statements matching keys or tokens with declarative, high-efficiency map dispatch tables and discrete handler functions across polyglot codebases.
+description: "Autonomously audits, refactors, and replaces repetitive chained if-else if ladders and switch statements matching keys or tokens with declarative, high-efficiency map dispatch tables and discrete handler functions across polyglot codebases."
 ---
 
 # Skill: Map Dispatch & Handler Table Patterns (`cg-map-dispatch-and-handler-lookup`)

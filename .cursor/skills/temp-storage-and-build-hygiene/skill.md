@@ -1,6 +1,6 @@
 ---
 name: temp-storage-and-build-hygiene
-description: Enforce repository-scoped temporary directory isolation and mandatory pre-build cleanup across all CI/CD, Go, and Python workflows.
+description: "Enforce repository-scoped temporary directory isolation and mandatory pre-build cleanup across all CI/CD, Go, and Python workflows."
 ---
 
 # Temp Storage & Build Hygiene

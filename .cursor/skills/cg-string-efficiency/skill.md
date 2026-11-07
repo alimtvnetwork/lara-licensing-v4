@@ -1,6 +1,6 @@
 ---
 name: cg-string-efficiency
-description: Autonomously audits, optimizes, and refactors string operations and comparisons across polyglot codebases for zero-allocation case folding, short-circuiting lazy evaluation, and loop hoisting while strictly preserving business logic.
+description: "Autonomously audits, optimizes, and refactors string operations and comparisons across polyglot codebases for zero-allocation case folding, short-circuiting lazy evaluation, and loop hoisting while strictly preserving business logic."
 ---
 
 # Skill: String Operations & Memory Efficiency (`cg-string-efficiency`)

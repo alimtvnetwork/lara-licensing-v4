@@ -1,6 +1,6 @@
 ---
 name: gitmap-developer-hygiene-and-agy
-description: Autonomously maintain and extend Google Antigravity (AGY) tools, developer cache cleaners, process managers, and Chrome profile synchronization.
+description: "Autonomously maintain and extend Google Antigravity (AGY) tools, developer cache cleaners, process managers, and Chrome profile synchronization."
 ---
 
 # GitMap Developer Hygiene & Antigravity (AGY) Skill (`gitmap-developer-hygiene-and-agy`)

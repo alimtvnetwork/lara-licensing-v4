@@ -1,6 +1,6 @@
 ---
 name: ent-goal-feasibility-and-email-command-integration
-description: Conduct Ent Go ORM feasibility analysis and implement multi-format email command integration with cross-platform lemon service daemon.
+description: "Conduct Ent Go ORM feasibility analysis and implement multi-format email command integration with cross-platform lemon service daemon."
 ---
 
 # ENT Goal Feasibility and Email Command Integration Skill

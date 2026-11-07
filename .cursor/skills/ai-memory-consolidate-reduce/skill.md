@@ -1,6 +1,6 @@
 ---
 name: ai-memory-consolidate-reduce
-description: Autonomously cluster, consolidate, and re-sequence completed plan files and subtasks in .ai-memory/plans/ to drastically reduce file count while preserving all verified outcomes.
+description: "Autonomously cluster, consolidate, and re-sequence completed plan files and subtasks in .ai-memory/plans/ to drastically reduce file count while preserving all verified outcomes."
 ---
 
 # AI Memory Consolidation, Reduction & Safety Backup

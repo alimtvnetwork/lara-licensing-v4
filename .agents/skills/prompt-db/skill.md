@@ -1,6 +1,6 @@
 ---
 name: prompt-db
-description: Autonomously explore, extract, share, export, and visualize AI prompts, conversations, and attachments using SQLite Split-DB (prompt.db) and embedded Tokyo Night visualizer.
+description: "Autonomously explore, extract, share, export, and visualize AI prompts, conversations, and attachments using SQLite Split-DB (prompt.db) and embedded Tokyo Night visualizer."
 ---
 
 # Prompt Database (`prompt.db`) & Conversation Sharing Skill

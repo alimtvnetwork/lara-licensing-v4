@@ -1,6 +1,6 @@
 ---
 name: write-memory
-description: Persist session decisions, learned conventions, resolved ambiguities, strictly-avoid rules, and issues into .ai-memory/ memory and indices.
+description: "Persist session decisions, learned conventions, resolved ambiguities, strictly-avoid rules, and issues into .ai-memory/ memory and indices."
 ---
 
 # Memory Persistence & Issue Logging

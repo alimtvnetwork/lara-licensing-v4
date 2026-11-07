@@ -1,6 +1,6 @@
 ---
 name: gitmap-heatmap
-description: Autonomously inspect files, track in-flight touches without UDF flags, and query cognitive decision trees via GitMap Heatmap.
+description: "Autonomously inspect files, track in-flight touches without UDF flags, and query cognitive decision trees via GitMap Heatmap."
 ---
 
 # GitMap Heatmap & File Inspection Skill (`gitmap-heatmap`)

@@ -1,6 +1,6 @@
 ---
 name: next-100-code-improvements
-description: Autonomously scan, audit, discover, and document 100 grounded code improvements across 10 coding guideline families using a 10-field specification schema, GitMap streaming search, micro-batching, and pending plan enqueueing.
+description: "Autonomously scan, audit, discover, and document 100 grounded code improvements across 10 coding guideline families using a 10-field specification schema, GitMap streaming search, micro-batching, and pending plan enqueueing."
 ---
 
 # Next 100 Code Improvements

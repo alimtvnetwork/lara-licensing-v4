@@ -1,6 +1,6 @@
 ---
 name: cg-enum-standards
-description: Autonomously audits and enforces cross-language enum standards (Go, TS, PHP, Rust), ensuring PascalCase formatting, Type suffixes, and generator workflow usage.
+description: "Autonomously audits and enforces cross-language enum standards (Go, TS, PHP, Rust), ensuring PascalCase formatting, Type suffixes, and generator workflow usage."
 ---
 
 # Enum Standards Coding Guidelines (`cg-enum-standards`)

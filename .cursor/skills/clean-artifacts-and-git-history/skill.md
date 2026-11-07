@@ -1,6 +1,6 @@
 ---
 name: clean-artifacts-and-git-history
-description: Safely clean build artifacts, test outputs, and temporary files while preserving git hygiene.
+description: "Safely clean build artifacts, test outputs, and temporary files while preserving git hygiene."
 ---
 
 # Clean Artifacts and Git History

@@ -1,6 +1,6 @@
 ---
 name: cg-extract-types
-description: Autonomously audits, extracts, and centralizes domain structs, raw generic instantiations, and Result wrappers into dedicated types.go files as single reusable named types across the codebase.
+description: "Autonomously audits, extracts, and centralizes domain structs, raw generic instantiations, and Result wrappers into dedicated types.go files as single reusable named types across the codebase."
 ---
 
 # Skill: Extracting Generic Types & Models to `types.go` (`cg-extract-types`)

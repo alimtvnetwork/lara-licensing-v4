@@ -1,6 +1,6 @@
 ---
 name: write-and-enhance-design-spec
-description: Autonomously ingest source designs (codebases, specifications, presentation decks, UI components, screenshots) and author or enhance public design-system specifications with mathematical precision, structured tables, and zero hallucinations.
+description: "Autonomously ingest source designs (codebases, specifications, presentation decks, UI components, screenshots) and author or enhance public design-system specifications with mathematical precision, structured tables, and zero hallucinations."
 ---
 
 # Write and Enhance a Design Spec That a Blind AI Can Follow

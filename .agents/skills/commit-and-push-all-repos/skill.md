@@ -1,6 +1,6 @@
 ---
 name: commit-and-push-all-repos
-description: Autonomously discover, stage, commit, and push all Git repositories across the target workspace (e.g. d:\work, ~/git-work), enforcing clean working trees, non-owned repository exclusion (omis, zsh), pre-commit pooling, and the mandatory 'No Push = Not Done' upstream completion invariant.
+description: "Autonomously discover, stage, commit, and push all Git repositories across the target workspace (e.g. d:\\work, ~/git-work), enforcing clean working trees, non-owned repository exclusion (omis, zsh), pre-commit pooling, and the mandatory 'No Push = Not Done' upstream completion invariant."
 ---
 
 # Multi-Repository Commit & Push Orchestrator

@@ -1,6 +1,6 @@
 ---
 name: go-appwriter-and-result
-description: Implement enterprise Go packages using structured AppError, monadic Result wrappers (result.Wrap, WrapSlice, WrapMap), deterministic enums, and pluggable StreamWriter pipelines.
+description: "Implement enterprise Go packages using structured AppError, monadic Result wrappers (result.Wrap, WrapSlice, WrapMap), deterministic enums, and pluggable StreamWriter pipelines."
 ---
 
 # Go Architecture: AppWriter, Result Wrappers, & AppError

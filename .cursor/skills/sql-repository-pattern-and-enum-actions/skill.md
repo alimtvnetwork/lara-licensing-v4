@@ -1,6 +1,6 @@
 ---
 name: sql-repository-pattern-and-enum-actions
-description: Enforces the SQL repository pattern in every language and enum-driven action dispatch - all SQL behind repository interfaces, every action an enum member dispatched by exhaustive switch, enums authored with String, Parse/TryParse, IsValid, and All/Values utils, typed errors for unknown values.
+description: "Enforces the SQL repository pattern in every language and enum-driven action dispatch - all SQL behind repository interfaces, every action an enum member dispatched by exhaustive switch, enums authored with String, Parse/TryParse, IsValid, and All/Values utils, typed errors for unknown values."
 ---
 
 # SQL Repository Pattern & Enum-Driven Actions (`sql-repository-pattern-and-enum-actions`)
