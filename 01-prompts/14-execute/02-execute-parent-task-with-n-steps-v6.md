@@ -245,8 +245,7 @@ Every code modification executed across any subtask or wave must pass the 12-Pil
 - **R6 One Owner Per File (Disjoint Bounding Boxes).** Within every worker wave, each file has exactly one owner. Shared indexes (`.ai-memory/plans/readme.md`, `.ai-memory/prompts.md`, `.ai-memory/what-to-read.md`, `02-spec/21-app/readme.md`, directory `readme.md`) belong exclusively to lead.
 - **R7 Git Safety & Isolation (Worker Git Ban).** Subagents NEVER run git commands (`git add`, `git commit`, `git push`, `git status`, `git diff`, `git checkout`). In shared workspaces (`Workspace: "inherit"`), worker git calls create `.git/index.lock` collisions that immediately crash parallel agents. Nobody runs `git reset --hard`, `git checkout --`, `git clean`, `git stash`, or force pushes.
 - **R8 Mandatory System-Wide Autonomous Bot Identity & Mandatory Agent Name.**
-  - Global Bot Identity: `gitmap automation bot - runs autonomously <info@rgitmap.com>`
-  - Agent-Specific Identity: `gitmap automation bot - <agent-name> - runs autonomously <info@rgitmap.com>`
+  - Unified Bot Identity: `gitmap-bot <info@rgitmap.com>`
   - Activation & Identity Locking (MANDATORY AGENT NAME):
     ```bash
     # MANDATORY: Every autonomous AI agent MUST provide its AI name:
@@ -379,10 +378,10 @@ GitMap is your **PRIMARY** acceleration engine. Banned ALL variants of `Get-Chil
    - Run `gitmap user info` to inspect active Git authorship across local and global scopes.
    - Enforce Rule R8: Unconditionally lock both global and project Git identities to the single autonomous bot user:
      ```bash
-     gitmap user change-user "gitmap automation bot - runs autonomously" "info@rgitmap.com" --global
-     gitmap user change-user "gitmap automation bot - runs autonomously" "info@rgitmap.com" --project
+     gitmap user change-user "gitmap-bot" "info@rgitmap.com" --global
+     gitmap user change-user "gitmap-bot" "info@rgitmap.com" --project
      ```
-     Run `gitmap user info` to verify `Active Git` and `Global Git` both match `gitmap automation bot - runs autonomously <info@rgitmap.com>`.
+     Run `gitmap user info` to verify `Active Git` and `Global Git` both match `gitmap-bot <info@rgitmap.com>`.
      TOTAL BAN ON HUMAN AUTHOR COMMITS: Committing under human developer credentials (`MD ALIM UL KARIM`, personal emails) in automated sessions is an immediate auto-reject failure.
 2. **Commands & Directory:** Confirm `gitmap --version` and `python --version` exit 0. Verify GitMap with harmless call (`gitmap lf readme.md`), not `--help`. `run_command` uses `Cwd` in workspace root, paths relative. Never cd to other drives or tool folders.
 3. **Working Tree Cleanliness:** Run `git status --porcelain`. Record modified files in ledger; never touch them. Confirm root `readme.md` is lowercase. Read `.ai-memory/what-to-read.md`, `strictly-avoid.md`, `coding-guidelines.md`.

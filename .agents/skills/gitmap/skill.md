@@ -30,7 +30,7 @@ All AI agents operating within GitMap-managed repositories MUST strictly adhere 
 | ❌ Raw `bash -c "..."` or `sh -c "..."` | ✅ `gitmap bash "<cmd>"` or `gitmap bash -c "<cmd>"` | Uniform POSIX execution with cross-platform environment isolation across Windows, macOS, and Linux. |
 | ❌ Multi-repo `git status` loops or manual directory scanning | ✅ `gitmap status --dirty` / `gitmap status --json` / `gitmap st` | Single-shot multi-repository audit matrix displaying dirty counts, ahead/behind branches, and uncommitted stashes. |
 | ❌ `gh auth login` interactive prompts or plaintext `.env` files | ✅ `gitmap login --web`, `gitmap login --status`, `gitmap login --token <PAT>` | Token validated via GitHub API before writing; auto-resolved for all clone, pull, and push commands. |
-| ❌ Ad-hoc `git config --global user.name` / `user.email` or manual shell identity toggling for bots | ✅ `gitmap login set global ai-auto` or `gitmap login set ai-auto [agent-name]` | Locks standardized AI automation bot credentials (`gitmap automation bot - runs autonomously <info@rgitmap.com>` or named agent persona) machine-wide or per-repo with automatic original user backup. |
+| ❌ Ad-hoc `git config --global user.name` / `user.email` or manual shell identity toggling for bots | ✅ `gitmap login set global ai-auto` or `gitmap login set ai-auto [agent-name]` | Locks standardized AI automation bot credentials (`gitmap-bot <info@rgitmap.com>`) machine-wide or per-repo with automatic original user backup. |
 | ❌ Manual commit author flags (`git commit --author="..."`) or uncredited subagent commits | ✅ `gitmap cpf/cpb/cpc/cfr/cpr --ai-agent <name>` | Attaches designated subagent identity to commit provenance, Git author metadata, Split-DB telemetry, and cognitive heatmap tables. |
 | ❌ Raw `git pull`, `git pull origin <branch>`, `git pull --rebase` | ✅ `gitmap pull [repo]` (or `gitmap pull` in current repo, alias `gitmap p`), `gitmap pull-all` (alias `gitmap pa`) | High-speed multi-phase pull with conflict detection, branch tracking, and auto-stash/rebase handling. TOTAL BAN on raw `git pull` without attempting `gitmap pull` first. |
 | ❌ Third brackets, lowercase conventional syntax, colons in arguments, or misusing commit verbs (`gitmap cpf "chore(release): ..."` or `gitmap cpf "[module]: feat: ..."` or `git commit -m "..."`) | ✅ `gitmap cpr "<module> - <summary>"` (release), `gitmap cpc "<module> - <summary>"` (chore), `gitmap cbf "<module> - <summary>"` (bug fix), `gitmap cfr "<module> - <summary>"` (refactor), `gitmap cpf "<module> - <summary>"` (feature) | Strict verb taxonomy: NEVER use `cpf` for releases, chores, or bugs. GitMap automatically prepends the sovereign type. TOTAL BAN on square brackets `[...]`, colons in arguments, raw `git commit`, and conventional prefixes (`chore(...)`, `feat(...)`, `fix(...)`) inside arguments. |
@@ -102,8 +102,8 @@ All styles automatically print Tokyo Night formatted lines with gutter line numb
 - `gitmap login --token <PAT>` — Non-interactive token ingestion (pre-validated against `api.github.com/user` before saving to global git config).
 - `gitmap login --token <PAT> --no-verify` — Offline token ingestion without network probe.
 - `gitmap login --status` — Displays current masked credential state and active user.
-- `gitmap login set global ai-auto` — Locks workstation-global Git identity to `gitmap automation bot - runs autonomously <info@rgitmap.com>` while safely preserving the original developer identity in `original_user.json`.
-- `gitmap login set ai-auto [agent-name]` — Locks Git identity to `gitmap automation bot - <agent-name> - runs autonomously <info@rgitmap.com>` (defaults to `gitmap automation bot - runs autonomously <info@rgitmap.com>` if agent name omitted).
+- `gitmap login set global ai-auto` — Locks workstation-global Git identity to `gitmap-bot <info@rgitmap.com>` while safely preserving the original developer identity in `original_user.json`.
+- `gitmap login set ai-auto [agent-name]` — Locks Git identity to `gitmap-bot <info@rgitmap.com>` while recording the active agent in telemetry.
 - `gitmap token list` — Resolves active GitHub token and shows credential origin.
 - `gitmap logout` — Purges stored GitHub credentials from Git global configuration.
 
@@ -209,7 +209,7 @@ Disciplined atomic commit workflow enforcing hyphen-separated messages (`<Module
   `gitmap cpr "v2.18.0 - bump minor version and update changelog"`
 - `gitmap pcp "<Module> - <summary>"` — Pull latest with rebase, stage all, commit, and push with preflight verification:
   `gitmap pcp "Skills - sync cross-platform runner templates"`
-- `gitmap cpf/cpb/cpc/cfr/cpr "<Module> - <summary>" --ai-agent <name>` — Attaches designated subagent identity (e.g. `--ai-agent "worker-01"`) to commit author metadata, GitMap Split-DB commit history (`repodb/commit_history.db`), and cognitive heatmap tables (`repodb/heatmap.db`). Default author becomes `gitmap automation bot - <name> - runs autonomously <info@rgitmap.com>`:
+- `gitmap cpf/cpb/cpc/cfr/cpr "<Module> - <summary>" --ai-agent <name>` — Attaches designated subagent identity (e.g. `--ai-agent "worker-01"`) to commit author metadata, GitMap Split-DB commit history (`repodb/commit_history.db`), and cognitive heatmap tables (`repodb/heatmap.db`). Default author is `gitmap-bot <info@rgitmap.com>`:
   `gitmap cpf "Module - implement feature" --ai-agent "worker-01"`
 - `gitmap merge-right <left> <right> [-y]` (alias `gitmap mr`) — One-way file-level merge writing only into RIGHT.
 - `gitmap merge-left <left> <right> [-y]` (alias `gitmap ml`) — One-way file-level merge writing only into LEFT.
@@ -461,12 +461,12 @@ GitMap provides a native pure Go RFC 6455 WebSocket client and JavaScript evalua
 Autonomous multi-agent swarms (e.g. V6 and V7 orchestrators) and automated pipelines require distinct identity tracking and commit provenance to differentiate automated AI agent contributions from human developer work.
 
 ### 1. Identity Locking Commands
-- `gitmap login set global ai-auto`: locks global Git identity to `gitmap automation bot - runs autonomously <info@rgitmap.com>`. Safely backs up original human developer credentials to `original_user.json` before applying changes.
-- `gitmap login set ai-auto [agent-name]`: locks Git identity to `gitmap automation bot - <agent-name> - runs autonomously <info@rgitmap.com>` (e.g. `gitmap login set ai-auto muse` sets `gitmap automation bot - muse - runs autonomously <info@rgitmap.com>`). If no agent name is specified, defaults to `gitmap automation bot - runs autonomously <info@rgitmap.com>`.
+- `gitmap login set global ai-auto`: locks global Git identity to `gitmap-bot <info@rgitmap.com>`. Safely backs up original human developer credentials to `original_user.json` before applying changes.
+- `gitmap login set ai-auto [agent-name]`: locks Git identity to `gitmap-bot <info@rgitmap.com>` while recording the active agent in telemetry.
 
 ### 2. Semantic Commit Provenance with `--ai-agent`
 - `gitmap cpf/cpb/cpc/cfr/cpr --ai-agent <name>`: attaches designated subagent identity to commit and Split-DB heatmap tables.
-- Example: `gitmap cpf "Module - implement feature" --ai-agent "worker-01"` automatically sets the author to `gitmap automation bot - worker-01 - runs autonomously <info@rgitmap.com>` if `--author` was omitted, recording `meta.AIName` and `meta.IsAIMode`.
+- Example: `gitmap cpf "Module - implement feature" --ai-agent "worker-01"` sets the author to `gitmap-bot <info@rgitmap.com>` if `--author` was omitted, recording `meta.AIName` and `meta.IsAIMode`.
 
 ### 3. Heatmap Attribution Mechanics
 GitMap cognitive heatmaps natively capture agent attribution across both local Split-DB (`repodb/heatmap.db` and `.ai-memory/heatmap.db`) and companion `repo-cache` databases:

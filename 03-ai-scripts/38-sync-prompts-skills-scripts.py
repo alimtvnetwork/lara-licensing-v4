@@ -90,9 +90,10 @@ def get_sync_dirs() -> list[tuple[str, str, bool]]:
     """Build dynamic sync directory mappings including shared specs 01 to 20."""
     dirs: list[tuple[str, str, bool]] = [
         ("01-prompts", "01-prompts", False),
-        # Skills update from the canonical set. Local-only skill folders are kept.
+        # Skills and rules update from the canonical set. Local-only skill folders are kept.
         (".agents/skills", ".agents/skills", False),
         (".cursor/skills", ".cursor/skills", False),
+        (".agents/rules", ".agents/rules", False),
         ("03-ai-scripts", "03-ai-scripts", True),
         (".agents/scripts", ".agents/scripts", True),
     ]
@@ -1211,7 +1212,7 @@ def validate_v7_restrictions(
         except Exception:
             bot_name = ""
 
-    if "gitmap automation bot" in bot_name.lower() or ai_agent:
+    if "gitmap-bot" in bot_name.lower() or "gitmap automation" in bot_name.lower() or "bot" in bot_name.lower() or ai_agent:
         print(f"[V7 ENGINE] Bot identity verified: {bot_name or ai_agent}")
     else:
         print("[V7 ENGINE] Note: AI identity recommended (gitmap login set ai-auto <agent>)")

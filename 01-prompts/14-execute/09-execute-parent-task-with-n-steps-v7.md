@@ -91,14 +91,13 @@ Active by default when no time restrictions, maintenance windows, or scheduling 
 Active when the user requests an automated bot persona, AI commit authoring, or headless execution.
 
 1. **Identity Standards & Invariants:**
-   - Default Global Identity: `gitmap automation bot - muse - runs autonomously <info@rgitmap.com>`
-   - Named Subagent Identity: `gitmap automation bot - <agent-name> - runs autonomously <info@rgitmap.com>`
+   - Unified Bot Identity: `gitmap-bot <info@rgitmap.com>`
 2. **Activation & Identity Locking:**
    - Machine-Global Bot Identity:
      ```bash
      gitmap login set global ai-auto
      ```
-     Locks workstation-global Git config (`user.name` and `user.email`) to `gitmap automation bot - muse - runs autonomously <info@rgitmap.com>` and preserves original human user configuration in `original_user.json`.
+     Locks workstation-global Git config (`user.name` and `user.email`) to `gitmap-bot <info@rgitmap.com>` and preserves original human user configuration in `original_user.json`.
    - Repository-Local / Named Agent Identity (MANDATORY):
      ```bash
      # MANDATORY: Every autonomous AI agent MUST provide its AI name:

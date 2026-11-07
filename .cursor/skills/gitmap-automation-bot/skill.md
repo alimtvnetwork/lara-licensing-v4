@@ -10,9 +10,8 @@ description: "Autonomous developer companion skill for system-wide single-user A
 This skill manages automated identity switching, sandboxed bot configurations, and headless commit authoring across local, workspace, and global scopes.
 
 > [!IMPORTANT]
-> **System-Wide Autonomous Bot Identity Standard**: Across all autonomous agent runs, AI pairs, and headless multi-agent workflows, GitMap enforces standardized autonomous bot identities:
-> - **Global Bot Identity:** `gitmap automation bot - runs autonomously <info@rgitmap.com>`
-> - **Agent-Specific Identity:** `gitmap automation bot - <agent-name> - runs autonomously <info@rgitmap.com>`
+> **System-Wide Autonomous Bot Identity Standard**: Across all autonomous agent runs, AI pairs, and headless multi-agent workflows, GitMap enforces the standardized unified autonomous bot identity:
+> - **Unified Bot Identity:** `gitmap-bot <info@rgitmap.com>`
 > 
 > Before applying any bot identity, GitMap automatically backs up the original human identity to `original_user.json` to enable non-destructive restoration. AI agents are **STRICTLY FORBIDDEN** from committing under human developer credentials (`MD ALIM UL KARIM`, personal emails, etc.). Commits authored under human accounts in automated sessions cause misplaced attribution, pollute repository history, and violate the autonomous audit invariant.
 >
@@ -29,14 +28,14 @@ This skill manages automated identity switching, sandboxed bot configurations, a
 
 When bot execution is engaged or when any autonomous task executes, GitMap provisions a sandboxed Git identity designed to differentiate autonomous agent contributions from human developer commits.
 
-| Parameter | Standard Global Preset (`ai-auto`) | Agent-Specific Preset (`ai-auto <name>`) [MANDATORY] |
+| Parameter | Standard Global Preset (`ai-auto`) | Agent-Specific Attribution (`--ai-agent <name>`) |
 | :--- | :--- | :--- |
-| **`user.name`** | `gitmap automation bot - runs autonomously` | `gitmap automation bot - <agent-name> - runs autonomously` |
+| **`user.name`** | `gitmap-bot` | `gitmap-bot` |
 | **`user.email`** | `info@rgitmap.com` | `info@rgitmap.com` |
-| **Mandatory Command** | `gitmap login set global ai-auto` | `gitmap login set ai-auto <agent-name>` (MANDATORY) |
+| **Mandatory Command** | `gitmap login set global ai-auto` | `gitmap login set ai-auto <agent-name>` |
 | **Default Scope** | `--global` (machine-global) | `--local` (repository-local) |
 | **Human Backup** | Automatically saved to `original_user.json` | Automatically saved to `original_user.json` |
-| **Commit Provenance** | `gitmap cpf/cpb/cpc/cfr/cpr --ai-agent <name>` | `gitmap cpf/cpb/cpc/cfr/cpr --ai-agent <name>` |
+| **Commit Provenance** | Recorded to Split-DB & Heatmap | Recorded to Split-DB & Heatmap (`--ai-agent <name>`) |
 
 ---
 
@@ -69,7 +68,7 @@ gitmap login set ai-auto claude
 # The AI agent MUST dynamically configure its own agent name (e.g. antigravity, gemini, cursor-model, muse, claude)
 # based on the environment it is executing in. NEVER assume or hardcode 'muse' as default.
 gitmap settings set ai_auto.default_agent <agent-name>  # e.g. antigravity, gemini, cursor-model, muse
-gitmap settings set ai_auto.default_name "gitmap automation bot - runs autonomously"
+gitmap settings set ai_auto.default_name "gitmap-bot"
 gitmap settings set ai_auto.default_email "info@rgitmap.com"
 # Or open Web Settings UI -> "Speed & Automation" pane -> "ai-auto" settings controls
 ```
